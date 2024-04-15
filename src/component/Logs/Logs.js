@@ -155,7 +155,8 @@ export default function Logs(props) {
 
 
     const handleDelete = (e) => {
-        const arr = e.target.id.split("_");
+        console.log(e.currentTarget.id)
+        const arr = e.currentTarget.id.split("_");
         state.value = 0
         axios.post(host.DEVICE + "/removeLogErr", { id: arr[0], time: arr[1] }, { secure: true, reconnect: true })
             .then((res) => {
