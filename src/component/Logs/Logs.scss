@@ -18,8 +18,6 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-
-
         }
     }
 
@@ -54,7 +52,6 @@
                 font-size: 35px;
                 font-weight: 400;
                 color: whitesmoke;
-
             }
 
             &-icon {
@@ -68,7 +65,6 @@
                 }
             }
 
-
             & img {
                 margin-top: 5px;
                 margin-right: 5px;
@@ -76,9 +72,6 @@
                 width: 32px;
                 filter: invert(56%) sepia(1%) saturate(440%) hue-rotate(92deg) brightness(93%) contrast(91%);
             }
-
-
-
         }
 
         &_Main {
@@ -88,7 +81,9 @@
             border-radius: 5px;
             background-color: rgb(255, 255, 255);
             overflow: hidden;
-            box-shadow: 3px 3px 5px 0 rgb(199, 199, 199, 0.5), -3px -3px 5px 0 rgb(199, 199, 199, 0.5);
+            box-shadow:
+                3px 3px 5px 0 rgb(199, 199, 199, 0.5),
+                -3px -3px 5px 0 rgb(199, 199, 199, 0.5);
 
             &_Nav {
                 padding: 10px;
@@ -116,7 +111,6 @@
                         border: none;
                         background-color: rgb(255, 255, 255);
                         padding-left: 10px;
-
                     }
                 }
                 &_Search {
@@ -152,7 +146,6 @@
                         //     -webkit-appearance: none;
                         // }
 
-
                         & button {
                             width: 60px;
                             height: 40px;
@@ -160,28 +153,19 @@
                             border: none;
                             background-color: #ebebeb;
                             border-radius: 0;
-
                         }
                     }
-
-
                 }
-
             }
-
 
             &_List {
                 //width: 100%;
                 //height: 100%;
                 padding: 10px;
-
-
-
             }
         }
     }
 }
-
 
 .DAT_viewErr {
     position: fixed;
@@ -242,12 +226,142 @@
     }
 }
 
+.DAT_ListDetail {
+    margin-top: 58px;
+    margin-bottom: 70px;
+
+    &_HeadTit {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-top: 10px;
+        padding-left: 10px;
+        font-size: 25px;
+        font-weight: 500;
+        font-family: Montserrat-SemiBold;
+        color: rgb(106, 106, 106);
+        font-size: 20px;
+    }
+
+    &_Content {
+        &_Filterbar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px 15px 10px;
+            border-bottom: 2px solid rgba(218, 218, 218);
+            & input {
+                height: 40px;
+
+                padding: 10px;
+                outline: none;
+                border: none;
+                border-radius: 5px;
+                background-color: #ffffff;
+            }
+
+            &_CustomPicker {
+                width: calc(100vw - 70px);
+                height: 40px;
+                border-radius: 8px;
+                outline: none;
+                border: none;
+                background-color: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            // input[type="date"]::-webkit-inner-spin-button,
+            // input[type="date"]::-webkit-calendar-picker-indicator {
+            //     display: none;
+            //     -webkit-appearance: none;
+            // }
+            &_Date {
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background-color: #ffffff;
+
+                &:active {
+                    background-color: rgb(66, 59, 50, 0.3);
+                    transition: 0.2s ease-in-out;
+                }
+            }
+        }
+
+        &_Tit {
+            width: 96%;
+            margin: auto;
+            padding-top: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        &_List {
+            width: 96%;
+            margin: auto;
+            padding-top: 10px;
+            display: flex;
+
+            flex-direction: column;
+            gap: 10px;
+            &_Item {
+                background-color: white;
+                // display: flex;
+                // align-items: center;
+                border-radius: 5px;
+                // justify-content: space-between;
+                padding: 10px;
+                width: 100%;
+                &_GroupInfo {
+                    display: flex;
+                    gap: 10px;
+                    // align-items: center;
+                    border-bottom: 1px solid rgb(218, 218, 218);
+                    padding-bottom: 10px;
+                    width: 100%;
+
+                    &_Code {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 5px;
+                        font-size: 12px;
+                        background-color: #0082ca;
+                        color: white;
+                    }
+                    &_Info {
+                        display: flex;
+                        // flex-direction: column;
+                        &_Gateway {
+                            font-family: Montserrat-SemiBold;
+                        }
+                    }
+                }
+                &_Bottom {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding-top: 5px;
+                }
+            }
+        }
+    }
+}
 
 @media (min-width: 700px) {
     .DAT_Log_Content_Main {
         height: calc(100vh - 200px);
-
-    } 
+    }
     .DAT_viewErr-Inf {
         width: 500px;
     }
