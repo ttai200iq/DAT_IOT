@@ -11,7 +11,12 @@ import { effect, signal } from "@preact/signals-react";
 import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { isBrowser } from "react-device-detect";
+import { IoCalendarOutline, IoWarningOutline } from "react-icons/io5";
+import { CiCalendarDate } from "react-icons/ci";
+import styled from "styled-components";
+import { CiSearch } from "react-icons/ci";
+import { MdOutlineDelete } from "react-icons/md";
 export const err = signal([])
 export const errfilter = signal([])
 export const state = signal(0)
@@ -43,9 +48,10 @@ export default function Logs(props) {
     const type = useSelector((state) => state.admin.type)
     const admin = useSelector((state) => state.admin.admin)
     const [startDate, setStartDate] = useState(new Date());
+    const [changefilter, setChangefilter] = useState(true)
+    const iconmobile = <IoWarningOutline color="gray" size={25} />
 
     useEffect(() => {
-
         var inp = document.getElementById('search')
         var inpdate = document.getElementById('date')
         if (state.value === 1) {
@@ -68,9 +74,6 @@ export default function Logs(props) {
         }
 
     }, [state.value])
-
-
-
 
     useEffect(() => {
 
@@ -122,7 +125,7 @@ export default function Logs(props) {
 
 
     const handleDate = (date) => {
-        //console.log(date)
+        console.log(date)
         setStartDate(date)
         axios.post(host.DEVICE + "/getLogErr", { user: (type === 'user' || type === 'mainuser') ? admin : props.username, date: moment(date).format('MM/DD/YYYY') }, { secure: true, reconnect: true })
             .then((res) => {
@@ -152,7 +155,8 @@ export default function Logs(props) {
 
 
     const handleDelete = (e) => {
-        const arr = e.target.id.split("_");
+        console.log(e.currentTarget.id)
+        const arr = e.currentTarget.id.split("_");
         state.value = 0
         axios.post(host.DEVICE + "/removeLogErr", { id: arr[0], time: arr[1] }, { secure: true, reconnect: true })
             .then((res) => {
@@ -199,6 +203,19 @@ export default function Logs(props) {
         }
     };
 
+    const handleInputDate = (e) => {
+        console.log(e.target.value);
+
+        axios.post(host.DEVICE + "/getLogErr", { user: (type === 'user' || type === 'mainuser') ? admin : props.username, date: moment(e.target.value).format('MM/DD/YYYY') }, { secure: true, reconnect: true })
+            .then((res) => {
+                console.log(res.data)
+                err.value = res.data.map((data, index) => ({ ...data, count: index + 1 }))
+
+                errfilter.value = err.value
+
+            })
+
+    }
 
     const paginationComponentOptions = {
         rowsPerPageText: 'Số cột',
@@ -307,102 +324,190 @@ export default function Logs(props) {
         // },
     ];
 
+    useEffect(() => {
+        console.log(errfilter.value)
+    }, [])
+
     return (
         <>
-
-            <div className="DAT_Log" >
-                <div className="DAT_Log_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                    <div className="DAT_Log_Banner_Shadow" ></div>
-                </div>
-
-                <div className="DAT_Log_Content">
-
-
-                    <div className="DAT_Log_Content_Direct" >
-                        {direct.map((data, index) => {
-                            return (
-                                (index === 0)
-                                    ? <Link key={index} to="/" style={{ textDecoration: 'none', color: "white" }}>
-                                        <span style={{ cursor: "pointer" }}> {data.text}</span>
-                                    </Link>
-                                    : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
-
-                            )
-                        })}
+            {isBrowser ?
+                <div className="DAT_Log" >
+                    <div className="DAT_Log_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                        <div className="DAT_Log_Banner_Shadow" ></div>
                     </div>
-                    <div className="DAT_Log_Content_Tit">
-                        <div className="DAT_Log_Content_Tit-icon">
-                            {icon}
+                    <div className="DAT_Log_Content">
+
+
+                        <div className="DAT_Log_Content_Direct" >
+                            {direct.map((data, index) => {
+                                return (
+                                    (index === 0)
+                                        ? <Link key={index} to="/" style={{ textDecoration: 'none', color: "white" }}>
+                                            <span style={{ cursor: "pointer" }}> {data.text}</span>
+                                        </Link>
+                                        : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
+
+                                )
+                            })}
                         </div>
-                        <div className="DAT_Log_Content_Tit-content" >{inf.tit}</div>
-                    </div>
+                        <div className="DAT_Log_Content_Tit">
+                            <div className="DAT_Log_Content_Tit-icon">
+                                {icon}
+                            </div>
+                            <div className="DAT_Log_Content_Tit-content" >{inf.tit}</div>
+                        </div>
 
-                    <div className="DAT_Log_Content_Main">
-                        <div className="DAT_Log_Content_Main_Nav" >
-                            {/* <div className="DAT_Log_Content_Main_Nav_Item">Danh sách lỗi</div> */}
-                            <div className="DAT_Log_Content_Main_Nav_Search">
-                                <div className="DAT_Log_Content_Main_Nav_Search_Group">
-                                    <DatePicker dateFormat="dd/MM/yyyy" selected={startDate} maxDate={new Date()} onChange={(date) => handleDate(date)} />
-                                    <input
-                                        id="search"
-                                        type="text"
-                                        placeholder="Tìm kiếm"
-                                        onChange={(e) => handleInput(e)}
-                                    />
+                        <div className="DAT_Log_Content_Main">
+                            <div className="DAT_Log_Content_Main_Nav" >
+                                {/* <div className="DAT_Log_Content_Main_Nav_Item">Danh sách lỗi</div> */}
+                                <div className="DAT_Log_Content_Main_Nav_Search">
+                                    <div className="DAT_Log_Content_Main_Nav_Search_Group">
+                                        <DatePicker dateFormat="dd/MM/yyyy"
+                                            selected={startDate}
+                                            maxDate={new Date()}
+                                            onChange={(date) => handleDate(date)} />
+                                        <input
+                                            id="search"
+                                            type="text"
+                                            placeholder="Tìm kiếm"
+                                            onChange={(e) => handleInput(e)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="DAT_Log_Content_Main_List">
+                            <div className="DAT_Log_Content_Main_List">
 
-                            <DataTable
-                                className="DAT_Table_Container"
-                                columns={(type === 'user') ? columns_user : columns}
-                                data={errfilter.value}
-                                pagination
-                                paginationComponentOptions={paginationComponentOptions}
-                                noDataComponent={
-                                    <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-                                        <div>Danh sách trống</div>
-                                    </div>
+                                <DataTable
+                                    className="DAT_Table_Container"
+                                    columns={(type === 'user') ? columns_user : columns}
+                                    data={errfilter.value}
+                                    pagination
+                                    paginationComponentOptions={paginationComponentOptions}
+                                    noDataComponent={
+                                        <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                                            <div>Danh sách trống</div>
+                                        </div>
+                                    }
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div> :
+                <div className="DAT_ListDetail">
+                    <div className="DAT_ListDetail_HeadTit">
+                        {iconmobile}
+                        <span >{inf.tit}</span>
+                    </div>
+                    <div className="DAT_ListDetail_Content">
+                        <div className="DAT_ListDetail_Content_Filterbar">
+                            {changefilter ?
+                                <input
+                                    id="search"
+                                    type="text"
+                                    placeholder="Tìm kiếm"
+                                    style={{ minWidth: "calc(100% - 45px)" }}
+                                    onChange={(e) => handleInput(e)}
+                                /> :
+
+                                <input
+                                    id="date"
+                                    type="date"
+                                    style={{ minWidth: "calc(100% - 60px)" }}
+                                    defaultValue={moment(startDate).format('YYYY-MM-DD')}
+                                    onChange={(e) => handleInputDate(e)}
+                                />
+
+
+
+                            }
+                            <div className="DAT_ListDetail_Content_Filterbar_Date"
+                                onClick={() => setChangefilter(!changefilter)}>
+                                {changefilter ?
+                                    <CiCalendarDate /> :
+                                    <CiSearch />
                                 }
-                            />
+                            </div>
+                        </div>
+                        <div className="DAT_ListDetail_Content_Tit">Danh sách mã lỗi</div>
+                        <div className="DAT_ListDetail_Content_List">
+                            {/* <div>Danh sách lỗi</div> */}
+                            {errfilter.value.map((data, i) => {
+                                return (
+                                    <div key={i} className="DAT_ListDetail_Content_List_Item">
+                                        {/* code,deviceid,time */}
+                                        <div className="DAT_ListDetail_Content_List_Item_GroupInfo"
+                                        >
+                                            <div className="DAT_ListDetail_Content_List_Item_GroupInfo_Code" id={data.code} onClick={(e) => handleErr(e)}>
+                                                CODE:{data.code}
+                                            </div>
+                                            <div className="DAT_ListDetail_Content_List_Item_GroupInfo_Info">
+                                                <div className="DAT_ListDetail_Content_List_Item_GroupInfo_Info_Gateway">
+                                                    {data.deviceid}
+                                                </div>
+                                                {/* <div className="DAT_ListDetail_Content_List_Item_Info_Time">
+                                                    {data.time}
+                                                </div> */}
+                                            </div>
+                                        </div>
+                                        {/* <div className="DAT_ListDetail_Content_List_Item_Del"
+                                            id={data.id + "_" + data.time}
+                                            onClick={(e) => handleDelete(e)}
+                                        >
+                                            <MdOutlineDelete size={20} color="red" />
+                                        </div> */}
+
+                                        <div className="DAT_ListDetail_Content_List_Item_Bottom">
+                                            <div className="DAT_ListDetail_Content_List_Item_Bottom_Time">
+                                                {`${data.time} ${data.date}`}
+                                            </div>
+                                            <div className="DAT_ListDetail_Content_List_Item_Bottom_Del"
+                                                id={data.id + "_" + data.time}
+                                                onClick={(e) => handleDelete(e)}
+                                                style={{ cursor: "pointer", color: "red" }}
+                                            >
+                                                <MdOutlineDelete size={20} color="red" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
-                </div>
 
+                </div >
+            }
 
-            </div>
+            {
+                (errStt)
+                    ? <div className="DAT_viewErr" >
+                        <div className="DAT_viewErr-Inf">
+                            <div className="DAT_viewErr-Inf-Close" onClick={(e) => handleClose(e)} ><ion-icon name="close-outline"></ion-icon></div>
+                            <div className="DAT_viewErr-Inf-Tit">{detail[0]?.name || "Không có dữ liệu"}</div>
+                            <div className="DAT_viewErr-Inf-Type">Loại: {detail[0]?.type || ""}</div>
 
-            {(errStt)
-                ? <div className="DAT_viewErr" >
-                    <div className="DAT_viewErr-Inf">
-                        <div className="DAT_viewErr-Inf-Close" onClick={(e) => handleClose(e)} ><ion-icon name="close-outline"></ion-icon></div>
-                        <div className="DAT_viewErr-Inf-Tit">{detail[0]?.name || "Không có dữ liệu"}</div>
-                        <div className="DAT_viewErr-Inf-Type">Loại: {detail[0]?.type || ""}</div>
+                            <span>Nguyên nhân</span>
+                            <div className="DAT_viewErr-Inf-Infor">
+                                {detail[0]?.infor.map((data, index) => {
+                                    return (
+                                        <div key={index} style={{ color: "gray" }}>{data.text}</div>
+                                    )
+                                })
+                                }
+                            </div>
 
-                        <span>Nguyên nhân</span>
-                        <div className="DAT_viewErr-Inf-Infor">
-                            {detail[0]?.infor.map((data, index) => {
-                                return (
-                                    <div key={index} style={{ color: "gray" }}>{data.text}</div>
-                                )
-                            })
-                            }
+                            <span>Biện pháp</span>
+                            <div className="DAT_viewErr-Inf-Solution">
+                                {detail[0]?.solution.map((data, index) => {
+                                    return (
+                                        <div key={index} style={{ color: "gray" }}>{data.text}</div>
+                                    )
+                                })
+                                }
+                            </div>
                         </div>
 
-                        <span>Biện pháp</span>
-                        <div className="DAT_viewErr-Inf-Solution">
-                            {detail[0]?.solution.map((data, index) => {
-                                return (
-                                    <div key={index} style={{ color: "gray" }}>{data.text}</div>
-                                )
-                            })
-                            }
-                        </div>
                     </div>
-
-                </div>
-                : <></>
+                    : <></>
             }
 
         </>
