@@ -29,15 +29,12 @@ export default function Acount(props) {
         cur: "blue",
         pre: "black"
     }
-    //const type = useSelector((state) => state.admin.type)
     const [nav, setNav] = useState("contact");
-    // const user = useSelector((state) => state.admin.user)
     return (
         <>
             {isBrowser
                 ? <div className="DAT_Account" >
                     <div className="DAT_Account_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-
                         {/* <div className="DAT_AcountTop-shadow" ></div> */}
                     </div>
                     <div className="DAT_Account_Content">
@@ -49,7 +46,6 @@ export default function Acount(props) {
                                             <span style={{ cursor: "pointer" }}> {data.text}</span>
                                         </Link>
                                         : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
-
                                 )
                             })}
                         </div>
@@ -60,8 +56,6 @@ export default function Acount(props) {
                             <div className="DAT_Account_Content_Tit-content" >{inf.tit}</div>
                         </div>
 
-
-
                         <div className="DAT_Account_Content_Main">
                             <div className="DAT_Account_Content_Main_Nav">
                                 <div className="DAT_Account_Content_Main_Nav_Item">
@@ -71,12 +65,7 @@ export default function Acount(props) {
                             <div className="DAT_Account_Content_Main_New">
                                 <Contact username={props.username} />
                             </div>
-
-
                         </div>
-
-
-
                     </div>
 
                     <div className="DAT_Account_Pass" style={{ height: editPass.value ? "100vh" : "0", transition: "0.5s" }}>
