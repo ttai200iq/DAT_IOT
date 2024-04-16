@@ -19,10 +19,10 @@ import adminslice from "../Redux/adminslice";
 import { RequestType, geocode, setKey } from "react-geocode";
 import { pageDefault } from "../../App";
 import { signal } from "@preact/signals-react";
-import { IoIosAddCircle,IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
+import { IoIosAddCircle, IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { searchmoblile } from "../MenuTop/MenuTop";
 import { view } from "../../App";
-import { isBrowser} from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 import { FaSolarPanel } from "react-icons/fa";
 import { LuFolderEdit } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -1372,11 +1372,11 @@ export default function Auto(props) {
                                                                                                 {/* backgroundColor: tab.value === '1' ? 'rgb(38, 143, 214)' : 'white', */}
                                                                                                 <div className="DAT_ViewMobile_Container_Bar_project" onClick={() => { tab.value = '1' }}>
                                                                                                         <div className="DAT_ViewMobile_Container_Bar_project_bg" style={{ height: tab.value === '1' ? '140px' : '200px', transition: '0.5s' }} ></div>
-                                                                                                        <div className="DAT_ViewMobile_Container_Bar_project_add" style={{height: tab.value === '1' ? '60px' : '0', transition: '0.5s'}} ><span>Thêm dự án</span><IoIosAddCircle size={30} color="gray" /></div>
+                                                                                                        <div className="DAT_ViewMobile_Container_Bar_project_add" style={{ height: tab.value === '1' ? '60px' : '0', transition: '0.5s' }} ><span>Thêm dự án</span><IoIosAddCircle size={30} color="gray" /></div>
                                                                                                 </div>
                                                                                                 <div className="DAT_ViewMobile_Container_Bar_device" onClick={() => { tab.value = '2' }} >
                                                                                                         <div className="DAT_ViewMobile_Container_Bar_device_bg" style={{ height: tab.value === '2' ? '140px' : '200px', transition: '0.5s' }} ></div>
-                                                                                                       <div className="DAT_ViewMobile_Container_Bar_device_add"style={{height: tab.value === '2' ? '60px' : '0', transition: '0.5s'}}><span>Thêm thiết bị</span><IoIosAddCircle size={30} color="gray" /></div>
+                                                                                                        <div className="DAT_ViewMobile_Container_Bar_device_add" style={{ height: tab.value === '2' ? '60px' : '0', transition: '0.5s' }}><span>Thêm thiết bị</span><IoIosAddCircle size={30} color="gray" /></div>
                                                                                                 </div>
                                                                                         </div>
                                                                                         <div>

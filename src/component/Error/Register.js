@@ -6,6 +6,8 @@ import axios from "axios";
 import { host } from "../constant";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
+import { isBrowser } from "react-device-detect";
+import { LuFolderEdit } from "react-icons/lu";
 export default function Register(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
@@ -193,24 +195,73 @@ export default function Register(props) {
 
     return (
         <>
-            <div className="DAT_Register">
-              
-                <DataTable
-                    className="DAT_Table_Container"
-                    columns={col}
-                    data={register.value.data}
-                    pagination
-                    paginationComponentOptions={paginationComponentOptions}
-                    fixedHeader={true}
-                    noDataComponent={
-                        <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-                            <div>Danh sách trống</div>
-                            <div>Thêm thiết bị để trải nghiệm tính năng này!</div>
-                        </div>
-                    }
-                />
+            {isBrowser ?
+                <div className="DAT_Register">
 
-            </div>
+                    <DataTable
+                        className="DAT_Table_Container"
+                        columns={col}
+                        data={register.value.data}
+                        pagination
+                        paginationComponentOptions={paginationComponentOptions}
+                        fixedHeader={true}
+                        noDataComponent={
+                            <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                                <div>Danh sách trống</div>
+                                <div>Thêm thiết bị để trải nghiệm tính năng này!</div>
+                            </div>
+                        }
+                    />
+
+                </div> :
+                <>
+                    {register.value.data.map((data, key) => (
+                        <div key={key} className="DAT_ViewMobile_Container_Content">
+                            <div className="DAT_ViewMobile_Container_Content_Top" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+                                    <div className="DAT_ViewMobile_Container_Content_Top_left"
+                                        style={{ color: "white" }}
+                                    >
+                                        {/* <img alt="" src={avatar} ></img> */}
+                                        {data.id}
+                                    </div>
+                                    <div
+                                        className="DAT_ViewMobile_Container_Content_Top_right"
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <div className="DAT_ViewMobile_Container_Content_Top_right_tit"
+                                            id={data.deviceid}
+                                            style={{
+                                                color: (deviceid.value == data.deviceid) ? "blue" : "black"
+                                            }}
+                                        // onClick={(e) => handleDevice(e)}
+                                        >
+                                            {data.deviceid}
+                                        </div>
+                                        {/* <div className="DAT_ViewMobile_Container_Content_Top_right_company">Công ty: { }</div>
+                                    <div className="DAT_ViewMobile_Container_Content_Top_right_state">
+                                        Trạng thái:
+                                        <img alt="" style={{ width: "13px" }} src="/lib/true_state.png">
+                                        </img>
+                                    </div> */}
+
+                                    </div>
+                                </div>
+                                <LuFolderEdit size={15} />
+                            </div>
+                            {/* <div className="DAT_ViewMobile_Container_Content_Bottom" >
+                                <div className="DAT_ViewMobile_Container_Content_Bottom_addr">data.addr</div>
+                                <div className="DAT_ViewMobile_Container_Content_Bottom_edit" >
+                                    <LuFolderEdit size={15} />
+                                    <RiDeleteBin6Line size={15} />
+                                </div>
+                            </div> */}
+                        </div>
+                    ))}
+                </>}
 
             <div className="DAT_Register_Config" style={{ display: config ? "block" : "none" }}>
                 <div className="DAT_Register_Config-Group">

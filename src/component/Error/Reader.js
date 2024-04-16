@@ -6,7 +6,8 @@ import axios from "axios";
 import { host } from "../constant";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
-
+import { isBrowser } from "react-device-detect";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default function Reader(props) {
   const dataLang = useIntl();
@@ -32,7 +33,7 @@ export default function Reader(props) {
       selector: (row) => row.code,
       sortable: true,
       width: "100px",
-      
+
     },
     {
       name: "Tên Lỗi",
@@ -48,7 +49,7 @@ export default function Reader(props) {
         </>
       ),
       sortable: true,
-      minWidth:"250px",
+      minWidth: "250px",
       style: {
         justifyContent: "left",
       }
@@ -311,10 +312,6 @@ export default function Reader(props) {
       ]
     }
 
-
-
-
-
   }
 
   const handleClose = (e) => {
@@ -323,22 +320,44 @@ export default function Reader(props) {
 
   return (
     <>
-      <div className="DAT_Reader">
+      {isBrowser ?
+        <div className="DAT_Reader">
+          <DataTable
+            className="DAT_Table_Container"
+            columns={col}
+            data={reader.value}
+            pagination
+            paginationComponentOptions={paginationComponentOptions}
+            fixedHeader={true}
+            noDataComponent={
+              <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                <div>Bạn vui lòng thêm thông tin sự cố!</div>
+              </div>
+            }
+          />
+        </div>
+        :
+        <div className="DAT_Read">
+          <div className="DAT_Read_Head" onClick={() => props.handleCloseRead()}>
+            <IoIosArrowBack />
+            Thanh ghi
+          </div>
 
-        <DataTable
-          className="DAT_Table_Container"
-          columns={col}
-          data={reader.value}
-          pagination
-          paginationComponentOptions={paginationComponentOptions}
-          fixedHeader={true}
-          noDataComponent={
-            <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-              <div>Bạn vui lòng thêm thông tin sự cố!</div>
-            </div>
-          }
-        />
-      </div>
+          <div className="DAT_Read_Body">
+            {reader.value.map((row, index) => (
+              <div key={index} className="DAT_Read_Body-Item">
+                <div className="DAT_Read_Body-Item-Title">
+                  {row.code}
+                </div>
+              </div>
+            ))}
+
+          </div>
+        </div>
+      }
+
+
+
       <div className="DAT_Register_Config" style={{ display: config ? "block" : "none" }}>
         <div className="DAT_Register_Config-Group">
 
