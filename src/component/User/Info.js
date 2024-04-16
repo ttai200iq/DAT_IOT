@@ -72,7 +72,9 @@ export default function Info() {
                     <span>Thêm người dùng</span>
                     <span onClick={() => editUser.value = false}><IoClose size={20} color="white" /></span>
                 </div>
-                <div className="DAT_Info_Form_Row">
+                <div className="DAT_Info_Form_Row"
+                    style={{ borderRadius: '5px 5px 0 0' }}
+                >
                     <div className="DAT_Info_Form_Row_Item">
                         <div className="DAT_Info_Form_Row_Item_Label">Tài khoản</div>
                         <input type="text" placeholder="Tài khoản" ref={userName} required />
@@ -109,7 +111,9 @@ export default function Info() {
                                     </div> */}
                 </div>
 
-                <div className="DAT_Info_Form_Row">
+                <div className="DAT_Info_Form_Row"
+                    style={{ borderRadius: '0 0 5px 5px' }}
+                >
                     <button className="DAT_Info_Form_Row_Button" >
                         <ion-icon name="save-outline"></ion-icon>Thêm
                     </button>
