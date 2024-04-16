@@ -307,11 +307,10 @@ export const messages = {
         alert_40: "Thêm thiết bị thành công!",                                               //using
         alert_41: "Mã này đã được sử dụng, vui lòng nhập mã khác!",                                            //using
         alert_42: "Phiên giám sát đã hết hạn!",                                           //using
-        alert_46: "Không tìm thấy thiết bị này!",                                            //using
         alert_43: "Thêm dự án thành công!",                                               //using
         alert_44: "Dự án này đã được dùng!",                                            //using
         alert_45: "Dự án này không tồn tại!",                                              //using
-        alert_46: "Hãy chọn lại khung giờ phù hợp!",                                              //using
+        alert_46: "Không tìm thấy thiết bị này!",                                            //using
         alert_47: "Hãy chọn lại khung ngày phù hợp!",                                              //using
         alert_48: "Hãy chọn tháng bạn muốn xuất báo cáo!",                                              //using
         alert_49: "Hãy chọn ngày bạn muốn xuất báo cáo!",                                              //using

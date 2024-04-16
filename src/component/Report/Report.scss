@@ -18,8 +18,6 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
-
-
     }
   }
 
@@ -34,6 +32,7 @@
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -59,9 +58,8 @@
         text-wrap: nowrap;
         width: 250px;
         font-size: 35px;
-        font-weight: 400;
+        font-family: Montserrat-Regular !important;
         color: whitesmoke;
-
       }
 
       &-icon {
@@ -145,7 +143,8 @@
           &-Title {
 
             font-size: 18px;
-            font-weight: 500;
+            font-family: Montserrat-SemiBold !important;
+
             margin-bottom: 8px;
           }
 
@@ -171,19 +170,17 @@
 
           &-Title {
             font-size: 18px;
-            font-weight: 500;
+            font-family: Montserrat-SemiBold !important;
             margin-bottom: 8px;
           }
 
           &-Content {
-
             //width: 100% !important;
             margin: auto;
             border: grey solid 1px;
             padding: 20px;
             border-radius: 10px;
             position: relative;
-
 
             &-Select {
               display: flex;
@@ -213,7 +210,6 @@
               gap: 7px;
               margin-bottom: 10px;
 
-
               & span {
                 width: 140px;
                 text-align: left;
@@ -237,15 +233,12 @@
 
 
             &-Button {
-
               display: flex;
               justify-content: flex-end;
               align-items: center;
               gap: 10px;
 
-
               &-Icon {
-
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -262,26 +255,273 @@
             }
           }
         }
-
-
-
       }
     }
   }
 }
 
+.DAT_ReportMobile {
+  width: 100%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding-top: 60px;
+  padding-bottom: 150px !important;
+  overflow-x: hidden;
 
+  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
+  }
 
-@media (min-width: 700px) {
-  .DAT_Report_Content {
-    padding-bottom: 20px !important;
+  &_Head {
+    width: 95%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    // padding: 5px;
+    margin-top: 15px;
+    padding-bottom: 15px;
 
-    &_Main {
-      height: calc(100vh - 200px);
-
-
+    & span {
+      font-family: Montserrat-SemiBold;
+      color: rgb(106, 106, 106);
+      font-size: 20px;
     }
   }
 
+  &_Container {
+    width: 95%;
+    padding: 10px;
+    margin: auto;
+    border-radius: 5px;
+    background-color: #ffffff;
+    overflow: hidden;
+    margin-bottom: 10px;
 
+    &_Main {
+      // width: 95%;
+      // margin: auto;
+      // padding: 10px;
+      // margin-bottom: 24px;
+      // box-sizing: border-box;
+      // background-color: rgb(255, 255, 255);
+
+      &_Top {
+        width: 100%;
+        // margin: auto;
+        // min-width: 200px;
+        text-align: center;
+        // padding-top: 24px;
+
+        &_Title {
+          font-size: 18px;
+
+          margin-bottom: 8px;
+          font-family: Montserrat-SemiBold !important;
+        }
+
+        & select {
+          width: 55% !important;
+          height: 40px;
+          padding: 5px;
+          font-size: 14px;
+          border-radius: 5px;
+          margin-bottom: 24px;
+          border: solid 1px rgb(216, 216, 216);
+          background-color: white;
+        }
+      }
+    }
+  }
+
+  &_Container2 {
+    width: 95%;
+    margin: auto;
+    padding: 15px;
+    // height: 500px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    overflow: hidden;
+    // position: relative;
+
+    &_Main {
+      // width: 95%;
+      // margin: auto;
+      // box-sizing: border-box;
+      // display: flex;
+      // align-items: center;
+      // justify-content: center;
+      // background-color: rgb(255, 255, 255);
+
+      &_Below {
+        // min-width: 200px;
+        // text-align: center;
+        // padding-top: 20px;
+        // width: 100%;
+        // margin: auto;
+        // padding: 10px;
+        // margin-bottom: 24px;
+        // box-sizing: border-box;
+        // background-color: rgb(255, 255, 255);
+
+        &_Title {
+          width: 100%;
+          font-size: 18px;
+          font-family: Montserrat-SemiBold !important;
+          text-align: center;
+          padding: 15px;
+          // margin-bottom: 30px;
+          // margin-top: 10px;
+        }
+
+        &_Content {
+
+          // display: flex;
+          // align-items: center;
+          // justify-content: center;
+          // gap: 10px;
+          // padding: 0px 10px 0px 12px;
+          // border-radius: 10px;
+          // position: relative;
+
+          &_Device {
+            // width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+
+
+            & select {
+              height: 40px;
+              width: 60%;
+              border-radius: 7px;
+              background-color: white;
+              border: solid 1px rgb(216, 216, 216);
+              font-size: 14px;
+            }
+
+            & span {
+              width: 100px;
+              margin-right: 10px;
+              display: flex;
+              text-align: start;
+              font-family: Montserrat-SemiBold !important;
+            }
+          }
+
+          &_Date {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+            width: 100%;
+
+            & span {
+              margin-right: 10px;
+              width: 100px;
+              display: flex;
+              font-family: Montserrat-SemiBold !important;
+            }
+
+            & input {
+              height: 40px;
+              width: 100%;
+              border-radius: 7px;
+              background-color: white;
+              border: solid 1px rgb(216, 216, 216);
+              font-size: 14px;
+            }
+          }
+
+          &_Around {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+
+            & span {
+              display: flex;
+              text-align: start;
+              font-family: Montserrat-SemiBold !important;
+            }
+
+            & select {
+              height: 40px;
+              border-radius: 7px;
+              background-color: white;
+              border: solid 1px rgb(216, 216, 216);
+              font-size: 14px;
+            }
+          }
+
+          &_Type {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            width: 100%;
+
+            & span {
+              margin-right: 10px;
+              width: 100px;
+              display: flex;
+              text-align: start;
+              font-family: Montserrat-SemiBold !important;
+            }
+
+            & select {
+              height: 40px;
+              width: 60%;
+              border-radius: 7px;
+              background-color: white;
+              border: solid 1px rgb(216, 216, 216);
+              font-size: 14px;
+            }
+          }
+
+          //EXPORT DATA
+          &_Export {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &_Icon {
+              background-color: #0d6efd;
+              width: 100%;
+              padding: 20px;
+              font-size: 16px;
+              font-family: Montserrat-SemiBold !important;
+              border-radius: 5px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              & span {
+                color: white;
+              }
+            }
+          }
+
+        }
+      }
+    }
+
+
+
+    @media (min-width: 700px) {
+      .DAT_Report_Content {
+        padding-bottom: 20px !important;
+
+        &_Main {
+          height: calc(100vh - 200px);
+
+
+        }
+      }
+    }
+  }
 }
