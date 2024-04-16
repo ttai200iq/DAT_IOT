@@ -7,6 +7,9 @@ import { host } from "../constant";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import DataTable from "react-data-table-component";
+import { isBrowser } from "react-device-detect";
+import { FaEdit } from "react-icons/fa";
+import { MdOutlineDelete } from "react-icons/md";
 export default function Storage(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
     const icon = <ion-icon name="construct-outline"></ion-icon>
@@ -36,11 +39,8 @@ export default function Storage(props) {
                 });
                 console.log(newData);
                 setData(newData);
-
-
             })
     }, []);
-
 
     const head = [
         {
@@ -56,22 +56,18 @@ export default function Storage(props) {
             style: {
                 justifyContent: "left",
             }
-
         },
         {
             name: "",
             selector: (row) => {
                 return (
-
-
                     <div
                         id={row.id}
                         onClick={(e) => handleDelete(e)}
                         style={{ cursor: "pointer", color: "red" }}
                     >
-                        xóa
+                        <ion-icon name="trash-outline"></ion-icon>
                     </div>
-
                 )
             },
             width: "70px",
@@ -81,9 +77,7 @@ export default function Storage(props) {
 
 
     const handleDelete = (e) => {
-        console.log(e.target.id);
-
-
+        // console.log(e.target.id);
         var newData = data
         newData = newData.filter(data => data.id != e.target.id)
         setData(newData)
@@ -100,7 +94,6 @@ export default function Storage(props) {
     };
 
     const handleFix = (e) => {
-
         var newdata = data.find(item => item.id == e.target.id);
         //console.log(newdata)
         name.current = newdata.name
@@ -108,24 +101,17 @@ export default function Storage(props) {
         setFix(true)
     }
 
-
-
-
     const handleSaveFix = (e) => {
         e.preventDefault()
         var newdata = [...data]
-
         console.log(name.current.value, id.current)
-
         newdata = newdata.map(item => {
             if (item.id == id.current) {
                 return { ...item, ...{ name: name.current.value } };
             }
             return item;
         });
-
         setData(newdata)
-
 
         axios.post(host.DEVICE + "/updateStore", { name: name.current.value, id: id.current, user: manager }, { withCredentials: true }).then(
             function (res) {
@@ -136,95 +122,133 @@ export default function Storage(props) {
                     alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
                 }
             })
-
+        setFix(false);
     }
-
-
 
     return (
         <>
-            <div className="DAT_Strorage">
-
-                <div className="DAT_Strorage_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                    {/* <div className="DAT_StrorageTop-shadow" ></div> */}
-                </div>
-
-                {/* Profile Detail */}
-                <div className="DAT_Strorage_Content">
-                    <div className="DAT_Strorage_Content_Direct" >
-                        {direct.map((data, index) => {
-                            return (
-                                (index === 0)
-                                    ? <Link key={index} to="/" style={{ textDecoration: 'none', color: "white" }}>
-                                        <span style={{ cursor: "pointer" }}> {data.text}</span>
-                                    </Link>
-                                    : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
-
-                            )
-                        })}
+            {isBrowser ?
+                <div className="DAT_Strorage">
+                    {/* Banner */}
+                    <div className="DAT_Strorage_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                        {/* <div className="DAT_StrorageTop-shadow" ></div> */}
                     </div>
-                    <div className="DAT_Strorage_Content_Tit">
-                        <div className="DAT_Strorage_Content_Tit-icon">
-                            {icon}
+
+                    {/* Profile Detail */}
+                    <div className="DAT_Strorage_Content">
+                        <div className="DAT_Strorage_Content_Direct" >
+                            {direct.map((data, index) => {
+                                return (
+                                    (index === 0)
+                                        ? <Link key={index} to="/" style={{ textDecoration: 'none', color: "white" }}>
+                                            <span style={{ cursor: "pointer" }}> {data.text}</span>
+                                        </Link>
+                                        : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
+                                )
+                            })}
                         </div>
-                        <div className="DAT_Strorage_Content_Tit-content" >{inf.tit}</div>
-                    </div>
+                        <div className="DAT_Strorage_Content_Tit">
+                            <div className="DAT_Strorage_Content_Tit-icon">
+                                {icon}
+                            </div>
+                            <div className="DAT_Strorage_Content_Tit-content" >{inf.tit}</div>
+                        </div>
 
-                    <div className="DAT_Strorage_Content_Main">
-                        <div className="DAT_Strorage_Content_Main_Nav">
-                            <div className="DAT_Strorage_Content_Main_Nav_Item">
-                                Danh sách giao diện
+                        <div className="DAT_Strorage_Content_Main">
+                            <div className="DAT_Strorage_Content_Main_Nav">
+                                <div className="DAT_Strorage_Content_Main_Nav_Item">
+                                    Danh sách giao diện
+                                </div>
                             </div>
 
+                            <div className="DAT_Strorage_Content_Main_List">
+                                <DataTable
+                                    className="DAT_Table_Container"
+                                    columns={head}
+                                    data={data}
+                                    pagination
+                                    paginationComponentOptions={paginationComponentOptions}
+                                    noDataComponent={
+                                        <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                                            <div>Chưa có giao diện trong kho</div>
+                                        </div>
+                                    }
+                                />
+                            </div>
                         </div>
-
-                        <div className="DAT_Strorage_Content_Main_List">
-
-                            <DataTable
-                                className="DAT_Table_Container"
-                                columns={head}
-                                data={data}
-                                pagination
-                                paginationComponentOptions={paginationComponentOptions}
-                                noDataComponent={
-                                    <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-                                        <div>Chưa có giao diện trong kho</div>
-                                    </div>
-                                }
-                            />
-                        </div>
-
-
                     </div>
-
                 </div>
+                :
+                <>
+                    <div className="DAT_StorageMobile">
+                        <div className="DAT_StorageMobile_Tit" >
+                            <div className="DAT_StorageMobile_Tit-icon">
+                                {icon}
+                            </div>
+                            <div className="DAT_StorageMobile_Tit-content" >
+                                {inf.tit}
+                            </div>
+                        </div>
+                    </div>
+                    {data.map((data, i) => {
+                        return (
+                            <div key={i} className="DAT_StorageMobile_Container">
+                                <div className="DAT_StorageMobile_Container_List">
+                                    <div className="DAT_StorageMobile_Container_List_Item"
+                                        id={data.type}
+                                    >
+                                        {data.ids}
+                                    </div>
 
-            </div>
+                                    <div className="DAT_StorageMobile_Container_List_Info">
+                                        <div className="DAT_StorageMobile_Container_List_Info_Name"
+                                            id={data.id}
+                                            onClick={(e) => handleFix(e)}
+                                        >
+                                            {data.name}
+                                        </div>
+                                    </div>
+                                </div>
 
-
-
-
-
-
-
-
+                                <div className="DAT_StorageMobile_Container_Bottom">
+                                    <div className="DAT_StorageMobile_Container_Bottom_Time">
+                                        Ngày tạo : ...
+                                    </div>
+                                    <div className="DAT_StorageMobile_Container_Bottom_Del">
+                                        {data.type !== 'master' ?
+                                            <MdOutlineDelete
+                                                size={20}
+                                                color="red"
+                                                id={data.name + "_" + data.mail}
+                                                onClick={(e) => handleDelete(e)} /> : <></>}
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </>
+            }
 
             {(fix)
                 ? <div className="DAT_StrorageFix" >
                     <form className="DAT_StrorageFix-group" onSubmit={e => handleSaveFix(e)}>
-                        <div className="DAT_StrorageFix-group-close" onClick={() => setFix(false)}><ion-icon name="close-outline"></ion-icon></div>
+                        <div className="DAT_StrorageFix-group-header">
+                            <div className="DAT_StrorageFix-group-header-title">
+                                Chỉnh sửa
+                            </div>
+                            <div className="DAT_StrorageFix-group-header-close"
+                                onClick={() => setFix(false)}><ion-icon name="close-outline"></ion-icon></div>
+                        </div>
+
                         <div className="DAT_StrorageFix-group-row">
                             <div className="DAT_StrorageFix-group-row-tit">Tên giao diện</div>
                             <input type="text" minLength={6} defaultValue={name.current} ref={name} required ></input>
                         </div>
-
-
                         <div className="DAT_StrorageFix-group-row">
-                            <button>Xác Nhận</button>
+                            <button className="DAT_StrorageFix-group-row-button" >
+                                <ion-icon name="save-outline"></ion-icon> Lưu
+                            </button>
                         </div>
-
-
-
                     </form>
                 </div>
                 : <></>

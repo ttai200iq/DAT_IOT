@@ -17,6 +17,9 @@ import Resizer from "react-image-file-resizer";
 import { action } from '../Control/Action';
 import { editPass } from './Account';
 import { isBrowser } from 'react-device-detect';
+import { signal } from '@preact/signals-react';
+
+export const editAccount = signal(false)
 function Contact(props) {
 
     //console.log(logo.value)
@@ -65,6 +68,8 @@ function Contact(props) {
                         phone: phone.current.value,
                     })
                 }
+                alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
+                setEdit(false);
             })
     }
 
@@ -243,19 +248,34 @@ function Contact(props) {
                                 <div className="DAT_ContactEdit_Form_Row">
                                     <div className="DAT_ContactEdit_Form_Row_Item">
                                         <div className="DAT_ContactEdit_Form_Row_Item_Label">Tiêu đề</div>
-                                        <input type='text' defaultValue={contact.name} ref={name} ></input>
+                                        <input
+                                            type='text'
+                                            defaultValue={contact.name}
+                                            ref={name}
+                                            placeholder='Nhập tên liên lạc..'
+                                        />
                                     </div>
 
                                     <div className="DAT_ContactEdit_Form_Row_Item">
                                         <div className="DAT_ContactEdit_Form_Row_Item_Label">Địa chỉ</div>
-                                        <input type='text' defaultValue={contact.addr} ref={addr} ></input>
+                                        <input
+                                            type='text'
+                                            defaultValue={contact.addr}
+                                            ref={addr}
+                                            placeholder='Nhập địa chỉ..'
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="DAT_ContactEdit_Form_Row">
                                     <div className="DAT_ContactEdit_Form_Row_Item">
                                         <div className="DAT_ContactEdit_Form_Row_Item_Label">Điện thoại</div>
-                                        <input type='text' defaultValue={contact.phone} ref={phone} ></input>
+                                        <input
+                                            type='text'
+                                            defaultValue={contact.phone}
+                                            ref={phone}
+                                            placeholder='Nhập số điện thoại..'
+                                        />
                                     </div>
                                 </div>
 
@@ -285,13 +305,15 @@ function Contact(props) {
                                 <span>Mail: </span>
                                 {mail}
                             </div>
-                            <div className='DAT_ContactMobile_Info_Content_Item' >
+                            <div className='DAT_ContactMobile_Info_Content_Password' >
                                 <span>Mật khẩu: </span>
-                                <span style={{ cursor: "pointer" }} onClick={() => editPass.value = true} >
-                                    <CiEdit />
-                                </span>
+                                {contact.password}
+                                <div className='DAT_ContactMobile_Info_Content_Password_Button'>
+                                    <label onClick={() => editPass.value = true}>
+                                        <CiEdit />
+                                    </label>
+                                </div>
                             </div>
-                            {contact.password}
                         </div>
                     </div>
 
@@ -335,56 +357,75 @@ function Contact(props) {
                         </div>
                     </div>
 
-                    {edit
-                        ?
-                        <div className='DAT_ContactEditMobile_Form' >
-                            <div className="DAT_ContactEditMobile_Form_Head">
-                                <div className="DAT_ContactEditMobile_Form_Head_Left">
-                                    <span>Thông tin liên hệ</span>
-                                </div>
-                                <div className="DAT_ContactEditMobile_Form_Head_Right">
-                                    <div className="DAT_ContactEditMobile_Form_Head_Right_Close">
-                                        <span onClick={() => { setEdit(false) }}>
-                                            <IoClose size={25} color="white" />
-                                        </span>
+                    <div className='DAT_ContactEditMobile' style={{ height: (edit) ? "100vh" : "0px", transition: "0.5s" }}>
+                        {edit
+                            ?
+                            <div className='DAT_ContactEditMobile_Form' >
+                                <div className="DAT_ContactEditMobile_Form_Head">
+                                    <div className="DAT_ContactEditMobile_Form_Head_Left">
+                                        <span>Thông tin liên hệ</span>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div className="DAT_ContactEditMobile_Form_Body">
-                                <div className="DAT_ContactEditMobile_Form_Body_Content">
-                                    <div className="DAT_ContactEditMobile_Form_Body_Content_Item">
-                                        <div className="DAT_ContactEditMobile_Form_Body_Content_Item_Label">
-                                            Tiêu đề
+                                    <div className="DAT_ContactEditMobile_Form_Head_Right">
+                                        <div className="DAT_ContactEditMobile_Form_Head_Right_Close">
+                                            <span onClick={() => { setEdit(false) }}>
+                                                <IoClose size={20} color="white" />
+                                            </span>
                                         </div>
-                                        <input type='text' defaultValue={contact.name} ref={name} ></input>
                                     </div>
                                 </div>
 
-                                <div className="DAT_ContactEditMobile_Form_Body_Content">
-                                    <div className="DAT_ContactEditMobile_Form_Body_Content_Label">
-                                        Địa chỉ
+                                <div className="DAT_ContactEditMobile_Form_Body">
+                                    <div className="DAT_ContactEditMobile_Form_Body_Content">
+                                        <div className="DAT_ContactEditMobile_Form_Body_Content_Item">
+                                            <div className="DAT_ContactEditMobile_Form_Body_Content_Item_Label">
+                                                Tên liên hệ:
+                                            </div>
+                                            <input
+                                                type='text'
+                                                defaultValue={contact.name}
+                                                ref={name}
+                                                placeholder='Nhập tên liên lạc..'
+                                            />                                        </div>
                                     </div>
-                                    <input type='text' defaultValue={contact.addr} ref={addr} ></input>
-                                </div>
 
-                                <div className="DAT_ContactEditMobile_Form_Body_Content">
-                                    <div className="DAT_ContactEditMobile_Form_Body_Content_Label">
-                                        Điện thoại
+                                    <div className="DAT_ContactEditMobile_Form_Body_Content">
+                                        <div className="DAT_ContactEditMobile_Form_Body_Content_Item">
+                                            <div className="DAT_ContactEditMobile_Form_Body_Content_Item_Label">
+                                                Địa chỉ:
+                                            </div>
+                                            <input
+                                                type='text'
+                                                defaultValue={contact.addr}
+                                                ref={addr}
+                                                placeholder='Nhập địa chỉ..'
+                                            />                                        </div>
                                     </div>
-                                    <input type='text' defaultValue={contact.phone} ref={phone} ></input>
+
+                                    <div className="DAT_ContactEditMobile_Form_Body_Content">
+                                        <div className="DAT_ContactEditMobile_Form_Body_Content_Item">
+                                            <div className="DAT_ContactEditMobile_Form_Body_Content_Item_Label">
+                                                Điện thoại:
+                                            </div>
+                                            <input
+                                                type='text'
+                                                defaultValue={contact.phone}
+                                                ref={phone}
+                                                placeholder='Nhập số điện thoại..'
+                                            />                                        </div>
+                                    </div>
+
+                                    <div className="DAT_ContactEditMobile_Form_Body_Content">
+                                        <div className="DAT_ContactEditMobile_Form_Body_Content_Item">
+                                            <button onClick={() => { handleContact() }}>
+                                                <ion-icon name="save-outline"></ion-icon>Lưu
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div className="DAT_ContactEditMobile_Form_Foot">
-                                <button className="DAT_ContactEditMobile_Form_Foot_Button" onClick={() => { handleContact() }}>
-                                    <ion-icon name="save-outline"></ion-icon>Lưu
-                                </button>
-                            </div>
-
-                        </div>
-                        : <></>
-                    }
+                            : <></>
+                        }
+                    </div>
 
                     {/* AVATAR */}
                     <div className='DAT_ContactMobile_Avatar'>
