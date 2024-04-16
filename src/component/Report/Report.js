@@ -621,7 +621,6 @@ export default function Report(props) {
                                         <select id="device" onChange={(e) => handleChange(e)}>
                                             {reportlist.value.map((data, index) => {
                                                 return (
-
                                                     <option key={index} value={data.deviceid}>{data.deviceid}</option>
                                                 )
                                             })}

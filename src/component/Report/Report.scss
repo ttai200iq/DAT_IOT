@@ -281,7 +281,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    // padding: 5px;
     margin-top: 15px;
     padding-bottom: 15px;
 
@@ -302,19 +301,9 @@
     margin-bottom: 10px;
 
     &_Main {
-      // width: 95%;
-      // margin: auto;
-      // padding: 10px;
-      // margin-bottom: 24px;
-      // box-sizing: border-box;
-      // background-color: rgb(255, 255, 255);
-
       &_Top {
         width: 100%;
-        // margin: auto;
-        // min-width: 200px;
         text-align: center;
-        // padding-top: 24px;
 
         &_Title {
           font-size: 18px;
@@ -341,54 +330,22 @@
     width: 95%;
     margin: auto;
     padding: 15px;
-    // height: 500px;
     border-radius: 5px;
     background-color: #ffffff;
     overflow: hidden;
-    // position: relative;
 
     &_Main {
-      // width: 95%;
-      // margin: auto;
-      // box-sizing: border-box;
-      // display: flex;
-      // align-items: center;
-      // justify-content: center;
-      // background-color: rgb(255, 255, 255);
-
       &_Below {
-        // min-width: 200px;
-        // text-align: center;
-        // padding-top: 20px;
-        // width: 100%;
-        // margin: auto;
-        // padding: 10px;
-        // margin-bottom: 24px;
-        // box-sizing: border-box;
-        // background-color: rgb(255, 255, 255);
-
         &_Title {
           width: 100%;
           font-size: 18px;
           font-family: Montserrat-SemiBold !important;
           text-align: center;
           padding: 15px;
-          // margin-bottom: 30px;
-          // margin-top: 10px;
         }
 
         &_Content {
-
-          // display: flex;
-          // align-items: center;
-          // justify-content: center;
-          // gap: 10px;
-          // padding: 0px 10px 0px 12px;
-          // border-radius: 10px;
-          // position: relative;
-
           &_Device {
-            // width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;

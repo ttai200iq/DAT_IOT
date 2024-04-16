@@ -53,21 +53,14 @@ function Avatar(props) {
                 axios.post(host.DEVICE + "/setAvatar", { user: user, img: avatar.value }, { credential: true }, { headers: { "Content-Type": "multipart/form-data" }, })
                     .then((res) => {
                         //console.log(res.data)
-                        if(res.data.status){
+                        if (res.data.status) {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
-                        }else{
+                        } else {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' }))
                         }
                     })
                 // setSize(e.target.files[0].size);
             };
-
-
-
-
-
-
-
         } else {
             reader.readAsDataURL(e.target.files[0]);
             console.log(e.target.files[0].size)
@@ -78,9 +71,9 @@ function Avatar(props) {
                 axios.post(host.DEVICE + "/setAvatar", { user: user, img: avatar.value }, { credential: true }, { headers: { "Content-Type": "multipart/form-data" }, })
                     .then((res) => {
                         //console.log(res.data)
-                        if(res.data.status){
+                        if (res.data.status) {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
-                        }else{
+                        } else {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' }))
                         }
                     })
@@ -92,9 +85,9 @@ function Avatar(props) {
 
     return (
         <div className='DAT_Avatar'>
-           
+
             <img src={avatar.value === '' ? '/dat_icon/user_manager.png' : avatar.value} alt="" />
-     
+
             <label htmlFor="file" className='DAT_Avatar-add' ><RiImageAddLine /></label>
             <input accept="image/*" id="file" type="file" style={{ visibility: "hidden" }} onChange={e => handdeAvatar(e)} />
         </div>
