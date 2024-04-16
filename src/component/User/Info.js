@@ -64,7 +64,6 @@ export default function Info() {
     };
 
     return (
-
         <div className="DAT_Info">
             <form className="DAT_Info_Form" onSubmit={(e) => handleSave(e)}>
 

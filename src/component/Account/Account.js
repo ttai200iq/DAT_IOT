@@ -73,14 +73,22 @@ export default function Acount(props) {
                     </div>
 
                 </div>
-                : <div className="DAT_AccountMobile">
+                :
+                <div className="DAT_AccountMobile">
                     <div className="DAT_AccountMobile_Head" >
                         {iconmobile}
-                        <span >{inf.tit}</span>
+                        <span>{inf.tit}</span>
+                    </div>
+
+                    <div className="DAT_AccountMobile_Container">
+                        <Contact username={props.username} />
+                    </div>
+
+                    <div className="DAT_Account_Pass" style={{ height: editPass.value ? "100vh" : "0", transition: "0.5s" }}>
+                        {editPass.value ? <Pass username={props.username} /> : <></>}
                     </div>
                 </div>
             }
-
         </>
     )
 }

@@ -122,15 +122,7 @@ export default function Listuser() {
             } else {
               alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
             }
-
           })
-
-
-
-
-
-
-
       } else {
 
         axios.post(host.DEVICE + "/removelistDeviceUser", { user: enduser.value, id: id }, { withCredentials: true }).then(
@@ -145,27 +137,15 @@ export default function Listuser() {
                       console.log(res.data)
                     }
                   )
-
-
                   return { ...item, status: 'false' };
                 }
                 return item;
               });
-
-
-
               alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
             } else {
               alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
             }
-
           })
-        // deviceadmin.value = deviceadmin.value.map((item, i) => {
-        //   if (item.deviceid == id) {
-        //     return { ...item, status: 'false' };
-        //   }
-        //   return item;
-        // });
       }
     }
 
@@ -178,14 +158,11 @@ export default function Listuser() {
             if (res.data.status) {
               projectadmin.value = projectadmin.value.map((item, i) => {
                 if (item.projectid == id) {
-
                   axios.post(host.DEVICE + "/setStateErrProject", { user: enduser.value, id: item.projectid, state: 'true' }, { withCredentials: true }).then(
                     function (res) {
                       console.log(res.data)
                     }
                   )
-
-
                   return { ...item, status: 'true' };
                 }
                 return item;
@@ -194,9 +171,7 @@ export default function Listuser() {
             } else {
               alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
             }
-
           })
-
       } else {
         axios.post(host.DEVICE + "/removelistProjectUser", { user: enduser.value, id: id }, { withCredentials: true }).then(
           function (res) {
@@ -204,23 +179,12 @@ export default function Listuser() {
             if (res.data.status) {
               projectadmin.value = projectadmin.value.map((item, i) => {
                 if (item.projectid == id) {
-
-
                   axios.post(host.DEVICE + "/setStateErrProject", { user: enduser.value, id: item.projectid, state: 'false' }, { withCredentials: true }).then(
                     function (res) {
                       console.log(res.data)
                     }
                   )
-
-
-
-
-
-
                   return { ...item, status: 'false' };
-
-
-
                 }
                 return item;
               });
@@ -228,20 +192,13 @@ export default function Listuser() {
             } else {
               alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
             }
-
           })
       }
     }
-
-
-
   }
 
   const handleModify = (e) => {
-
     enduser.value = e.currentTarget.id
-
-
     axios.post(host.DEVICE + "/getProjectAdmin", { user: e.currentTarget.id, role: 'user' }, { withCredentials: true }).then(
       function (res) {
         //console.log("user Project", res.data)
@@ -278,13 +235,8 @@ export default function Listuser() {
         deviceadmin.value = updatedArray
 
       })
-
     setModify(true)
-
-
-
   }
-
 
   const head_master = [
     {
@@ -384,7 +336,7 @@ export default function Listuser() {
               onClick={(e) => handleDelete(e)}
               style={{ cursor: "pointer", color: "red" }}
             >
-              xóa
+              <MdOutlineDelete size={20} color="red" />
             </div>
             : <></>
         )
@@ -393,7 +345,6 @@ export default function Listuser() {
       center: true,
     },
   ];
-
 
   const handleDelete = (e) => {
     console.log(e.target.id);
@@ -441,7 +392,7 @@ export default function Listuser() {
             paginationComponentOptions={paginationComponentOptions}
             noDataComponent={
               <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-                <div>Đợi một chút...!</div>
+                <div>Đợi một chốc...!</div>
               </div>
             }
           />

@@ -152,19 +152,19 @@
 
 .DAT_Info {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    background-color: rgb(128, 128, 128, 0.5);
+    background-color: rgb(237, 237, 237);
 
     &::-webkit-scrollbar {
         display: none;
     }
 
     &_Form {
+        width: 95%;
         position: relative;
-        width: 90%;
         margin: auto;
         margin-top: 80px;
         margin-bottom: 20px;
@@ -275,6 +275,7 @@
             justify-content: space-between;
             padding: 10px 10px 15px 10px;
             border-bottom: 2px solid rgba(218, 218, 218);
+
             & input {
                 height: 40px;
 
@@ -336,6 +337,7 @@
 
             flex-direction: column;
             gap: 10px;
+
             &_Item {
                 background-color: white;
                 // display: flex;
@@ -344,6 +346,7 @@
                 // justify-content: space-between;
                 padding: 10px;
                 width: 100%;
+
                 &_GroupInfo {
                     display: flex;
                     gap: 10px;
@@ -363,14 +366,17 @@
                         background-color: #0082ca;
                         color: white;
                     }
+
                     &_Info {
                         display: flex;
+
                         // flex-direction: column;
                         &_Gateway {
                             font-family: Montserrat-SemiBold;
                         }
                     }
                 }
+
                 &_Bottom {
                     display: flex;
                     align-items: center;

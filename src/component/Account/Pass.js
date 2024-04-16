@@ -59,8 +59,25 @@ export default function Pass(props) {
 
             <form className="DAT_Security_Form" onSubmit={(e) => handleSave(e)}>
                 <div className="DAT_Security_Form_Head">
-                    <span>Đổi mật khẩu</span>
-                    <span onClick={() => editPass.value = false}><IoClose size={20} color="white" /></span>
+                    <div className="DAT_Security_Form_Head_Left">
+                        <span>Đổi mật khẩu</span>
+                    </div>
+                    <div className="DAT_Security_Form_Head_Right">
+                        <div className="DAT_Security_Form_Head_Righ_Close">
+                            <span style={{
+                                width: "30px",
+                                height: "30px",
+                                borderRadius: "50%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "red"
+                            }}
+                                onClick={() => editPass.value = false}>
+                                <IoClose size={20} color="white" />
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div className="DAT_Security_Form_Row">
                     <div className="DAT_Security_Form_Row_Item">
