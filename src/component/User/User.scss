@@ -18,8 +18,6 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-
-
         }
     }
 
@@ -62,7 +60,6 @@
                 font-size: 35px;
                 font-weight: 400;
                 color: whitesmoke;
-
             }
 
             &-icon {
@@ -75,10 +72,7 @@
                     color: gray;
                     font-size: 32px;
                 }
-
-
             }
-
 
             & img {
                 margin-top: 5px;
@@ -87,9 +81,6 @@
                 width: 32px;
                 filter: invert(56%) sepia(1%) saturate(440%) hue-rotate(92deg) brightness(93%) contrast(91%);
             }
-
-
-
         }
 
         &_Main {
@@ -99,7 +90,9 @@
             border-radius: 5px;
             background-color: rgb(255, 255, 255);
             overflow: hidden;
-            box-shadow: 3px 3px 5px rgb(199, 199, 199, 0.5), -3px -3px 5px rgb(199, 199, 199, 0.5);
+            box-shadow:
+                3px 3px 5px rgb(199, 199, 199, 0.5),
+                -3px -3px 5px rgb(199, 199, 199, 0.5);
 
             &_Nav {
                 padding: 10px;
@@ -138,17 +131,12 @@
                         background-color: rgb(171, 171, 171);
                     }
                 }
-
-
-
             }
 
             &_New {
                 padding: 10px;
             }
         }
-
-
     }
 
     &_Fix {
@@ -157,25 +145,22 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgb(236, 236, 236);
+        // background-color: rgb(236, 236, 236);
         z-index: 25;
-
     }
-
 }
 
 .DAT_Info {
-
     width: 100%;
     height: 100%;
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    background-color: rgb(128, 128, 128, 0.5);
 
     &::-webkit-scrollbar {
         display: none;
     }
-
 
     &_Form {
         position: relative;
@@ -186,23 +171,26 @@
 
         &_Head {
             width: 100%;
-            padding: 20px;
+            padding: 10px;
             border-radius: 5px;
             background-color: white;
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
+            box-shadow:
+                2px 2px 5px rgba(74, 74, 74, 0.3),
+                -2px -2px 5px rgba(176, 176, 176, 0.3);
 
             & span:first-child {
-                font-size: 22px;
-                color: blue;
+                font-size: 16px;
+                color: #0082ca;
             }
 
             & span:last-child {
                 cursor: pointer;
-                width: 40px;
-                height: 40px;
+                width: 30px;
+                height: 30px;
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
@@ -215,18 +203,20 @@
             }
         }
 
-
         &_Row {
             display: flex;
             gap: 10px;
             background-color: white;
-            padding: 20px;
+            padding: 15px;
+            padding-bottom: 5px;
 
             &_Item {
                 position: relative;
                 width: 100%;
+                // padding: 10px;
 
                 &_Label {
+                    font-size: 14px;
                     display: flex;
                     margin-bottom: 8px;
                 }
@@ -241,34 +231,156 @@
                     -webkit-box-sizing: border-box;
                     -moz-box-sizing: border-box;
                 }
-
-
             }
 
             &_Button {
-
                 height: 34px;
                 border: none;
                 color: white;
-                background-color: blue;
+                background-color: #0082ca;
                 font-weight: 400;
                 border-radius: 5px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 gap: 5px;
+                margin-bottom: 10px;
             }
-
         }
-
-
-
     }
-
-
 }
 
+.DAT_ListDetail {
+    margin-top: 58px;
+    margin-bottom: 70px;
 
+    &_HeadTit {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-top: 10px;
+        padding-left: 10px;
+        font-size: 25px;
+        font-weight: 500;
+        font-family: Montserrat-SemiBold;
+        color: rgb(106, 106, 106);
+        font-size: 20px;
+    }
+
+    &_Content {
+        &_Filterbar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px 15px 10px;
+            border-bottom: 2px solid rgba(218, 218, 218);
+            & input {
+                height: 40px;
+
+                padding: 10px;
+                outline: none;
+                border: none;
+                border-radius: 5px;
+                background-color: #ffffff;
+            }
+
+            &_CustomPicker {
+                width: calc(100vw - 70px);
+                height: 40px;
+                border-radius: 8px;
+                outline: none;
+                border: none;
+                background-color: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            // input[type="date"]::-webkit-inner-spin-button,
+            // input[type="date"]::-webkit-calendar-picker-indicator {
+            //     display: none;
+            //     -webkit-appearance: none;
+            // }
+            &_Date {
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background-color: #ffffff;
+
+                &:active {
+                    background-color: rgb(66, 59, 50, 0.3);
+                    transition: 0.2s ease-in-out;
+                }
+            }
+        }
+
+        &_Tit {
+            width: 96%;
+            margin: auto;
+            padding-top: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        &_List {
+            width: 96%;
+            margin: auto;
+            padding-top: 10px;
+            display: flex;
+
+            flex-direction: column;
+            gap: 10px;
+            &_Item {
+                background-color: white;
+                // display: flex;
+                // align-items: center;
+                border-radius: 5px;
+                // justify-content: space-between;
+                padding: 10px;
+                width: 100%;
+                &_GroupInfo {
+                    display: flex;
+                    gap: 10px;
+                    // align-items: center;
+                    border-bottom: 1px solid rgb(218, 218, 218);
+                    padding-bottom: 10px;
+                    width: 100%;
+
+                    &_Code {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 5px;
+                        font-size: 12px;
+                        background-color: #0082ca;
+                        color: white;
+                    }
+                    &_Info {
+                        display: flex;
+                        // flex-direction: column;
+                        &_Gateway {
+                            font-family: Montserrat-SemiBold;
+                        }
+                    }
+                }
+                &_Bottom {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding-top: 5px;
+                }
+            }
+        }
+    }
+}
 
 .DAT_ModifyUserList {
     position: fixed;
@@ -304,7 +416,6 @@
         //         background-color: rgb(179, 179, 179);
         //     }
         // }
-
 
         &-head {
             width: 100%;
@@ -348,7 +459,6 @@
                     background-color: rgb(255, 0, 0, 0.5);
                 }
             }
-
         }
 
         &-eurole {
@@ -357,7 +467,6 @@
             padding: 10px;
             margin-bottom: 20px;
             background-color: white;
-
         }
 
         &-euproject {
@@ -374,7 +483,6 @@
             }
 
             &-item {
-
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -383,7 +491,6 @@
                     flex: 3.3;
                 }
             }
-
         }
 
         &-eudevice {
@@ -392,7 +499,6 @@
             padding: 10px;
             background-color: white;
 
-
             &-title {
                 border-bottom: solid 1px rgb(156, 155, 155, 0.3);
                 margin-bottom: 5px;
@@ -400,7 +506,6 @@
             }
 
             &-item {
-
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -409,18 +514,13 @@
                     flex: 3.3;
                 }
             }
-
         }
     }
 }
 
-
 @media (min-width: 700px) {
-
     .DAT_User_Content_Main {
         height: calc(100vh - 200px);
-
-
     }
 
     .DAT_ModifyUserList-Group {
@@ -430,8 +530,4 @@
     .DAT_Info_Form {
         width: 700px;
     }
-
-
-
-
 }

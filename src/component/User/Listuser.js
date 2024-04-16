@@ -9,7 +9,9 @@ import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import adminslice from "../Redux/adminslice";
 import { effect, signal } from "@preact/signals-react";
-
+import { isBrowser } from "react-device-detect";
+import { MdOutlineDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 const projectadmin = signal([]);
 const deviceadmin = signal([]);
 const enduser = signal('');
@@ -294,7 +296,11 @@ export default function Listuser() {
     },
     {
       name: "Tên tài khoản",
-      selector: (row) => <div onClick={() => handleSetManager(row.name, user)} style={{ color: (row.name === manager) ? "red" : "black", cursor: "pointer" }}>{row.name}</div>,
+      selector: (row) => <div
+        onClick={() => handleSetManager(row.name, user)}
+        style={{ color: (row.name === manager) ? "red" : "black", cursor: "pointer" }}>
+        {row.name}
+      </div>,
       width: "150px",
       style: {
         justifyContent: "left",
@@ -326,7 +332,7 @@ export default function Listuser() {
               onClick={(e) => handleDelete(e)}
               style={{ cursor: "pointer", color: "red" }}
             >
-              xóa
+              <MdOutlineDelete size={20} color="red" />
             </div>
             : <></>
         )
@@ -360,7 +366,11 @@ export default function Listuser() {
     },
     {
       name: "Dữ liệu",
-      selector: (row) => <div id={row.name} onClick={(e) => handleModify(e)} style={{ cursor: "pointer", color: "green" }}><ion-icon name="create-outline"></ion-icon></div>,
+      selector: (row) => <div id={row.name}
+        onClick={(e) => handleModify(e)}
+        style={{ cursor: "pointer", color: "green" }}>
+        <ion-icon name="create-outline"></ion-icon>
+      </div>,
       width: "80px",
       center: true,
     },
@@ -368,7 +378,6 @@ export default function Listuser() {
       name: "",
       selector: (row) => {
         return (
-
           (row.type !== 'master')
             ? <div
               id={row.name + "_" + row.mail}
@@ -422,20 +431,99 @@ export default function Listuser() {
   return (
 
     <>
-      <div className="DAT_UserList">
-        <DataTable
-          className="DAT_Table_Container"
-          columns={(type === 'master') ? head_master : head}
-          data={data}
-          pagination
-          paginationComponentOptions={paginationComponentOptions}
-          noDataComponent={
-            <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-              <div>Đợi một chút...!</div>
-            </div>
-          }
-        />
-      </div>
+      {isBrowser ?
+        <div className="DAT_UserList">
+          <DataTable
+            className="DAT_Table_Container"
+            columns={(type === 'master') ? head_master : head}
+            data={data}
+            pagination
+            paginationComponentOptions={paginationComponentOptions}
+            noDataComponent={
+              <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                <div>Đợi một chút...!</div>
+              </div>
+            }
+          />
+        </div> :
+        <>
+          {data.map((data, i) => {
+            return (
+              <div key={i} className="DAT_ListDetail_Content_List_Item">
+                <div className="DAT_ListDetail_Content_List_Item_GroupInfo"
+                >
+                  <div className="DAT_ListDetail_Content_List_Item_GroupInfo_Code"
+                    id={data.type}
+                  // onClick={(e) => handleErr(e)}
+                  >
+                    {data.type.toUpperCase()}
+                  </div>
+                  <div className="DAT_ListDetail_Content_List_Item_GroupInfo_Info">
+                    {type === 'master' ?
+                      <div className="DAT_ListDetail_Content_List_Item_GroupInfo_Info_Gateway"
+                        onClick={() => handleSetManager(data.name, user)}
+                        style={{
+                          color: (data.name === manager)
+                            ? "red" : "black",
+                          cursor: "pointer"
+                        }}
+                      >
+                        {data.name}
+                      </div> :
+                      <div className="DAT_ListDetail_Content_List_Item_GroupInfo_Info_Gateway">
+                        {data.username}
+                        {/* {data.mail} */}
+                      </div>
+                    }
+                    <div className="DAT_ListDetail_Content_List_Item_GroupInfo_Info_Detail"
+                      style={{ color: "gray", fontSize: "12px" }}
+                    >
+                      {data.username}
+                      {/* {data.mail} */}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="DAT_ListDetail_Content_List_Item_Bottom">
+                  <div className="DAT_ListDetail_Content_List_Item_Bottom_Time"
+                    style={{ color: "gray", fontSize: "12px" }}
+                  >
+                    {/* {`${data.username}`} */}
+                    {`${data.mail}`}
+                  </div>
+                  <div className="DAT_ListDetail_Content_List_Item_Bottom_Del"
+                    style={{
+                      cursor: "pointer",
+                      color: "red",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center", gap: "10px"
+                    }}
+                  >
+                    {type !== 'master' ?
+                      <div id={data.name}
+                        onClick={(e) => handleModify(e)}
+                        style={{ cursor: "pointer", color: "green" }}>
+                        <FaEdit />
+                      </div> : <></>
+                    }
+                    {data.type !== 'master' ?
+                      <MdOutlineDelete
+                        size={20}
+                        color="red"
+                        id={data.name + "_" + data.mail}
+                        onClick={(e) => handleDelete(e)} /> : <></>}
+                  </div>
+
+                </div>
+              </div>
+            )
+          })}
+        </>
+      }
+
+
+
       <div className="DAT_ModifyUserList" style={{ height: (modify) ? "100vh" : "0px", transition: "0.5s" }} >
         {(modify)
           ?
