@@ -92,7 +92,7 @@
       background-color: rgb(255, 255, 255);
       overflow: hidden;
       height: 62vh;
-      box-shadow: 3px 3px 5px  rgb(199, 199, 199, 0.5), -3px -3px 5px  rgb(199, 199, 199, 0.5);
+      box-shadow: 3px 3px 5px rgb(199, 199, 199, 0.5), -3px -3px 5px rgb(199, 199, 199, 0.5);
 
       &_Nav {
         padding: 10px;
@@ -195,8 +195,6 @@
 
 }
 
-
-
 .DAT_Config {
   position: fixed;
   z-index: 25;
@@ -259,6 +257,104 @@
   gap: 10px;
 }
 
+.DAT_ListExport {
+  width: 100%;
+  padding-top: 60px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
+  }
+
+  &_Container {
+    width: 95%;
+    margin: auto;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+
+    &_List {
+      border-bottom: 1px solid #c6c5c580;
+      border-radius: 5px;
+      padding: 10px;
+      width: 100%;
+      gap: 10px;
+      display: flex;
+      margin-top: 8px;
+
+      &_Left {
+
+        &_Item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-width: 70px;
+          height: 70px;
+          border-radius: 5px;
+          font-size: 12px;
+          background-color: #0082ca;
+          color: white;
+        }
+      }
+
+      &_Right {
+
+        &_Info {
+          width: 100%;
+
+          &_Name {
+            font-family: Montserrat-SemiBold;
+            font-size: 14px;
+            color: rgb(0, 0, 255, 0.8);
+          }
+        }
+
+        &_Small {
+          &_Company {
+            font-family: Montserrat-SemiBold;
+            font-size: 12px;
+          }
+
+          &_Address {
+            font-family: Montserrat-Regular;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    &_Bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+
+      &_Time {
+        font-size: 12px;
+        color: gray;
+      }
+
+      &_Del {
+        cursor: pointer;
+        color: red;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        background-color: rgb(255, 228, 196, 0.5);
+        border: none;
+        border-radius: 50%;
+
+      }
+    }
+  }
+}
 
 
 @media (min-width: 700px) {

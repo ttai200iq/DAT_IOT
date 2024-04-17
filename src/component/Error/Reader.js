@@ -416,12 +416,12 @@ export default function Reader(props) {
                               <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
                                 <span onClick={(e) => handleEditItem(e)}
                                   id={"edit_infor_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "green", marginRight: "10px" }}>
+                                  style={{ color: "green", marginRight: "20px" }}>
                                   <ion-icon name="create-outline"></ion-icon>
                                 </span>
                                 <span onClick={(e) => handleDeleteItem(e)}
                                   id={"delete_infor_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "red", marginRight: "10px" }}>
+                                  style={{ color: "red", marginRight: "20px" }}>
                                   <ion-icon name="trash-outline"></ion-icon>
                                 </span>
                                 <span onClick={(e) => handleAddItem(e)}
@@ -437,12 +437,12 @@ export default function Reader(props) {
                               <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
                                 <span onClick={(e) => handleEditItem(e)}
                                   id={"edit_infor_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "green", marginRight: "10px" }}>
+                                  style={{ color: "green", marginRight: "20px" }}>
                                   <ion-icon name="create-outline"></ion-icon>
                                 </span>
                                 <span onClick={(e) => handleDeleteItem(e)}
                                   id={"delete_infor_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "red", marginRight: "10px" }}>
+                                  style={{ color: "red", marginRight: "20px" }}>
                                   <ion-icon name="trash-outline"></ion-icon>
                                 </span>
                               </div>
@@ -460,12 +460,12 @@ export default function Reader(props) {
                               <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
                                 <span onClick={(e) => handleEditItem(e)}
                                   id={"edit_solution_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "green", marginRight: "10px" }}>
+                                  style={{ color: "green", marginRight: "20px" }}>
                                   <ion-icon name="create-outline"></ion-icon>
                                 </span>
                                 <span onClick={(e) => handleDeleteItem(e)}
                                   id={"delete_solution_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "red", marginRight: "10px" }}>
+                                  style={{ color: "red", marginRight: "20px" }}>
                                   <ion-icon name="trash-outline"></ion-icon>
                                 </span>
                                 <span onClick={(e) => handleAddItem(e)}
@@ -481,12 +481,12 @@ export default function Reader(props) {
                               <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
                                 <span onClick={(e) => handleEditItem(e)}
                                   id={"edit_solution_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "green", marginRight: "10px" }}>
+                                  style={{ color: "green", marginRight: "20px" }}>
                                   <ion-icon name="create-outline"></ion-icon>
                                 </span>
                                 <span onClick={(e) => handleDeleteItem(e)}
                                   id={"delete_solution_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "red", marginRight: "10px" }}>
+                                  style={{ color: "red", marginRight: "20px" }}>
                                   <ion-icon name="trash-outline"></ion-icon>
                                 </span>
                               </div>

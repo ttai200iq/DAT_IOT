@@ -11,8 +11,6 @@ import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
-
-
 export default function Listproject() {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);

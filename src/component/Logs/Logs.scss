@@ -29,6 +29,7 @@
         height: 100vh;
         padding-top: 60px;
         padding-bottom: 20px;
+
         &_Direct {
             position: relative;
             top: 10px;
@@ -113,6 +114,7 @@
                         padding-left: 10px;
                     }
                 }
+
                 &_Search {
                     width: 100%;
                     height: 50px;
@@ -250,7 +252,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 10px 10px 15px 10px;
-            border-bottom: 2px solid rgba(218, 218, 218);
+
             & input {
                 height: 40px;
 
@@ -309,17 +311,15 @@
             margin: auto;
             padding-top: 10px;
             display: flex;
-
             flex-direction: column;
             gap: 10px;
+
             &_Item {
                 background-color: white;
-                // display: flex;
-                // align-items: center;
                 border-radius: 5px;
-                // justify-content: space-between;
                 padding: 10px;
                 width: 100%;
+
                 &_GroupInfo {
                     display: flex;
                     gap: 10px;
@@ -339,20 +339,42 @@
                         background-color: #0082ca;
                         color: white;
                     }
+
                     &_Info {
                         display: flex;
                         flex-direction: column;
+
                         &_Gateway {
                             font-family: Montserrat-SemiBold;
                         }
                     }
                 }
+
                 &_Bottom {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     padding-top: 5px;
                 }
+            }
+        }
+
+        &_Menu {
+            width: 60vw;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            height: 40px;
+            gap: 30px;
+            background-color: white;
+            border-top-right-radius: 7px;
+            border-top-left-radius: 7px;
+
+            &_Item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
             }
         }
     }
@@ -362,6 +384,7 @@
     .DAT_Log_Content_Main {
         height: calc(100vh - 200px);
     }
+
     .DAT_viewErr-Inf {
         width: 500px;
     }

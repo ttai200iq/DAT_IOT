@@ -6,6 +6,7 @@ import { IoClose } from "react-icons/io5";
 import axios from "axios";
 import { host } from "../constant";
 import { CiEdit } from "react-icons/ci";
+import { isBrowser } from "react-device-detect";
 
 export default function ConfigEx(props) {
 
@@ -83,7 +84,6 @@ export default function ConfigEx(props) {
             name: "Thanh ghi (Tháng)",
             selector: (row) => (
                 <>
-
                     <div
                         style={{ cursor: "pointer", marginBottom: "10px", marginTop: "10px" }}
                     >
@@ -103,9 +103,7 @@ export default function ConfigEx(props) {
                                 </div>
                             )
                         })}
-
                     </div>
-
                 </>
             ),
             center: true,
@@ -138,8 +136,6 @@ export default function ConfigEx(props) {
     }
 
     const handleSave = (e) => {
-
-
         let register = { id: config.id, name: name.current.value, type: config.type, cal: (config.type === 'real') ? `["${cal_bit_0.current.value}", "${cal_bit_1.current.value}"]` : cal.current.value }
 
         axios.post(host.DEVICE + "/updateReport", { deviceid: devicetime.value, code: mcode, report: report, register: register }, { secure: true, reconnect: true })
@@ -166,23 +162,29 @@ export default function ConfigEx(props) {
             })
     }
 
-
     return (
         <>
-            <DataTable
-                 className="DAT_Table_Container"
-                columns={col}
-                data={reporttime.value}
-                pagination
-                paginationComponentOptions={paginationComponentOptions}
-                noDataComponent={
-                    <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-                        <div>Danh sách trống</div>
-                        <div>Thêm thiết bị để trải nghiệm tính năng này!</div>
-                    </div>
-                }
+            {isBrowser ?
+                <DataTable
+                    className="DAT_Table_Container"
+                    columns={col}
+                    data={reporttime.value}
+                    pagination
+                    paginationComponentOptions={paginationComponentOptions}
+                    noDataComponent={
+                        <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                            <div>Danh sách trống</div>
+                            <div>Thêm thiết bị để trải nghiệm tính năng này!</div>
+                        </div>
+                    }
 
-            />
+                />
+                :
+                <>
+
+                </>
+            }
+
             {state
                 ? <div className="DAT_Config" >
 
@@ -213,9 +215,6 @@ export default function ConfigEx(props) {
                 </div>
                 : <></>
             }
-
-
-
         </>
     )
 }

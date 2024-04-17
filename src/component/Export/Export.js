@@ -7,6 +7,9 @@ import axios from "axios";
 import { host } from "../constant";
 import ListEx from "./ListEx";
 import ConfigEx from "./ConfigEx";
+import { isBrowser } from "react-device-detect";
+import { MdOutlineWifiTetheringErrorRounded } from "react-icons/md";
+import { IoMdAdd } from "react-icons/io";
 
 export const exp = signal([])
 export const devicetime = signal('')
@@ -88,94 +91,152 @@ export default function Export(props) {
     //     // eslint-disable-next-line
     // }, [])
 
-
-
-
-
-
-
     return (
         <>
-            <div className="DAT_Export" >
-                <div className="DAT_Export_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                    {/* <div className="DAT_Export_Banner_Shadow" ></div> */}
-
-                </div>
-
-                <div className="DAT_Export_Content">
-                    <div className="DAT_Export_Content_Direct" >
-                        {direct.map((data, index) => {
-                            return (
-                                (index === 0)
-                                    ? <Link key={index} to="/" style={{ textDecoration: 'none', color: "white" }}>
-                                        <span style={{ cursor: "pointer" }}> {data.text}</span>
-                                    </Link>
-                                    : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
-
-                            )
-                        })}
+            {isBrowser ?
+                <div className="DAT_Export" >
+                    <div className="DAT_Export_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                        {/* <div className="DAT_Export_Banner_Shadow" ></div> */}
                     </div>
-                    <div className="DAT_Export_Content_Tit">
-                        <div className="DAT_Export_Content_Tit-icon">
-                            {icon}
+
+                    <div className="DAT_Export_Content">
+                        <div className="DAT_Export_Content_Direct" >
+                            {direct.map((data, index) => {
+                                return (
+                                    (index === 0)
+                                        ? <Link key={index} to="/" style={{ textDecoration: 'none', color: "white" }}>
+                                            <span style={{ cursor: "pointer" }}> {data.text}</span>
+                                        </Link>
+                                        : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
+
+                                )
+                            })}
                         </div>
-                        <div className="DAT_Export_Content_Tit-content" >Cài đặt báo cáo</div>
-                    </div>
-                    {/* Nav */}
-                    <div className="DAT_Export_Content_Main">
-
-                        <div className="DAT_Export_Content_Main_Nav">
-                            <div
-                                className="DAT_Export_Content_Main_Nav_Item"
-                                id="list"
-                                style={{ color: nav === "list" ? color.cur : color.pre }}
-                                onClick={(e) => {
-                                    handleNav(e);
-                                }}
-                            >
-                                Danh sách
+                        <div className="DAT_Export_Content_Tit">
+                            <div className="DAT_Export_Content_Tit-icon">
+                                {icon}
                             </div>
-                            <div
-                                className="DAT_Export_Content_Main_Nav_Item"
-                                id="config"
-                                style={{ color: nav === "config" ? color.cur : color.pre }}
-                                onClick={(e) => {
-                                    handleNav(e);
-                                }}
-                            >
-                                Cấu hình
-                            </div>
+                            <div className="DAT_Export_Content_Tit-content" >Cài đặt báo cáo</div>
                         </div>
+                        {/* Nav */}
+                        <div className="DAT_Export_Content_Main">
 
-                        {/* Content */}
-                        <div className="DAT_Export_Content_Main_List">
-                            {(() => {
-                                switch (nav) {
-                                    case "list":
-                                        return (
-                                            <>
-                                                <ListEx username={props.username} />
-                                            </>
-                                        );
-                                    case "config":
-                                        return (
-                                            <>
-                                                <ConfigEx username={props.username} />
-                                            </>
-                                        );
-                                    default:
-                                        <></>;
-                                }
-                            })()}
+                            <div className="DAT_Export_Content_Main_Nav">
+                                <div
+                                    className="DAT_Export_Content_Main_Nav_Item"
+                                    id="list"
+                                    style={{ color: nav === "list" ? color.cur : color.pre }}
+                                    onClick={(e) => {
+                                        handleNav(e);
+                                    }}
+                                >
+                                    Danh sách
+                                </div>
+                                <div
+                                    className="DAT_Export_Content_Main_Nav_Item"
+                                    id="config"
+                                    style={{ color: nav === "config" ? color.cur : color.pre }}
+                                    onClick={(e) => {
+                                        handleNav(e);
+                                    }}
+                                >
+                                    Cấu hình
+                                </div>
+                            </div>
+
+                            {/* Content */}
+                            <div className="DAT_Export_Content_Main_List">
+                                {(() => {
+                                    switch (nav) {
+                                        case "list":
+                                            return (
+                                                <>
+                                                    <ListEx username={props.username} />
+                                                </>
+                                            );
+                                        case "config":
+                                            return (
+                                                <>
+                                                    <ConfigEx username={props.username} />
+                                                </>
+                                            );
+                                        default:
+                                            <></>;
+                                    }
+                                })()}
+                            </div>
                         </div>
                     </div>
                 </div>
+                :
+                <>
+                    <div className="DAT_ListDetail">
+                        <div className="DAT_ListDetail_HeadTit">
+                            <MdOutlineWifiTetheringErrorRounded size={25} color="grey" />
+                            <span >{inf.tit}</span>
+                        </div>
+                        <div className="DAT_ListDetail_Content">
+                            <div className="DAT_ListDetail_Content_Filterbar">
+                                <input
+                                    id="search"
+                                    type="text"
+                                    placeholder="Tìm kiếm"
+                                    style={{ minWidth: "calc(100%)" }}
+                                // onChange={(e) => handleInput(e)}
+                                />
+                                {/* <div className="DAT_ListDetail_Content_Filterbar_Date"
+                                    onClick={() => handleNav()}>
+                                    <IoMdAdd size={18} />
+                                </div> */}
+                            </div>
 
+                            <div className="DAT_Export_Content_Main_List">
+                                {(() => {
+                                    switch (nav) {
+                                        case "list":
+                                            return (
+                                                <>
+                                                    <div className="DAT_ListDetail_Content_Menu">
+                                                        <div
+                                                            className="DAT_ListDetail_Content_Menu_Item"
+                                                            id="list"
+                                                            style={{ color: nav === "list" ? color.cur : color.pre }}
+                                                            onClick={(e) => {
+                                                                handleNav(e);
+                                                            }}
+                                                        >
+                                                            Danh sách
+                                                        </div>
+                                                        <div
+                                                            className="DAT_ListDetail_Content_Menu_Item"
+                                                            id="config"
+                                                            style={{ color: nav === "config" ? color.cur : color.pre }}
+                                                            onClick={(e) => {
+                                                                handleNav(e);
+                                                            }}
+                                                        >
+                                                            Cấu hình
+                                                        </div>
+                                                    </div>
+                                                    <ListEx username={props.username} />
+                                                </>
+                                            );
+                                        case "config":
+                                            return (
+                                                <>
+                                                    <ConfigEx username={props.username} />
+                                                </>
+                                            );
+                                        default:
+                                            <></>;
+                                    }
+                                })()}
+                            </div>
+                        </div>
 
-            </div>
-            {/* Main */}
-
-
+                    </div >
+                </>
+            }
         </>
     )
 }
