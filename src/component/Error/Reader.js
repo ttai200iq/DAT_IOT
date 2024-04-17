@@ -382,10 +382,10 @@ export default function Reader(props) {
         </div>
         :
         <div className="DAT_Read">
-          <div className="DAT_Read_Head" onClick={() => props.handleCloseRead()}>
+          {/* <div className="DAT_Read_Head" onClick={() => props.handleCloseRead()}>
             <IoIosArrowBack />
             Thanh ghi
-          </div>
+          </div> */}
 
           <div className="DAT_Read_Body">
             {reader.value.map((row, index) => (

@@ -8,6 +8,7 @@ import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
 import { LuFolderEdit } from "react-icons/lu";
+import { IoIosArrowBack } from "react-icons/io";
 export default function Register(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
@@ -215,52 +216,89 @@ export default function Register(props) {
 
                 </div> :
                 <>
-                    {register.value.data.map((data, key) => (
-                        <div key={key} className="DAT_ViewMobile_Container_Content">
-                            <div className="DAT_ViewMobile_Container_Content_Top" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
-                                    <div className="DAT_ViewMobile_Container_Content_Top_left"
-                                        style={{ color: "white" }}
-                                    >
-                                        {/* <img alt="" src={avatar} ></img> */}
-                                        {data.id}
-                                    </div>
-                                    <div
-                                        className="DAT_ViewMobile_Container_Content_Top_right"
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <div className="DAT_ViewMobile_Container_Content_Top_right_tit"
-                                            id={data.deviceid}
-                                            style={{
-                                                color: (deviceid.value == data.deviceid) ? "blue" : "black"
-                                            }}
-                                        // onClick={(e) => handleDevice(e)}
-                                        >
-                                            {data.deviceid}
-                                        </div>
-                                        {/* <div className="DAT_ViewMobile_Container_Content_Top_right_company">Công ty: { }</div>
-                                    <div className="DAT_ViewMobile_Container_Content_Top_right_state">
-                                        Trạng thái:
-                                        <img alt="" style={{ width: "13px" }} src="/lib/true_state.png">
-                                        </img>
-                                    </div> */}
 
-                                    </div>
-                                </div>
-                                <LuFolderEdit size={15} />
-                            </div>
-                            {/* <div className="DAT_ViewMobile_Container_Content_Bottom" >
-                                <div className="DAT_ViewMobile_Container_Content_Bottom_addr">data.addr</div>
-                                <div className="DAT_ViewMobile_Container_Content_Bottom_edit" >
-                                    <LuFolderEdit size={15} />
-                                    <RiDeleteBin6Line size={15} />
-                                </div>
-                            </div> */}
+                    <div className="DAT_Read">
+                        <div className="DAT_Read_Head" onClick={() => props.handleCloseRead()}>
+                            <IoIosArrowBack />
+                            Thanh ghi
                         </div>
-                    ))}
+
+                        <div className="DAT_Read_Body">
+                            {register.value.data.map((row, index) => {
+                                console.log(row)
+                                return (
+                                    <div key={index} className="DAT_ViewMobile_Container_Content">
+                                        <div className="DAT_ViewMobile_Container_Content_Top"
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "space-between"
+                                            }}>
+                                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+                                                <div
+                                                    className="DAT_ViewMobile_Container_Content_Top_right">
+                                                    <div className="DAT_ViewMobile_Container_Content_Top_right_content">
+                                                        <div className="DAT_ViewMobile_Container_Content_Top_right_content_title">
+                                                            {/* Tên mã lỗi : */}
+                                                            {/* {row.name} */}
+                                                        </div>
+
+                                                        {/* Nguyen nhan */}
+                                                        <div className="DAT_ViewMobile_Container_Content_Top_right_content_inforTitle">
+                                                            Cấu hình :
+                                                        </div>
+                                                        {row.register.map((infor, i) => (
+                                                            (i === row.length - 1) ?
+                                                                <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
+                                                                    {/* <span>{`${infor.addr}: ${infor.val}`}</span> */}
+                                                                    <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
+                                                                        <span onClick={(e) => handleEditItem(e)}
+                                                                            id={"edit_infor_" + row.code + "_" + parseInt(i + 1)}
+                                                                            style={{ color: "green", marginRight: "10px" }}>
+                                                                            <ion-icon name="create-outline"></ion-icon>
+                                                                        </span>
+                                                                        <span onClick={(e) => handleDeleteItem(e)}
+                                                                            id={"delete_infor_" + row.code + "_" + parseInt(i + 1)}
+                                                                            style={{ color: "red", marginRight: "10px" }}>
+                                                                            <ion-icon name="trash-outline"></ion-icon>
+                                                                        </span>
+                                                                        <span onClick={(e) => handleAddItem(e)}
+                                                                            id={"add_infor_" + row.code}
+                                                                            style={{ color: "red" }}>
+                                                                            <ion-icon name="add-circle-outline"></ion-icon>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                :
+                                                                <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
+                                                                    <span>{infor.text}</span>
+                                                                    <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
+                                                                        <span onClick={(e) => handleEditItem(e)}
+                                                                            id={"edit_infor_" + row.code + "_" + parseInt(i + 1)}
+                                                                            style={{ color: "green", marginRight: "10px" }}>
+                                                                            <ion-icon name="create-outline"></ion-icon>
+                                                                        </span>
+                                                                        <span onClick={(e) => handleDeleteItem(e)}
+                                                                            id={"delete_infor_" + row.code + "_" + parseInt(i + 1)}
+                                                                            style={{ color: "red", marginRight: "10px" }}>
+                                                                            <ion-icon name="trash-outline"></ion-icon>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div className="DAT_ViewMobile_Container_Content_Top_left" >
+                                                {row.addrcode}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div >
                 </>}
 
             <div className="DAT_Register_Config" style={{ display: config ? "block" : "none" }}>

@@ -192,10 +192,12 @@
     }
 
     &_Body {
+        padding-top: 10px;
         display: flex;
         flex-direction: column;
 
-        &_Item {}
+        &_Item {
+        }
     }
 }
 
@@ -500,7 +502,6 @@
                             color: blue;
                         }
 
-
                         &_inforTitle {
                             font-size: 14px;
                             font-family: Montserrat-SemiBold;
@@ -530,7 +531,6 @@
                             flex-direction: column;
                             display: flex;
                             gap: 5px;
-
                         }
 
                         & span {
