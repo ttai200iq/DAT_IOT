@@ -57,8 +57,6 @@
             }
 
             &-icon {
-                width: 40px;
-
                 display: flex;
                 align-items: center;
 
@@ -314,7 +312,6 @@
         }
 
         &-icon {
-            width: 40px;
             display: flex;
             align-items: center;
 
@@ -388,6 +385,9 @@
                 align-items: center;
                 display: flex;
                 justify-content: center;
+                background-color: rgb(255, 228, 196, 0.5);
+                border: none;
+                border-radius: 50%;
             }
         }
     }

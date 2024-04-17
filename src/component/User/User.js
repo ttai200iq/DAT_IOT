@@ -8,12 +8,11 @@ import Listuser from "./Listuser";
 import { IoMdAdd } from "react-icons/io";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
-import { CiSearch } from "react-icons/ci";
+import { HiOutlineUsers } from "react-icons/hi2";
 export const editUser = signal(false)
 
 export default function User(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
-    const icon = <ion-icon name="construct-outline"></ion-icon>
     const inf = { code: 'Report', tit: 'Người dùng' }
     const [direct, SetDirect] = useState([{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }])
     const color = {
@@ -49,7 +48,7 @@ export default function User(props) {
                         </div>
                         <div className="DAT_User_Content_Tit">
                             <div className="DAT_User_Content_Tit-icon">
-                                {icon}
+                                <HiOutlineUsers size={25} color="grey" />
                             </div>
                             <div className="DAT_User_Content_Tit-content" >{inf.tit}</div>
                         </div>
@@ -87,7 +86,7 @@ export default function User(props) {
 
                 <div className="DAT_ListDetail">
                     <div className="DAT_ListDetail_HeadTit">
-                        {icon}
+                        <HiOutlineUsers size={25} color="grey" />
                         <span >{inf.tit}</span>
                     </div>
                     <div className="DAT_ListDetail_Content">
@@ -116,8 +115,6 @@ export default function User(props) {
             <div className="DAT_User_Fix" style={{ height: editUser.value ? "100vh" : "0", transition: "0.5s" }}>
                 {editUser.value ? <Info username={props.username} /> : <></>}
             </div>
-
-
         </>
     )
 }

@@ -7,6 +7,9 @@ import { host } from "../constant";
 import { useDispatch, useSelector } from "react-redux";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
+import { isBrowser } from "react-device-detect";
+import { MdOutlineDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 
 
@@ -36,8 +39,6 @@ export default function Listproject() {
         });
         console.log(newData);
         setData(newData);
-
-
       })
   }, []);
 
@@ -61,7 +62,6 @@ export default function Listproject() {
       style: {
         justifyContent: "left",
       }
-
     },
 
     {
@@ -86,8 +86,6 @@ export default function Listproject() {
       name: "",
       selector: (row) => {
         return (
-
-
           <div
             id={row.projectid}
             onClick={(e) => handleDelete(e)}
@@ -124,21 +122,86 @@ export default function Listproject() {
   };
 
   return (
-    <div className="DAT_UserList">
-      <DataTable
-        className="DAT_Table_Container"
-        columns={head}
-        data={data}
-        pagination
-        paginationComponentOptions={paginationComponentOptions}
-        noDataComponent={
-          <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-            <div>Danh sách trống</div>
-            <div>Vui lòng tạo dự án</div>
-          </div>
-        }
-      />
-    </div>
+    <>
+      {isBrowser ?
+        <div className="DAT_UserList">
+          <DataTable
+            className="DAT_Table_Container"
+            columns={head}
+            data={data}
+            pagination
+            paginationComponentOptions={paginationComponentOptions}
+            noDataComponent={
+              <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                <div>Danh sách trống</div>
+                <div>Vui lòng tạo dự án</div>
+              </div>
+            }
+          />
+        </div>
+        :
+        // MOBILE SECTION
+        <>
+          {data.map((data, i) => {
+            return (
+              <div key={i} className="DAT_ProjDetail_Container">
+                <div className="DAT_ProjDetail_Container_List">
+                  <div className="DAT_ProjDetail_Container_List_Left">
+                    <div className="DAT_ProjDetail_Container_List_Left_Item"
+                      id={data.type}
+                    >
+                      {data.id}
+                    </div>
+                  </div>
+
+                  <div className="DAT_ProjDetail_Container_List_Right">
+                    <div className="DAT_ProjDetail_Container_List_Right_Info">
+                      <div className="DAT_ProjDetail_Container_List_Right_Info_Name"
+                        id={data.id}
+                      >
+                        {data.name}
+                      </div>
+                    </div>
+
+                    <div className="DAT_ProjDetail_Container_List_Right_Small">
+                      <div className="DAT_ProjDetail_Container_List_Right_Small_Company"
+                        id={data.id}
+                      >
+                        {data.company}
+                      </div>
+                    </div>
+
+                    <div className="DAT_ProjDetail_Container_List_Right_Small">
+                      <div className="DAT_ProjDetail_Container_List_Right_Small_Address"
+                        id={data.id}
+                      >
+                        {data.addr}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="DAT_ProjDetail_Container_Bottom">
+                  <div className="DAT_ProjDetail_Container_Bottom_Time">
+                    Lần cập nhật cuối: ...
+                  </div>
+                  <div className="DAT_ProjDetail_Container_Bottom_Del">
+                    {data.type !== 'master' ?
+                      <MdOutlineDelete
+                        size={20}
+                        color="red"
+                        id={data.name + "_" + data.mail}
+                        onClick={(e) => handleDelete(e)} /> : <></>}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </>
+      }
+
+    </>
+
 
   );
 }

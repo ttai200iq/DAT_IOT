@@ -14,14 +14,14 @@ import Contact from "./Contact";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { FaRegUser } from "react-icons/fa6";
+import { PiUserCircleLight } from "react-icons/pi";
+
 export const editPass = signal(false)
 
 export default function Acount(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
-    const icon = <ion-icon name="construct-outline"></ion-icon>
     const inf = { code: 'Report', tit: 'Tài khoản' }
     const direct = [{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }]
-    const iconmobile = <FaRegUser color="gray" size={25} />
 
     const type = useSelector((state) => state.admin.type)
 
@@ -51,7 +51,7 @@ export default function Acount(props) {
                         </div>
                         <div className="DAT_Account_Content_Tit">
                             <div className="DAT_Account_Content_Tit-icon">
-                                {icon}
+                                <PiUserCircleLight size={30} color="gray" style={{ cursor: "pointer" }} />
                             </div>
                             <div className="DAT_Account_Content_Tit-content" >{inf.tit}</div>
                         </div>
@@ -76,7 +76,7 @@ export default function Acount(props) {
                 :
                 <div className="DAT_AccountMobile">
                     <div className="DAT_AccountMobile_Head" >
-                        {iconmobile}
+                        <PiUserCircleLight size={30} color="gray" />
                         <span>{inf.tit}</span>
                     </div>
 

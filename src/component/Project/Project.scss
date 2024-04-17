@@ -167,7 +167,6 @@
 
 
 .DAT_ProjectAdd {
-
     width: 100%;
     height: 100%;
     overflow-y: scroll;
@@ -178,7 +177,6 @@
         display: none;
     }
 
-
     &_Form {
         position: relative;
         width: 90%;
@@ -187,42 +185,63 @@
         margin-bottom: 20px;
 
         &_Head {
-            width: 100%;
-            padding: 20px;
-            border-radius: 5px;
             background-color: white;
+            color: white;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            overflow: hidden;
+            padding: 16px;
+            margin-bottom: 10px;
 
-            & span:first-child {
-                font-size: 22px;
+            &_Left {
+                font-family: Montserrat-Bold;
+                font-size: 18px;
                 color: blue;
             }
 
-            & span:last-child {
-                cursor: pointer;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
+            &_Right {
+                flex: 5;
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: red;
+                flex-wrap: wrap;
+                overflow: hidden;
+                justify-content: flex-end;
+                gap: 10px;
 
-                &:hover {
-                    background-color: rgb(255, 0, 0, 0.5);
+                &_Close {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    overflow: hidden;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    cursor: pointer;
+
+                    &_Icon {
+                        cursor: pointer;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: red;
+
+                        &:hover {
+                            background-color: rgb(255, 0, 0, 0.5);
+                        }
+                    }
                 }
             }
         }
 
-
         &_Row {
             display: flex;
-            gap: 10px;
             background-color: white;
-            padding: 20px;
+            padding: 10px;
+            gap: 10px;
 
             &_Item {
                 position: relative;
@@ -248,17 +267,13 @@
             }
 
             &_Button {
-
-                height: 34px;
+                width: 120px;
+                height: 40px;
                 border: none;
+                border-radius: 7px;
+                border: solid 1px #a2a2a2;
+                background-color: #0082ca;
                 color: white;
-                background-color: blue;
-                font-weight: 400;
-                border-radius: 5px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
             }
 
         }
@@ -270,6 +285,103 @@
 
 }
 
+.DAT_ProjDetail {
+    width: 100%;
+    padding-top: 60px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    /* Firefox */
+    &::-webkit-scrollbar {
+        display: none;
+        /* Safari and Chrome */
+    }
+
+    &_Container {
+        width: 95%;
+        margin: auto;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: white;
+        padding-bottom: 10px;
+
+        &_List {
+            border-bottom: 1px solid #c6c5c580;
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+            gap: 10px;
+            display: flex;
+
+            &_Left {
+
+                &_Item {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-width: 70px;
+                    height: 70px;
+                    border-radius: 5px;
+                    font-size: 12px;
+                    background-color: #0082ca;
+                    color: white;
+                }
+            }
+
+            &_Right {
+
+                &_Info {
+                    width: 100%;
+
+                    &_Name {
+                        font-family: Montserrat-SemiBold;
+                        font-size: 14px;
+                        color: rgb(0, 0, 255, 0.8);
+                    }
+                }
+
+                &_Small {
+                    &_Company {
+                        font-family: Montserrat-SemiBold;
+                        font-size: 12px;
+                    }
+
+                    &_Address {
+                        font-family: Montserrat-Regular;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+
+        &_Bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+
+            &_Time {
+                font-size: 12px;
+                color: gray;
+            }
+
+            &_Del {
+                cursor: pointer;
+                color: red;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                background-color: rgb(255, 228, 196, 0.5);
+                border: none;
+                border-radius: 50%;
+
+            }
+        }
+    }
+}
 
 
 @media (min-width: 700px) {

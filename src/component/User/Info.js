@@ -66,10 +66,26 @@ export default function Info() {
     return (
         <div className="DAT_Info">
             <form className="DAT_Info_Form" onSubmit={(e) => handleSave(e)}>
-
                 <div className="DAT_Info_Form_Head">
-                    <span>Thêm người dùng</span>
-                    <span onClick={() => editUser.value = false}><IoClose size={20} color="white" /></span>
+                    <div className="DAT_Info_Form_Head_Left">
+                        <span>Thêm người dùng</span>
+                    </div>
+                    <div className="DAT_Info_Form_Head_Right">
+                        <div className="DAT_Info_Form_Head_Right_Close">
+                            <span style={{
+                                width: "30px",
+                                height: "30px",
+                                borderRadius: "50%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "red"
+                            }}
+                                onClick={() => editUser.value = false}>
+                                <IoClose size={20} color="white" />
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div className="DAT_Info_Form_Row"
                     style={{ borderRadius: '5px 5px 0 0' }}

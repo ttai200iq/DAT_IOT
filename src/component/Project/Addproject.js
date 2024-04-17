@@ -101,21 +101,32 @@ export default function AddProject(props) {
 
   return (
     <div className="DAT_ProjectAdd">
-
-
-
-      <form
-        className="DAT_ProjectAdd_Form"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+      <form className="DAT_ProjectAdd_Form" onSubmit={(e) => handleSubmit(e)}>
         <div className="DAT_ProjectAdd_Form_Head">
-          <span>Thêm người dùng</span>
-          <span onClick={() => editProject.value = false}><IoClose size={20} color="white" /></span>
+          <div className="DAT_ProjectAdd_Form_Head_Left">
+            <span>Thêm dự án</span>
+          </div>
+          <div className="DAT_ProjectAdd_Form_Head_Right">
+            <div className="DAT_ProjectAdd_Form_Head_Righ_Close">
+              <span style={{
+                width: "30px",
+                height: "30px",
+                borderRadius: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "red"
+              }}
+                onClick={() => editProject.value = false}>
+                <IoClose size={20} color="white" />
+              </span>
+            </div>
+          </div>
         </div>
         <div className="DAT_ProjectAdd_Form_Row">
           <div className="DAT_ProjectAdd_Form_Row_Item">
             <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-              Mã dự án
+              * Mã dự án
             </div>
             <input type="text" ref={ProjectAddid} required />
           </div>
@@ -127,13 +138,13 @@ export default function AddProject(props) {
             <div className="DAT_ProjectAdd_Form_Row">
               <div className="DAT_ProjectAdd_Form_Row_Item">
                 <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  Tên dự án
+                  * Tên dự án
                 </div>
                 <input type="text" ref={name} required />
               </div>
               <div className="DAT_ProjectAdd_Form_Row_Item">
                 <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  Công ty
+                  * Công ty
                 </div>
                 <input type="text" ref={company} required />
               </div>
@@ -142,7 +153,7 @@ export default function AddProject(props) {
             <div className="DAT_ProjectAdd_Form_Row">
               <div className="DAT_ProjectAdd_Form_Row_Item">
                 <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  Vị trí
+                  * Vị trí
                 </div>
                 <input type="text" ref={info} required />
               </div>
@@ -151,13 +162,13 @@ export default function AddProject(props) {
             <div className="DAT_ProjectAdd_Form_Row">
               <div className="DAT_ProjectAdd_Form_Row_Item">
                 <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  Vĩ độ(Nhấp vào vị trí sẽ tự động cập nhật)
+                  Vĩ độ
                 </div>
                 <input type="text" id="lat" ref={lat} onClick={(e) => handleInput(e)} required />
               </div>
               <div className="DAT_ProjectAdd_Form_Row_Item">
                 <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  Kinh độ(Nhấp vào vị trí sẽ tự động cập nhật)
+                  Kinh độ
                 </div>
                 <input type="text" id="long" ref={long} onClick={(e) => handleInput(e)} required />
               </div>

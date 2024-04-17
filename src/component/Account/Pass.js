@@ -56,7 +56,6 @@ export default function Pass(props) {
 
     return (
         <div className="DAT_Security">
-
             <form className="DAT_Security_Form" onSubmit={(e) => handleSave(e)}>
                 <div className="DAT_Security_Form_Head">
                     <div className="DAT_Security_Form_Head_Left">

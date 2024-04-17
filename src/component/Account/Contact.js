@@ -8,7 +8,7 @@ import { host } from '../constant';
 import { IoClose, IoCloseSharp } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import { avatar } from '../MenuTop/MenuTop';
-import { RiImageAddLine } from "react-icons/ri";
+import { RiImageAddLine, RiImageEditFill, RiImageFill } from "react-icons/ri";
 import { FaRegSave } from "react-icons/fa";
 import { useIntl } from 'react-intl';
 import { AlertContext } from '../Context/AlertContext';
@@ -206,7 +206,7 @@ function Contact(props) {
                             <div className='DAT_Contact_Avatar-group'>
                                 <img src={avatar.value === '' ? '/dat_icon/user_manager.png' : avatar.value} alt="" />
 
-                                <label htmlFor="file_avatar" className='DAT_Contact_Avatar-group-add' ><RiImageAddLine /></label>
+                                <label htmlFor="file_avatar" className='DAT_Contact_Avatar-group-add' ><RiImageEditFill /></label>
                                 <input accept="image/*" id="file_avatar" type="file" style={{ visibility: "hidden" }} onChange={e => handleAvatar(e)} />
                             </div>
                             <div style={{ marginBottom: "10px" }}><span>Tên</span>: {username}</div>
@@ -230,7 +230,7 @@ function Contact(props) {
                                 <div className='DAT_Contact_Infor_Logo-img' >
                                     <img src={logo.value === '' ? '/dat_icon/logo_DAT.png' : logo.value} alt="" />
                                 </div>
-                                <label htmlFor="file_logo" className='DAT_Contact_Infor_Logo-add' ><RiImageAddLine /></label>
+                                <label htmlFor="file_logo" className='DAT_Contact_Infor_Logo-add' ><RiImageEditFill /></label>
                                 <input accept="image/*" id="file_logo" type="file" style={{ visibility: "hidden" }} onChange={e => handleLogo(e)} />
                             </div>
 
@@ -325,7 +325,7 @@ function Contact(props) {
                         <div className='DAT_ContactMobile_Logo_Content' >
                             <div className='DAT_ContactMobile_Logo_Content_Picture' >
                                 <img src={logo.value === '' ? '/dat_icon/logo_DAT.png' : logo.value} alt="" />
-                                <label htmlFor="file_logo" ><RiImageAddLine /></label>
+                                <label htmlFor="file_logo" ><RiImageEditFill /></label>
                             </div>
                             <div className='DAT_ContactMobile_Logo_Content_Button'>
                                 <input accept="image/*" id="file_logo" type="file" style={{ visibility: "hidden" }} onChange={e => handleLogo(e)} />
@@ -338,7 +338,7 @@ function Contact(props) {
                         <div className='DAT_ContactMobile_ContactInfo_Head'>
                             <span >* Thông tin liên hệ </span>
                             <div className='DAT_ContactMobile_ContactInfo_Head_Button'>
-                                <label onClick={() => { setEdit(true) }}><CiEdit /></label>
+                                <label onClick={() => { setEdit(true) }}><CiEdit size={25} /></label>
                             </div>
                         </div>
                         <div className='DAT_ContactMobile_ContactInfo_Content'>
@@ -435,7 +435,7 @@ function Contact(props) {
                         <div className='DAT_ContactMobile_Avatar_Content' >
                             <div className='DAT_ContactMobile_Avatar_Content_Picture' >
                                 <img src={avatar.value === '' ? '/dat_icon/user_manager.png' : avatar.value} alt="" />
-                                <label htmlFor="file_avatar"><RiImageAddLine /></label>
+                                <label htmlFor="file_avatar"><RiImageEditFill /></label>
                                 <div className='DAT_ContactMobile_Avatar_Content_Button'>
                                     <input accept="image/*" id="file_avatar" type="file" style={{ visibility: "hidden" }} onChange={e => handleAvatar(e)} />                            </div>
                             </div>

@@ -170,35 +170,54 @@
         margin-bottom: 20px;
 
         &_Head {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
             background-color: white;
+            color: white;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            box-shadow:
-                2px 2px 5px rgba(74, 74, 74, 0.3),
-                -2px -2px 5px rgba(176, 176, 176, 0.3);
+            flex-wrap: wrap;
+            overflow: hidden;
+            padding: 16px;
+            margin-bottom: 10px;
 
-            & span:first-child {
-                font-size: 16px;
-                color: #0082ca;
+            &_Left {
+                font-family: Montserrat-Bold;
+                font-size: 18px;
+                color: blue;
             }
 
-            & span:last-child {
-                cursor: pointer;
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
+            &_Right {
+                flex: 5;
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: red;
+                flex-wrap: wrap;
+                overflow: hidden;
+                justify-content: flex-end;
+                gap: 10px;
 
-                &:hover {
-                    background-color: rgb(255, 0, 0, 0.5);
+                &_Close {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    overflow: hidden;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    cursor: pointer;
+
+                    &_Icon {
+                        cursor: pointer;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: red;
+
+                        &:hover {
+                            background-color: rgb(255, 0, 0, 0.5);
+                        }
+                    }
                 }
             }
         }
@@ -370,7 +389,6 @@
                     &_Info {
                         display: flex;
 
-                        // flex-direction: column;
                         &_Gateway {
                             font-family: Montserrat-SemiBold;
                         }
@@ -382,6 +400,17 @@
                     align-items: center;
                     justify-content: space-between;
                     padding-top: 5px;
+
+                    &_Del {
+                        cursor: pointer;
+                        color: red;
+                        align-items: center;
+                        display: flex;
+                        justify-content: center;
+                        background-color: rgb(255, 228, 196, 0.5);
+                        border: none;
+                        border-radius: 50%;
+                    }
                 }
             }
         }

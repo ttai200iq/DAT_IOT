@@ -9,10 +9,9 @@ import { AlertContext } from "../Context/AlertContext";
 import DataTable from "react-data-table-component";
 import { isBrowser } from "react-device-detect";
 import { FaEdit } from "react-icons/fa";
-import { MdOutlineDelete } from "react-icons/md";
+import { MdOutlineDashboard, MdOutlineDelete } from "react-icons/md";
 export default function Storage(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
-    const icon = <ion-icon name="construct-outline"></ion-icon>
     const inf = { code: 'Device', tit: 'Kho giao diện' }
     const [direct, SetDirect] = useState([{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }])
     const manager = useSelector((state) => state.admin.manager)
@@ -149,7 +148,7 @@ export default function Storage(props) {
                         </div>
                         <div className="DAT_Strorage_Content_Tit">
                             <div className="DAT_Strorage_Content_Tit-icon">
-                                {icon}
+                                <MdOutlineDashboard size={25} color="grey" />
                             </div>
                             <div className="DAT_Strorage_Content_Tit-content" >{inf.tit}</div>
                         </div>
@@ -183,7 +182,7 @@ export default function Storage(props) {
                     <div className="DAT_StorageMobile">
                         <div className="DAT_StorageMobile_Tit" >
                             <div className="DAT_StorageMobile_Tit-icon">
-                                {icon}
+                                <MdOutlineDashboard size={25} color="grey" />
                             </div>
                             <div className="DAT_StorageMobile_Tit-content" >
                                 {inf.tit}

@@ -442,22 +442,7 @@ export default function Listuser() {
                     {/* {`${data.username}`} */}
                     {`${data.mail}`}
                   </div>
-                  <div className="DAT_ListDetail_Content_List_Item_Bottom_Del"
-                    style={{
-                      cursor: "pointer",
-                      color: "red",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center", gap: "10px"
-                    }}
-                  >
-                    {type !== 'master' ?
-                      <div id={data.name}
-                        onClick={(e) => handleModify(e)}
-                        style={{ cursor: "pointer", color: "green" }}>
-                        <FaEdit />
-                      </div> : <></>
-                    }
+                  <div className="DAT_ListDetail_Content_List_Item_Bottom_Del" >
                     {data.type !== 'master' ?
                       <MdOutlineDelete
                         size={20}
@@ -482,7 +467,9 @@ export default function Listuser() {
 
             <div className="DAT_ModifyUserList-Group-head"  >
               <span>Tài khoản: <p style={{ color: "green" }}>{enduser.value}</p></span>
-              <span onClick={() => setModify(false)} ><ion-icon name="close-outline"></ion-icon></span>
+              <span onClick={() => setModify(false)} >
+                <ion-icon name="close-outline"></ion-icon>
+              </span>
             </div>
             <div className="DAT_ModifyUserList-Group-eurole"  >
               <div onClick={() => handleRole("mainuser", enduser.value)} style={{ color: (role.value[enduser.value] === 'mainuser') ? "green" : "black", cursor: "pointer" }}>Quản trị viên</div>
@@ -508,7 +495,6 @@ export default function Listuser() {
                   <span>{item.deviceid}</span>
                   <span >{item.code}</span>
                   <span onClick={() => handleFix("device", item.status, item.deviceid, item.code)} style={{ color: (item.status === 'true') ? "green" : "red", display: "flex", justifyContent: "flex-end", cursor: "pointer" }}>{item.status}</span>
-
                 </div>
               ))
               }

@@ -210,7 +210,7 @@
         margin: auto;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 5px;
         margin-top: 10px;
         margin-bottom: 15px;
 
@@ -640,8 +640,6 @@
             &_Button {
 
                 & label {
-                    font-size: 25px;
-                    font-family: Montserrat-Regular !important;
                     color: #0d6efd;
                     width: 30px;
                     height: 30px;
