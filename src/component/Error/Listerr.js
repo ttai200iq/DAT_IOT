@@ -10,6 +10,7 @@ import { isBrowser } from "react-device-detect";
 import { LuFolderEdit } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Reader from "./Reader";
+import Register from "./Register";
 
 
 export default function Listerr(props) {
@@ -134,7 +135,8 @@ export default function Listerr(props) {
                                         </div>
                                     </div>
                                     <LuFolderEdit size={15}
-                                        onClick={() => { handleCloseRead(); console.log(readstate) }}
+                                        id={data.deviceid}
+                                        onClick={(e) => { handleCloseRead(); console.log(readstate); handleDevice(e) }}
                                     />
                                 </div>
                                 {/* <div className="DAT_ViewMobile_Container_Content_Bottom" >
@@ -147,7 +149,7 @@ export default function Listerr(props) {
                             </div>
                         )) :
                         <>
-                            <Reader username={props.username} handleCloseRead={handleCloseRead} />
+                            <Register username={props.username} handleCloseRead={handleCloseRead} />
                         </>}
 
 
