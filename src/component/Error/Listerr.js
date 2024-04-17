@@ -132,7 +132,7 @@ export default function Listerr(props) {
                                         </div>
                                     </div>
                                     <LuFolderEdit size={15}
-                                        onClick={() => { handleCloseRead(); console.log(readstate) }}
+                                    // onClick={() => { handleCloseRead(); console.log(readstate) }}
                                     />
                                 </div>
                                 {/* <div className="DAT_ViewMobile_Container_Content_Bottom" >
