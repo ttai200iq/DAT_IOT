@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Error.scss";
 import DataTable from "react-data-table-component";
-import { deviceid, list, register } from "./Error";
+import { deviceid, list, reader, readstate, register } from "./Error";
 import axios from "axios";
 import { host } from "../constant";
 import { useIntl } from "react-intl";
@@ -11,13 +11,13 @@ import { LuFolderEdit } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Reader from "./Reader";
 import Register from "./Register";
+import { signal } from "@preact/signals-react";
 
 
 export default function Listerr(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
     const avatar = '/avatar/auto.jpg'
-    const [readstate, setReadstate] = useState(false)
 
     const paginationComponentOptions = {
         rowsPerPageText: 'Số hàng',
@@ -62,9 +62,13 @@ export default function Listerr(props) {
     }
 
     const handleCloseRead = () => {
-        setReadstate(!readstate)
+        readstate.value = !readstate.value
     }
 
+    useEffect(() => {
+        console.log(reader.value)
+        console.log(document.getElementById("errid"))
+    }, [])
     return (
         <>
             {isBrowser
@@ -94,7 +98,7 @@ export default function Listerr(props) {
                 </div> :
                 //MOBILE SECTION
                 <>
-                    {readstate === false ?
+                    {readstate.value === false ?
                         list.value.map((data, key) => (
                             <div key={key} className="DAT_ViewMobile_Container_Content">
                                 <div className="DAT_ViewMobile_Container_Content_Top"
@@ -118,10 +122,16 @@ export default function Listerr(props) {
                                             }}
                                         >
                                             <div className="DAT_ViewMobile_Container_Content_Top_right_tit"
-                                                id={data.deviceid}
                                                 style={{
                                                     color: (deviceid.value == data.deviceid) ? "blue" : "black"
-                                                }} onClick={(e) => handleDevice(e)}
+                                                }}
+                                                id={data.deviceid}
+                                                onClick={(e) => {
+                                                    handleCloseRead();
+                                                    console.log(readstate);
+                                                    handleDevice(e);
+                                                    console.log(document.getElementById("errcode"))
+                                                }}
                                             >
                                                 {data.deviceid}
                                             </div>
@@ -134,10 +144,6 @@ export default function Listerr(props) {
 
                                         </div>
                                     </div>
-                                    <LuFolderEdit size={15}
-                                        id={data.deviceid}
-                                        onClick={(e) => { handleCloseRead(); console.log(readstate); handleDevice(e) }}
-                                    />
                                 </div>
                                 {/* <div className="DAT_ViewMobile_Container_Content_Bottom" >
                                     <div className="DAT_ViewMobile_Container_Content_Bottom_addr">data.addr</div>

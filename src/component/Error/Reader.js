@@ -362,6 +362,70 @@ export default function Reader(props) {
     setConfig(false);
   };
 
+  const handleAddReader = (e) => {
+    e.preventDefault();
+    var err = document.getElementById("errid");
+
+    var newData = reader.value.filter((data) => data.code == err.value);
+    //console.log(newData)
+
+    if (newData.length > 0) {
+      console.log("already exist!");
+      alertDispatch({
+        type: "LOAD_CONTENT",
+        payload: {
+          content: dataLang.formatMessage({ id: "alert_41" }),
+          show: "block",
+        },
+      });
+    } else {
+      axios
+        .post(
+          host.DEVICE + "/addInfErr",
+          {
+            code: err.value,
+            name: "Lỗi " + parseInt(reader.value.length + 1),
+            type: "Error",
+            infor: JSON.stringify([{ id: 1, text: "..." }]),
+            solution: JSON.stringify([{ id: 1, text: "..." }]),
+            user: props.username,
+          },
+          { secure: true, reconnect: true }
+        )
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status) {
+            reader.value = [
+              ...reader.value,
+              {
+                id: parseInt(reader.value.length + 1),
+                code: err.value,
+                name: "Lỗi " + parseInt(reader.value.length + 1),
+                type: "Error",
+                infor: [{ id: 1, text: "..." }],
+                solution: [{ id: 1, text: "..." }],
+              },
+            ];
+            alertDispatch({
+              type: "LOAD_CONTENT",
+              payload: {
+                content: dataLang.formatMessage({ id: "alert_5" }),
+                show: "block",
+              },
+            });
+          } else {
+            alertDispatch({
+              type: "LOAD_CONTENT",
+              payload: {
+                content: dataLang.formatMessage({ id: "alert_3" }),
+                show: "block",
+              },
+            });
+          }
+        });
+    }
+  };
+
   return (
     <>
       {isBrowser ?
@@ -381,129 +445,155 @@ export default function Reader(props) {
           />
         </div>
         :
-        <div className="DAT_Read">
-          {/* <div className="DAT_Read_Head" onClick={() => props.handleCloseRead()}>
-            <IoIosArrowBack />
-            Thanh ghi
-          </div> */}
+        <>
+          <div className="DAT_ViewMobile_Container_Add" style={{ width: "100%" }}>
 
-          <div className="DAT_Read_Body">
-            {reader.value.map((row, index) => (
-              <div key={index} className="DAT_ViewMobile_Container_Content">
-                <div className="DAT_ViewMobile_Container_Content_Top"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between"
-                  }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
-                    <div
-                      className="DAT_ViewMobile_Container_Content_Top_right">
-                      <div className="DAT_ViewMobile_Container_Content_Top_right_content">
-                        <div className="DAT_ViewMobile_Container_Content_Top_right_content_title">
-                          {/* Tên mã lỗi : */}
-                          {row.name}
-                        </div>
+            <form className="DAT_ViewMobile_Container_Add_Form" onSubmit={(e) => handleAddReader(e)}>
+              <input
+                placeholder="Nhập mã lỗi"
+                id="errcode"
+                required
+              ></input>
+              <button>
+                <ion-icon name="add-outline"></ion-icon>
+              </button>
+            </form>
+          </div>
+          <div className="DAT_Read">
+            <div className="DAT_Read_Body">
+              {reader.value.map((row, index) => (
+                <div key={index} className="DAT_ViewMobile_Container_Content">
+                  <div className="DAT_ViewMobile_Container_Content_Top"
+                    style={{
+                      display: "flex",
+                      // alignItems: "center",
+                      // justifyContent: "space-between",
+                      gap: "20px",
+                      borderBottom: "1px solid #e0e0e0",
+                    }}>
+                    <div className="DAT_ViewMobile_Container_Content_Top_left" >
+                      {row.type}
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+                      <div
+                        className="DAT_ViewMobile_Container_Content_Top_right">
+                        <div className="DAT_ViewMobile_Container_Content_Top_right_content">
+                          <div className="DAT_ViewMobile_Container_Content_Top_right_content_title">
+                            {/* Tên mã lỗi : */}
+                            {row.name}
+                          </div>
 
-                        {/* Nguyen nhan */}
-                        <div className="DAT_ViewMobile_Container_Content_Top_right_content_inforTitle">
-                          Nguyên nhân :
-                        </div>
-                        {row.infor.map((infor, i) => (
-                          (i === row.infor.length - 1) ?
-                            <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
-                              <span>{infor.text}</span>
-                              <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
-                                <span onClick={(e) => handleEditItem(e)}
-                                  id={"edit_infor_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "green", marginRight: "20px" }}>
-                                  <ion-icon name="create-outline"></ion-icon>
-                                </span>
-                                <span onClick={(e) => handleDeleteItem(e)}
-                                  id={"delete_infor_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "red", marginRight: "20px" }}>
-                                  <ion-icon name="trash-outline"></ion-icon>
-                                </span>
-                                <span onClick={(e) => handleAddItem(e)}
-                                  id={"add_infor_" + row.code}
-                                  style={{ color: "red" }}>
-                                  <ion-icon name="add-circle-outline"></ion-icon>
-                                </span>
+                          {/* Nguyen nhan */}
+                          <div className="DAT_ViewMobile_Container_Content_Top_right_content_inforTitle">
+                            Nguyên nhân :
+                          </div>
+                          {row.infor.map((infor, i) => (
+                            (i === row.infor.length - 1) ?
+                              <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
+                                <span>{infor.text}</span>
+                                <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
+                                  <span onClick={(e) => handleEditItem(e)}
+                                    id={"edit_infor_" + row.code + "_" + parseInt(i + 1)}
+                                    style={{ color: "green", marginRight: "20px" }}>
+                                    <ion-icon name="create-outline"></ion-icon>
+                                  </span>
+                                  <span onClick={(e) => handleDeleteItem(e)}
+                                    id={"delete_infor_" + row.code + "_" + parseInt(i + 1)}
+                                    style={{ color: "red", marginRight: "20px" }}>
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                  </span>
+                                  <span onClick={(e) => handleAddItem(e)}
+                                    id={"add_infor_" + row.code}
+                                    style={{ color: "red" }}>
+                                    <ion-icon name="add-circle-outline"></ion-icon>
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                            :
-                            <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
-                              <span>{infor.text}</span>
-                              <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
-                                <span onClick={(e) => handleEditItem(e)}
-                                  id={"edit_infor_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "green", marginRight: "20px" }}>
-                                  <ion-icon name="create-outline"></ion-icon>
-                                </span>
-                                <span onClick={(e) => handleDeleteItem(e)}
-                                  id={"delete_infor_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "red", marginRight: "20px" }}>
-                                  <ion-icon name="trash-outline"></ion-icon>
-                                </span>
+                              :
+                              <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
+                                <span>{infor.text}</span>
+                                <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
+                                  <span onClick={(e) => handleEditItem(e)}
+                                    id={"edit_infor_" + row.code + "_" + parseInt(i + 1)}
+                                    style={{ color: "green", marginRight: "20px" }}>
+                                    <ion-icon name="create-outline"></ion-icon>
+                                  </span>
+                                  <span onClick={(e) => handleDeleteItem(e)}
+                                    id={"delete_infor_" + row.code + "_" + parseInt(i + 1)}
+                                    style={{ color: "red", marginRight: "20px" }}>
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                        ))}
+                          ))}
 
-                        {/* Bien phap */}
-                        <div className="DAT_ViewMobile_Container_Content_Top_right_content_inforTitle">
-                          Biển pháp :
+                          {/* Bien phap */}
+                          <div className="DAT_ViewMobile_Container_Content_Top_right_content_inforTitle">
+                            Biển pháp :
+                          </div>
+                          {row.solution.map((solu, i) => (
+                            (i === row.solution.length - 1) ?
+                              <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
+                                <span>{solu.text}</span>
+                                <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
+                                  <span onClick={(e) => handleEditItem(e)}
+                                    id={"edit_solution_" + row.code + "_" + parseInt(i + 1)}
+                                    style={{ color: "green", marginRight: "20px" }}>
+                                    <ion-icon name="create-outline"></ion-icon>
+                                  </span>
+                                  <span onClick={(e) => handleDeleteItem(e)}
+                                    id={"delete_solution_" + row.code + "_" + parseInt(i + 1)}
+                                    style={{ color: "red", marginRight: "20px" }}>
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                  </span>
+                                  <span onClick={(e) => handleAddItem(e)}
+                                    id={"add_solution_" + row.code}
+                                    style={{ color: "red" }}>
+                                    <ion-icon name="add-circle-outline"></ion-icon>
+                                  </span>
+                                </div>
+                              </div>
+                              :
+                              <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
+                                <span>{solu.text}</span>
+                                <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
+                                  <span onClick={(e) => handleEditItem(e)}
+                                    id={"edit_solution_" + row.code + "_" + parseInt(i + 1)}
+                                    style={{ color: "green", marginRight: "20px" }}>
+                                    <ion-icon name="create-outline"></ion-icon>
+                                  </span>
+                                  <span onClick={(e) => handleDeleteItem(e)}
+                                    id={"delete_solution_" + row.code + "_" + parseInt(i + 1)}
+                                    style={{ color: "red", marginRight: "20px" }}>
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                  </span>
+                                </div>
+                              </div>
+                          ))}
                         </div>
-                        {row.solution.map((solu, i) => (
-                          (i === row.solution.length - 1) ?
-                            <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
-                              <span>{solu.text}</span>
-                              <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
-                                <span onClick={(e) => handleEditItem(e)}
-                                  id={"edit_solution_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "green", marginRight: "20px" }}>
-                                  <ion-icon name="create-outline"></ion-icon>
-                                </span>
-                                <span onClick={(e) => handleDeleteItem(e)}
-                                  id={"delete_solution_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "red", marginRight: "20px" }}>
-                                  <ion-icon name="trash-outline"></ion-icon>
-                                </span>
-                                <span onClick={(e) => handleAddItem(e)}
-                                  id={"add_solution_" + row.code}
-                                  style={{ color: "red" }}>
-                                  <ion-icon name="add-circle-outline"></ion-icon>
-                                </span>
-                              </div>
-                            </div>
-                            :
-                            <div key={i} className="DAT_ViewMobile_Container_Content_Top_right_content_infor">
-                              <span>{solu.text}</span>
-                              <div className="DAT_ViewMobile_Container_Content_Top_right_content_infor_function">
-                                <span onClick={(e) => handleEditItem(e)}
-                                  id={"edit_solution_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "green", marginRight: "20px" }}>
-                                  <ion-icon name="create-outline"></ion-icon>
-                                </span>
-                                <span onClick={(e) => handleDeleteItem(e)}
-                                  id={"delete_solution_" + row.code + "_" + parseInt(i + 1)}
-                                  style={{ color: "red", marginRight: "20px" }}>
-                                  <ion-icon name="trash-outline"></ion-icon>
-                                </span>
-                              </div>
-                            </div>
-                        ))}
                       </div>
                     </div>
-
                   </div>
-                  <div className="DAT_ViewMobile_Container_Content_Top_left" >
-                    {row.type}
+                  <div className="DAT_ViewMobile_Container_Content_Bottom"
+                    style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}
+                  >
+                    <span
+                      id={row.code}
+                      onClick={(e) => handleSaveNew(e)}>
+                      <ion-icon name="save"></ion-icon>
+                    </span>
+                    <span
+                      id={row.code}
+                      onClick={(e) => handleDelete(e)}
+                    >
+                      <ion-icon name="trash-outline" style={{ marginLeft: "20px" }}></ion-icon>
+                    </span>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div >
+              ))}
+            </div>
+          </div >
+        </>
       }
 
       <div className="DAT_Register_Config" style={{ display: config ? "block" : "none" }}>

@@ -34,7 +34,7 @@ export default function Sol(props) {
         const banner = "url('/banner/Solar_banner.png')"
         const icon = "/dat_icon/Solar_head.png"
         const inf = { code: 'SOL', tit: 'Năng lượng mặt trời' }
-        const iconmobile = <FaSolarPanel  color="gray" size={25} />
+        const iconmobile = <FaSolarPanel color="gray" size={25} />
 
         const list = { 1: 'Dự án', 2: 'Thiết bị' }
         const color = { cur: '#6495ed', pre: 'gray' }
@@ -1345,9 +1345,9 @@ export default function Sol(props) {
 
                                         </div>
                                 </div>
-                                : <div className="DAT_ViewMobile">
-                                        {/* <div className="DAT_ViewMobile_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                                                <div className="DAT_ViewMobile_Banner_Shadow" ></div>
+                                : <div className="DAT_Mobile">
+                                        {/* <div className="DAT_Mobile_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                                                <div className="DAT_Mobile_Banner_Shadow" ></div>
                                         </div> */}
 
                                         {(() => {
@@ -1355,46 +1355,46 @@ export default function Sol(props) {
                                                         case 'list':
                                                                 return (
                                                                         <>
-                                                                                <div className="DAT_ViewMobile_Container">
+                                                                                <div className="DAT_Mobile_Container">
 
-                                                                                        {/* <div className="DAT_ViewMobile_Container_Search">
+                                                                                        {/* <div className="DAT_Mobile_Container_Search">
                                                                                                 <input placeholder={tab.value === '1' ? "Nhập tên dự án" : "Nhập tên thiết bị"} ></input>
                                                                                                 <button>+</button>
                                                                                         </div> */}
-                                                                                        <div className="DAT_ViewMobile_Container_Head" >
+                                                                                        <div className="DAT_Mobile_Container_Head" >
                                                                                                 {iconmobile}
                                                                                                 <span >{inf.tit}</span>
                                                                                         </div>
-                                                                                        <div className="DAT_ViewMobile_Container_Bar">
+                                                                                        <div className="DAT_Mobile_Container_Bar">
                                                                                                 {/* backgroundColor: tab.value === '1' ? 'rgb(38, 143, 214)' : 'white', */}
-                                                                                                <div className="DAT_ViewMobile_Container_Bar_project" onClick={() => { tab.value = '1' }}>
-                                                                                                        <div className="DAT_ViewMobile_Container_Bar_project_bg" style={{ height: tab.value === '1' ? '140px' : '200px', transition: '0.5s' }} ></div>
-                                                                                                        <div className="DAT_ViewMobile_Container_Bar_project_add" style={{height: tab.value === '1' ? '60px' : '0', transition: '0.5s'}} ><span>Thêm dự án</span><IoIosAddCircle size={30} color="gray" /></div>
+                                                                                                <div className="DAT_Mobile_Container_Bar_project" onClick={() => { tab.value = '1' }}>
+                                                                                                        <div className="DAT_Mobile_Container_Bar_project_bg" style={{ height: tab.value === '1' ? '140px' : '200px', transition: '0.5s' }} ></div>
+                                                                                                        <div className="DAT_Mobile_Container_Bar_project_add" style={{ height: tab.value === '1' ? '60px' : '0', transition: '0.5s' }} ><span>Thêm dự án</span><IoIosAddCircle size={30} color="gray" /></div>
                                                                                                 </div>
-                                                                                                <div className="DAT_ViewMobile_Container_Bar_device" onClick={() => { tab.value = '2' }} >
-                                                                                                        <div className="DAT_ViewMobile_Container_Bar_device_bg" style={{ height: tab.value === '2' ? '140px' : '200px', transition: '0.5s' }} ></div>
-                                                                                                       <div className="DAT_ViewMobile_Container_Bar_device_add"style={{height: tab.value === '2' ? '60px' : '0', transition: '0.5s'}}><span>Thêm thiết bị</span><IoIosAddCircle size={30} color="gray" /></div>
+                                                                                                <div className="DAT_Mobile_Container_Bar_device" onClick={() => { tab.value = '2' }} >
+                                                                                                        <div className="DAT_Mobile_Container_Bar_device_bg" style={{ height: tab.value === '2' ? '140px' : '200px', transition: '0.5s' }} ></div>
+                                                                                                        <div className="DAT_Mobile_Container_Bar_device_add" style={{ height: tab.value === '2' ? '60px' : '0', transition: '0.5s' }}><span>Thêm thiết bị</span><IoIosAddCircle size={30} color="gray" /></div>
                                                                                                 </div>
                                                                                         </div>
                                                                                         <div>
                                                                                                 {tab.value === '1'
                                                                                                         ? <>
                                                                                                                 {project.map((data, index) => (
-                                                                                                                        <div key={index} className="DAT_ViewMobile_Container_Content">
-                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Top">
-                                                                                                                                        <div className="DAT_ViewMobile_Container_Content_Top_left" id={data.projectid + "_PROJECT"} onClick={(e) => { handleProject(e) }} >
+                                                                                                                        <div key={index} className="DAT_Mobile_Container_Content">
+                                                                                                                                <div className="DAT_Mobile_Container_Content_Top">
+                                                                                                                                        <div className="DAT_Mobile_Container_Content_Top_left" id={data.projectid + "_PROJECT"} onClick={(e) => { handleProject(e) }} >
                                                                                                                                                 <img alt="" src={avatar} ></img>
                                                                                                                                         </div>
-                                                                                                                                        <div className="DAT_ViewMobile_Container_Content_Top_right" >
-                                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Top_right_tit" id={data.projectid + "_PROJECT"} onClick={(e) => { handleProject(e) }} >{data.name}</div>
-                                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Top_right_company">Công ty: {data.company}</div>
-                                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Top_right_state">Trạng thái: {data.status ? <img alt="" style={{ width: "13px" }} src="/lib/true_state.png"></img> : <img alt="" style={{ width: "13px" }} src="/lib/warning_state.png"></img>}</div>
+                                                                                                                                        <div className="DAT_Mobile_Container_Content_Top_right" >
+                                                                                                                                                <div className="DAT_Mobile_Container_Content_Top_right_tit" id={data.projectid + "_PROJECT"} onClick={(e) => { handleProject(e) }} >{data.name}</div>
+                                                                                                                                                <div className="DAT_Mobile_Container_Content_Top_right_company">Công ty: {data.company}</div>
+                                                                                                                                                <div className="DAT_Mobile_Container_Content_Top_right_state">Trạng thái: {data.status ? <img alt="" style={{ width: "13px" }} src="/lib/true_state.png"></img> : <img alt="" style={{ width: "13px" }} src="/lib/warning_state.png"></img>}</div>
 
                                                                                                                                         </div>
                                                                                                                                 </div>
-                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Bottom" >
-                                                                                                                                        <div className="DAT_ViewMobile_Container_Content_Bottom_addr">{data.addr}</div>
-                                                                                                                                        <div className="DAT_ViewMobile_Container_Content_Bottom_edit" >
+                                                                                                                                <div className="DAT_Mobile_Container_Content_Bottom" >
+                                                                                                                                        <div className="DAT_Mobile_Container_Content_Bottom_addr">{data.addr}</div>
+                                                                                                                                        <div className="DAT_Mobile_Container_Content_Bottom_edit" >
                                                                                                                                                 <LuFolderEdit size={15} />
                                                                                                                                                 <RiDeleteBin6Line size={15} />
                                                                                                                                         </div>
@@ -1404,21 +1404,21 @@ export default function Sol(props) {
                                                                                                         </>
                                                                                                         : <>
                                                                                                                 {listdevice2.map((data, index) => (
-                                                                                                                        <div key={index} className="DAT_ViewMobile_Container_Content">
-                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Top">
-                                                                                                                                        <div className="DAT_ViewMobile_Container_Content_Top_left" id={data.deviceid + "_noP"} onClick={(e) => { handleDevice(e) }}>
+                                                                                                                        <div key={index} className="DAT_Mobile_Container_Content">
+                                                                                                                                <div className="DAT_Mobile_Container_Content_Top">
+                                                                                                                                        <div className="DAT_Mobile_Container_Content_Top_left" id={data.deviceid + "_noP"} onClick={(e) => { handleDevice(e) }}>
                                                                                                                                                 <img alt="" src={avatar} ></img>
                                                                                                                                         </div>
-                                                                                                                                        <div className="DAT_ViewMobile_Container_Content_Top_right" >
-                                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Top_right_tit">{data.name}</div>
-                                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Top_right_company">SN: {data.deviceid}</div>
-                                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Top_right_state">Trạng thái: {data.status ? <img alt="" style={{ width: "13px" }} src="/lib/true_state.png"></img> : <img alt="" style={{ width: "13px" }} src="/lib/warning_state.png"></img>}</div>
+                                                                                                                                        <div className="DAT_Mobile_Container_Content_Top_right" >
+                                                                                                                                                <div className="DAT_Mobile_Container_Content_Top_right_tit">{data.name}</div>
+                                                                                                                                                <div className="DAT_Mobile_Container_Content_Top_right_company">SN: {data.deviceid}</div>
+                                                                                                                                                <div className="DAT_Mobile_Container_Content_Top_right_state">Trạng thái: {data.status ? <img alt="" style={{ width: "13px" }} src="/lib/true_state.png"></img> : <img alt="" style={{ width: "13px" }} src="/lib/warning_state.png"></img>}</div>
 
                                                                                                                                         </div>
                                                                                                                                 </div>
-                                                                                                                                <div className="DAT_ViewMobile_Container_Content_Bottom" >
-                                                                                                                                        <div className="DAT_ViewMobile_Container_Content_Bottom_addr">{data.description}</div>
-                                                                                                                                        <div className="DAT_ViewMobile_Container_Content_Bottom_edit" >
+                                                                                                                                <div className="DAT_Mobile_Container_Content_Bottom" >
+                                                                                                                                        <div className="DAT_Mobile_Container_Content_Bottom_addr">{data.description}</div>
+                                                                                                                                        <div className="DAT_Mobile_Container_Content_Bottom_edit" >
                                                                                                                                                 <LuFolderEdit size={15} />
                                                                                                                                                 <RiDeleteBin6Line size={15} />
                                                                                                                                         </div>
@@ -1432,8 +1432,8 @@ export default function Sol(props) {
 
                                                                                 {(showdevice)
 
-                                                                                        ? <div className="DAT_ViewMobile_Device" >
-                                                                                                <div className="DAT_ViewMobile_Device-card" id="CARD">
+                                                                                        ? <div className="DAT_Mobile_Device" >
+                                                                                                <div className="DAT_Mobile_Device-card" id="CARD">
                                                                                                         <Toollist ></Toollist>
                                                                                                 </div>
                                                                                         </div>
@@ -1449,28 +1449,28 @@ export default function Sol(props) {
                                                                 return (
                                                                         <>
                                                                                 {showproject.map((data, index) => (
-                                                                                        <div key={index} className="DAT_ViewMobile_Overview" id="DAT_overview">
+                                                                                        <div key={index} className="DAT_Mobile_Overview" id="DAT_overview">
 
-                                                                                                <div className="DAT_ViewMobile_Overview_Head" >
+                                                                                                <div className="DAT_Mobile_Overview_Head" >
                                                                                                         <img alt="" src={avatar} ></img>
-                                                                                                        <div className="DAT_ViewMobile_Overview_Head_tit" >
+                                                                                                        <div className="DAT_Mobile_Overview_Head_tit" >
                                                                                                                 {direct.map((data, index) => {
                                                                                                                         return (
-                                                                                                                                (index === 1) ? <div key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }} onClick={(e) => { handleDir(e) }} className="DAT_ViewMobile_Overview_Head_tit_bu" >{data.text}</div> : <React.Fragment key={index} ></React.Fragment>
+                                                                                                                                (index === 1) ? <div key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }} onClick={(e) => { handleDir(e) }} className="DAT_Mobile_Overview_Head_tit_bu" >{data.text}</div> : <React.Fragment key={index} ></React.Fragment>
                                                                                                                         )
                                                                                                                 })}
-                                                                                                                <div className="DAT_ViewMobile_Overview_Head_tit_name">{data.name}</div>
+                                                                                                                <div className="DAT_Mobile_Overview_Head_tit_name">{data.name}</div>
 
                                                                                                         </div>
                                                                                                 </div>
-                                                                                                <Tooloverview username={props.username} avatar={avatar}  projectid={data.projectid} type={data.code} company={data.company} name={data.name} addr={data.addr} report={data.report} />
+                                                                                                <Tooloverview username={props.username} avatar={avatar} projectid={data.projectid} type={data.code} company={data.company} name={data.name} addr={data.addr} report={data.report} />
 
                                                                                         </div>
                                                                                 ))}
 
                                                                                 {(showdevice)
-                                                                                        ? <div className="DAT_ViewMobile_Device" >
-                                                                                                <div className="DAT_ViewMobile_Device-card" id="CARD">
+                                                                                        ? <div className="DAT_Mobile_Device" >
+                                                                                                <div className="DAT_Mobile_Device-card" id="CARD">
                                                                                                         <Toollist ></Toollist>
                                                                                                 </div>
 
