@@ -18,8 +18,6 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
-
-
     }
   }
 
@@ -55,7 +53,6 @@
         font-size: 35px;
         font-weight: 400;
         color: whitesmoke;
-
       }
 
       &-icon {
@@ -68,10 +65,7 @@
           color: gray;
           font-size: 32px;
         }
-
-
       }
-
 
       & img {
         margin-top: 5px;
@@ -80,9 +74,6 @@
         width: 32px;
         filter: invert(56%) sepia(1%) saturate(440%) hue-rotate(92deg) brightness(93%) contrast(91%);
       }
-
-
-
     }
 
     &_Main {
@@ -92,7 +83,9 @@
       background-color: rgb(255, 255, 255);
       overflow: hidden;
       height: 62vh;
-      box-shadow: 3px 3px 5px rgb(199, 199, 199, 0.5), -3px -3px 5px rgb(199, 199, 199, 0.5);
+      box-shadow:
+        3px 3px 5px rgb(199, 199, 199, 0.5),
+        -3px -3px 5px rgb(199, 199, 199, 0.5);
 
       &_Nav {
         padding: 10px;
@@ -176,9 +169,6 @@
             }
           }
         }
-
-
-
       }
 
       &_List {
@@ -201,10 +191,20 @@
             font-family: Montserrat-Regular;
           }
         }
+        &_Head {
+          background-color: #0082ca;
+          color: white;
+          padding: 10px;
+          width: 95%;
+          margin: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+        }
       }
     }
   }
-
 }
 
 .DAT_Config {
@@ -251,7 +251,6 @@
       border-radius: 7px;
       margin-top: 5px;
       margin-bottom: 10px;
-
     }
 
     & button {
@@ -270,7 +269,9 @@
   background-color: rgb(255, 255, 255);
   overflow: hidden;
   height: 62vh;
-  box-shadow: 3px 3px 5px rgb(199, 199, 199, 0.5), -3px -3px 5px rgb(199, 199, 199, 0.5);
+  box-shadow:
+    3px 3px 5px rgb(199, 199, 199, 0.5),
+    -3px -3px 5px rgb(199, 199, 199, 0.5);
 
   &_Container {
     width: 95%;
@@ -292,7 +293,6 @@
       margin-top: 8px;
 
       &_Left {
-
         &_Item {
           display: flex;
           justify-content: center;
@@ -500,7 +500,6 @@
       margin-top: 8px;
 
       &_Left {
-
         &_Item {
           display: flex;
           justify-content: center;
@@ -515,7 +514,6 @@
       }
 
       &_Right {
-
         &_Info {
           width: 100%;
 
@@ -560,16 +558,12 @@
         background-color: rgb(255, 228, 196, 0.5);
         border: none;
         border-radius: 50%;
-
       }
     }
   }
 }
 
-
 @media (min-width: 700px) {
-
-
   .DAT_Export_Content_Main {
     position: relative;
     width: 98%;
@@ -580,7 +574,4 @@
     overflow: hidden;
     margin-bottom: 0;
   }
-
-
-
 }
