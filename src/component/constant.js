@@ -163,7 +163,8 @@ export const messages = {
         verify_3: "This email verification link has expired!",
         verify_4: "This email verification link is no longer available!",
         alert_43: "Updating...!",
-
+        alert_53: "Update failed!",
+        alert_54: "Update successful!",
 
     },
     vi: {
@@ -315,7 +316,8 @@ export const messages = {
         alert_48: "Hãy chọn tháng bạn muốn xuất báo cáo!",                                              //using
         alert_49: "Hãy chọn ngày bạn muốn xuất báo cáo!",                                              //using
         alert_50: "Thiết bị này không được tìm thấy!",                                              //using
-
+        alert_53: "Lưu thành công!",
+        alert_54: "Lưu không thành công!",
         tit1: "IOT Tool",
         content1: "Chúng tôi nhận thấy một sự cố từ thiết bị này mà bạn đang dùng",
 

@@ -360,21 +360,32 @@
         }
 
         &_Menu {
-            width: 60vw;
+            width: 70vw;
             margin: auto;
             display: flex;
+            align-items: center;
             justify-content: center;
             height: 40px;
-            gap: 30px;
             background-color: white;
-            border-top-right-radius: 7px;
-            border-top-left-radius: 7px;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            cursor: pointer;
 
-            &_Item {
+            &_Border {
+                height: 20px;
+                border-left: 1px solid rgb(194, 193, 193);
+            }
+
+            &_Item1 {
                 display: flex;
-                align-items: center;
                 justify-content: center;
-                cursor: pointer;
+                flex: 5;
+            }
+
+            &_Item2 {
+                display: flex;
+                justify-content: center;
+                flex: 5;
             }
         }
     }
