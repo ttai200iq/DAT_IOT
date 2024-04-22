@@ -4,11 +4,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Info from "./Info";
 import { useSelector } from "react-redux";
-import Listuser from "./Listuser";
+import Listuser, { delstate } from "./Listuser";
 import { IoMdAdd } from "react-icons/io";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { HiOutlineUsers } from "react-icons/hi2";
+import Raisebox from "../Raisebox/Raisebox";
 export const editUser = signal(false)
 
 export default function User(props) {
@@ -114,6 +115,9 @@ export default function User(props) {
 
             <div className="DAT_User_Fix" style={{ height: editUser.value ? "100vh" : "0", transition: "0.5s" }}>
                 {editUser.value ? <Info username={props.username} /> : <></>}
+            </div>
+            <div className="DAT_User_Fix" style={{ height: delstate.value ? "100vh" : "0", transition: "0.5s" }}>
+                {delstate.value ? <Raisebox /> : <></>}
             </div>
         </>
     )

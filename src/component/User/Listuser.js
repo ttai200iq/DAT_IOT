@@ -12,12 +12,13 @@ import { effect, signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import Raisebox from "../Raisebox/Raisebox";
 const projectadmin = signal([]);
 const deviceadmin = signal([]);
 const enduser = signal('');
 const role = signal({});
 
-
+export const delstate = signal(false)
 export default function Listuser() {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);
@@ -26,7 +27,6 @@ export default function Listuser() {
   const type = useSelector((state) => state.admin.type)
   const [data, setData] = useState([]);
   const [modify, setModify] = useState(false)
-
 
   const rootDispatch = useDispatch()
 
@@ -379,6 +379,8 @@ export default function Listuser() {
       })
   }
 
+
+
   return (
 
     <>
@@ -447,8 +449,10 @@ export default function Listuser() {
                       <MdOutlineDelete
                         size={20}
                         color="red"
-                        id={data.name + "_" + data.mail}
-                        onClick={(e) => handleDelete(e)} /> : <></>}
+                        // id={data.name + "_" + data.mail}
+                        // onClick={(e) => handleDelete(e)} 
+                        onClick={() => { delstate.value = !delstate.value; }}
+                      /> : <></>}
                   </div>
 
                 </div>
@@ -505,6 +509,8 @@ export default function Listuser() {
           : <></>
         }
       </div>
+
+      {/* {delstate ? <Raisebox /> : <></>} */}
     </>
 
   );
