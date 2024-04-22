@@ -42,8 +42,6 @@ export default function ListEx(props) {
         reporttime.value = []
         axios.post(host.DEVICE + "/getReportTime", { id: e.currentTarget.id }, { secure: true, reconnect: true })
             .then((res) => {
-
-
                 console.log(res.data)
                 if (res.data[0] != undefined) {
                     reporttime.value = res.data
@@ -53,7 +51,6 @@ export default function ListEx(props) {
                 } else {
                     alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_33" }), show: 'block' } })
                 }
-
             })
     }
 
@@ -82,7 +79,7 @@ export default function ListEx(props) {
                                 <div className="DAT_ListExport_Container_List">
                                     <div className="DAT_ListExport_Container_List_Left">
                                         <div className="DAT_ListExport_Container_List_Left_Item"
-                                            id={exp.id}>
+                                            id={data.id}>
                                             {data.id}
                                         </div>
                                     </div>
@@ -90,7 +87,9 @@ export default function ListEx(props) {
                                     <div className="DAT_ListExport_Container_List_Right">
                                         <div className="DAT_ListExport_Container_List_Right_Info">
                                             <div className="DAT_ListExport_Container_List_Right_Info_Name"
-                                                id={exp.id}
+                                                id={data.deviceid}
+                                                onClick={(e) => handleDevice(e)}
+                                                style={{ cursor: "pointer", color: (devicetime.value == data.deviceid) ? "blue" : "black" }}
                                             >
                                                 {data.deviceid}
                                             </div>

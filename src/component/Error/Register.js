@@ -198,7 +198,8 @@ export default function Register(props) {
                 register.value = {
                     ...newData,
                 };
-
+                break;
+            default:
                 break;
         }
 

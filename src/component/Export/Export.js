@@ -10,7 +10,6 @@ import ConfigEx from "./ConfigEx";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineWifiTetheringErrorRounded } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
-
 export const exp = signal([])
 export const devicetime = signal('')
 export const reporttime = signal([])
@@ -120,10 +119,9 @@ export default function Export(props) {
                         </div>
                         {/* Nav */}
                         <div className="DAT_Export_Content_Main">
-
                             <div className="DAT_Export_Content_Main_Nav">
                                 <div
-                                    className="DAT_Export_Content_Main_Nav_Item"
+                                    className="DAT_Export_Content_Main_Nav_Item1"
                                     id="list"
                                     style={{ color: nav === "list" ? color.cur : color.pre }}
                                     onClick={(e) => {
@@ -133,7 +131,7 @@ export default function Export(props) {
                                     Danh sách
                                 </div>
                                 <div
-                                    className="DAT_Export_Content_Main_Nav_Item"
+                                    className="DAT_Export_Content_Main_Nav_Item2"
                                     id="config"
                                     style={{ color: nav === "config" ? color.cur : color.pre }}
                                     onClick={(e) => {
@@ -198,7 +196,7 @@ export default function Export(props) {
                                                 <>
                                                     <div className="DAT_ListDetail_Content_Menu">
                                                         <div
-                                                            className="DAT_ListDetail_Content_Menu_Item"
+                                                            className="DAT_ListDetail_Content_Menu_Item1"
                                                             id="list"
                                                             style={{ color: nav === "list" ? color.cur : color.pre }}
                                                             onClick={(e) => {
@@ -207,8 +205,9 @@ export default function Export(props) {
                                                         >
                                                             Danh sách
                                                         </div>
+                                                        <div className="DAT_ListDetail_Content_Menu_Border"></div>
                                                         <div
-                                                            className="DAT_ListDetail_Content_Menu_Item"
+                                                            className="DAT_ListDetail_Content_Menu_Item2"
                                                             id="config"
                                                             style={{ color: nav === "config" ? color.cur : color.pre }}
                                                             onClick={(e) => {
@@ -224,6 +223,29 @@ export default function Export(props) {
                                         case "config":
                                             return (
                                                 <>
+                                                    <div className="DAT_ListDetail_Content_Menu">
+                                                        <div
+                                                            className="DAT_ListDetail_Content_Menu_Item1"
+                                                            id="list"
+                                                            style={{ color: nav === "list" ? color.cur : color.pre }}
+                                                            onClick={(e) => {
+                                                                handleNav(e);
+                                                            }}
+                                                        >
+                                                            Danh sách
+                                                        </div>
+                                                        <div className="DAT_ListDetail_Content_Menu_Border"></div>
+                                                        <div
+                                                            className="DAT_ListDetail_Content_Menu_Item2"
+                                                            id="config"
+                                                            style={{ color: nav === "config" ? color.cur : color.pre }}
+                                                            onClick={(e) => {
+                                                                handleNav(e);
+                                                            }}
+                                                        >
+                                                            Cấu hình
+                                                        </div>
+                                                    </div>
                                                     <ConfigEx username={props.username} />
                                                 </>
                                             );
@@ -233,7 +255,6 @@ export default function Export(props) {
                                 })()}
                             </div>
                         </div>
-
                     </div >
                 </>
             }

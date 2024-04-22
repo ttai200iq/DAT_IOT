@@ -1,19 +1,25 @@
 
 import DataTable from "react-data-table-component";
 import { devicetime, reporttime } from "./Export";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
 import { host } from "../constant";
 import { CiEdit } from "react-icons/ci";
 import { isBrowser } from "react-device-detect";
-
+import ListEx from "./ListEx";
+import "./Export.scss"
+import { MdOutlineWifiTetheringErrorRounded } from "react-icons/md";
+import { AlertContext } from "../Context/AlertContext";
+import { action } from "../Control/Action";
+import { useIntl } from "react-intl";
 export default function ConfigEx(props) {
-
+    const { alertDispatch } = useContext(AlertContext);
     const [report, setReport] = useState("")
     const [mcode, setMcode] = useState('0')
     const [config, setConfig] = useState({})
     const [state, setState] = useState(false)
+    const dataLang = useIntl();
 
     const id = useRef();
     const name = useRef();
@@ -21,6 +27,7 @@ export default function ConfigEx(props) {
     const cal_bit_0 = useRef();
     const cal_bit_1 = useRef();
 
+    const [nav, setNav] = useState("list");
 
     const paginationComponentOptions = {
         rowsPerPageText: 'Số hàng',
@@ -88,7 +95,6 @@ export default function ConfigEx(props) {
                         style={{ cursor: "pointer", marginBottom: "10px", marginTop: "10px" }}
                     >
                         {row.registermonth.map((item, index) => {
-
                             return (
                                 <div className="DAT_ConfigExRegister" key={index} >
                                     <span >{item.id}</span>
@@ -112,7 +118,7 @@ export default function ConfigEx(props) {
     ];
 
     const handleConfig = (e) => {
-        console.log(e.currentTarget.id);
+        // console.log(e.currentTarget.id);
         var arr = e.currentTarget.id.split("_");
         console.log(arr);
         let newData = reporttime.value.find((item) => {
@@ -132,7 +138,7 @@ export default function ConfigEx(props) {
             setConfig(newData)
         }
         setState(!state)
-        //console.log(newData);
+        console.log(newData);
     }
 
     const handleSave = (e) => {
@@ -158,9 +164,22 @@ export default function ConfigEx(props) {
                     }
 
                 }
-
-            })
+                if (res.data.status) {
+                    alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_53" }), show: 'block' }))
+                } else {
+                    alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_54" }), show: 'block' }))
+                }
+                setState(!state)
+            }
+            )
     }
+
+    const handleNav = (e) => {
+        var id = e.currentTarget.id;
+
+        console.log(id);
+        setNav(id);
+    };
 
     return (
         <>
@@ -180,40 +199,187 @@ export default function ConfigEx(props) {
 
                 />
                 :
-                <>
+                //MOBILE
+                <div className="DAT_Export_Content_Main_List">
+                    {reporttime.value.length == 0 ?
+                        <div className="DAT_Export_Content_Main_List_Null">
+                            <div className="DAT_Export_Content_Main_List_Null_Content">
+                                <div>Danh sách trống</div>
+                                <div>Thêm thiết bị để trải nghiệm tính năng này!</div>
+                            </div>
+                        </div>
+                        :
+                        <>
+                            <div className="DAT_ConfigMobile>">
+                                <div className="DAT_ConfigMobile_Container">
+                                    {reporttime.value.map((item, index) => {
+                                        return (
+                                            <div className="DAT_ConfigMobile_Container_List" key={index}>
+                                                <div className="DAT_ConfigMobile_Container_List_Left">
+                                                    <div className="DAT_ConfigMobile_Container_List_Left_Item"
+                                                    >
+                                                        {item.id}.
+                                                        &nbsp;
+                                                        {item.code}
+                                                    </div>
+                                                </div>
 
-                </>
+                                                {/* Daily */}
+                                                <div className="DAT_ConfigMobile_Container_List_Right">
+                                                    <div className="DAT_ConfigMobile_Container_List_Right_Container">
+                                                        <div className="DAT_ConfigMobile_Container_List_Right_Header">
+                                                            <span>Thanh ghi ( ngày ) :</span>
+                                                        </div>
+
+                                                        {item.register.map((day, i) => {
+                                                            // console.log(item.code)
+                                                            return (
+                                                                <div className="DAT_ConfigMobile_Container_List_Right_Item1"
+                                                                    key={i}
+                                                                    onClick={(e) => handleConfig(e)} id={`${item.code}_${day.id}_${day.type}`} >
+                                                                    {day.name}
+                                                                    <span id={`${item.code}_${day.id}_Daily`} style={{ cursor: "pointer" }}
+                                                                        onClick={(e) => handleConfig(e)} >
+                                                                        <CiEdit size={18} />
+                                                                    </span>
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </div>
+
+                                                    {/* Monthly */}
+                                                    <div className="DAT_ConfigMobile_Container_List_Right_Container">
+                                                        <div className="DAT_ConfigMobile_Container_List_Right_Header">
+                                                            Thanh ghi ( tháng ) :
+                                                        </div>
+                                                        {item.registermonth.map((month, i) => {
+                                                            return (
+                                                                <div className="DAT_ConfigMobile_Container_List_Right_Item2"
+                                                                    key={i}
+                                                                    onClick={(e) => handleConfig(e)} id={`${item.code}_${month.id}_${month.type}`} >{month.name}
+                                                                    <span id={`${item.code}_${month.id}_Month`} style={{ cursor: "pointer" }}
+                                                                        onClick={(e) => handleConfig(e)} >
+                                                                        <CiEdit size={18} />
+                                                                    </span>
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        </>
+                    }
+                </div>
             }
 
-            {state
-                ? <div className="DAT_Config" >
+            {isBrowser ?
+                <>
+                    {state ?
+                        <div className="DAT_Config" >
+                            <div className="DAT_Config-Content" >
+                                <div className="DAT_Config-Content-Close" onClick={() => setState(!state)} ><IoClose /></div>
+                                <div className="DAT_Config-Content-Tit" >{mcode} {report}</div>
+                                <span>ID</span>
+                                <input type="text" defaultValue={config.id} ref={id} />
+                                <span>Tên</span>
+                                <input type="text" defaultValue={config.name} ref={name} />
 
-                    <div className="DAT_Config-Content" >
-                        <div className="DAT_Config-Content-Close" onClick={() => setState(!state)} ><IoClose /></div>
-                        <div className="DAT_Config-Content-Tit" >{mcode} {report}</div>
-                        <span>ID</span>
-                        <input type="text" defaultValue={config.id} ref={id} />
-                        <span>Tên</span>
-                        <input type="text" defaultValue={config.name} ref={name} />
+                                <div><span >Loại: {config.type}</span></div>
+                                {(config.type === 'word')
+                                    ? <>
+                                        <span>Thanh ghi</span>
+                                        <input type="text" defaultValue={config.cal} ref={cal} />
+                                    </>
+                                    : <>
+                                        <span>Thanh ghi Bit 0</span>
+                                        <input type="text" defaultValue={JSON.parse(config.cal)[0]} ref={cal_bit_0} />
+                                        <span>Thanh ghi Bit 1</span>
+                                        <input type="text" defaultValue={JSON.parse(config.cal)[1]} ref={cal_bit_1} />
+                                    </>
 
-                        <div><span >Loại: {config.type}</span></div>
-                        {(config.type === 'word')
-                            ? <>
-                                <span>Thanh ghi</span>
-                                <input type="text" defaultValue={config.cal} ref={cal} />
-                            </>
-                            : <>
-                                <span>Thanh ghi Bit 0</span>
-                                <input type="text" defaultValue={JSON.parse(config.cal)[0]} ref={cal_bit_0} />
-                                <span>Thanh ghi Bit 1</span>
-                                <input type="text" defaultValue={JSON.parse(config.cal)[1]} ref={cal_bit_1} />
-                            </>
+                                }
+                                <button onClick={() => handleSave()} >Lưu</button>
+                            </div>
+                        </div>
+                        :
+                        <></>
+                    }
+                </>
+                :
+                <>
+                    {state ?
+                        <div className="DAT_ConfigMobilePopup" >
+                            <div className="DAT_ConfigMobilePopup_Form">
+                                <div className="DAT_ConfigMobilePopup_Form_Head">
+                                    <div className="DAT_ConfigMobilePopup_Form_Head_Left">
+                                        <span> Thông tin cấu hình </span>
+                                    </div>
+                                    <div className="DAT_ConfigMobilePopup_Form_Head_Right">
+                                        <div className="DAT_ConfigMobilePopup_Form_Head_Right_Close">
+                                            <span style={{
+                                                width: "30px",
+                                                height: "30px",
+                                                borderRadius: "50%",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                backgroundColor: "red"
+                                            }}
+                                                onClick={() => setState(!state)}>
+                                                <IoClose size={20} color="white" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <div className="DAT_ConfigMobilePopup_Content_Tit" >{mcode} {report}</div> */}
+                                <div className="DAT_ConfigMobilePopup_Form_Row"
+                                    style={{ borderRadius: '5px 5px 0 0' }}
+                                >
+                                    <div className="DAT_ConfigMobilePopup_Form_Row_Item">
+                                        <div className="DAT_ConfigMobilePopup_Form_Row_Item_Label">ID</div>
+                                        <input type="text" placeholder="ID" defaultValue={config.id} ref={id} required />
+                                    </div>
 
-                        }
-                        <button onClick={() => handleSave()} >Lưu</button>
-                    </div>
-                </div>
-                : <></>
+                                    <div className="DAT_ConfigMobilePopup_Form_Row_Item">
+                                        <div className="DAT_ConfigMobilePopup_Form_Row_Item_Label">Tên</div>
+                                        <input type="text" placeholder="Nhập tên" defaultValue={config.name} ref={name} required />
+                                    </div>
+                                </div>
+
+                                <div className="DAT_ConfigMobilePopup_Form_Row">
+                                    <div className="DAT_ConfigMobilePopup_Form_Row_Item">
+                                        <div className="DAT_ConfigMobilePopup_Form_Row_Item_Label"> Loại:</div>
+                                        <input disabled placeholder={config.type} style={{ textTransform: 'capitalize', marginBottom: '25px' }} />
+                                        {(config.type === 'word')
+                                            ? <>
+                                                <span>Thanh ghi</span>
+                                                <input type="text" defaultValue={config.cal} ref={cal} />
+                                            </>
+                                            : <>
+                                                <div className="DAT_ConfigMobilePopup_Form_Row_Item_Label">Thanh ghi Bit 0</div>
+                                                <input type="text" defaultValue={JSON.parse(config.cal)[0]} ref={cal_bit_0} />
+                                                <div className="DAT_ConfigMobilePopup_Form_Row_Item_Label">Thanh ghi Bit 1</div>
+                                                <input type="text" defaultValue={JSON.parse(config.cal)[1]} ref={cal_bit_1} />
+                                            </>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="DAT_ConfigMobilePopup_Form_Row"
+                                    style={{ borderRadius: '0 0 5px 5px' }}
+                                >
+                                    <button className="DAT_ConfigMobilePopup_Form_Row_Button" onClick={() => handleSave()}>
+                                        <ion-icon name="save-outline"></ion-icon> Lưu
+                                    </button>
+                                </div>
+                            </div>
+                        </div> :
+                        <></>
+                    }
+                </>
             }
         </>
     )
