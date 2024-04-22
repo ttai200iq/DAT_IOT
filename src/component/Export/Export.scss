@@ -191,6 +191,7 @@
             font-family: Montserrat-Regular;
           }
         }
+
         &_Head {
           background-color: #0082ca;
           color: white;
@@ -284,15 +285,16 @@
     margin-bottom: 10px;
 
     &_List {
-      border-bottom: 1px solid #c6c5c580;
-      border-radius: 5px;
-      padding: 10px;
-      width: 100%;
-      gap: 10px;
       display: flex;
-      margin-top: 8px;
+      margin: 10px;
+      padding: 10px;
+      gap: 30px;
+      margin-bottom: 10px;
+      border: solid 1px rgba(218, 218, 218, 0.5);
+      // border-radius: 5px;
 
       &_Left {
+
         &_Item {
           display: flex;
           justify-content: center;
@@ -307,9 +309,11 @@
       }
 
       &_Right {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        align-items: center;
+        width: 100%;
+        max-height: 150px;
+        // Hidden scrollbar
+        overflow-y: scroll;
 
         &_Header {
           font-size: 14px;
@@ -562,6 +566,7 @@
     }
   }
 }
+
 
 @media (min-width: 700px) {
   .DAT_Export_Content_Main {

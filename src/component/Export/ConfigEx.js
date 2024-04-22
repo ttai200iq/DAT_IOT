@@ -428,7 +428,7 @@ export default function ConfigEx(props) {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="DAT_ConfigMobilePopup_Content_Tit" >{mcode} {report}</div> */}
+
                                 <div
                                     className="DAT_ConfigMobilePopup_Form_Row"
                                     style={{ borderRadius: "5px 5px 0 0" }}

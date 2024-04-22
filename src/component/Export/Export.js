@@ -201,7 +201,6 @@ export default function Export(props) {
                                     type="text"
                                     placeholder="Tìm kiếm"
                                     style={{ minWidth: "calc(100%)" }}
-                                // onChange={(e) => handleInput(e)}
                                 />
                             </div>
 
@@ -211,78 +210,6 @@ export default function Export(props) {
                                     :
                                     <ConfigEx username={props.username} />
                                 }
-                                {/* {(() => {
-                                    switch (nav) {
-                                        case "list":
-                                            return (
-                                                <>
-                                                    <div className="DAT_ListDetail_Content_Menu">
-                                                        <div
-                                                            className="DAT_ListDetail_Content_Menu_Item1"
-                                                            id="list"
-                                                            style={{
-                                                                color: nav === "list" ? color.cur : color.pre,
-                                                            }}
-                                                            onClick={(e) => {
-                                                                handleNav(e);
-                                                            }}
-                                                        >
-                                                            Danh sách
-                                                        </div>
-                                                        <div className="DAT_ListDetail_Content_Menu_Border"></div>
-                                                        <div
-                                                            className="DAT_ListDetail_Content_Menu_Item2"
-                                                            id="config"
-                                                            style={{
-                                                                color: nav === "config" ? color.cur : color.pre,
-                                                            }}
-                                                            onClick={(e) => {
-                                                                handleNav(e);
-                                                            }}
-                                                        >
-                                                            Cấu hình
-                                                        </div>
-                                                    </div>
-                                                    <ListEx username={props.username} />
-                                                </>
-                                            );
-                                        case "config":
-                                            return (
-                                                <>
-                                                    <div className="DAT_ListDetail_Content_Menu">
-                                                        <div
-                                                            className="DAT_ListDetail_Content_Menu_Item1"
-                                                            id="list"
-                                                            style={{
-                                                                color: nav === "list" ? color.cur : color.pre,
-                                                            }}
-                                                            onClick={(e) => {
-                                                                handleNav(e);
-                                                            }}
-                                                        >
-                                                            Danh sách
-                                                        </div>
-                                                        <div className="DAT_ListDetail_Content_Menu_Border"></div>
-                                                        <div
-                                                            className="DAT_ListDetail_Content_Menu_Item2"
-                                                            id="config"
-                                                            style={{
-                                                                color: nav === "config" ? color.cur : color.pre,
-                                                            }}
-                                                            onClick={(e) => {
-                                                                handleNav(e);
-                                                            }}
-                                                        >
-                                                            Cấu hình
-                                                        </div>
-                                                    </div>
-                                                    <ConfigEx username={props.username} />
-                                                </>
-                                            );
-                                        default:
-                                            <></>;
-                                    }
-                                })()} */}
                             </div>
                         </div>
                     </div>
