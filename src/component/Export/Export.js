@@ -182,10 +182,6 @@ export default function Export(props) {
                                     style={{ minWidth: "calc(100%)" }}
                                 // onChange={(e) => handleInput(e)}
                                 />
-                                {/* <div className="DAT_ListDetail_Content_Filterbar_Date"
-                                    onClick={() => handleNav()}>
-                                    <IoMdAdd size={18} />
-                                </div> */}
                             </div>
 
                             <div className="DAT_Export_Content_Main_List">
