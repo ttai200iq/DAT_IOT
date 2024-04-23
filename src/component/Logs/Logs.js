@@ -17,24 +17,13 @@ import { CiCalendarDate } from "react-icons/ci";
 import styled from "styled-components";
 import { CiSearch } from "react-icons/ci";
 import { MdOutlineDelete } from "react-icons/md";
+import { lowercasedata } from "../User/Listuser";
+
 export const err = signal([])
 export const errfilter = signal([])
 export const state = signal(0)
 export const time = signal('')
 export const date = signal('')
-
-
-
-// effect(() => {
-//     if(err.value === 0){
-//         errfilter.value = err.value
-//     }
-
-
-
-// })
-
-
 
 export default function Logs(props) {
 
@@ -187,15 +176,16 @@ export default function Logs(props) {
     const handleInput = (e) => {
         state.value = 0
         console.log(e.target.value);
-        if (e.target.value === "") {
+        const searchTerm = e.currentTarget.value.toLowerCase();
+        if (searchTerm == "") {
             errfilter.value = err.value;
         } else {
             const newData = err.value.filter((row) => {
                 return (
-                    row.id === parseInt(e.target.value) ||
-                    row.deviceid.toLowerCase().includes(e.target.value) ||
-                    row.code.toLowerCase().includes(e.target.value) ||
-                    row.time.toLowerCase().includes(e.target.value)
+                    row.id === parseInt(searchTerm) ||
+                    lowercasedata(row.deviceid).includes(searchTerm) ||
+                    lowercasedata(row.code).includes(searchTerm) ||
+                    lowercasedata(row.time).includes(searchTerm)
                 );
             });
 
@@ -336,8 +326,6 @@ export default function Logs(props) {
                         <div className="DAT_Log_Banner_Shadow" ></div>
                     </div>
                     <div className="DAT_Log_Content">
-
-
                         <div className="DAT_Log_Content_Direct" >
                             {direct.map((data, index) => {
                                 return (
@@ -346,7 +334,6 @@ export default function Logs(props) {
                                             <span style={{ cursor: "pointer" }}> {data.text}</span>
                                         </Link>
                                         : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
-
                                 )
                             })}
                         </div>
@@ -428,7 +415,6 @@ export default function Logs(props) {
                                 }
                             </div>
                         </div>
-                        <div className="DAT_ListDetail_Content_Tit">Danh sách mã lỗi</div>
                         <div className="DAT_ListDetail_Content_List">
                             {/* <div>Danh sách lỗi</div> */}
                             {errfilter.value.map((data, i) => {

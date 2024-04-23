@@ -70,6 +70,7 @@ export default function Listerr(props) {
         // console.log(document.getElementById("errid"))
         console.log(list.value)
     }, [])
+
     return (
         <>
             {isBrowser

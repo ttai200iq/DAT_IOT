@@ -37,48 +37,6 @@ export default function Export(props) {
         setNav(id);
     };
 
-    useEffect(() => {
-        console.log(props.username);
-        exp.value = [];
-        axios
-            .post(
-                host.DEVICE + "/getErrbyUser",
-                { user: props.username, type: "Project" },
-                { secure: true, reconnect: true }
-            )
-            .then((res) => {
-                console.log(res.data);
-
-                var listp = res.data;
-
-                axios
-                    .post(
-                        host.DEVICE + "/getErrbyUser",
-                        { user: props.username, type: "None" },
-                        { secure: true, reconnect: true }
-                    )
-                    .then((res) => {
-                        console.log(res.data);
-
-                        exp.value = [...listp, ...res.data];
-                        exp.value = exp.value.map((data, index) => ({
-                            ...data,
-                            id: index + 1,
-                        }));
-
-                        // if(res.data[0] !== undefined){
-                        //     i_.value = res.data[0].id
-                        //     register.value = res.data[0].setting
-                        // }
-                    });
-
-                // if(res.data[0] !== undefined){
-                //     i_.value = res.data[0].id
-                //     register.value = res.data[0].setting
-                // }
-            });
-    }, []);
-
     //     axios.post(host.DEVICE + "/getInfErr", { user: props.username }, { secure: true, reconnect: true })
     //         .then((res) => {
     //             console.log(res.data)
@@ -195,15 +153,6 @@ export default function Export(props) {
                             <span>{inf.tit}</span>
                         </div>
                         <div className="DAT_ListDetail_Content">
-                            <div className="DAT_ListDetail_Content_Filterbar">
-                                <input
-                                    id="search"
-                                    type="text"
-                                    placeholder="Tìm kiếm"
-                                    style={{ minWidth: "calc(100%)" }}
-                                />
-                            </div>
-
                             <div className="DAT_Export_Content_Main_List">
                                 {configreport.value === false ?
                                     <ListEx username={props.username} />

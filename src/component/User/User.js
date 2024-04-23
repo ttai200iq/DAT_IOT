@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./User.scss"
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ import Raisebox from "../Raisebox/Raisebox";
 export const editUser = signal(false)
 
 export default function User(props) {
+    const [data, setData] = useState([]);
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
     const inf = { code: 'Report', tit: 'Người dùng' }
     const [direct, SetDirect] = useState([{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }])
@@ -26,6 +27,7 @@ export default function User(props) {
     const handleNav = () => {
         editUser.value = true
     };
+
     return (
         <>
             {isBrowser ?
@@ -91,20 +93,6 @@ export default function User(props) {
                         <span >{inf.tit}</span>
                     </div>
                     <div className="DAT_ListDetail_Content">
-                        <div className="DAT_ListDetail_Content_Filterbar">
-                            <input
-                                id="search"
-                                type="text"
-                                placeholder="Tìm kiếm"
-                                style={{ minWidth: "calc(100% - 45px)" }}
-                            // onChange={(e) => handleInput(e)}
-                            />
-                            <div className="DAT_ListDetail_Content_Filterbar_Date"
-                                onClick={() => handleNav()}>
-                                <IoMdAdd size={18} />
-                            </div>
-                        </div>
-                        <div className="DAT_ListDetail_Content_Tit">Danh sách người dùng</div>
                         <div className="DAT_ListDetail_Content_List">
                             <Listuser username={props.username} />
                         </div>
