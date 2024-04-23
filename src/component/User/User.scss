@@ -269,12 +269,12 @@
     }
 }
 
-.DAT_Filterbar {
+.DAT_FilterbarUser {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 10px 15px 10px;
+    // padding: 10px 10px 15px 10px;
 
     & input {
         height: 40px;

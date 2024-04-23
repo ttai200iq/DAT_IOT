@@ -421,7 +421,7 @@ export default function Listuser() {
           />
         </div> :
         <>
-          <div className="DAT_Filterbar">
+          <div className="DAT_FilterbarUser">
             <input
               id="search"
               type="text"
@@ -429,7 +429,7 @@ export default function Listuser() {
               style={{ minWidth: "calc(100% - 45px)" }}
               onChange={(e) => handleFilter(e)}
             />
-            <div className="DAT_Filterbar_Date"
+            <div className="DAT_FilterbarUser_Date"
               onClick={() => handleNav()}>
               <IoMdAdd size={18} />
             </div>
