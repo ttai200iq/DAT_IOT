@@ -1044,7 +1044,6 @@ export default function Ups(props) {
         }
 
         return (
-
                 <>
                         {isBrowser
                                 ? <div className="DAT_View">
@@ -1357,11 +1356,6 @@ export default function Ups(props) {
                                                                 return (
                                                                         <>
                                                                                 <div className="DAT_Mobile_Container">
-
-                                                                                        {/* <div className="DAT_Mobile_Container_Search">
-                                                                                                <input placeholder={tab.value === '1' ? "Nhập tên dự án" : "Nhập tên thiết bị"} ></input>
-                                                                                                <button>+</button>
-                                                                                        </div> */}
                                                                                         <div className="DAT_Mobile_Container_Head" >
                                                                                                 {iconmobile}
                                                                                                 <span >{inf.tit}</span>
@@ -1369,8 +1363,14 @@ export default function Ups(props) {
                                                                                         <div className="DAT_Mobile_Container_Bar">
                                                                                                 {/* backgroundColor: tab.value === '1' ? 'rgb(38, 143, 214)' : 'white', */}
                                                                                                 <div className="DAT_Mobile_Container_Bar_project" onClick={() => { tab.value = '1' }}>
-                                                                                                        <div className="DAT_Mobile_Container_Bar_project_bg" style={{ height: tab.value === '1' ? '140px' : '200px', transition: '0.5s' }} ></div>
-                                                                                                        <div className="DAT_Mobile_Container_Bar_project_add" style={{ height: tab.value === '1' ? '60px' : '0', transition: '0.5s' }} ><span>Thêm dự án</span><IoIosAddCircle size={30} color="gray" /></div>
+                                                                                                        <div className="DAT_Mobile_Container_Bar_project_bg"
+                                                                                                                style={{ height: tab.value === '1' ? '140px' : '200px', transition: '0.5s' }} >
+                                                                                                        </div>
+                                                                                                        <div className="DAT_Mobile_Container_Bar_project_add"
+                                                                                                                style={{ height: tab.value === '1' ? '60px' : '0', transition: '0.5s' }} >
+                                                                                                                <span>Thêm dự án</span>
+                                                                                                                <IoIosAddCircle size={30} color="gray" />
+                                                                                                        </div>
                                                                                                 </div>
                                                                                                 <div className="DAT_Mobile_Container_Bar_device" onClick={() => { tab.value = '2' }} >
                                                                                                         <div className="DAT_Mobile_Container_Bar_device_bg" style={{ height: tab.value === '2' ? '140px' : '200px', transition: '0.5s' }} ></div>

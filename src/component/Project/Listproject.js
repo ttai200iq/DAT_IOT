@@ -10,6 +10,9 @@ import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import { IoMdAdd } from "react-icons/io";
+import { editProject } from "./Project";
+import { lowercasedata } from "../User/Listuser";
 
 export default function Listproject() {
   const dataLang = useIntl();
@@ -18,6 +21,7 @@ export default function Listproject() {
   const manager = useSelector((state) => state.admin.manager)
   const type = useSelector((state) => state.admin.type)
   const [data, setData] = useState([]);
+  const [filter, setFilter] = useState([]);
   const rootDispatch = useDispatch()
 
   const paginationComponentOptions = {
@@ -37,6 +41,7 @@ export default function Listproject() {
         });
         console.log(newData);
         setData(newData);
+        setFilter(newData);
       })
   }, []);
 
@@ -119,6 +124,26 @@ export default function Listproject() {
 
   };
 
+  const handleNav = (e) => {
+    editProject.value = true
+  };
+
+  const handleFilter = (e) => {
+    const searchTerm = lowercasedata(e.currentTarget.value);
+    if (searchTerm == "") {
+      setFilter(data)
+    } else {
+      const df = data.filter((item) => {
+        const filterName = item.name && lowercasedata(item.name).includes(searchTerm);
+        const filterAddress = item.addr && lowercasedata(item.addr).toLowerCase().includes(searchTerm);
+        const filterCompany = item.company && lowercasedata(item.company).toLowerCase().includes(searchTerm);
+
+        return (filterName || filterAddress || filterCompany);
+      })
+      setFilter(df)
+    }
+  }
+
   return (
     <>
       {isBrowser ?
@@ -140,7 +165,20 @@ export default function Listproject() {
         :
         // MOBILE SECTION
         <>
-          {data.map((data, i) => {
+          <div className="DAT_Filterbar">
+            <input
+              id="search"
+              type="text"
+              placeholder="Tìm kiếm"
+              style={{ minWidth: "calc(100% - 45px)" }}
+              onChange={(e) => { handleFilter(e) }}
+            />
+            <div className="DAT_Filterbar_Date"
+              onClick={() => handleNav()}>
+              <IoMdAdd size={18} />
+            </div>
+          </div>
+          {filter.map((data, i) => {
             return (
               <div key={i} className="DAT_ProjDetail_Container">
                 <div className="DAT_ProjDetail_Container_List">

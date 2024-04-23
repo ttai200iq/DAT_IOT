@@ -90,19 +90,6 @@ export default function Project(props) {
                         <span >{inf.tit}</span>
                     </div>
                     <div className="DAT_ListDetail_Content">
-                        <div className="DAT_ListDetail_Content_Filterbar">
-                            <input
-                                id="search"
-                                type="text"
-                                placeholder="Tìm kiếm"
-                                style={{ minWidth: "calc(100% - 45px)" }}
-                            />
-                            <div className="DAT_ListDetail_Content_Filterbar_Date"
-                                onClick={() => handleNav()}>
-                                <IoMdAdd size={18} />
-                            </div>
-                        </div>
-                        <div className="DAT_ListDetail_Content_Tit">Danh sách dự án</div>
                         <div className="DAT_ListDetail_Content_List">
                             <Listproject username={props.username} />
                         </div>

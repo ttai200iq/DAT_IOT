@@ -11,22 +11,33 @@ import adminslice from "../Redux/adminslice";
 import { effect, signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
 import Raisebox from "../Raisebox/Raisebox";
+import { IoMdAdd } from "react-icons/io";
+
 const projectadmin = signal([]);
 const deviceadmin = signal([]);
 const enduser = signal('');
 const role = signal({});
+const editUser = signal(false)
 
 export const delstate = signal(false)
+export const lowercasedata = (str) => {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D");
+};
 export default function Listuser() {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);
   const user = useSelector((state) => state.admin.user)
   const manager = useSelector((state) => state.admin.manager)
   const type = useSelector((state) => state.admin.type)
-  const [data, setData] = useState([]);
   const [modify, setModify] = useState(false)
+  const [data, setData] = useState([]);
+  const [filter, setFilter] = useState([]);
 
   const rootDispatch = useDispatch()
 
@@ -40,20 +51,13 @@ export default function Listuser() {
   useEffect(() => {
     axios.post(host.DEVICE + "/getAcount", { admin: user }, { withCredentials: true }).then(
       function (res) {
-        //console.log(res.data)
-        var newData = res.data;
-        newData.map((data, index) => {
-
-          //console.log(data.name,data.type)
-
-          role.value = { ...role.value, [data.name]: data.type }
-
-          return (data["id"] = index + 1);
+        var newData = res.data.map((data, index) => {
+          data["id"] = index + 1;
+          return data;
         });
         console.log(newData);
         setData(newData);
-
-
+        setFilter(newData);
       })
 
 
@@ -379,17 +383,34 @@ export default function Listuser() {
       })
   }
 
+  const handleNav = () => {
+    editUser.value = true
+  };
 
+  const handleFilter = (e) => {
+    const searchTerm = lowercasedata(e.currentTarget.value);
+    if (searchTerm == "") {
+      setFilter(data)
+    } else {
+      const df = data.filter((item) => {
+        const filterName = item.name && lowercasedata(item.name).includes(searchTerm);
+        const filterEmail = item.email && lowercasedata(item.email).toLowerCase().includes(searchTerm);
+        const filterUsername = item.username && lowercasedata(item.username).toLowerCase().includes(searchTerm);
+
+        return (filterName || filterEmail || filterUsername);
+      })
+      setFilter(df)
+    }
+  }
 
   return (
-
     <>
       {isBrowser ?
         <div className="DAT_UserList">
           <DataTable
             className="DAT_Table_Container"
             columns={(type === 'master') ? head_master : head}
-            data={data}
+            data={filter}
             pagination
             paginationComponentOptions={paginationComponentOptions}
             noDataComponent={
@@ -400,7 +421,21 @@ export default function Listuser() {
           />
         </div> :
         <>
-          {data.map((data, i) => {
+          <div className="DAT_Filterbar">
+            <input
+              id="search"
+              type="text"
+              placeholder="Tìm kiếm"
+              style={{ minWidth: "calc(100% - 45px)" }}
+              onChange={(e) => handleFilter(e)}
+            />
+            <div className="DAT_Filterbar_Date"
+              onClick={() => handleNav()}>
+              <IoMdAdd size={18} />
+            </div>
+          </div>
+
+          {filter.map((data, i) => {
             return (
               <div key={i} className="DAT_ListDetail_Content_List_Item">
                 <div className="DAT_ListDetail_Content_List_Item_GroupInfo"

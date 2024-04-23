@@ -69,6 +69,7 @@ export default function Listerr(props) {
         console.log(reader.value)
         console.log(document.getElementById("errid"))
     }, [])
+
     return (
         <>
             {isBrowser

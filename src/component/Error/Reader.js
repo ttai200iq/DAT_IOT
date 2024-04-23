@@ -284,8 +284,6 @@ export default function Reader(props) {
         } else {
           alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
         }
-
-
       }
     )
 
@@ -447,7 +445,6 @@ export default function Reader(props) {
         :
         <>
           <div className="DAT_ViewMobile_Container_Add" style={{ width: "100%" }}>
-
             <form className="DAT_ViewMobile_Container_Add_Form" onSubmit={(e) => handleAddReader(e)}>
               <input
                 placeholder="Nhập mã lỗi"
@@ -479,11 +476,9 @@ export default function Reader(props) {
                         className="DAT_ViewMobile_Container_Content_Top_right">
                         <div className="DAT_ViewMobile_Container_Content_Top_right_content">
                           <div className="DAT_ViewMobile_Container_Content_Top_right_content_title">
-                            {/* Tên mã lỗi : */}
                             {row.name}
                           </div>
 
-                          {/* Nguyen nhan */}
                           <div className="DAT_ViewMobile_Container_Content_Top_right_content_inforTitle">
                             Nguyên nhân :
                           </div>
@@ -527,7 +522,6 @@ export default function Reader(props) {
                               </div>
                           ))}
 
-                          {/* Bien phap */}
                           <div className="DAT_ViewMobile_Container_Content_Top_right_content_inforTitle">
                             Biển pháp :
                           </div>

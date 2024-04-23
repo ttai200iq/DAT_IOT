@@ -10,6 +10,7 @@ import DataTable from "react-data-table-component";
 import { isBrowser } from "react-device-detect";
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineDashboard, MdOutlineDelete } from "react-icons/md";
+import { lowercasedata } from "../User/Listuser";
 export default function Storage(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
     const inf = { code: 'Device', tit: 'Kho giao diện' }
@@ -19,6 +20,8 @@ export default function Storage(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
     const [fix, setFix] = useState(false)
+    const [filter, setFilter] = useState([]);
+
     const name = useRef()
     const id = useRef()
     const paginationComponentOptions = {
@@ -31,13 +34,12 @@ export default function Storage(props) {
     useEffect(() => {
         axios.post(host.DEVICE + "/getStore", { user: manager }, { withCredentials: true }).then(
             function (res) {
-                console.log(res.data)
                 var newData = res.data;
                 newData.map((data, index) => {
                     return (data["ids"] = index + 1);
                 });
-                console.log(newData);
                 setData(newData);
+                setFilter(newData);
             })
     }, []);
 
@@ -124,6 +126,18 @@ export default function Storage(props) {
         setFix(false);
     }
 
+    const handleFilter = (e) => {
+        const searchTerm = e.currentTarget.value.toLowerCase();
+        if (searchTerm == "") {
+            setFilter(data)
+        } else {
+            const df = data.filter((item) => {
+                return (lowercasedata(item.name).includes(searchTerm));
+            })
+            setFilter(df)
+        }
+    }
+
     return (
         <>
             {isBrowser ?
@@ -188,8 +202,17 @@ export default function Storage(props) {
                                 {inf.tit}
                             </div>
                         </div>
+                        <div className="DAT_Filterbar">
+                            <input
+                                id="search"
+                                type="text"
+                                placeholder="Tìm kiếm"
+                                style={{ minWidth: "100%" }}
+                                onChange={(e) => handleFilter(e)}
+                            />
+                        </div>
                     </div>
-                    {data.map((data, i) => {
+                    {filter.map((data, i) => {
                         return (
                             <div key={i} className="DAT_StorageMobile_Container">
                                 <div className="DAT_StorageMobile_Container_List">

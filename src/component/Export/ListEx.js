@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { exp, reporttime, devicetime } from "./Export";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -13,6 +13,7 @@ export const configreport = signal(false);
 export default function ListEx(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
+    const [filter, setFilter] = useState([]);
 
     const paginationComponentOptions = {
         rowsPerPageText: "Số hàng",
@@ -59,7 +60,7 @@ export default function ListEx(props) {
                 { secure: true, reconnect: true }
             )
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data[0] != undefined) {
                     reporttime.value = res.data;
                     reporttime.value.map((data, i) => {
@@ -76,6 +77,56 @@ export default function ListEx(props) {
                 }
             });
     };
+
+    useEffect(() => {
+        console.log(props.username);
+        exp.value = [];
+        axios
+            .post(
+                host.DEVICE + "/getErrbyUser",
+                { user: props.username, type: "Project" },
+                { secure: true, reconnect: true }
+            )
+            .then((res) => {
+                console.log(res.data);
+                var listp = res.data;
+
+                axios
+                    .post(
+                        host.DEVICE + "/getErrbyUser",
+                        { user: props.username, type: "None" },
+                        { secure: true, reconnect: true }
+                    )
+                    .then((res) => {
+                        console.log(res.data);
+
+                        exp.value = [...listp, ...res.data];
+                        exp.value = exp.value.map((data, index) => ({
+                            ...data,
+                            id: index + 1,
+                        }));
+
+                        // if(res.data[0] !== undefined){
+                        //     i_.value = res.data[0].id
+                        //     register.value = res.data[0].setting
+                        // }
+                        console.log(exp.value)
+                        setFilter(exp.value);
+                    });
+            });
+    }, []);
+
+    const handleFilter = (e) => {
+        const searchTerm = e.currentTarget.value.toLowerCase();
+        if (searchTerm == "") {
+            setFilter(exp.value)
+        } else {
+            const df = exp.value.filter((item) => {
+                return (item.deviceid.toLowerCase().includes(searchTerm));
+            })
+            setFilter(df)
+        }
+    }
 
     return (
         <>
@@ -103,7 +154,16 @@ export default function ListEx(props) {
             ) : (
                 // MOBILE SECTION
                 <>
-                    {exp.value.map((data, i) => {
+                    <div className="DAT_Filterbar">
+                        <input
+                            id="search"
+                            type="text"
+                            placeholder="Tìm kiếm"
+                            style={{ minWidth: "100%" }}
+                            onChange={(e) => handleFilter(e)}
+                        />
+                    </div>
+                    {filter.map((data, i) => {
                         return (
                             <div key={i} className="DAT_ListExport_Container">
                                 <div className="DAT_ListExport_Container_List">
