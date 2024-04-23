@@ -95,7 +95,6 @@ export default function Listerr(props) {
                                 <div>Thêm thiết bị để trải nghiệm tính năng này!</div>
                             </div>
                         }
-
                     />
                 </div> :
                 //MOBILE SECTION
