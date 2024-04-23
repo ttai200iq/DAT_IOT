@@ -66,8 +66,9 @@ export default function Listerr(props) {
     }
 
     useEffect(() => {
-        console.log(reader.value)
-        console.log(document.getElementById("errid"))
+        // console.log(reader.value)
+        // console.log(document.getElementById("errid"))
+        console.log(list.value)
     }, [])
     return (
         <>
