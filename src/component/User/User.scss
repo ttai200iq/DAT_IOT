@@ -101,7 +101,6 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-
                 gap: 10px;
 
                 &_Item {
@@ -121,7 +120,6 @@
                     height: 35px;
                     border-radius: 50%;
                     background-color: rgb(198, 198, 198);
-
                     cursor: pointer;
                     display: flex;
                     align-items: center;
@@ -145,7 +143,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        // background-color: rgb(236, 236, 236);
+        background-color: rgb(236, 236, 236);
         z-index: 25;
     }
 }
@@ -278,7 +276,6 @@
 
     & input {
         height: 40px;
-
         padding: 10px;
         outline: none;
         border: none;
@@ -320,7 +317,7 @@
     }
 }
 
-.DAT_ListDetail {
+.DAT_UserListDetail {
     margin-top: 58px;
     margin-bottom: 70px;
 
@@ -353,23 +350,18 @@
             margin: auto;
             padding-top: 10px;
             display: flex;
-
             flex-direction: column;
             gap: 10px;
 
             &_Item {
                 background-color: white;
-                // display: flex;
-                // align-items: center;
                 border-radius: 5px;
-                // justify-content: space-between;
                 padding: 10px;
                 width: 100%;
 
                 &_GroupInfo {
                     display: flex;
                     gap: 10px;
-                    // align-items: center;
                     border-bottom: 1px solid rgb(218, 218, 218);
                     padding-bottom: 10px;
                     width: 100%;
@@ -433,24 +425,6 @@
         width: 95%;
         margin: auto;
         margin-top: 100px;
-
-        // &-close{
-        //     position: absolute;
-        //     top: 10px;
-        //     right: 20px;
-        //     width: 35px;
-        //     height: 35px;
-        //     border-radius: 50%;
-        //     background-color: rgb(226, 226, 226);
-        //     display: flex;
-        //     align-items: center;
-        //     justify-content: center;
-        //     cursor: pointer;
-
-        //     &:hover{
-        //         background-color: rgb(179, 179, 179);
-        //     }
-        // }
 
         &-head {
             width: 100%;

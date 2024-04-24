@@ -463,8 +463,6 @@ export default function Reader(props) {
                   <div className="DAT_ViewMobile_Container_Content_Top"
                     style={{
                       display: "flex",
-                      // alignItems: "center",
-                      // justifyContent: "space-between",
                       gap: "20px",
                       borderBottom: "1px solid #e0e0e0",
                     }}>
@@ -499,7 +497,7 @@ export default function Reader(props) {
                                   </span>
                                   <span onClick={(e) => handleAddItem(e)}
                                     id={"add_infor_" + row.code}
-                                    style={{ color: "red" }}>
+                                    style={{ color: "#0d6efd" }}>
                                     <ion-icon name="add-circle-outline"></ion-icon>
                                   </span>
                                 </div>
@@ -542,7 +540,7 @@ export default function Reader(props) {
                                   </span>
                                   <span onClick={(e) => handleAddItem(e)}
                                     id={"add_solution_" + row.code}
-                                    style={{ color: "red" }}>
+                                    style={{ color: "#0d6efd" }}>
                                     <ion-icon name="add-circle-outline"></ion-icon>
                                   </span>
                                 </div>
