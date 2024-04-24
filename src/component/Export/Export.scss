@@ -93,10 +93,21 @@
         border-bottom: solid 1px rgb(199, 199, 199);
         display: flex;
         align-items: center;
-
         gap: 10px;
 
-        &_Item {
+        &_Item1 {
+          cursor: pointer;
+          min-width: 80px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          font-size: 16px;
+          color: gray;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        &_Item2 {
           cursor: pointer;
           min-width: 80px;
           padding-top: 10px;
@@ -173,7 +184,7 @@
 
       &_List {
         height: 62vh;
-        margin: 10px;
+        padding: 10px;
 
         &_Null {
           height: 100%;
@@ -295,7 +306,6 @@
       // border-radius: 5px;
 
       &_Left {
-
         &_Item {
           display: flex;
           justify-content: center;
@@ -567,7 +577,6 @@
     }
   }
 }
-
 
 @media (min-width: 700px) {
   .DAT_Export_Content_Main {
