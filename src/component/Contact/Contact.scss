@@ -64,113 +64,168 @@
         }
 
         &_Main {
-            width: 98%;
-            margin: auto;
-            border-radius: 5px;
-            background-color: rgb(255, 255, 255);
-            overflow: hidden;
-            box-shadow: 3px 3px 5px rgb(199, 199, 199, 0.5), -3px -3px 5px rgb(199, 199, 199, 0.5);
-
             &_New {
-                padding: 20px;
-                position: relative;
-                flex-basis: 500px;
+                width: 98%;
                 margin: auto;
                 display: flex;
-                gap: 20px;
-                // justify-content: space-between;
-
-                & span {
-                    color: gray;
-                }
+                gap: 10px;
 
                 &_Content {
                     flex: 5;
                     position: relative;
-                    // margin-bottom: 30px;
                     border-radius: 10px;
                     border: solid 1px rgb(221, 221, 221);
                     padding: 20px;
-                    // padding-bottom: 40px;
+                    background-color: rgb(255, 255, 255);
 
-                    &-edit {
-                        width: 35px;
-                        height: 35px;
-                        border-radius: 50%;
-                        cursor: pointer;
-                        position: absolute;
-                        bottom: 10px;
-                        right: 10px;
-                        background-color: aliceblue;
+                    &_Tit {
                         display: flex;
                         align-items: center;
-                        justify-content: center;
-                        color: gray;
+                        justify-content: space-between;
+                        margin-bottom: 24px;
 
-                        &:hover {
-                            background-color: rgba(0, 0, 0, 0.1);
+                        & div:first-child {
+                            color: rgba(11, 25, 103);
+                            font-family: Montserrat-SemiBold;
+                            font-size: 18px;
+                        }
+
+                        & div:nth-child(2) {
+                            color: rgba(11, 25, 103);
+                            font-family: Montserrat-SemiBold;
+                            font-size: 14px;
+                            cursor: pointer;
                         }
                     }
 
-                    &-save {
-                        width: 35px;
-                        height: 35px;
-                        border-radius: 50%;
-                        cursor: pointer;
-                        position: absolute;
-                        bottom: 10px;
-                        right: 50px;
-                        background-color: aliceblue;
+                    &_Content {
                         display: flex;
                         align-items: center;
-                        justify-content: center;
+                        justify-content: space-between;
+                        margin-bottom: 16px;
                         color: gray;
-
-                        &:hover {
-                            background-color: rgba(0, 0, 0, 0.1);
-                        }
+                        font-size: 16px;
                     }
 
-                    &-tit {
-                        font-size: 18px;
-                        // font-weight: bold;
-                        margin-bottom: 10px;
-                    }
+                    // &-edit {
+                    //     width: 35px;
+                    //     height: 35px;
+                    //     border-radius: 50%;
+                    //     cursor: pointer;
+                    //     position: absolute;
+                    //     bottom: 10px;
+                    //     right: 10px;
+                    //     background-color: aliceblue;
+                    //     display: flex;
+                    //     align-items: center;
+                    //     justify-content: center;
+                    //     color: gray;
 
-                    &-addr {
-                        font-size: 15px;
-                        font-weight: bold;
-                        // color: gray;
-                    }
+                    //     &:hover {
+                    //         background-color: rgba(0, 0, 0, 0.1);
+                    //     }
+                    // }
 
-                    &-phone {
-                        font-size: 15px;
-                        // font-weight: bold;
-                        // color: gray;
-                    }
+                    // &-save {
+                    //     width: 35px;
+                    //     height: 35px;
+                    //     border-radius: 50%;
+                    //     cursor: pointer;
+                    //     position: absolute;
+                    //     bottom: 10px;
+                    //     right: 50px;
+                    //     background-color: aliceblue;
+                    //     display: flex;
+                    //     align-items: center;
+                    //     justify-content: center;
+                    //     color: gray;
 
-                    & input {
-                        width: 100%;
-                        margin-bottom: 10px;
-                        padding: 7px;
-                        border-radius: 5px;
-                        border: solid 1px rgb(156, 155, 155, 0.3);
-                    }
+                    //     &:hover {
+                    //         background-color: rgba(0, 0, 0, 0.1);
+                    //     }
+                    // }
+
+                    // &-tit {
+                    //     font-size: 18px;
+                    //     // font-weight: bold;
+                    //     margin-bottom: 10px;
+                    // }
+
+                    // &-addr {
+                    //     font-size: 15px;
+                    //     font-weight: bold;
+                    //     // color: gray;
+                    // }
+
+                    // &-phone {
+                    //     font-size: 15px;
+                    //     // font-weight: bold;
+                    //     // color: gray;
+                    // }
+
+                    // & input {
+                    //     width: 100%;
+                    //     margin-bottom: 10px;
+                    //     padding: 7px;
+                    //     border-radius: 5px;
+                    //     border: solid 1px rgb(156, 155, 155, 0.3);
+                    // }
                 }
 
                 &_Logo {
                     flex: 5;
                     position: relative;
                     border-radius: 10px;
-                    // height: 180px;
-                    // margin: auto;
                     border: solid 1px rgb(221, 221, 221);
                     padding: 20px;
-                    // overflow: hidden;
-                    // display: flex;
-                    // align-items: center;
-                    // justify-content: center;
-                    // margin-bottom: 30px;
+                    background-color: rgb(255, 255, 255);
+
+                    &_Tit {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-bottom: 24px;
+
+                        & div:first-child {
+                            color: rgba(11, 25, 103);
+                            font-family: Montserrat-SemiBold;
+                            font-size: 18px;
+                        }
+
+                        & div:nth-child(2) {
+                            color: rgba(11, 25, 103);
+                            font-family: Montserrat-SemiBold;
+                            font-size: 14px;
+                            cursor: pointer;
+                        }
+                    }
+
+                    &-add {
+                        color: rgba(11, 25, 103);
+                        font-family: Montserrat-SemiBold;
+                        font-size: 14px;
+                        cursor: pointer;
+                    }
+
+                    &_Content {
+                        padding: 20px;
+                        width: 300px;
+                        height: 150px;
+                        margin: auto;
+                        border-radius: 10px;
+                        border: solid 1px rgba(198, 197, 197, 0.5);
+                        -webkit-box-sizing: border-box;
+                        /* Safari/Chrome, other WebKit */
+                        -moz-box-sizing: border-box;
+                        /* Firefox, other Gecko */
+                        box-sizing: border-box;
+
+                        & img {
+                            width: 100%;
+                            height: 100%;
+                        }
+
+                    }
 
                     // &-img {
                     //     position: absolute;
@@ -189,28 +244,128 @@
 
                     // }
 
-                    &-add {
-                        width: 35px;
-                        height: 35px;
-                        border-radius: 50%;
-                        cursor: pointer;
-                        position: absolute;
-                        bottom: 10px;
-                        right: 10px;
-                        background-color: aliceblue;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        color: gray;
+                    // &-add {
+                    //     width: 35px;
+                    //     height: 35px;
+                    //     border-radius: 50%;
+                    //     cursor: pointer;
+                    //     position: absolute;
+                    //     bottom: 10px;
+                    //     right: 10px;
+                    //     background-color: aliceblue;
+                    //     display: flex;
+                    //     align-items: center;
+                    //     justify-content: center;
+                    //     color: gray;
 
-                        &:hover {
-                            background-color: rgba(0, 0, 0, 0.1);
-                        }
-                    }
+                    //     &:hover {
+                    //         background-color: rgba(0, 0, 0, 0.1);
+                    //     }
+                    // }
                 }
             }
         }
     }
+}
+
+.DAT_ContactEdit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(237, 237, 237);
+    z-index: 25;
+    overflow: hidden;
+
+
+    &_Form {
+        position: relative;
+        width: 90%;
+        margin: auto;
+        margin-top: 80px;
+        margin-bottom: 20px;
+
+        &_Head {
+            width: 100%;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            & span:first-child {
+                font-size: 22px;
+                color: blue;
+            }
+
+            & span:last-child {
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: red;
+
+                &:hover {
+                    background-color: rgb(255, 0, 0, 0.5);
+                }
+            }
+        }
+
+
+        &_Row {
+            display: flex;
+            gap: 10px;
+            background-color: white;
+            padding: 20px;
+
+            &_Item {
+                position: relative;
+                width: 100%;
+
+                &_Label {
+                    display: flex;
+                    margin-bottom: 8px;
+                }
+
+                & input {
+                    height: 44px;
+                    width: 100%;
+                    border-radius: 5px;
+                    border: solid 1px rgb(156, 155, 155, 0.3);
+                    padding: 14px 18px;
+                    box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                }
+
+
+            }
+
+            &_Button {
+                height: 34px;
+                border: none;
+                color: white;
+                background-color: blue;
+                font-weight: 400;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+        }
+
+
+
+    }
+
 }
 
 .DAT_ContactMobile {
@@ -385,4 +540,129 @@
             }
         }
     }
+}
+
+.DAT_ContactEditMobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(237, 237, 237);
+    z-index: 25;
+    overflow: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &_Form {
+        position: relative;
+        width: 90%;
+        margin: auto;
+        margin-top: 80px;
+        margin-bottom: 20px;
+
+        &_Head {
+            background-color: white;
+            color: white;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            overflow: hidden;
+            padding: 16px;
+            margin-bottom: 10px;
+
+            &_Left {
+                font-family: Montserrat-Bold;
+                font-size: 18px;
+                color: blue;
+            }
+
+            &_Right {
+                flex: 5;
+                display: flex;
+                flex-wrap: wrap;
+                overflow: hidden;
+                justify-content: flex-end;
+                gap: 10px;
+
+                &_Close {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    overflow: hidden;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    cursor: pointer;
+
+                    & span {
+                        cursor: pointer;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: red;
+
+                        &:hover {
+                            background-color: rgb(255, 0, 0, 0.5);
+                        }
+                    }
+                }
+            }
+        }
+
+        &_Body {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            box-sizing: border-box;
+
+            &_Content {
+                padding: 16px;
+                padding-top: 0px;
+
+                &_Item {
+                    margin-top: 10px;
+                    position: relative;
+                    width: 100%;
+
+                    &_Label {
+                        font-size: 14px;
+                        display: flex;
+                        margin-bottom: 8px;
+                    }
+
+                    & input {
+                        width: 100%;
+                        height: 40px;
+                        border-radius: 5px;
+                        border: solid 1px rgba(198, 197, 197, 0.5);
+                        padding: 8px;
+                        outline: none;
+                        box-sizing: border-box;
+                        -webkit-box-sizing: border-box;
+                        -moz-box-sizing: border-box;
+                        font-family: Montserrat-Regular;
+                    }
+
+                    & button {
+                        width: 120px;
+                        height: 40px;
+                        border: none;
+                        border-radius: 7px;
+                        border: solid 1px #a2a2a2;
+                        background-color: #0082ca;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
 }

@@ -131,8 +131,7 @@ export default function Contact(props) {
             {isBrowser
                 ?
                 <div className='DAT_Contact'>
-                    <div className="DAT_Contact_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                    </div>
+                    <div className="DAT_Contact_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }} />
 
                     <div className='DAT_Contact_Content'>
                         <div className='DAT_Contact_Content_Direct'>
@@ -159,24 +158,33 @@ export default function Contact(props) {
                         <div className="DAT_Contact_Content_Main">
                             <div className="DAT_Contact_Content_Main_New">
                                 <div className='DAT_Contact_Content_Main_New_Content'>
-                                    <p style={{ color: "gray" }}>Thông tin liên hệ</p>
-                                    <div style={{ paddingLeft: "8px" }}>
-                                        <div className='DAT_Contact_Content_Main_New_Content-edit' onClick={() => { setEdit(true) }} ><CiEdit /></div>
-                                        <div className='DAT_Contact_Content_Main_New_Content-inf' >
-                                            <div className='DAT_Contact_Content_Main_New_Content-tit' >{contact.name}</div>
-                                            <div className='DAT_Contact_Content_Main_New_Content-addr' ><span >Địa chỉ: </span> {contact.addr}</div>
-                                            <div className='DAT_Contact_Content_Main_New_Content-phone' ><span>Điện thoại: </span>{contact.phone}</div>
-                                        </div>
+                                    <div className='DAT_Contact_Content_Main_New_Content_Tit'>
+                                        <div>Thông tin liên hệ</div>
+                                        <div onClick={() => { setEdit(true) }}>Thay đổi</div>
+                                    </div>
+
+                                    <div className='DAT_Contact_Content_Main_New_Content_Content'>
+                                        <div>Tên:</div>
+                                        <div>{contact.name}</div>
+                                    </div>
+                                    <div className='DAT_Contact_Content_Main_New_Content_Content'>
+                                        <div>Số điện thoại:</div>
+                                        <div>{contact.phone}</div>
+                                    </div>
+                                    <div className='DAT_Contact_Content_Main_New_Content_Content'>
+                                        <div>Địa chỉ:</div>
+                                        <div>{contact.addr}</div>
                                     </div>
                                 </div>
 
                                 <div className='DAT_Contact_Content_Main_New_Logo'>
-                                    <span>Logo</span>
-                                    <div>
-                                        <div className='DAT_Contact_Content_Main_New_Logo-img' >
-                                            <img src={logo.value === '' ? '/dat_icon/logo_DAT.png' : logo.value} alt="" />
-                                        </div>
-                                        <label htmlFor="file_logo" className='DAT_Contact_Content_Main_New_Logo-add' ><RiImageEditFill /></label>
+                                    <div className='DAT_Contact_Content_Main_New_Logo_Tit'>
+                                        <div>Logo</div>
+                                        <label htmlFor="file_logo" className='DAT_Contact_Content_Main_New_Logo-add' >Thay đổi</label>
+                                    </div>
+
+                                    <div className='DAT_Contact_Content_Main_New_Logo_Content' >
+                                        <img src={logo.value === '' ? '/dat_icon/logo_DAT.png' : logo.value} alt="" />
                                         <input accept="image/*" id="file_logo" type="file" style={{ visibility: "hidden" }} onChange={e => handleLogo(e)} />
                                     </div>
                                 </div>
