@@ -67,7 +67,7 @@ export default function Acount(props) {
                         </div>
                     </div>
 
-                    <div className="DAT_Account_Pass" style={{ height: editPass.value ? "100vh" : "0", transition: "0.5s" }}>
+                    <div className="DAT_PopupBG" style={{ height: editPass.value ? "100vh" : "0", transition: "0.5s" }}>
                         {editPass.value ? <Pass username={props.username} /> : <></>}
                     </div>
                 </div>
@@ -82,7 +82,7 @@ export default function Acount(props) {
                         <Contact username={props.username} />
                     </div>
 
-                    <div className="DAT_Account_Pass" style={{ height: editPass.value ? "100vh" : "0", transition: "0.5s" }}>
+                    <div className="DAT_PopupBG" style={{ height: editPass.value ? "100vh" : "0", transition: "0.5s" }}>
                         {editPass.value ? <Pass username={props.username} /> : <></>}
                     </div>
                 </div>

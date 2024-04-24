@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Account.scss"
 
 import { AlertContext } from "../Context/AlertContext";
@@ -8,16 +8,19 @@ import { host } from "../constant";
 import { useSelector } from "react-redux";
 import { IoClose } from "react-icons/io5";
 import { editPass } from "./Account";
+import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
 
 export default function Pass(props) {
     const mail = useRef("");
     const currentPass = useRef("");
     const newPass = useRef("");
-    const confirmPass = useRef("");
+    const confirmPass = useRef();
     const { alertDispatch } = useContext(AlertContext);
     const dataLang = useIntl();
     const user = useSelector((state) => state.admin.user)
-
+    const [confirmpass, setConfirmpass] = useState(true);
+    const [oldpass, setOldpass] = useState(true);
+    const [newpass, setNewpass] = useState(true);
     const handleSave = (e) => {
         e.preventDefault();
         if (newPass.current.value !== currentPass.current.value) {
@@ -52,67 +55,142 @@ export default function Pass(props) {
         }
     };
 
+    const popup_state = {
+        pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+        new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+    };
+
+    const handlePopup = (state) => {
+        const popup = document.getElementById("Popup");
+        popup.style.transform = popup_state[state].transform;
+        popup.style.transition = popup_state[state].transition;
+        popup.style.color = popup_state[state].color;
+    };
+
+    // Handle close when press ESC
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                props.handleClose();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <div className="DAT_Security">
             <form className="DAT_Security_Form" onSubmit={(e) => handleSave(e)}>
                 <div className="DAT_Security_Form_Head">
                     <div className="DAT_Security_Form_Head_Left">
-                        <span>Đổi mật khẩu</span>
+                        <p>Đổi mật khẩu</p>
                     </div>
 
                     <div className="DAT_Security_Form_Head_Right">
-                        <div className="DAT_Security_Form_Head_Righ_Close">
-                            <span style={{
-                                width: "30px",
-                                height: "30px",
-                                borderRadius: "50%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "red",
-                                cursor: "pointer"
-                            }}
-                                onClick={() => editPass.value = false}>
-                                <IoClose size={20} color="white" />
-                            </span>
+                        <div className="DAT_Security_Form_Head_Righ_Icon"
+                            id="Popup"
+                            onMouseEnter={(e) => handlePopup("new")}
+                            onMouseLeave={(e) => handlePopup("pre")}
+                            onClick={() => editPass.value = false}
+                        >
+                            <IoClose size={25} />
                         </div>
                     </div>
                 </div>
 
-                <div className="DAT_Security_Form_Row">
-                    <div className="DAT_Security_Form_Row_Item">
-                        <div className="DAT_Security_Form_Row_Item_Label"> Email</div>
-                        <input type="email" placeholder="Nhập Email" ref={mail} required />
+                <div className="DAT_Security_Form_Body">
+                    <div className="DAT_Security_Form_Body_Row">
+                        <label>
+                            Email
+                        </label>
+                        <div className="DAT_Security_Form_Body_Row_Item">
+                            <div className="DAT_Security_Form_Body_Row_Item_Input">
+                                <input type="email" placeholder="Nhập Email" ref={mail} required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="DAT_Security_Form_Body_Row">
+                        <label>
+                            Mật khẩu hiện tại
+                        </label>
+                        <div className="DAT_Security_Form_Body_Row_Item">
+                            <div className="DAT_Security_Form_Body_Row_Item_Input">
+                                <input type={oldpass === true ? "password" : "text"}
+                                    ref={currentPass}
+                                    placeholder="Mật Khẩu Hiện Tại" minLength={6}
+                                    required />
+                                <label onClick={() => setOldpass(!oldpass)}>
+                                    {oldpass === false ? (
+                                        <LiaEyeSolid size={20} />
+                                    ) : (
+                                        <LiaEyeSlashSolid size={20} />
+                                    )}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="DAT_Security_Form_Body_Row">
+                        <label>
+                            Mật khẩu mới
+                        </label>
+                        <div className="DAT_Security_Form_Body_Row_Item">
+                            <div className="DAT_Security_Form_Body_Row_Item_Input">
+                                <input type={newpass === true ? "password" : "text"}
+                                    ref={newPass}
+                                    placeholder="Mật Khẩu Mới"
+                                    minLength={6} required />
+                                <label>
+                                    {newpass === false ? (
+                                        <LiaEyeSolid
+                                            size={20}
+                                            onClick={() => setNewpass(!newpass)}
+                                        />
+                                    ) : (
+                                        <LiaEyeSlashSolid
+                                            size={20}
+                                            onClick={() => setNewpass(!newpass)}
+                                        />
+                                    )}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="DAT_Security_Form_Body_Row">
+                        <label>
+                            Xác nhận mật khẩu mới
+                        </label>
+                        <div className="DAT_Security_Form_Body_Row_Item">
+                            <div className="DAT_Security_Form_Body_Row_Item_Input">
+                                <input
+                                    type={confirmpass === true ? "password" : "text"}
+                                    ref={confirmPass}
+                                    placeholder="Nhập Lại Mật Khẩu Mới"
+                                    minLength={6} required />
+                                <label onClick={() => setConfirmpass(!confirmpass)}>
+                                    {confirmpass === false ? (
+                                        <LiaEyeSolid size={20} />
+                                    ) : (
+                                        <LiaEyeSlashSolid size={20} />
+                                    )}
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div className="DAT_Security_Form_Row">
-                    <div className="DAT_Security_Form_Row_Item">
-                        <div className="DAT_Security_Form_Row_Item_Label"> Mật khẩu hiện tại</div>
-                        <input type="password" placeholder="Mật Khẩu Hiện Tại" minLength={6} ref={currentPass} required />
-                    </div>
-                </div>
-
-                <div className="DAT_Security_Form_Row">
-                    <div className="DAT_Security_Form_Row_Item">
-                        <div className="DAT_Security_Form_Row_Item_Label"> Mật khẩu mới</div>
-                        <input type="password" placeholder="Mật Khẩu Mới" ref={newPass} minLength={6} required />
-                    </div>
-                </div>
-
-                <div className="DAT_Security_Form_Row">
-                    <div className="DAT_Security_Form_Row_Item">
-                        <div className="DAT_Security_Form_Row_Item_Label"> Xác nhận mật khẩu mới</div>
-                        <input type="password" placeholder="Nhập Lại Mật Khẩu Mới" ref={confirmPass} minLength={6} required />
-                    </div>
-                </div>
-
-                <div className="DAT_Security_Form_Row">
-                    <button className="DAT_Security_Form_Row_Button" >
-                        <ion-icon name="save-outline"></ion-icon> Lưu
+                <div className="DAT_Security_Form_Foot">
+                    <button className="DAT_Security_Form_Body_Row_Button" >
+                        Xác nhận
                     </button>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     );
 }
