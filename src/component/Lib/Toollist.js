@@ -166,7 +166,7 @@ export default function Toollist(props) {
                             <Link to="/Report" style={{ textDecoration: "none" }} >
                                 <div className="DAT_Toollist_Tab-warn-item"  ><FaFileExport style={{ color: "green" }} /></div>
                             </Link>
-                            <Link to="/Account" style={{ textDecoration: "none" }} >
+                            <Link to="/Contact" style={{ textDecoration: "none" }} >
                                 <div className="DAT_Toollist_Tab-warn-item"  ><MdContactPhone size={20} style={{ color: "blue" }} /></div>
                             </Link>
                         </div>
@@ -198,7 +198,7 @@ export default function Toollist(props) {
                             <Link to="/Report" style={{ textDecoration: "none" }} >
                                 <div className="DAT_Toollist_Tab-warn-item"  ><FaFileExport size={20} style={{ color: "green" }} /></div>
                             </Link>
-                            <Link to="/Account" style={{ textDecoration: "none" }} >
+                            <Link to="/Contact" style={{ textDecoration: "none" }} >
                                 <div className="DAT_Toollist_Tab-warn-item"  ><MdContactPhone size={20} style={{ color: "blue" }} /></div>
                             </Link>
                         </div>

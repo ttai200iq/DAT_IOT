@@ -44,6 +44,7 @@ iframe {
     -ms-overflow-style: none;
     scrollbar-width: none;
 
+
     /* Firefox */
     &::-webkit-scrollbar {
       display: none;
@@ -51,6 +52,8 @@ iframe {
     }
   }
 }
+
+
 
 .DAT_loading {
   width: 100%;
@@ -641,9 +644,11 @@ iframe {
     overflow-Y: auto !important;
     height: 43vh;
 
+
     &::-webkit-scrollbar {
       width: 8px;
       height: 10px;
+
     }
 
     /* Track */
@@ -662,6 +667,11 @@ iframe {
     &::-webkit-scrollbar-thumb:hover {
       background: #555;
     }
+
+
+
+
+
   }
 }
 
