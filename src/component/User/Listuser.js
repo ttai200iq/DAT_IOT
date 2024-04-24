@@ -11,7 +11,6 @@ import adminslice from "../Redux/adminslice";
 import { effect, signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
-import Raisebox from "../Raisebox/Raisebox";
 import { IoMdAdd } from "react-icons/io";
 
 const projectadmin = signal([]);
@@ -545,7 +544,6 @@ export default function Listuser() {
         }
       </div>
 
-      {/* {delstate ? <Raisebox /> : <></>} */}
     </>
 
   );

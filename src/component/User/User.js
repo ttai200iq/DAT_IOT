@@ -9,7 +9,7 @@ import { IoMdAdd } from "react-icons/io";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { HiOutlineUsers } from "react-icons/hi2";
-import Raisebox from "../Raisebox/Raisebox";
+import Raisebox from "../Raisebox/RaiseboxConfirmDel";
 export const editUser = signal(false)
 
 export default function User(props) {
