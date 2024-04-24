@@ -580,15 +580,18 @@
             margin-bottom: 5px;
 
             &-Save {
+                border: none;
+                font-family: Montserrat-Regular !important;
+                color: #0d6efd;
                 width: 40px;
                 height: 40px;
-                outline: none;
-                border: none;
-                border-radius: 50%;
+                border-radius: 5px;
+                cursor: pointer;
                 background-color: white;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                margin: 5px 0px 5px 0px;
             }
 
             &_Form {
@@ -600,15 +603,16 @@
                 align-items: center;
                 justify-content: space-between;
                 padding: 5px;
+                margin: 5px 0px 5px 0px;
                 width: 95%;
 
                 & input {
-                    border: none;
+                    height: 40px;
+                    padding: 10px;
                     outline: none;
-                    padding: 0 10px;
-                    font-size: 14px;
-                    font-family: Montserrat-Regular;
-                    width: calc(100% - 50px);
+                    border: none;
+                    border-radius: 5px;
+                    background-color: #ffffff;
                 }
 
                 & input :disabled {
@@ -617,10 +621,17 @@
 
                 & button {
                     border: none;
-                    outline: none;
-                    background-color: white;
-                    font-size: 14px;
-                    font-family: Montserrat-SemiBold;
+                    font-size: 25px;
+                    font-family: Montserrat-Regular !important;
+                    color: #0d6efd;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    background-color: aliceblue;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
         }

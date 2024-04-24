@@ -58,7 +58,6 @@ export default function Project(props) {
                         </div>
                         {/* Nav */}
                         <div className="DAT_Project_Content_Main">
-
                             <div className="DAT_Project_Content_Main_Nav">
                                 <div className="DAT_Project_Content_Main_Nav_Item">
                                     Danh sách dự án
@@ -84,13 +83,13 @@ export default function Project(props) {
                 </div>
                 :
                 // MOBILE SECTION
-                <div className="DAT_ListDetail">
-                    <div className="DAT_ListDetail_HeadTit">
+                <div className="DAT_ProjList">
+                    <div className="DAT_ProjList_HeadTit">
                         <GoProject size={25} />
                         <span >{inf.tit}</span>
                     </div>
-                    <div className="DAT_ListDetail_Content">
-                        <div className="DAT_ListDetail_Content_List">
+                    <div className="DAT_ProjList_Content">
+                        <div className="DAT_ProjList_Content_List">
                             <Listproject username={props.username} />
                         </div>
                     </div>

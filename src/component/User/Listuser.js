@@ -12,12 +12,12 @@ import { effect, signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
+import { editUser } from "./User";
 
 const projectadmin = signal([]);
 const deviceadmin = signal([]);
 const enduser = signal('');
 const role = signal({});
-const editUser = signal(false)
 
 export const delstate = signal(false)
 export const lowercasedata = (str) => {
@@ -99,8 +99,6 @@ export default function Listuser() {
       })
 
   }
-
-
   const handleFix = (type, status, id, code) => {
     if (type === 'device') {
       if (status === 'false') {
@@ -382,8 +380,9 @@ export default function Listuser() {
       })
   }
 
-  const handleNav = () => {
-    editUser.value = true
+  const handleNav = (e) => {
+    editUser.value = true;
+    console.log(editUser.value)
   };
 
   const handleFilter = (e) => {
@@ -429,7 +428,7 @@ export default function Listuser() {
               onChange={(e) => handleFilter(e)}
             />
             <div className="DAT_FilterbarUser_Date"
-              onClick={() => handleNav()}>
+              onClick={(e) => handleNav(e)}>
               <IoMdAdd size={18} />
             </div>
           </div>

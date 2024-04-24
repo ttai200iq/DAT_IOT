@@ -87,13 +87,13 @@ export default function User(props) {
 
                 </div> :
 
-                <div className="DAT_ListDetail">
-                    <div className="DAT_ListDetail_HeadTit">
+                <div className="DAT_UserListDetail">
+                    <div className="DAT_UserListDetail_HeadTit">
                         <HiOutlineUsers size={25} color="grey" />
                         <span >{inf.tit}</span>
                     </div>
-                    <div className="DAT_ListDetail_Content">
-                        <div className="DAT_ListDetail_Content_List">
+                    <div className="DAT_UserListDetail_Content">
+                        <div className="DAT_UserListDetail_Content_List">
                             <Listuser username={props.username} />
                         </div>
                     </div>

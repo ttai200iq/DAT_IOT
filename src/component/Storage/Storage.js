@@ -141,15 +141,15 @@ export default function Storage(props) {
     return (
         <>
             {isBrowser ?
-                <div className="DAT_Strorage">
+                <div className="DAT_Storage">
                     {/* Banner */}
-                    <div className="DAT_Strorage_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                        {/* <div className="DAT_StrorageTop-shadow" ></div> */}
+                    <div className="DAT_Storage_Banner" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                        {/* <div className="DAT_StorageTop-shadow" ></div> */}
                     </div>
 
                     {/* Profile Detail */}
-                    <div className="DAT_Strorage_Content">
-                        <div className="DAT_Strorage_Content_Direct" >
+                    <div className="DAT_Storage_Content">
+                        <div className="DAT_Storage_Content_Direct" >
                             {direct.map((data, index) => {
                                 return (
                                     (index === 0)
@@ -160,21 +160,21 @@ export default function Storage(props) {
                                 )
                             })}
                         </div>
-                        <div className="DAT_Strorage_Content_Tit">
-                            <div className="DAT_Strorage_Content_Tit-icon">
+                        <div className="DAT_Storage_Content_Tit">
+                            <div className="DAT_Storage_Content_Tit-icon">
                                 <MdOutlineDashboard size={25} color="grey" />
                             </div>
-                            <div className="DAT_Strorage_Content_Tit-content" >{inf.tit}</div>
+                            <div className="DAT_Storage_Content_Tit-content" >{inf.tit}</div>
                         </div>
 
-                        <div className="DAT_Strorage_Content_Main">
-                            <div className="DAT_Strorage_Content_Main_Nav">
-                                <div className="DAT_Strorage_Content_Main_Nav_Item">
+                        <div className="DAT_Storage_Content_Main">
+                            <div className="DAT_Storage_Content_Main_Nav">
+                                <div className="DAT_Storage_Content_Main_Nav_Item">
                                     Danh sách giao diện
                                 </div>
                             </div>
 
-                            <div className="DAT_Strorage_Content_Main_List">
+                            <div className="DAT_Storage_Content_Main_List">
                                 <DataTable
                                     className="DAT_Table_Container"
                                     columns={head}
@@ -195,14 +195,13 @@ export default function Storage(props) {
                 <>
                     <div className="DAT_StorageMobile">
                         <div className="DAT_StorageMobile_Tit" >
-                            <div className="DAT_StorageMobile_Tit-icon">
-                                <MdOutlineDashboard size={25} color="grey" />
-                            </div>
-                            <div className="DAT_StorageMobile_Tit-content" >
-                                {inf.tit}
-                            </div>
+                            <MdOutlineDashboard size={25} color="grey" />
+                            <span>{inf.tit}</span>
                         </div>
-                        <div className="DAT_Filterbar">
+                    </div>
+
+                    <div className="DAT_StorageMobile_Content">
+                        <div className="DAT_FilterbarStorage">
                             <input
                                 id="search"
                                 type="text"
@@ -211,63 +210,66 @@ export default function Storage(props) {
                                 onChange={(e) => handleFilter(e)}
                             />
                         </div>
-                    </div>
-                    {filter.map((data, i) => {
-                        return (
-                            <div key={i} className="DAT_StorageMobile_Container">
-                                <div className="DAT_StorageMobile_Container_List">
-                                    <div className="DAT_StorageMobile_Container_List_Item"
-                                        id={data.type}
-                                    >
-                                        {data.ids}
+                        {filter.map((data, i) => {
+                            return (
+                                <div key={i} className="DAT_StorageMobile_Content_Container">
+                                    <div className="DAT_StorageMobile_Content_Container_List">
+                                        <div className="DAT_ListExportM_Container_List_Left">
+
+                                            <div className="DAT_StorageMobile_Content_Container_List_Left_Item"
+                                                id={data.type}
+                                            >
+                                                {data.ids}
+                                            </div>
+                                        </div>
+
+                                        <div className="DAT_StorageMobile_Content_Container_List_Info">
+                                            <div className="DAT_StorageMobile_Content_Container_List_Info_Name"
+                                                id={data.id}
+                                                onClick={(e) => handleFix(e)}
+                                            >
+                                                {data.name}
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div className="DAT_StorageMobile_Container_List_Info">
-                                        <div className="DAT_StorageMobile_Container_List_Info_Name"
-                                            id={data.id}
-                                            onClick={(e) => handleFix(e)}
-                                        >
-                                            {data.name}
+                                    <div className="DAT_StorageMobile_Content_Container_Bottom">
+                                        <div className="DAT_StorageMobile_Content_Container_Bottom_Time">
+                                            Ngày tạo : ...
+                                        </div>
+                                        <div className="DAT_StorageMobile_Content_Container_Bottom_Del">
+                                            {data.type !== 'master' ?
+                                                <MdOutlineDelete
+                                                    size={20}
+                                                    color="red"
+                                                    id={data.name + "_" + data.mail}
+                                                    onClick={(e) => handleDelete(e)} /> : <></>}
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="DAT_StorageMobile_Container_Bottom">
-                                    <div className="DAT_StorageMobile_Container_Bottom_Time">
-                                        Ngày tạo : ...
-                                    </div>
-                                    <div className="DAT_StorageMobile_Container_Bottom_Del">
-                                        {data.type !== 'master' ?
-                                            <MdOutlineDelete
-                                                size={20}
-                                                color="red"
-                                                id={data.name + "_" + data.mail}
-                                                onClick={(e) => handleDelete(e)} /> : <></>}
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
                 </>
             }
 
             {(fix)
-                ? <div className="DAT_StrorageFix" >
-                    <form className="DAT_StrorageFix-group" onSubmit={e => handleSaveFix(e)}>
-                        <div className="DAT_StrorageFix-group-header">
-                            <div className="DAT_StrorageFix-group-header-title">
+                ? <div className="DAT_StorageFix" >
+                    <form className="DAT_StorageFix-group" onSubmit={e => handleSaveFix(e)}>
+                        <div className="DAT_StorageFix-group-header">
+                            <div className="DAT_StorageFix-group-header-title">
                                 Chỉnh sửa
                             </div>
-                            <div className="DAT_StrorageFix-group-header-close"
+                            <div className="DAT_StorageFix-group-header-close"
                                 onClick={() => setFix(false)}><ion-icon name="close-outline"></ion-icon></div>
                         </div>
 
-                        <div className="DAT_StrorageFix-group-row">
-                            <div className="DAT_StrorageFix-group-row-tit">Tên giao diện</div>
+                        <div className="DAT_StorageFix-group-row">
+                            <div className="DAT_StorageFix-group-row-tit">Tên giao diện</div>
                             <input type="text" minLength={6} defaultValue={name.current} ref={name} required ></input>
                         </div>
-                        <div className="DAT_StrorageFix-group-row">
-                            <button className="DAT_StrorageFix-group-row-button" >
+                        <div className="DAT_StorageFix-group-row">
+                            <button className="DAT_StorageFix-group-row-button" >
                                 <ion-icon name="save-outline"></ion-icon> Lưu
                             </button>
                         </div>

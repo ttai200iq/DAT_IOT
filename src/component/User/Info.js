@@ -91,13 +91,20 @@ export default function Info() {
                     style={{ borderRadius: '5px 5px 0 0' }}
                 >
                     <div className="DAT_Info_Form_Row_Item">
-                        <div className="DAT_Info_Form_Row_Item_Label">Tài khoản</div>
-                        <input type="text" placeholder="Tài khoản" ref={userName} required />
+                        <div className="DAT_Info_Form_Row_Item_Label">Tên</div>
+                        <input type="text" placeholder="Nhập tên" ref={fullname} required />
                     </div>
 
                     <div className="DAT_Info_Form_Row_Item">
                         <div className="DAT_Info_Form_Row_Item_Label">Email</div>
                         <input type="email" placeholder="Nhập Email" ref={mail} required />
+                    </div>
+                </div>
+
+                <div className="DAT_Info_Form_Row">
+                    <div className="DAT_Info_Form_Row_Item">
+                        <div className="DAT_Info_Form_Row_Item_Label">Tài khoản</div>
+                        <input type="text" placeholder="Tài khoản" ref={userName} required />
                     </div>
                 </div>
 
@@ -112,18 +119,6 @@ export default function Info() {
                         <div className="DAT_Info_Form_Row_Item_Label">Xác nhận mật khẩu</div>
                         <input type="password" placeholder="Nhập lại mật khẩu" ref={authpass} required />
                     </div>
-                </div>
-
-                <div className="DAT_Info_Form_Row">
-                    <div className="DAT_Info_Form_Row_Item">
-                        <div className="DAT_Info_Form_Row_Item_Label">Tên</div>
-                        <input type="text" placeholder="Nhập tên" ref={fullname} required />
-                    </div>
-
-                    {/* <div className="DAT_Info_Main_Content_Detail_Content_Form_Row_Item">
-                                        <div className="DAT_Info_Main_Content_Detail_Content_Form_Row_Item_Label">ID</div>
-                                        <input type="text" placeholder="ID"  ref={id} required/>                           
-                                    </div> */}
                 </div>
 
                 <div className="DAT_Info_Form_Row"

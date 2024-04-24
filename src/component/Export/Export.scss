@@ -354,6 +354,57 @@
   }
 }
 
+.DAT_FilterbarExport {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+
+  & input {
+    height: 40px;
+
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+  }
+
+  &_CustomPicker {
+    width: calc(100vw - 70px);
+    height: 40px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  // input[type="date"]::-webkit-inner-spin-button,
+  // input[type="date"]::-webkit-calendar-picker-indicator {
+  //     display: none;
+  //     -webkit-appearance: none;
+  // }
+  &_Date {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #ffffff;
+
+    &:active {
+      background-color: rgb(66, 59, 50, 0.3);
+      transition: 0.2s ease-in-out;
+    }
+  }
+}
+
 .DAT_ConfigMobilePopup {
   position: fixed;
   top: 0;
@@ -482,12 +533,12 @@
   gap: 10px;
 }
 
-.DAT_ListExport {
-  width: 100%;
-  padding-top: 60px;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.DAT_ListExportM {
+  width: 96%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   /* Firefox */
   &::-webkit-scrollbar {
@@ -496,33 +547,27 @@
   }
 
   &_Container {
-    width: 95%;
-    margin: auto;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
     background-color: white;
-    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
 
     &_List {
-      border-bottom: 1px solid #c6c5c580;
-      border-radius: 5px;
-      padding: 10px;
-      width: 100%;
-      gap: 10px;
       display: flex;
-      margin-top: 8px;
+      gap: 10px;
+      border-bottom: 1px solid rgb(218, 218, 218);
+      padding-bottom: 10px;
+      width: 100%;
 
       &_Left {
         &_Item {
           display: flex;
           justify-content: center;
           align-items: center;
-          min-width: 70px;
-          height: 70px;
+          width: 80px;
+          height: 80px;
           border-radius: 5px;
-          font-size: 14px;
+          font-size: 12px;
           background-color: #0082ca;
           color: white;
         }
@@ -557,7 +602,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px;
+      padding-top: 5px;
 
       &_Time {
         font-size: 12px;
@@ -577,6 +622,99 @@
     }
   }
 }
+
+.DAT_ExportList {
+  margin-top: 58px;
+  margin-bottom: 70px;
+
+  &_HeadTit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 25px;
+    font-weight: 500;
+    font-family: Montserrat-SemiBold;
+    color: rgb(106, 106, 106);
+    font-size: 20px;
+  }
+
+  &_Content {
+
+    &_Tit {
+      width: 96%;
+      margin: auto;
+      padding-top: 10px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    &_List {
+      width: 96%;
+      margin: auto;
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &_Item {
+        background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%;
+
+        &_GroupInfo {
+          display: flex;
+          gap: 10px;
+          border-bottom: 1px solid rgb(218, 218, 218);
+          padding-bottom: 10px;
+          width: 100%;
+
+          &_Code {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            font-size: 12px;
+            background-color: #0082ca;
+            color: white;
+          }
+
+          &_Info {
+            display: flex;
+
+            &_Gateway {
+              font-family: Montserrat-SemiBold;
+            }
+          }
+        }
+
+        &_Bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 5px;
+
+          &_Del {
+            cursor: pointer;
+            color: red;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            background-color: rgb(255, 228, 196, 0.5);
+            border: none;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
 
 @media (min-width: 700px) {
   .DAT_Export_Content_Main {

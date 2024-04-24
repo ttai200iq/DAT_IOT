@@ -165,7 +165,7 @@ export default function Listproject() {
         :
         // MOBILE SECTION
         <>
-          <div className="DAT_Filterbar">
+          <div className="DAT_FilterbarProject">
             <input
               id="search"
               type="text"
@@ -173,7 +173,7 @@ export default function Listproject() {
               style={{ minWidth: "calc(100% - 45px)" }}
               onChange={(e) => { handleFilter(e) }}
             />
-            <div className="DAT_Filterbar_Date"
+            <div className="DAT_FilterbarProject_Date"
               onClick={() => handleNav()}>
               <IoMdAdd size={18} />
             </div>
