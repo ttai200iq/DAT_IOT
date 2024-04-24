@@ -26,7 +26,7 @@ export default function SlideBar(props) {
         // Map: { icon: <ion-icon name="map-outline"></ion-icon>, link: '/Map',li:[] },
         Mess: { icon: <ion-icon name="mail-outline"></ion-icon>, link: 'none', li: [] },
         Notif: { icon: <ion-icon name="notifications-outline"></ion-icon>, link: 'none', li: [] },
-        Setting: { icon: <ion-icon name="construct-outline"></ion-icon>, link: 'none', li: (type === 'admin' || type === 'master') ? [{ link: '/Error', name: 'Cài Đặt Lỗi' }, { link: '/Export', name: 'Cài đặt báo cáo' }, { link: '/Device', name: 'Kho Giao Diện' }, { link: '/Project', name: 'Dự Án' }, { link: '/User', name: 'Người Dùng' }, { link: '/Account', name: 'Tài Khoản' }] : (type === 'mainuser') ? [{ link: '/Error', name: 'Cài Đặt Lỗi' }, { link: '/Account', name: 'Tài Khoản' }] : [{ link: '/Account', name: 'Tài Khoản' }] },
+        Setting: { icon: <ion-icon name="construct-outline"></ion-icon>, link: 'none', li: (type === 'admin' || type === 'master') ? [{ link: '/Error', name: 'Cài Đặt Lỗi' }, { link: '/Export', name: 'Cài đặt báo cáo' }, { link: '/Device', name: 'Kho Giao Diện' }, { link: '/Project', name: 'Dự Án' }, { link: '/User', name: 'Người Dùng' }, { link: '/Account', name: 'Tài Khoản' }, { link: '/Contact', name: 'Liên hệ' }] : (type === 'mainuser') ? [{ link: '/Error', name: 'Cài Đặt Lỗi' }, { link: '/Account', name: 'Tài Khoản' }, { link: '/Contact', name: 'Liên hệ' }] : [{ link: '/Account', name: 'Tài Khoản' }, { link: '/Contact', name: 'Liên hệ' }] },
         Inf: { icon: <ion-icon name="grid-outline"></ion-icon>, link: '/Datgroup', li: [] }
 
     }

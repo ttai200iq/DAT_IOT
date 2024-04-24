@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import "./Account.scss"
+
 import { RiImageAddLine } from "react-icons/ri";
 import Resizer from "react-image-file-resizer";
 import { host } from '../constant';
@@ -9,7 +10,8 @@ import { avatar } from '../MenuTop/MenuTop';
 import { useIntl } from 'react-intl';
 import { AlertContext } from '../Context/AlertContext';
 import { action } from '../Control/Action';
-function Avatar(props) {
+
+export default function Avatar(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
     const user = useSelector((state) => state.admin.user)
@@ -33,16 +35,11 @@ function Avatar(props) {
     const handdeAvatar = async (e) => {
         var reader = new FileReader();
 
-
-
         console.log("old size", e.target.files[0].size)
 
         if (e.target.files[0].size > 50000) {
-
-
             const image = await resizeFile(e.target.files[0]);
             console.log(image.size)
-
 
             reader.readAsDataURL(image);
 
@@ -82,16 +79,11 @@ function Avatar(props) {
         }
     }
 
-
     return (
         <div className='DAT_Avatar'>
-
             <img src={avatar.value === '' ? '/dat_icon/user_manager.png' : avatar.value} alt="" />
-
             <label htmlFor="file" className='DAT_Avatar-add' ><RiImageAddLine /></label>
             <input accept="image/*" id="file" type="file" style={{ visibility: "hidden" }} onChange={e => handdeAvatar(e)} />
         </div>
     );
 }
-
-export default Avatar;

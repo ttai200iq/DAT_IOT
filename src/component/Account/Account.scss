@@ -42,43 +42,24 @@
             margin: auto;
             width: 98%;
             color: white;
+            font-family: Montserrat-SemiBold;
         }
 
         &_Tit {
-            padding-top: 20px;
-            padding-bottom: 20px;
+            padding-top: 16px;
+            padding-bottom: 16px;
             position: relative;
             display: flex;
             width: 98%;
             margin: auto;
             align-items: center;
+            gap: 8px;
 
             &-content {
                 text-wrap: nowrap;
-                width: 250px;
-                font-size: 35px;
-                font-weight: 400;
-                color: whitesmoke;
-
-            }
-
-            &-icon {
-                width: 40px;
-                display: flex;
-                align-items: center;
-
-                ion-icon {
-                    color: gray;
-                    font-size: 32px;
-                }
-            }
-
-            & img {
-                margin-top: 5px;
-                margin-right: 5px;
-                height: 32px;
-                width: 32px;
-                filter: invert(56%) sepia(1%) saturate(440%) hue-rotate(92deg) brightness(93%) contrast(91%);
+                font-size: 25px;
+                color: white;
+                font-family: Montserrat-Bold;
             }
         }
 
@@ -89,87 +70,6 @@
             background-color: rgb(255, 255, 255);
             overflow: hidden;
             box-shadow: 3px 3px 5px rgb(199, 199, 199, 0.5), -3px -3px 5px rgb(199, 199, 199, 0.5);
-
-            &_Nav {
-                padding: 10px;
-                background-color: rgb(241, 241, 241);
-                border-bottom: solid 1px rgb(199, 199, 199);
-                display: flex;
-                align-items: center;
-                gap: 10px;
-
-                &_Item {
-                    cursor: pointer;
-                    min-width: 80px;
-                    padding-top: 10px;
-                    padding-bottom: 10px;
-                    font-size: 16px;
-                    color: gray;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-                &_Add {
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-
-                    &-Save {
-                        width: 40px;
-                        height: 40px;
-                        outline: none;
-                        border: none;
-                        border-radius: 50%;
-                        background-color: rgb(243, 243, 243);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        &:hover {
-                            background-color: rgb(202, 202, 202);
-                        }
-
-                        &:focus-within {
-                            box-shadow: 0 0 0 4px rgb(136, 136, 136, 0.5);
-                        }
-                    }
-
-                    & form {
-                        width: 200px;
-                        display: flex;
-                        align-items: center;
-                        border-radius: 7px;
-                        overflow: hidden;
-
-                        &:focus-within {
-                            box-shadow: 0 0 0 4px rgb(136, 136, 136, 0.5);
-                        }
-
-                        & input {
-                            border-radius: 0;
-                            outline: none;
-                            border: none;
-                            width: 100%;
-                            height: 40px;
-                            background-color: rgb(231, 231, 231);
-                            padding: 10px;
-                        }
-
-                        & button {
-                            outline: none;
-                            border: none;
-                            width: 60px;
-                            height: 40px;
-                            background-color: rgb(231, 231, 231);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        }
-                    }
-                }
-            }
 
             &_New {
                 padding: 20px;
@@ -187,7 +87,6 @@
         z-index: 25;
 
     }
-
 }
 
 .DAT_AccountMobile {
@@ -340,59 +239,48 @@
 
 }
 
-
 .DAT_Contact {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+    &_Item {
+        // flex-basis: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+        border-bottom: solid 1px rgba(198, 197, 197, 0.5);
 
-    &_Avatar {
-        flex-basis: 300px;
-
-        & span {
-            color: blue;
-            font-size: 16px;
-        }
-
-        &-group {
-            position: relative;
-            border-radius: 10px;
-            height: 250px;
-            border: solid 1px rgb(212, 212, 212);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
+        &_Content {
+            &_Tit {
+                font-size: 14px;
+                color: gray;
+                margin-bottom: 8px;
+            }
 
             & img {
-                position: absolute;
-                width: 180px;
-                height: 180px;
+                width: 45px;
+                height: 45px;
                 border-radius: 50%;
-                overflow: hidden;
-                border: solid 1px rgb(156, 155, 155, 0.3);
-            }
-
-            &-add {
-                width: 35px;
-                height: 35px;
-                border-radius: 50%;
+                box-shadow: 0 0 0 3px rgb(213, 213, 213);
                 cursor: pointer;
-                position: absolute;
-                z-index: 20;
-                bottom: 10px;
-                right: 10px;
-                background-color: rgb(217, 217, 217, 0.5);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: gray;
-
-                &:hover {
-                    background-color: rgba(43, 43, 43, 0.5);
-                }
             }
+
+            &_Label {
+                font-size: 16px;
+                color: black;
+            }
+        }
+
+        & span {
+            color: rgba(11, 25, 103);
+            font-family: Montserrat-SemiBold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        &-add {
+            color: rgba(11, 25, 103);
+            font-family: Montserrat-SemiBold;
+            font-size: 14px;
+            cursor: pointer;
         }
     }
 
@@ -522,8 +410,6 @@
             }
         }
     }
-
-
 }
 
 .DAT_ContactMobile {
@@ -828,7 +714,6 @@
     }
 }
 
-
 .DAT_ContactEdit {
     position: fixed;
     top: 0;
@@ -1054,7 +939,6 @@
 
 }
 
-
 .DAT_Language {
     flex: 1;
     width: 100%;
@@ -1130,7 +1014,6 @@
         }
     }
 }
-
 
 // .DAT_Logo {
 //     position: relative;
@@ -1245,13 +1128,12 @@
 //     }
 // }
 
-
 @media (min-width: 700px) {
     .DAT_Account_Content {
         padding-bottom: 20px !important;
 
         &_Main {
-            height: calc(100vh - 200px);
+            // height: calc(100vh - 200px);
 
 
         }

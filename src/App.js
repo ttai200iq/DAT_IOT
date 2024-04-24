@@ -17,7 +17,7 @@ import Default from "./component/Default/Default";
 import Verify from "./component/Verify/Verify";
 import { io } from "socket.io-client";
 import { useLayoutEffect } from "react";
-import {overview} from "./component/LibOverview/Tooloverview";
+import { overview } from "./component/LibOverview/Tooloverview";
 
 const View = React.lazy(() => import('./component/View/View'));
 const Auto = React.lazy(() => import('./component/Control/Auto'));
@@ -33,6 +33,7 @@ const Storage = React.lazy(() => import('./component/Storage/Storage'));
 const Project = React.lazy(() => import('./component/Project/Project'));
 const User = React.lazy(() => import('./component/User/User'));
 const Account = React.lazy(() => import('./component/Account/Account'));
+const Contact = React.lazy(() => import('./component/Contact/Contact'));
 const Export = React.lazy(() => import('./component/Export/Export'));
 
 // const Contact = React.lazy(() => import('./component/Contact/Contact'));
@@ -41,7 +42,7 @@ export const loginState = signal('Login');
 export const pageDefault = signal({ status: false });
 export const list = signal([])
 export const socket = signal(io.connect(host.DEVICE))
-export const view =  signal({type:'single', id:'none', tab:'0'});
+export const view = signal({ type: 'single', id: 'none', tab: '0' });
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -226,7 +227,7 @@ export default function App() {
                                                 <Route path='/User' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><User username={manager} /></Suspense>} />
                                                 <Route path='/Account' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><Account username={manager} /></Suspense>} />
                                                 <Route path='/Export' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><Export username={manager} /></Suspense>} />
-                                                {/* <Route path='/Contact' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><Contact username={manager} /></Suspense>} /> */}
+                                                <Route path='/Contact' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><Contact username={manager} /></Suspense>} />
                                                 <Route path='/Login' element={<Navigate to="/" />} />
                                                 <Route path='/Logout' element={<Navigate to="/Login" />} />
                                             </Routes>
@@ -257,7 +258,7 @@ export default function App() {
                                                     <Route path='/User' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><User username={manager} /></Suspense>} />
                                                     <Route path='/Account' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><Account username={manager} /></Suspense>} />
                                                     <Route path='/Export' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><Export username={manager} /></Suspense>} />
-                                                    {/* <Route path='/Contact' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><Contact username={manager} /></Suspense>} /> */}
+                                                    <Route path='/Contact' element={<Suspense fallback={<div className="DAT_loading" ><ClockLoader color='#007bff' size={50} loading={true} /></div>}><Contact username={manager} /></Suspense>} />
                                                     <Route path='/Login' element={<Navigate to="/" />} />
                                                     <Route path='/Logout' element={<Navigate to="/Login" />} />
                                                 </Routes>

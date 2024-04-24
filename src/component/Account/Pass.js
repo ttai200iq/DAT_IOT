@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from "react";
 import "./Account.scss"
+
 import { AlertContext } from "../Context/AlertContext";
 import { useIntl } from "react-intl";
 import axios from "axios";
@@ -16,7 +17,6 @@ export default function Pass(props) {
     const { alertDispatch } = useContext(AlertContext);
     const dataLang = useIntl();
     const user = useSelector((state) => state.admin.user)
-
 
     const handleSave = (e) => {
         e.preventDefault();
@@ -50,8 +50,6 @@ export default function Pass(props) {
         } else {
             alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_23" }), show: 'block' } })
         }
-
-
     };
 
     return (
@@ -61,6 +59,7 @@ export default function Pass(props) {
                     <div className="DAT_Security_Form_Head_Left">
                         <span>Đổi mật khẩu</span>
                     </div>
+
                     <div className="DAT_Security_Form_Head_Right">
                         <div className="DAT_Security_Form_Head_Righ_Close">
                             <span style={{
@@ -70,7 +69,8 @@ export default function Pass(props) {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                backgroundColor: "red"
+                                backgroundColor: "red",
+                                cursor: "pointer"
                             }}
                                 onClick={() => editPass.value = false}>
                                 <IoClose size={20} color="white" />
@@ -78,12 +78,14 @@ export default function Pass(props) {
                         </div>
                     </div>
                 </div>
+
                 <div className="DAT_Security_Form_Row">
                     <div className="DAT_Security_Form_Row_Item">
                         <div className="DAT_Security_Form_Row_Item_Label"> Email</div>
                         <input type="email" placeholder="Nhập Email" ref={mail} required />
                     </div>
                 </div>
+
                 <div className="DAT_Security_Form_Row">
                     <div className="DAT_Security_Form_Row_Item">
                         <div className="DAT_Security_Form_Row_Item_Label"> Mật khẩu hiện tại</div>
@@ -104,14 +106,13 @@ export default function Pass(props) {
                         <input type="password" placeholder="Nhập Lại Mật Khẩu Mới" ref={confirmPass} minLength={6} required />
                     </div>
                 </div>
+
                 <div className="DAT_Security_Form_Row">
                     <button className="DAT_Security_Form_Row_Button" >
                         <ion-icon name="save-outline"></ion-icon> Lưu
                     </button>
                 </div>
-
             </form>
         </div>
-
     );
 }
