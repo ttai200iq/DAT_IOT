@@ -230,49 +230,61 @@
         }
 
         &_Tit {
-            padding-top: 16px;
-            padding-bottom: 16px;
-            position: relative;
             display: flex;
-            width: 98%;
-            margin: auto;
             align-items: center;
             gap: 8px;
-
-            &-content {
-                text-wrap: nowrap;
-                font-size: 25px;
-                color: rgba(11, 25, 103);
-                font-family: Montserrat-Bold;
-            }
+            padding-top: 10px;
+            padding-left: 10px;
+            font-size: 25px;
+            font-weight: 500;
+            font-family: Montserrat-SemiBold;
+            color: rgb(106, 106, 106);
+            font-size: 20px;
         }
 
         &_Main {
             &_New {
                 &_Logo {
-                    width: 95%;
+                    width: 96%;
                     padding: 10px;
                     margin: auto;
                     border-radius: 5px;
                     background-color: #ffffff;
                     overflow: hidden;
                     margin-bottom: 10px;
+                    margin-top: 10px;
 
                     &_Head {
                         width: 100%;
                         margin-top: 5px;
                         margin-bottom: 15px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
 
                         & span {
                             font-family: Montserrat-SemiBold !important;
                             color: #0d6efd;
                             font-size: 18px;
                         }
+
+                        &_Button {
+                            & label {
+                                color: #0d6efd;
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 50%;
+                                cursor: pointer;
+                                background-color: aliceblue;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                        }
                     }
 
                     &_Content {
                         width: 100%;
-                        position: relative;
 
                         & span {
                             font-size: 16px;
@@ -284,33 +296,18 @@
                         }
 
                         &_Picture {
-                            height: 200px;
-                            overflow: hidden;
+                            border: 1px solid #c6c5c580;
+                            border-radius: 10px;
                             box-sizing: border-box;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
+                            height: 150px;
+                            margin: auto;
+                            padding: 10px;
+                            width: 300px;
+                            overflow: hidden;
 
                             & img {
-                                width: 80%;
-                                height: 80%;
-                            }
-
-                            & label {
-                                font-size: 25px;
-                                font-family: Montserrat-Regular !important;
-                                color: #0d6efd;
-                                width: 40px;
-                                height: 40px;
-                                border-radius: 50%;
-                                cursor: pointer;
-                                background-color: aliceblue;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                position: absolute;
-                                bottom: 0;
-                                right: 0;
+                                height: 100%;
+                                width: 100%;
                             }
                         }
 
@@ -324,7 +321,7 @@
                 }
 
                 &_ContactInfo {
-                    width: 95%;
+                    width: 96%;
                     padding: 10px;
                     margin: auto;
                     border-radius: 5px;
@@ -370,7 +367,7 @@
                             display: flex;
                             flex-direction: column;
                             margin-bottom: 10px;
-                            border: 0.1px solid grey;
+                            border: 1px solid #c6c5c580;
                             border-radius: 5px;
                             padding: 10px;
 

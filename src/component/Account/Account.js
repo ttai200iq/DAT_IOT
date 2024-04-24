@@ -3,7 +3,7 @@ import "./Account.scss"
 
 import { Link } from "react-router-dom";
 import Pass from "./Pass";
-import Contact from "./Contact";
+import Contact from "./AccountInfo";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { PiUserCircleLight } from "react-icons/pi";
