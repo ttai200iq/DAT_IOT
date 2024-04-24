@@ -193,72 +193,72 @@ export default function Contact(props) {
             {isBrowser
                 ?
                 <div className='DAT'>
-                    <div className='DAT_Contact' >
-                        <div className='DAT_Contact_Item'>
-                            <div className='DAT_Contact_Item_Content'>
-                                <div className='DAT_Contact_Item_Content_Tit'>
+                    <div className='DAT_AccountInfo' >
+                        <div className='DAT_AccountInfo_Item'>
+                            <div className='DAT_AccountInfo_Item_Content'>
+                                <div className='DAT_AccountInfo_Item_Content_Tit'>
                                     Ảnh đại diện:
                                 </div>
                                 <img src={avatar.value === '' ? '/dat_icon/user_manager.png' : avatar.value} alt="" />
                                 <input accept="image/*" id="file_avatar" type="file" style={{ visibility: "hidden" }} onChange={e => handleAvatar(e)} />
                             </div>
-                            <label htmlFor="file_avatar" className='DAT_Contact_Item-add' >Thay đổi</label>
+                            <label htmlFor="file_avatar" className='DAT_AccountInfo_Item-add' >Thay đổi</label>
                         </div>
 
-                        <div className='DAT_Contact_Item'>
-                            <div className='DAT_Contact_Item_Content'>
-                                <div className='DAT_Contact_Item_Content_Tit'>
+                        <div className='DAT_AccountInfo_Item'>
+                            <div className='DAT_AccountInfo_Item_Content'>
+                                <div className='DAT_AccountInfo_Item_Content_Tit'>
                                     Tên:
                                 </div>
-                                <div className='DAT_Contact_Item_Content_Label'>
+                                <div className='DAT_AccountInfo_Item_Content_Label'>
                                     {username}
                                 </div>
                             </div>
                             <span>Thay đổi</span>
                         </div>
 
-                        <div className='DAT_Contact_Item'>
-                            <div className='DAT_Contact_Item_Content'>
-                                <div className='DAT_Contact_Item_Content_Tit'>
+                        <div className='DAT_AccountInfo_Item'>
+                            <div className='DAT_AccountInfo_Item_Content'>
+                                <div className='DAT_AccountInfo_Item_Content_Tit'>
                                     Số điện thoại:
                                 </div>
-                                <div className='DAT_Contact_Item_Content_Label'>
+                                <div className='DAT_AccountInfo_Item_Content_Label'>
                                     __
                                 </div>
                             </div>
                             <span>Thay đổi</span>
                         </div>
 
-                        <div className='DAT_Contact_Item'>
-                            <div className='DAT_Contact_Item_Content'>
-                                <div className='DAT_Contact_Item_Content_Tit'>
+                        <div className='DAT_AccountInfo_Item'>
+                            <div className='DAT_AccountInfo_Item_Content'>
+                                <div className='DAT_AccountInfo_Item_Content_Tit'>
                                     Địa chỉ:
                                 </div>
-                                <div className='DAT_Contact_Item_Content_Label'>
+                                <div className='DAT_AccountInfo_Item_Content_Label'>
                                     __
                                 </div>
                             </div>
                             <span>Thay đổi</span>
                         </div>
 
-                        <div className='DAT_Contact_Item'>
-                            <div className='DAT_Contact_Item_Content'>
-                                <div className='DAT_Contact_Item_Content_Tit'>
+                        <div className='DAT_AccountInfo_Item'>
+                            <div className='DAT_AccountInfo_Item_Content'>
+                                <div className='DAT_AccountInfo_Item_Content_Tit'>
                                     Mail:
                                 </div>
-                                <div className='DAT_Contact_Item_Content_Label'>
+                                <div className='DAT_AccountInfo_Item_Content_Label'>
                                     {mail}
                                 </div>
                             </div>
                             <span>Thay đổi</span>
                         </div>
 
-                        <div className='DAT_Contact_Item'>
-                            <div className='DAT_Contact_Item_Content'>
-                                <div className='DAT_Contact_Item_Content_Tit'>
+                        <div className='DAT_AccountInfo_Item'>
+                            <div className='DAT_AccountInfo_Item_Content'>
+                                <div className='DAT_AccountInfo_Item_Content_Tit'>
                                     Mật khẩu:
                                 </div>
-                                <div className='DAT_Contact_Item_Content_Label'>
+                                <div className='DAT_AccountInfo_Item_Content_Label'>
                                     ********
                                 </div>
                             </div>
@@ -267,26 +267,26 @@ export default function Contact(props) {
                     </div >
                 </div>
                 :
-                <div className='DAT_ContactMobile'>
+                <div className='DAT_AccountInfo_Mobile'>
                     {/* THÔNG TIN TÀI KHOẢN */}
-                    <div className='DAT_ContactMobile_Info'>
-                        <div className='DAT_ContactMobile_Info_Head'>
+                    <div className='DAT_AccountInfo_Mobile_Info'>
+                        <div className='DAT_AccountInfo_Mobile_Info_Head'>
                             <span>* Thông tin tài khoản </span>
                         </div>
 
-                        <div className='DAT_ContactMobile_Info_Content'>
-                            <div className='DAT_ContactMobile_Info_Content_Item' >
+                        <div className='DAT_AccountInfo_Mobile_Info_Content'>
+                            <div className='DAT_AccountInfo_Mobile_Info_Content_Item' >
                                 <span >Tên người dùng: </span>
                                 {username}
                             </div>
-                            <div className='DAT_ContactMobile_Info_Content_Item' >
+                            <div className='DAT_AccountInfo_Mobile_Info_Content_Item' >
                                 <span>Mail: </span>
                                 {mail}
                             </div>
-                            <div className='DAT_ContactMobile_Info_Content_Password' >
+                            <div className='DAT_AccountInfo_Mobile_Info_Content_Password' >
                                 <span>Mật khẩu: </span>
                                 {contact.password}
-                                <div className='DAT_ContactMobile_Info_Content_Password_Button'>
+                                <div className='DAT_AccountInfo_Mobile_Info_Content_Password_Button'>
                                     <label onClick={() => editPass.value = true}>
                                         <CiEdit />
                                     </label>
@@ -296,15 +296,18 @@ export default function Contact(props) {
                     </div>
 
                     {/* AVATAR */}
-                    <div className='DAT_ContactMobile_Avatar'>
-                        <div className='DAT_ContactMobile_Avatar_Head'>
+                    <div className='DAT_AccountInfo_Mobile_Avatar'>
+                        <div className='DAT_AccountInfo_Mobile_Avatar_Head'>
                             <span>* Chỉnh sửa Avatar</span>
+                            <div className='DAT_AccountInfo_Mobile_Avatar_Head_Button'>
+                                <label htmlFor="file_avatar"><RiImageEditFill size={22} /></label>
+                            </div>
                         </div>
-                        <div className='DAT_ContactMobile_Avatar_Content' >
-                            <div className='DAT_ContactMobile_Avatar_Content_Picture' >
+                        <div className='DAT_AccountInfo_Mobile_Avatar_Content' >
+                            <div className='DAT_AccountInfo_Mobile_Avatar_Content_Picture' >
                                 <img src={avatar.value === '' ? '/dat_icon/user_manager.png' : avatar.value} alt="" />
-                                <label htmlFor="file_avatar"><RiImageEditFill /></label>
-                                <div className='DAT_ContactMobile_Avatar_Content_Button'>
+
+                                <div className='DAT_AccountInfo_Mobile_Avatar_Content_Button'>
                                     <input accept="image/*" id="file_avatar" type="file" style={{ visibility: "hidden" }} onChange={e => handleAvatar(e)} />                            </div>
                             </div>
                         </div>

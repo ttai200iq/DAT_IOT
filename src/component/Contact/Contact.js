@@ -275,11 +275,13 @@ export default function Contact(props) {
                                 <div className='DAT_ContactMobile_Content_Main_New_Logo'>
                                     <div className='DAT_ContactMobile_Content_Main_New_Logo_Head'>
                                         <span>* Chỉnh sửa Logo</span>
+                                        <div className='DAT_ContactMobile_Content_Main_New_Logo_Head_Button'>
+                                            <label htmlFor="file_logo" ><RiImageEditFill size={22} /></label>
+                                        </div>
                                     </div>
                                     <div className='DAT_ContactMobile_Content_Main_New_Logo_Content' >
                                         <div className='DAT_ContactMobile_Content_Main_New_Logo_Content_Picture' >
                                             <img src={logo.value === '' ? '/dat_icon/logo_DAT.png' : logo.value} alt="" />
-                                            <label htmlFor="file_logo" ><RiImageEditFill /></label>
                                         </div>
                                         <div className='DAT_ContactMobile_Content_Main_New_Logo_Content_Button'>
                                             <input accept="image/*" id="file_logo" type="file" style={{ visibility: "hidden" }} onChange={e => handleLogo(e)} />
