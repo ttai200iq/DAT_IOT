@@ -110,9 +110,6 @@ export default function Logs(props) {
 
     }, [])
 
-
-
-
     const handleDate = (date) => {
         console.log(date)
         setStartDate(date)
@@ -122,11 +119,8 @@ export default function Logs(props) {
                 err.value = res.data.map((data, index) => ({ ...data, count: index + 1 }))
 
                 errfilter.value = err.value
-
             })
-
     }
-
 
     const handleErr = (e) => {
 
@@ -141,7 +135,6 @@ export default function Logs(props) {
     const handleClose = () => {
         setErrStt(!errStt)
     }
-
 
     const handleDelete = (e) => {
         console.log(e.currentTarget.id)
@@ -172,7 +165,6 @@ export default function Logs(props) {
 
     };
 
-
     const handleInput = (e) => {
         state.value = 0
         console.log(e.target.value);
@@ -188,7 +180,6 @@ export default function Logs(props) {
                     lowercasedata(row.time).includes(searchTerm)
                 );
             });
-
             errfilter.value = newData;
         }
     };
@@ -200,11 +191,8 @@ export default function Logs(props) {
             .then((res) => {
                 console.log(res.data)
                 err.value = res.data.map((data, index) => ({ ...data, count: index + 1 }))
-
                 errfilter.value = err.value
-
             })
-
     }
 
     const paginationComponentOptions = {
@@ -213,7 +201,6 @@ export default function Logs(props) {
         selectAllRowsItem: true,
         selectAllRowsItemText: 'tất cả',
     };
-
 
     const columns = [
         {
@@ -244,7 +231,6 @@ export default function Logs(props) {
             selector: row => row.time,
             center: true,
             width: "250px",
-            center: true,
             sortable: true
         },
         // {
@@ -270,7 +256,6 @@ export default function Logs(props) {
             center: true,
         },
     ];
-
 
     const columns_user = [
         {
@@ -301,7 +286,6 @@ export default function Logs(props) {
             selector: row => row.time,
             center: true,
             width: "250px",
-            center: true,
             sortable: true
         },
         // {
@@ -399,13 +383,10 @@ export default function Logs(props) {
                                 <input
                                     id="date"
                                     type="date"
-                                    style={{ minWidth: "calc(100% - 60px)" }}
+                                    style={{ minWidth: "calc(100% - 45px)" }}
                                     defaultValue={moment(startDate).format('YYYY-MM-DD')}
                                     onChange={(e) => handleInputDate(e)}
                                 />
-
-
-
                             }
                             <div className="DAT_ListDetail_Content_Filterbar_Date"
                                 onClick={() => setChangefilter(!changefilter)}>

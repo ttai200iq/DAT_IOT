@@ -74,7 +74,7 @@ export default function Acount(props) {
                 :
                 <div className="DAT_AccountMobile">
                     <div className="DAT_AccountMobile_Head" >
-                        <PiUserCircleLight size={30} color="gray" />
+                        <PiUserCircleLight size={25} color="gray" />
                         <span>{inf.tit}</span>
                     </div>
 

@@ -154,62 +154,64 @@ export default function ListEx(props) {
             ) : (
                 // MOBILE SECTION
                 <>
-                    <div className="DAT_Filterbar">
-                        <input
-                            id="search"
-                            type="text"
-                            placeholder="Tìm kiếm"
-                            style={{ minWidth: "100%" }}
-                            onChange={(e) => handleFilter(e)}
-                        />
-                    </div>
-                    {filter.map((data, i) => {
-                        return (
-                            <div key={i} className="DAT_ListExport_Container">
-                                <div className="DAT_ListExport_Container_List">
-                                    <div className="DAT_ListExport_Container_List_Left">
-                                        <div
-                                            className="DAT_ListExport_Container_List_Left_Item"
-                                            id={data.id}
-                                        >
-                                            {data.id}
-                                        </div>
-                                    </div>
-
-                                    <div className="DAT_ListExport_Container_List_Right">
-                                        <div className="DAT_ListExport_Container_List_Right_Info">
+                    <div className="DAT_ListExportM">
+                        <div className="DAT_FilterbarExport">
+                            <input
+                                id="search"
+                                type="text"
+                                placeholder="Tìm kiếm"
+                                style={{ minWidth: "100%" }}
+                                onChange={(e) => handleFilter(e)}
+                            />
+                        </div>
+                        {filter.map((data, i) => {
+                            return (
+                                <div key={i} className="DAT_ListExportM_Container">
+                                    <div className="DAT_ListExportM_Container_List">
+                                        <div className="DAT_ListExportM_Container_List_Left">
                                             <div
-                                                className="DAT_ListExport_Container_List_Right_Info_Name"
-                                                id={data.deviceid}
-                                                onClick={(e) => { handleDevice(e); configreport.value = !configreport.value; }}
-                                                style={{
-                                                    cursor: "pointer",
-                                                    color:
-                                                        devicetime.value == data.deviceid
-                                                            ? "blue"
-                                                            : "black",
-                                                }}
+                                                className="DAT_ListExportM_Container_List_Left_Item"
+                                                id={data.id}
                                             >
-                                                {data.deviceid}
+                                                {data.id}
+                                            </div>
+                                        </div>
+
+                                        <div className="DAT_ListExportM_Container_List_Right">
+                                            <div className="DAT_ListExportM_Container_List_Right_Info">
+                                                <div
+                                                    className="DAT_ListExportM_Container_List_Right_Info_Name"
+                                                    id={data.deviceid}
+                                                    onClick={(e) => { handleDevice(e); configreport.value = !configreport.value; }}
+                                                    style={{
+                                                        cursor: "pointer",
+                                                        color:
+                                                            devicetime.value == data.deviceid
+                                                                ? "rgb(0, 0, 255, 0.8)"
+                                                                : "black",
+                                                    }}
+                                                >
+                                                    {data.deviceid}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="DAT_ListExport_Container_Bottom">
-                                    <div className="DAT_ListExport_Container_Bottom_Time">
-                                        Lần cập nhật cuối: ...
+                                    <div className="DAT_ListExportM_Container_Bottom">
+                                        <div className="DAT_ListExportM_Container_Bottom_Time">
+                                            Lần cập nhật cuối: ...
+                                        </div>
+                                        <div className="DAT_ProjDetail_Container_Bottom_Del">
+                                            <MdOutlineDelete
+                                                size={20}
+                                                color="red"
+                                                id={data.name + "_" + data.mail}
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="DAT_ProjDetail_Container_Bottom_Del">
-                                        <MdOutlineDelete
-                                            size={20}
-                                            color="red"
-                                            id={data.name + "_" + data.mail}
-                                        />
-                                    </div>
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
+                    </div>
                 </>
             )}
         </>

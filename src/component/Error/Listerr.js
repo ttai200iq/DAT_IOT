@@ -76,12 +76,6 @@ export default function Listerr(props) {
             {isBrowser
                 ?
                 <div className="DAT_Listerr">
-                    {/* <div className="DAT_Listerr-Add">
-            <form className="DAT_Listerr-Add-group" onSubmit={(e) => handleAdd(e)}>
-                <input placeholder="Nhập mã thiết bị" id="gateway" required></input>
-                <button ><ion-icon name="add-outline"></ion-icon></button>
-            </form>
-        </div> */}
                     <DataTable
                         className="DAT_Table_Container"
                         columns={col}
@@ -136,30 +130,14 @@ export default function Listerr(props) {
                                             >
                                                 {data.deviceid}
                                             </div>
-                                            {/* <div className="DAT_ViewMobile_Container_Content_Top_right_company">Công ty: { }</div>
-                                            <div className="DAT_ViewMobile_Container_Content_Top_right_state">
-                                                Trạng thái:
-                                                <img alt="" style={{ width: "13px" }} src="/lib/true_state.png">
-                                                </img>
-                                            </div> */}
-
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="DAT_ViewMobile_Container_Content_Bottom" >
-                                    <div className="DAT_ViewMobile_Container_Content_Bottom_addr">data.addr</div>
-                                    <div className="DAT_ViewMobile_Container_Content_Bottom_edit" >
-                                        <LuFolderEdit size={15} />
-                                        <RiDeleteBin6Line size={15} />
-                                    </div>
-                                </div> */}
                             </div>
                         )) :
                         <>
                             <Register username={props.username} handleCloseRead={handleCloseRead} />
                         </>}
-
-
                 </>
             }
         </>

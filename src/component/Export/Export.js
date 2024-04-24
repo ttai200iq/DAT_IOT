@@ -147,13 +147,13 @@ export default function Export(props) {
                 </div>
             ) : (
                 <>
-                    <div className="DAT_ListDetail">
-                        <div className="DAT_ListDetail_HeadTit">
+                    <div className="DAT_ExportList">
+                        <div className="DAT_ExportList_HeadTit">
                             <MdOutlineWifiTetheringErrorRounded size={25} color="grey" />
                             <span>{inf.tit}</span>
                         </div>
-                        <div className="DAT_ListDetail_Content">
-                            <div className="DAT_Export_Content_Main_List">
+                        <div className="DAT_ExportList_Content">
+                            <div className="DAT_ExportList_Content_Main_List">
                                 {configreport.value === false ?
                                     <ListEx username={props.username} />
                                     :
