@@ -31,6 +31,24 @@ export default function Listproject() {
     selectAllRowsItemText: 'tất cả',
   };
 
+  const handleDelete = (e) => {
+    // console.log(e.target.id);
+    var newData = data
+    newData = newData.filter(data => data.projectid != e.target.id)
+    setData(newData)
+    setFilter(newData)
+    axios.post(host.DEVICE + "/deletelistProject", { projectid: e.target.id }, { withCredentials: true }).then(
+      function (res) {
+        console.log(res.data)
+        if (res.data.status) {
+          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_18" }), show: 'block' } })
+        } else {
+          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
+        }
+      })
+
+  };
+
   useEffect(() => {
     axios.post(host.DEVICE + "/getProject", { user: manager }, { withCredentials: true }).then(
       function (res) {
@@ -91,10 +109,10 @@ export default function Listproject() {
         return (
           <div
             style={{ cursor: "pointer", color: "red" }}
+            id={row.projectid}
+            onClick={(e) => handleDelete(e)}
           >
-            <MdOutlineDelete size={20} color="red"
-              id={row.name + "_" + row.mail}
-              onClick={(e) => handleDelete(e)} />
+            <MdOutlineDelete size={20} color="red" />
           </div>
         )
       },
@@ -104,24 +122,7 @@ export default function Listproject() {
   ];
 
 
-  const handleDelete = (e) => {
-    console.log(e.target.id);
 
-
-    var newData = data
-    newData = newData.filter(data => data.projectid != e.target.id)
-    setData(newData)
-    axios.post(host.DEVICE + "/deletelistProject", { projectid: e.target.id }, { withCredentials: true }).then(
-      function (res) {
-        console.log(res.data)
-        if (res.data.status) {
-          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_18" }), show: 'block' } })
-        } else {
-          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
-        }
-      })
-
-  };
 
   const handleNav = (e) => {
     editProject.value = true
@@ -150,7 +151,7 @@ export default function Listproject() {
           <DataTable
             className="DAT_Table_Container"
             columns={head}
-            data={data}
+            data={filter}
             pagination
             paginationComponentOptions={paginationComponentOptions}
             noDataComponent={
@@ -225,8 +226,9 @@ export default function Listproject() {
                       <MdOutlineDelete
                         size={20}
                         color="red"
-                        id={data.name + "_" + data.mail}
-                        onClick={(e) => handleDelete(e)} /> : <></>}
+                        id={data.projectid}
+                        onClick={(e) => handleDelete(e)}
+                      /> : <></>}
                   </div>
                 </div>
               </div>
