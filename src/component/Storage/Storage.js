@@ -12,6 +12,8 @@ import { isBrowser } from "react-device-detect";
 import { MdOutlineDashboard, MdOutlineDelete } from "react-icons/md";
 import { lowercasedata } from "../User/Listuser";
 import { IoClose } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
+import { IoMdAdd } from "react-icons/io";
 
 export default function Storage(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
@@ -54,11 +56,11 @@ export default function Storage(props) {
             selector: (row) => {
                 return (
                     <div
-                        id={row.id}
-                        onClick={(e) => handleDelete(e)}
                         style={{ cursor: "pointer", color: "red" }}
                     >
-                        <ion-icon name="trash-outline"></ion-icon>
+                        <MdOutlineDelete size={20} color="red"
+                            id={row.name + "_" + row.mail}
+                            onClick={(e) => handleDelete(e)} />
                     </div>
                 )
             },
@@ -190,10 +192,18 @@ export default function Storage(props) {
                         </div>
 
                         <div className="DAT_Storage_Content_Tit">
-                            <div className="DAT_Storage_Content_Tit-icon">
-                                <MdOutlineDashboard size={25} color="white" />
+                            <div className="DAT_Storage_Content_Tit-content">
+                                <MdOutlineDashboard size={30} color="white" />
+                                <span className="DAT_Storage_Content_Tit-content-title" >{inf.tit}</span>
                             </div>
-                            <div className="DAT_Storage_Content_Tit-content" >{inf.tit}</div>
+
+                            <div className="DAT_Storage_Content_Tit_Filter">
+                                <input
+                                    type="text"
+                                    placeholder="Tìm kiếm"
+                                />
+                                <CiSearch color="gray" size={20} />
+                            </div>
                         </div>
 
                         <div className="DAT_Storage_Content_Main">

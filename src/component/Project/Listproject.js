@@ -90,13 +90,12 @@ export default function Listproject() {
       selector: (row) => {
         return (
           <div
-            id={row.projectid}
-            onClick={(e) => handleDelete(e)}
             style={{ cursor: "pointer", color: "red" }}
           >
-            <ion-icon name="trash-outline"></ion-icon>
+            <MdOutlineDelete size={20} color="red"
+              id={row.name + "_" + row.mail}
+              onClick={(e) => handleDelete(e)} />
           </div>
-
         )
       },
       width: "70px",

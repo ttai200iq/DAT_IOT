@@ -37,7 +37,6 @@ export default function AddProject(props) {
   };
 
   const handleInput = (e) => {
-
     console.log(info.current.value)
     setKey(process.env.REACT_APP_GGKEY);
     geocode(RequestType.ADDRESS, info.current.value)
@@ -49,7 +48,8 @@ export default function AddProject(props) {
         lat_.value = response.results[0].geometry.location.lat
         long_.value = response.results[0].geometry.location.lng
 
-
+        lat.current.value = response.results[0].geometry.location.lat
+        long.current.value = response.results[0].geometry.location.lng
       })
       .catch((error) => {
         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_30" }), show: 'block' } })
@@ -66,6 +66,7 @@ export default function AddProject(props) {
         function (res) {
           console.log(res.data)
           if (res.data.status) {
+            editProject.value = false
             alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_37" }), show: 'block' } })
           } else {
             if (res.data.number === 1) {
@@ -114,7 +115,7 @@ export default function AddProject(props) {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
-        props.handleClose();
+        editProject.value = false
       }
     };
 

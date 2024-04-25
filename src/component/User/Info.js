@@ -81,7 +81,7 @@ export default function Info(props) {
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key === "Escape") {
-                props.handleClose();
+                editUser.value = false
             }
         };
 

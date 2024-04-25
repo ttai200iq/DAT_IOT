@@ -281,11 +281,11 @@ export default function Listuser() {
 
           (row.type !== 'master')
             ? <div
-              id={row.name + "_" + row.mail}
-              onClick={(e) => handleDelete(e)}
               style={{ cursor: "pointer", color: "red" }}
             >
-              <MdOutlineDelete size={20} color="red" />
+              <MdOutlineDelete size={20} color="red"
+                id={row.name + "_" + row.mail}
+                onClick={(e) => handleDelete(e)} />
             </div>
             : <></>
         )
