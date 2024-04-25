@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Storage.scss";
+
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -8,9 +9,10 @@ import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import DataTable from "react-data-table-component";
 import { isBrowser } from "react-device-detect";
-import { FaEdit } from "react-icons/fa";
 import { MdOutlineDashboard, MdOutlineDelete } from "react-icons/md";
 import { lowercasedata } from "../User/Listuser";
+import { IoClose } from "react-icons/io5";
+
 export default function Storage(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
     const inf = { code: 'Device', tit: 'Kho giao diện' }
@@ -24,24 +26,13 @@ export default function Storage(props) {
 
     const name = useRef()
     const id = useRef()
+
     const paginationComponentOptions = {
         rowsPerPageText: 'Số hàng',
         rangeSeparatorText: 'đến',
         selectAllRowsItem: true,
         selectAllRowsItemText: 'tất cả',
     };
-
-    useEffect(() => {
-        axios.post(host.DEVICE + "/getStore", { user: manager }, { withCredentials: true }).then(
-            function (res) {
-                var newData = res.data;
-                newData.map((data, index) => {
-                    return (data["ids"] = index + 1);
-                });
-                setData(newData);
-                setFilter(newData);
-            })
-    }, []);
 
     const head = [
         {
@@ -76,13 +67,23 @@ export default function Storage(props) {
         },
     ];
 
+    const popup_state = {
+        pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+        new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+    };
+
+    const handlePopup = (state) => {
+        const popup = document.getElementById("Popup");
+        popup.style.transform = popup_state[state].transform;
+        popup.style.transition = popup_state[state].transition;
+        popup.style.color = popup_state[state].color;
+    };
 
     const handleDelete = (e) => {
-        // console.log(e.target.id);
         var newData = data
-        newData = newData.filter(data => data.id != e.target.id)
+        newData = newData.filter(data => data.id != e.currentTarget.id)
         setData(newData)
-        axios.post(host.DEVICE + "/removeStore", { id: e.target.id, user: manager }, { withCredentials: true }).then(
+        axios.post(host.DEVICE + "/removeStore", { id: e.currentTarget.id, user: manager }, { withCredentials: true }).then(
             function (res) {
                 console.log(res.data)
                 if (res.data.status) {
@@ -91,7 +92,6 @@ export default function Storage(props) {
                     alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
                 }
             })
-
     };
 
     const handleFix = (e) => {
@@ -138,6 +138,34 @@ export default function Storage(props) {
         }
     }
 
+    useEffect(() => {
+        axios.post(host.DEVICE + "/getStore", { user: manager }, { withCredentials: true }).then(
+            function (res) {
+                var newData = res.data;
+                newData.map((data, index) => {
+                    return (data["ids"] = index + 1);
+                });
+                setData(newData);
+                setFilter(newData);
+            })
+    }, []);
+
+    // Handle close when press ESC
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                setFix(false);
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <>
             {isBrowser ?
@@ -153,16 +181,17 @@ export default function Storage(props) {
                             {direct.map((data, index) => {
                                 return (
                                     (index === 0)
-                                        ? <Link key={index} to="/" style={{ textDecoration: 'none', color: "white" }}>
+                                        ? <Link key={index} to="/" style={{ textDecoration: 'none', color: "white", fontFamily: "Montserrat-SemiBold" }}>
                                             <span style={{ cursor: "pointer" }}> {data.text}</span>
                                         </Link>
                                         : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
                                 )
                             })}
                         </div>
+
                         <div className="DAT_Storage_Content_Tit">
                             <div className="DAT_Storage_Content_Tit-icon">
-                                <MdOutlineDashboard size={25} color="grey" />
+                                <MdOutlineDashboard size={25} color="white" />
                             </div>
                             <div className="DAT_Storage_Content_Tit-content" >{inf.tit}</div>
                         </div>
@@ -253,30 +282,44 @@ export default function Storage(props) {
                 </>
             }
 
-            {(fix)
-                ? <div className="DAT_StorageFix" >
-                    <form className="DAT_StorageFix-group" onSubmit={e => handleSaveFix(e)}>
-                        <div className="DAT_StorageFix-group-header">
-                            <div className="DAT_StorageFix-group-header-title">
-                                Chỉnh sửa
+            <div className="DAT_PopupBG"
+                style={{ height: fix ? "100vh" : "0px" }}
+            >
+                {(fix)
+                    ?
+                    <div className="DAT_StorageFix" >
+                        <form className="DAT_StorageFix-group" onSubmit={e => handleSaveFix(e)}>
+                            <div className="DAT_StorageFix-group_Head">
+                                <div className="DAT_StorageFix-group_Head_Left">Chỉnh sửa</div>
+                                <div className="DAT_StorageFix-group_Head_Right">
+                                    <div className="DAT_StorageFix-group_Head_Right_Close"
+                                        id="Popup"
+                                        onMouseEnter={(e) => handlePopup("new")}
+                                        onMouseLeave={(e) => handlePopup("pre")}
+                                        onClick={() => setFix(false)}
+                                    >
+                                        <IoClose size={25} color="white" />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="DAT_StorageFix-group-header-close"
-                                onClick={() => setFix(false)}><ion-icon name="close-outline"></ion-icon></div>
-                        </div>
 
-                        <div className="DAT_StorageFix-group-row">
-                            <div className="DAT_StorageFix-group-row-tit">Tên giao diện</div>
-                            <input type="text" minLength={6} defaultValue={name.current} ref={name} required ></input>
-                        </div>
-                        <div className="DAT_StorageFix-group-row">
-                            <button className="DAT_StorageFix-group-row-button" >
-                                <ion-icon name="save-outline"></ion-icon> Lưu
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                : <></>
-            }
+                            <div className="DAT_StorageFix-group_Body">
+                                <div className="DAT_StorageFix-group_Body_Row">
+                                    <label>Tên giao diện</label>
+                                    <div className="DAT_StorageFix-group_Body_Row_Input">
+                                        <input type="text" minLength={6} defaultValue={name.current} ref={name} required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="DAT_StorageFix-group_Foot">
+                                <button>Xác nhận</button>
+                            </div>
+                        </form>
+                    </div>
+                    : <></>
+                }
+            </div>
         </>
     )
 

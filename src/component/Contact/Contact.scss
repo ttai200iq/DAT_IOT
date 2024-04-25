@@ -67,7 +67,8 @@
             &_New {
                 width: 98%;
                 margin: auto;
-                display: flex;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
                 gap: 10px;
 
                 &_Content {
@@ -85,13 +86,13 @@
                         margin-bottom: 24px;
 
                         & div:first-child {
-                            color: rgba(11, 25, 103);
+                            color: #0d6efd;
                             font-family: Montserrat-SemiBold;
                             font-size: 18px;
                         }
 
                         & div:nth-child(2) {
-                            color: rgba(11, 25, 103);
+                            color: #0d6efd;
                             font-family: Montserrat-SemiBold;
                             font-size: 14px;
                             cursor: pointer;
@@ -106,70 +107,6 @@
                         color: gray;
                         font-size: 16px;
                     }
-
-                    // &-edit {
-                    //     width: 35px;
-                    //     height: 35px;
-                    //     border-radius: 50%;
-                    //     cursor: pointer;
-                    //     position: absolute;
-                    //     bottom: 10px;
-                    //     right: 10px;
-                    //     background-color: aliceblue;
-                    //     display: flex;
-                    //     align-items: center;
-                    //     justify-content: center;
-                    //     color: gray;
-
-                    //     &:hover {
-                    //         background-color: rgba(0, 0, 0, 0.1);
-                    //     }
-                    // }
-
-                    // &-save {
-                    //     width: 35px;
-                    //     height: 35px;
-                    //     border-radius: 50%;
-                    //     cursor: pointer;
-                    //     position: absolute;
-                    //     bottom: 10px;
-                    //     right: 50px;
-                    //     background-color: aliceblue;
-                    //     display: flex;
-                    //     align-items: center;
-                    //     justify-content: center;
-                    //     color: gray;
-
-                    //     &:hover {
-                    //         background-color: rgba(0, 0, 0, 0.1);
-                    //     }
-                    // }
-
-                    // &-tit {
-                    //     font-size: 18px;
-                    //     // font-weight: bold;
-                    //     margin-bottom: 10px;
-                    // }
-
-                    // &-addr {
-                    //     font-size: 15px;
-                    //     font-weight: bold;
-                    //     // color: gray;
-                    // }
-
-                    // &-phone {
-                    //     font-size: 15px;
-                    //     // font-weight: bold;
-                    //     // color: gray;
-                    // }
-
-                    // & input {
-                    //     width: 100%;
-                    //     margin-bottom: 10px;
-                    //     padding: 7px;
-                    //     border-radius: 5px;
-                    //     border: solid 1px rgb(156, 155, 155, 0.3);
-                    // }
                 }
 
                 &_Logo {
@@ -187,13 +124,13 @@
                         margin-bottom: 24px;
 
                         & div:first-child {
-                            color: rgba(11, 25, 103);
+                            color: #0d6efd;
                             font-family: Montserrat-SemiBold;
                             font-size: 18px;
                         }
 
                         & div:nth-child(2) {
-                            color: rgba(11, 25, 103);
+                            color: #0d6efd;
                             font-family: Montserrat-SemiBold;
                             font-size: 14px;
                             cursor: pointer;
@@ -201,7 +138,7 @@
                     }
 
                     &-add {
-                        color: rgba(11, 25, 103);
+                        color: #0d6efd;
                         font-family: Montserrat-SemiBold;
                         font-size: 14px;
                         cursor: pointer;
@@ -226,42 +163,6 @@
                         }
 
                     }
-
-                    // &-img {
-                    //     position: absolute;
-                    //     top: 0;
-                    //     left: 0;
-                    //     width: 100%;
-                    //     height: 100%;
-                    //     display: flex;
-                    //     align-items: center;
-                    //     justify-content: center;
-
-                    // & img {
-                    //     width: 90%;
-                    //     height: 90%;
-                    // }
-
-                    // }
-
-                    // &-add {
-                    //     width: 35px;
-                    //     height: 35px;
-                    //     border-radius: 50%;
-                    //     cursor: pointer;
-                    //     position: absolute;
-                    //     bottom: 10px;
-                    //     right: 10px;
-                    //     background-color: aliceblue;
-                    //     display: flex;
-                    //     align-items: center;
-                    //     justify-content: center;
-                    //     color: gray;
-
-                    //     &:hover {
-                    //         background-color: rgba(0, 0, 0, 0.1);
-                    //     }
-                    // }
                 }
             }
         }
@@ -282,7 +183,7 @@
         &_Head {
             display: flex;
             align-items: center;
-            background-color: rgb(28, 145, 208) !important; //rgba(182, 182, 182, 0.4)
+            background-color: #0d6efd !important; //rgba(182, 182, 182, 0.4)
             padding: 16px;
             color: white;
             font-family: Montserrat-Bold;
@@ -369,7 +270,7 @@
                 font-family: Montserrat-SemiBold;
                 color: white;
                 font-size: 13px;
-                background-color: rgb(28, 145, 208);
+                background-color: #0d6efd;
             }
         }
     }
@@ -536,7 +437,7 @@
                             & span {
                                 font-size: 16px;
                                 font-family: Montserrat-Regular !important;
-                                color: #0d6efd;
+                                color: gray;
                             }
                         }
                     }
@@ -560,7 +461,7 @@
         &_Head {
             display: flex;
             align-items: center;
-            background-color: rgb(28, 145, 208) !important; //rgba(182, 182, 182, 0.4)
+            background-color: #0d6efd !important; //rgba(182, 182, 182, 0.4)
             padding: 16px;
             color: white;
             font-family: Montserrat-Bold;
@@ -647,7 +548,7 @@
                 font-family: Montserrat-SemiBold;
                 color: white;
                 font-style: 13px;
-                background-color: rgb(28, 145, 208);
+                background-color: #0d6efd;
             }
         }
     }
