@@ -94,7 +94,7 @@ export default function Listproject() {
             onClick={(e) => handleDelete(e)}
             style={{ cursor: "pointer", color: "red" }}
           >
-            xóa
+            <ion-icon name="trash-outline"></ion-icon>
           </div>
 
         )
