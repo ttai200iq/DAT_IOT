@@ -279,14 +279,12 @@ export default function Listuser(props) {
 
           (row.type !== 'master')
             ? <div
-              id={row.name + "_" + row.mail}
-              onClick={() => {
-                delstate.value = !delstate.value;
-                props.setdata(row.name, row.mail);
-              }}
+
               style={{ cursor: "pointer", color: "red" }}
             >
-              <MdOutlineDelete size={20} color="red" />
+              <MdOutlineDelete size={20} color="red"
+                id={row.projectid}
+                onClick={(e) => { handleDelete(e) }} />
             </div>
             : <></>
         )
