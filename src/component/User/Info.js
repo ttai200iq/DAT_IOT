@@ -143,34 +143,6 @@ export default function Info(props) {
     }, []);
 
 
-    const popup_state = {
-        pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
-        new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
-    };
-
-    const handlePopup = (state) => {
-        const popup = document.getElementById("Popup");
-        popup.style.transform = popup_state[state].transform;
-        popup.style.transition = popup_state[state].transition;
-        popup.style.color = popup_state[state].color;
-    };
-
-    // Handle close when press ESC
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-            if (event.key === "Escape") {
-                props.handleClose();
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <div className="DAT_PopupBG">
             {isBrowser ? <div className="DAT_Info">

@@ -280,7 +280,10 @@ export default function Listuser(props) {
           (row.type !== 'master')
             ? <div
               id={row.name + "_" + row.mail}
-              onClick={(e) => handleDelete(e)}
+              onClick={() => {
+                delstate.value = !delstate.value;
+                props.setdata(row.name, row.mail);
+              }}
               style={{ cursor: "pointer", color: "red" }}
             >
               <MdOutlineDelete size={20} color="red" />
@@ -332,7 +335,10 @@ export default function Listuser(props) {
           (row.type !== 'master')
             ? <div
               id={row.name + "_" + row.mail}
-              onClick={(e) => handleDelete(e)}
+              onClick={() => {
+                delstate.value = !delstate.value;
+                props.setdata(row.name, row.mail);
+              }}
               style={{ cursor: "pointer", color: "red" }}
             >
               <MdOutlineDelete size={20} color="red" />
@@ -399,6 +405,23 @@ export default function Listuser(props) {
       setFilter(df)
     }
   }
+
+  useEffect(() => {
+    console.log(props.filter);
+    const searchTerm = lowercasedata(props.filter);
+    if (searchTerm == "") {
+      setFilter(data.value)
+    } else {
+      const df = data.value.filter((item) => {
+        const filterName = item.name && lowercasedata(item.name).includes(searchTerm);
+        const filterEmail = item.email && lowercasedata(item.email).toLowerCase().includes(searchTerm);
+        const filterUsername = item.username && lowercasedata(item.username).toLowerCase().includes(searchTerm);
+
+        return (filterName || filterEmail || filterUsername);
+      })
+      setFilter(df)
+    }
+  }, [props.filter])
 
   useEffect(() => {
     setFilter(data.value)
@@ -486,7 +509,6 @@ export default function Listuser(props) {
                         size={20}
                         color="red"
                         id={data.name + "_" + data.mail}
-                        // onClick={(e) => handleDelete(e)} 
                         onClick={() => {
                           delstate.value = !delstate.value;
                           props.setdata(data.name, data.mail);

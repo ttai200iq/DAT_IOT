@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "./User.scss"
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -32,6 +32,7 @@ export default function User(props) {
     const [changefilter, setChangefilter] = useState(true)
     const [dataDel, setDataDel] = useState();
     const { alertDispatch } = useContext(AlertContext);
+    const [filter, setFilter] = useState("");
     const dataLang = useIntl();
 
 
@@ -58,6 +59,10 @@ export default function User(props) {
     };
     const setdata = (name, mail) => {
         setDataDel(`${name}_${mail}`)
+    }
+
+    const handleChangeFilter = (e) => {
+        setFilter(e.currentTarget.value);
     }
 
     return (
@@ -92,6 +97,7 @@ export default function User(props) {
                                 <input
                                     type="text"
                                     placeholder="Tìm kiếm"
+                                    onChange={(e) => handleChangeFilter(e)}
                                 />
                                 <CiSearch color="gray" size={20} />
                             </div>
@@ -117,10 +123,13 @@ export default function User(props) {
                             </div>
                             {/* Content */}
                             <div className="DAT_User_Content_Main_New">
-                                <Listuser username={props.username} setdata={setdata} />
+                                <Listuser
+                                    username={props.username}
+                                    setdata={setdata}
+                                    filter={filter}
+                                />
                             </div>
                         </div>
-
                     </div>
 
 
@@ -133,14 +142,18 @@ export default function User(props) {
                     </div>
                     <div className="DAT_UserListDetail_Content">
                         <div className="DAT_UserListDetail_Content_List">
-                            <Listuser username={props.username} setdata={setdata} />
+                            <Listuser
+                                username={props.username}
+                                setdata={setdata}
+                                filter={filter}
+                            />
                         </div>
                     </div>
 
                 </div >
             }
 
-            <div className="DAT_PopupBG" style={{ height: editUser.value ? "100vh" : "0", transition: "0.5s" }}>
+            <div className="DAT_User_Fix" style={{ height: editUser.value ? "100vh" : "0", transition: "0.5s" }}>
                 {editUser.value ? <Info username={props.username} /> : <></>}
             </div>
             <div className="DAT_PopupBG" style={{ height: delstate.value ? "100vh" : "0", transition: "0.5s" }}>
