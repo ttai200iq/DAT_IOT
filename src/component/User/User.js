@@ -9,6 +9,8 @@ import { IoMdAdd } from "react-icons/io";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { HiOutlineUsers } from "react-icons/hi2";
+import { CiSearch } from "react-icons/ci";
+
 import Raisebox from "../Raisebox/RaiseboxConfirmDel";
 export const editUser = signal(false)
 
@@ -49,35 +51,42 @@ export default function User(props) {
                                 )
                             })}
                         </div>
+
+                        {/* Header */}
                         <div className="DAT_User_Content_Tit">
-                            <div className="DAT_User_Content_Tit-icon">
-                                <HiOutlineUsers size={25} color="grey" />
+                            <div className="DAT_User_Content_Tit-content">
+                                <HiOutlineUsers size={30} color="white" />
+                                <span className="DAT_User_Content_Tit-content-title">{inf.tit}</span>
                             </div>
-                            <div className="DAT_User_Content_Tit-content" >{inf.tit}</div>
+                            <div className="DAT_User_Content_Tit_Filter">
+                                <input
+                                    type="text"
+                                    placeholder="Tìm kiếm"
+                                />
+                                <CiSearch color="gray" size={20} />
+                            </div>
+                            <button
+                                className="DAT_User_Content_Tit_New"
+                                onClick={(e) => {
+                                    handleNav();
+                                }}
+                            >
+                                <span>
+                                    <IoMdAdd color="white" size={20} />
+                                    &nbsp;
+                                    Tạo mới
+                                </span>
+                            </button>
                         </div>
 
                         <div className="DAT_User_Content_Main">
                             <div className="DAT_User_Content_Main_Nav">
-
-
                                 <div className="DAT_User_Content_Main_Nav_Item">
                                     Danh sách người dùng
                                 </div>
-
-                                <div
-                                    className="DAT_User_Content_Main_Nav_Add"
-                                    onClick={(e) => {
-                                        handleNav();
-                                    }}
-                                >
-                                    <IoMdAdd color="white" size={18} />
-                                </div>
-
                             </div>
-
                             {/* Content */}
                             <div className="DAT_User_Content_Main_New">
-
                                 <Listuser username={props.username} />
                             </div>
                         </div>

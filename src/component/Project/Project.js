@@ -7,6 +7,7 @@ import { IoMdAdd } from "react-icons/io";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { GoProject } from "react-icons/go";
+import { CiSearch } from "react-icons/ci";
 
 export const editProject = signal(false)
 
@@ -51,11 +52,32 @@ export default function Project(props) {
                             })}
                         </div>
                         <div className="DAT_Project_Content_Tit">
-                            <div className="DAT_Project_Content_Tit-icon">
-                                <GoProject size={25} />
+                            <div className="DAT_Project_Content_Tit-content">
+                                <GoProject size={30} color="white" />
+                                <span className="DAT_Project_Content_Tit-content-title" >{inf.tit}</span>
                             </div>
-                            <div className="DAT_Project_Content_Tit-content" >{inf.tit}</div>
+
+                            <div className="DAT_Project_Content_Tit_Filter">
+                                <input
+                                    type="text"
+                                    placeholder="Tìm kiếm"
+                                />
+                                <CiSearch color="gray" size={20} />
+                            </div>
+                            <button
+                                className="DAT_Project_Content_Tit_New"
+                                onClick={(e) => {
+                                    handleNav();
+                                }}
+                            >
+                                <span>
+                                    <IoMdAdd color="white" size={20} />
+                                    &nbsp;
+                                    Tạo mới
+                                </span>
+                            </button>
                         </div>
+
                         {/* Nav */}
                         <div className="DAT_Project_Content_Main">
                             <div className="DAT_Project_Content_Main_Nav">
@@ -77,7 +99,7 @@ export default function Project(props) {
                         </div>
                     </div>
 
-                    <div className="DAT_Project_Fix" style={{ height: editProject.value ? "100vh" : "0", transition: "0.5s" }}>
+                    <div className="DAT_PopupBG" style={{ height: editProject.value ? "100vh" : "0", transition: "0.5s" }}>
                         {editProject.value ? <Addproject username={props.username} /> : <></>}
                     </div>
                 </div>
@@ -95,7 +117,7 @@ export default function Project(props) {
                     </div>
                 </div >
             }
-            <div className="DAT_Project_Fix" style={{ height: editProject.value ? "100vh" : "0", transition: "0.5s" }}>
+            <div className="DAT_PopupBG" style={{ height: editProject.value ? "100vh" : "0", transition: "0.5s" }}>
                 {editProject.value ? <Addproject username={props.username} /> : <></>}
             </div>
         </>
