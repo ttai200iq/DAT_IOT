@@ -7,6 +7,7 @@ import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { IoClose } from "react-icons/io5";
 import { editUser } from "./User";
+import { data } from "./Listuser";
 import { isBrowser } from "react-device-detect";
 
 export default function Info(props) {
@@ -19,49 +20,97 @@ export default function Info(props) {
     const fullname = useRef("");
     const { alertDispatch } = useContext(AlertContext);
     const dataLang = useIntl();
-    const [gettype, setGettype] = useState('')
+    const [gettype, setGettype] = useState("");
 
 
     useEffect(() => {
-        if (type === 'master') {
-            setGettype('admin')
+        if (type === "master") {
+            setGettype("admin");
         } else {
-            setGettype('user')
+            setGettype("user");
         }
-    }, [])
-
+    }, []);
 
     const handleSave = (e) => {
         e.preventDefault();
         if (pass.current.value === authpass.current.value) {
-
-
-            axios.post(host.DEVICE + "/createAcount", { user: userName.current.value, username: fullname.current.value, mail: mail.current.value, pass: authpass.current.value, type: gettype, admin: user, manager: userName.current.value }, { withCredentials: true }).then(
-                function (res) {
-                    console.log(res.data)
+            axios
+                .post(
+                    host.DEVICE + "/createAcount",
+                    {
+                        user: userName.current.value,
+                        username: fullname.current.value,
+                        mail: mail.current.value,
+                        pass: authpass.current.value,
+                        type: gettype,
+                        admin: user,
+                        manager: userName.current.value,
+                    },
+                    { withCredentials: true }
+                )
+                .then(function (res) {
+                    console.log(res.data);
                     if (res.data.status) {
-                        alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_12" }), show: 'block' } })
+                        alertDispatch({
+                            type: "LOAD_CONTENT",
+                            payload: {
+                                content: dataLang.formatMessage({ id: "alert_12" }),
+                                show: "block",
+                            },
+                        });
+                        editUser.value = false;
+
+                        axios.post(host.DEVICE + "/getAcount", { admin: user }, { withCredentials: true }).then(
+                            function (res) {
+                                var newData = res.data.map((data, index) => {
+                                    data["id"] = index + 1;
+                                    return data;
+                                });
+                                data.value = newData;
+                            })
+
                     } else {
                         switch (res.data.number) {
                             case 1:
-                                alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_10" }), show: 'block' } })
-                                break
+                                alertDispatch({
+                                    type: "LOAD_CONTENT",
+                                    payload: {
+                                        content: dataLang.formatMessage({ id: "alert_10" }),
+                                        show: "block",
+                                    },
+                                });
+                                break;
                             case 2:
-                                alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_11" }), show: 'block' } })
-                                break
+                                alertDispatch({
+                                    type: "LOAD_CONTENT",
+                                    payload: {
+                                        content: dataLang.formatMessage({ id: "alert_11" }),
+                                        show: "block",
+                                    },
+                                });
+                                break;
                             default:
-                                alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
-                                break
-
+                                alertDispatch({
+                                    type: "LOAD_CONTENT",
+                                    payload: {
+                                        content: dataLang.formatMessage({ id: "alert_3" }),
+                                        show: "block",
+                                    },
+                                });
+                                break;
                         }
                     }
-                })
-
+                });
         } else {
-            alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_22" }), show: 'block' } })
+            alertDispatch({
+                type: "LOAD_CONTENT",
+                payload: {
+                    content: dataLang.formatMessage({ id: "alert_22" }),
+                    show: "block",
+                },
+            });
         }
         //console.log(userName.current.value, mail.current.value, pass.current.value, authpass.current.value, fullname.current.value, id.current.value)
-
     };
 
 
@@ -92,6 +141,7 @@ export default function Info(props) {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
     return (
         <div className="DAT_PopupBG">
