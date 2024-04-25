@@ -153,7 +153,7 @@
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    background-color: rgb(237, 237, 237);
+    // background-color: rgb(237, 237, 237, 0.4);
 
     &::-webkit-scrollbar {
         display: none;
@@ -334,7 +334,6 @@
     }
 
     &_Content {
-
         &_Tit {
             width: 96%;
             margin: auto;
