@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Project.scss";
 import { useRef } from "react";
 import axios from "axios";
@@ -20,7 +20,6 @@ export default function AddProject(props) {
   const lat = useRef();
   const bu = useRef('AUTO');
   const [state, setState] = useState(true)
-
 
   const ProjectAdd = ['Old', 'New']
 
@@ -99,100 +98,150 @@ export default function AddProject(props) {
 
   };
 
+  const popup_state = {
+    pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+    new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+  };
+
+  const handlePopup = (state) => {
+    const popup = document.getElementById("Popup");
+    popup.style.transform = popup_state[state].transform;
+    popup.style.transition = popup_state[state].transition;
+    popup.style.color = popup_state[state].color;
+  };
+
+  // Handle close when press ESC
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        props.handleClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="DAT_ProjectAdd">
       <form className="DAT_ProjectAdd_Form" onSubmit={(e) => handleSubmit(e)}>
         <div className="DAT_ProjectAdd_Form_Head">
           <div className="DAT_ProjectAdd_Form_Head_Left">
-            <span>Thêm dự án</span>
+            <p>Thêm dự án</p>
           </div>
+
           <div className="DAT_ProjectAdd_Form_Head_Right">
-            <div className="DAT_ProjectAdd_Form_Head_Righ_Close">
-              <span style={{
-                width: "30px",
-                height: "30px",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "red"
-              }}
-                onClick={() => editProject.value = false}>
-                <IoClose size={20} color="white" />
-              </span>
+            <div className="DAT_ProjectAdd_Form_Head_Righ_Icon">
+              <div
+                id="Popup"
+                onMouseEnter={(e) => handlePopup("new")}
+                onMouseLeave={(e) => handlePopup("pre")}
+                onClick={() => editProject.value = false}
+              >
+                <IoClose size={25} />
+              </div>
             </div>
           </div>
         </div>
-        <div className="DAT_ProjectAdd_Form_Row">
-          <div className="DAT_ProjectAdd_Form_Row_Item">
-            <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-              * Mã dự án
+
+        <div className="DAT_ProjectAdd_Form_Body">
+          <div className="DAT_ProjectAdd_Form_Body_Left">
+            <div className="DAT_ProjectAdd_Form_Body_Left_Row" >
+              <label style={{ color: "red" }}>* </label>
+              &nbsp;
+              <label> Mã dự án</label>
+              <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item">
+                <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item_Input">
+                  <input type="text" ref={ProjectAddid} required />
+                </div>
+              </div>
+
+              {(state)
+                ?
+                <>
+                  <div className="DAT_ProjectAdd_Form_Body_Left_Row">
+                    <label style={{ color: "red" }}>* </label>
+                    &nbsp;
+                    <label> Tên dự án</label>
+                    <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item">
+                      <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item_Input">
+                        <input type="text" ref={name} required />
+                      </div>
+                    </div>
+
+                    <label style={{ color: "red" }}>* </label>
+                    &nbsp;
+                    <label> Công ty</label>
+                    <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item">
+                      <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item_Input">
+                        <input type="text" ref={company} required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="DAT_ProjectAdd_Form_Body_Left_Row">
+                    <label style={{ color: "red" }}>* </label>
+                    &nbsp;
+                    <label>
+                      Vị trí
+                    </label>
+                    <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item">
+                      <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item_Input">
+                        <input type="text" ref={info} required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="DAT_ProjectAdd_Form_Body_Left_Row">
+                    <label>
+                      Vĩ độ
+                    </label>
+                    <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item">
+                      <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item_Input">
+                        <input type="text" id="lat" ref={lat} onClick={(e) => handleInput(e)} required />
+                      </div>
+                    </div>
+
+                    <label>
+                      Kinh độ
+                    </label>
+                    <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item">
+                      <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item_Input">
+                        <input type="text" id="long" ref={long} onClick={(e) => handleInput(e)} required />
+                      </div>
+                    </div>
+                  </div>
+                </>
+                :
+                <div className="DAT_ProjectAdd_Form_Body_Left_Row">
+                  <label>
+                    Mã BU
+                  </label>
+                  <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item">
+                    <div className="DAT_ProjectAdd_Form_Body_Left_Row_Item_Input">
+                      <select ref={bu}>
+                        {BU.map((data, index) => {
+                          return (
+                            <option key={index} value={data}>
+                              {data}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
-            <input type="text" ref={ProjectAddid} required />
           </div>
         </div>
-
-        {(state)
-          ? <>
-
-            <div className="DAT_ProjectAdd_Form_Row">
-              <div className="DAT_ProjectAdd_Form_Row_Item">
-                <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  * Tên dự án
-                </div>
-                <input type="text" ref={name} required />
-              </div>
-              <div className="DAT_ProjectAdd_Form_Row_Item">
-                <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  * Công ty
-                </div>
-                <input type="text" ref={company} required />
-              </div>
-            </div>
-
-            <div className="DAT_ProjectAdd_Form_Row">
-              <div className="DAT_ProjectAdd_Form_Row_Item">
-                <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  * Vị trí
-                </div>
-                <input type="text" ref={info} required />
-              </div>
-            </div>
-
-            <div className="DAT_ProjectAdd_Form_Row">
-              <div className="DAT_ProjectAdd_Form_Row_Item">
-                <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  Vĩ độ
-                </div>
-                <input type="text" id="lat" ref={lat} onClick={(e) => handleInput(e)} required />
-              </div>
-              <div className="DAT_ProjectAdd_Form_Row_Item">
-                <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-                  Kinh độ
-                </div>
-                <input type="text" id="long" ref={long} onClick={(e) => handleInput(e)} required />
-              </div>
-            </div>
-          </>
-          : <div className="DAT_ProjectAdd_Form_Row_Item">
-            <div className="DAT_ProjectAdd_Form_Row_Item_Label">
-              Mã BU
-            </div>
-            <select ref={bu}>
-              {BU.map((data, index) => {
-                return (
-                  <option key={index} value={data}>
-                    {data}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        }
-
-        <div className="DAT_ProjectAdd_Form_Row">
-          <button className="DAT_ProjectAdd_Form_Row_Button">
-            <ion-icon name="save-outline"></ion-icon>Thêm
+        <div className="DAT_ProjectAdd_Form_Foot">
+          <button className="DAT_ProjectAdd_Form_Foot_Button" >
+            Xác nhận
           </button>
         </div>
       </form>

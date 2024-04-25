@@ -232,7 +232,7 @@
     }
 }
 
-.DAT_StrorageFix {
+.DAT_StorageFix {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -430,13 +430,11 @@
 
 
 @media (min-width: 700px) {
-
-    .DAT_Strorage_Content_Main {
+    .DAT_Storage_Content_Main {
         height: calc(100vh - 200px);
-
     }
 
-    .DAT_StrorageFix-group {
+    .DAT_StorageFix-group {
 
         width: 400px;
 
