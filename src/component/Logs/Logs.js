@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { isBrowser } from "react-device-detect";
-import { IoCalendarOutline, IoWarningOutline } from "react-icons/io5";
+import { IoCalendarOutline, IoClose, IoWarningOutline } from "react-icons/io5";
 import { CiCalendarDate } from "react-icons/ci";
 import styled from "styled-components";
 import { CiSearch } from "react-icons/ci";
@@ -128,39 +128,39 @@ export default function Logs(props) {
             .then((res) => {
                 //console.log(res.data)
                 setDetail(res.data)
-                setErrStt(!errStt)
+                setErrStt(true)
             })
     }
 
     const handleClose = () => {
-        setErrStt(!errStt)
+        setErrStt(false)
     }
 
     const handleDelete = (e) => {
         console.log(e.currentTarget.id)
         const arr = e.currentTarget.id.split("_");
         state.value = 0
-        axios.post(host.DEVICE + "/removeLogErr", { id: arr[0], time: arr[1] }, { secure: true, reconnect: true })
-            .then((res) => {
-                console.log(res.data)
-                if (res.data.status) {
+        // axios.post(host.DEVICE + "/removeLogErr", { id: arr[0], time: arr[1] }, { secure: true, reconnect: true })
+        //     .then((res) => {
+        //         console.log(res.data)
+        //         if (res.data.status) {
 
 
 
-                    err.value = err.value.filter((data) => !(data.id == arr[0]))
-                        .map((data, index) => ({ ...data, count: index + 1 }))
+        //             err.value = err.value.filter((data) => !(data.id == arr[0]))
+        //                 .map((data, index) => ({ ...data, count: index + 1 }))
 
 
-                    errfilter.value = err.value
+        //             errfilter.value = err.value
 
-                    // console.log(err.value)
-                    // newData.map((data, index) => {
-                    //     return (data["id"] = index + 1);
-                    // });
-                    // console.log(newData);
+        //             // console.log(err.value)
+        //             // newData.map((data, index) => {
+        //             //     return (data["id"] = index + 1);
+        //             // });
+        //             // console.log(newData);
 
-                }
-            })
+        //         }
+        //     })
 
 
     };
@@ -298,9 +298,37 @@ export default function Logs(props) {
         // },
     ];
 
+    const popup_state = {
+        pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+        new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+    };
+
+    const handlePopup = (state) => {
+        const popup = document.getElementById("Popup");
+        popup.style.transform = popup_state[state].transform;
+        popup.style.transition = popup_state[state].transition;
+        popup.style.color = popup_state[state].color;
+    };
+
     useEffect(() => {
         console.log(errfilter.value)
     }, [])
+
+    // Handle close when press ESC
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                setErrStt(false);
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
@@ -444,12 +472,28 @@ export default function Logs(props) {
                 </div >
             }
 
-            {
-                (errStt)
-                    ? <div className="DAT_viewErr" >
-                        <div className="DAT_viewErr-Inf">
-                            <div className="DAT_viewErr-Inf-Close" onClick={(e) => handleClose(e)} ><ion-icon name="close-outline"></ion-icon></div>
-                            <div className="DAT_viewErr-Inf-Tit">{detail[0]?.name || "Không có dữ liệu"}</div>
+            <div className="DAT_PopupBG"
+                style={{ height: errStt ? "100vh" : "0px" }}
+            >
+                {errStt
+                    ?
+                    <div className="DAT_viewErr-Inf">
+                        <div className="DAT_viewErr-Inf_Head">
+                            <div className="DAT_viewErr-Inf_Head_Left">Thông tin lỗi</div>
+                            <div className="DAT_viewErr-Inf_Head_Right">
+                                <div className="DAT_viewErr-Inf_Head_Right_Close"
+                                    id="Popup"
+                                    onMouseEnter={(e) => handlePopup("new")}
+                                    onMouseLeave={(e) => handlePopup("pre")}
+                                    onClick={(e) => handleClose(e)}
+                                >
+                                    <IoClose size={25} color="white" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="DAT_viewErr-Inf-Tit">{detail[0]?.name || "Không có dữ liệu"}</div>
+                        <div style={{ padding: "16px" }}>
                             <div className="DAT_viewErr-Inf-Type">Loại: {detail[0]?.type || ""}</div>
 
                             <span>Nguyên nhân</span>
@@ -472,11 +516,10 @@ export default function Logs(props) {
                                 }
                             </div>
                         </div>
-
                     </div>
                     : <></>
-            }
-
+                }
+            </div>
         </>
 
     );

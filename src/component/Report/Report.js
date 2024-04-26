@@ -182,7 +182,6 @@ export default function Report(props) {
         //setReport(e.target.value);
     };
 
-
     const handleChangeDate = (e) => {
         console.log(date.current.value)
         const x = new Date(date.current.value)
@@ -236,7 +235,6 @@ export default function Report(props) {
     //         }
     //     )
     // }
-
 
     const handleCustom = (e) => {
         if (e.target.value === "custom") {
@@ -331,7 +329,6 @@ export default function Report(props) {
         }
     }
 
-
     const exportExcelMonth = (e) => {
         console.log(gateway, report, machine.current.value, moment(month.current.value).format('MM/YYYY'), type_month.current.value, datefrom.current.value, dateto.current.value)
         if (reportm.value.length > 0) {
@@ -394,7 +391,6 @@ export default function Report(props) {
                                             <span style={{ cursor: "pointer" }}> {data.text}</span>
                                         </Link>
                                         : <span key={index} id={data.id + "_DIR"} style={{ cursor: "pointer" }}> {' > ' + data.text}</span>
-
                                 )
                             })}
                         </div>
@@ -415,28 +411,25 @@ export default function Report(props) {
                                 <div className="DAT_Report_Content_Main_Report-Left">
                                     {type !== 'user'
                                         ? <>
-                                            <div className="DAT_Report_Content_Main_Report-Left-Title" style={{ color: "#035afc" }}>
+                                            <div className="DAT_Report_Content_Main_Report-Left-Title" style={{ color: "#0d6efd" }}>
                                                 Chọn Gateway
                                             </div>
                                             <select id="device" onChange={(e) => handleChange(e)}>
                                                 {reportlist.value.map((data, index) => {
                                                     return (
-
                                                         <option key={index} value={data.deviceid}>{data.deviceid}</option>
                                                     )
                                                 })}
                                             </select>
                                         </>
                                         : <></>
-
                                     }
-                                    <div className="DAT_Report_Content_Main_Report-Left-Title" style={{ color: "#035afc" }}>
+                                    <div className="DAT_Report_Content_Main_Report-Left-Title" style={{ color: "#0d6efd" }}>
                                         Chọn loại báo cáo
                                     </div>
                                     <select id="report" onChange={(e) => handleChange(e)}>
                                         <option value={"Day"}>Báo cáo theo ngày</option>
                                         <option value={"Month"}>Báo cáo theo tháng</option>
-
                                     </select>
                                 </div>
 
@@ -449,7 +442,7 @@ export default function Report(props) {
                                                         <div id="Month">
                                                             <div
                                                                 className="DAT_Report_Content_Main_Report-Right-Title"
-                                                                style={{ color: "#035afc" }}
+                                                                style={{ color: "#0d6efd" }}
                                                             >
                                                                 Báo cáo theo tháng
                                                             </div>
@@ -511,8 +504,7 @@ export default function Report(props) {
                                                 return (
                                                     <>
                                                         <div id="Day">
-                                                            <div
-                                                                className="DAT_Report_Content_Main_Report-Right-Title"
+                                                            <div className="DAT_Report_Content_Main_Report-Right-Title"
                                                                 style={{ color: "#035afc" }}
                                                             >
                                                                 Báo cáo theo ngày
@@ -548,12 +540,9 @@ export default function Report(props) {
                                                                         <option value="high" style={{ display: day.value === 0 ? 'none' : 'block' }}>Giờ cao điểm</option>
                                                                         <option value="mid">Giờ bình thường</option>
                                                                         <option value="low">Giờ thấp điểm</option>
-
-
                                                                     </select>
-
-
                                                                 </div>
+
                                                                 {(custom)
                                                                     ? <div className="DAT_Report_Content_Main_Report-Right-Content-Date" >
                                                                         <span>Từ</span>
@@ -585,8 +574,6 @@ export default function Report(props) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-
                                                         </div>
                                                     </>
                                                 );
@@ -596,10 +583,7 @@ export default function Report(props) {
                                     })()}
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
                 </div>
                 :

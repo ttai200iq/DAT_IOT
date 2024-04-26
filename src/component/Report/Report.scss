@@ -43,46 +43,35 @@
       margin: auto;
       width: 98%;
       color: white;
+      font-family: Montserrat-SemiBold;
     }
 
     &_Tit {
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding-top: 16px;
+      padding-bottom: 16px;
       position: relative;
       display: flex;
       width: 98%;
       margin: auto;
       align-items: center;
-
-      &-content {
-        text-wrap: nowrap;
-        width: 250px;
-        font-size: 35px;
-        font-family: Montserrat-Regular !important;
-        color: whitesmoke;
-      }
+      gap: 8px;
 
       &-icon {
-        width: 40px;
         display: flex;
         align-items: center;
 
         ion-icon {
-          color: gray;
-          font-size: 32px;
+          color: white;
+          font-size: 25px;
         }
       }
 
-
-      & img {
-        margin-top: 5px;
-        margin-right: 5px;
-        height: 32px;
-        width: 32px;
-        filter: invert(56%) sepia(1%) saturate(440%) hue-rotate(92deg) brightness(93%) contrast(91%);
+      &-content {
+        text-wrap: nowrap;
+        font-size: 25px;
+        color: white;
+        font-family: Montserrat-Bold;
       }
-
-
 
     }
 
@@ -102,11 +91,21 @@
         display: flex;
 
         &_Item {
-          cursor: pointer;
+          // cursor: pointer;
+          // padding-top: 10px;
+          // padding-bottom: 10px;
+          // font-size: 17px;
+          // color: gray;
+
+          min-width: 80px;
           padding-top: 10px;
           padding-bottom: 10px;
-          font-size: 17px;
-          color: gray;
+          font-size: 16px;
+          color: #0d6efd;
+          font-family: Montserrat-SemiBold;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         &_Option {
@@ -123,14 +122,12 @@
 
       }
 
-
       &_Report {
         width: 100%;
         height: 100%;
         padding: 10px;
         box-sizing: border-box;
         display: flex;
-
         flex-wrap: wrap;
 
         &-Left {
@@ -141,10 +138,8 @@
           padding-top: 20px;
 
           &-Title {
-
             font-size: 18px;
             font-family: Montserrat-SemiBold !important;
-
             margin-bottom: 8px;
           }
 
@@ -156,7 +151,8 @@
             font-size: 14px;
             border-radius: 5px;
             margin-bottom: 20px;
-            border: solid 1px gray;
+            outline: none;
+            border: solid 1px rgb(219, 219, 219);
             background-color: white;
           }
         }
@@ -177,7 +173,7 @@
           &-Content {
             //width: 100% !important;
             margin: auto;
-            border: grey solid 1px;
+            border: solid 1px rgb(219, 219, 219);
             padding: 20px;
             border-radius: 10px;
             position: relative;
@@ -187,7 +183,6 @@
               align-items: center;
               margin-bottom: 10px;
               width: 100%;
-
 
               & span {
                 width: 150px;
@@ -199,7 +194,8 @@
                 width: 100%;
                 border-radius: 7px;
                 background-color: white;
-                border: solid 1px grey;
+                border: solid 1px rgb(219, 219, 219);
+                outline: none;
               }
             }
 
@@ -219,18 +215,17 @@
                 height: 40px;
                 width: 100%;
                 outline: none;
-                border: solid 1px grey;
+                border: solid 1px rgb(219, 219, 219);
                 border-radius: 5px;
                 padding: 7px;
                 background-color: white;
-                border: solid 1px grey;
+                // border: solid 1px grey;
                 white-space: nowrap;
                 box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
               }
             }
-
 
             &-Button {
               display: flex;
