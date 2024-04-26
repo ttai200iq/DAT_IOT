@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Error.scss";
 import DataTable from "react-data-table-component";
 import { deviceid, register } from "./Error";
@@ -11,6 +11,7 @@ import { LuFolderEdit } from "react-icons/lu";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaRegSave } from "react-icons/fa";
 import { IoSaveOutline } from "react-icons/io5";
+import { lowercasedata } from "../User/Listuser";
 
 
 export default function Register(props) {
@@ -18,6 +19,7 @@ export default function Register(props) {
     const { alertDispatch } = useContext(AlertContext);
     const [config, setConfig] = useState(false);
     const [tit, setTit] = useState("");
+    const [filter, setFilter] = useState([]);
     const [positon, setPosition] = useState({ col: "", row: 0 });
     const paginationComponentOptions = {
         rowsPerPageText: "Số hàng",
@@ -328,6 +330,19 @@ export default function Register(props) {
         };
     };
 
+    useEffect(() => {
+        const searchTerm = lowercasedata(props.filter);
+        if (searchTerm == "") {
+            setFilter(register.value.data);
+        } else {
+            const df = register.value.data.filter((item) => {
+                const filterName = item.addrcode && lowercasedata(item.addrcode).includes(searchTerm);
+                return (filterName);
+            })
+            setFilter(df);
+        }
+    }, [props.filter])
+
     return (
         <>
             {isBrowser ? (
@@ -336,7 +351,7 @@ export default function Register(props) {
                         <DataTable
                             className="DAT_Table_Container"
                             columns={col}
-                            data={register.value.data}
+                            data={filter}
                             pagination
                             paginationComponentOptions={paginationComponentOptions}
                             fixedHeader={true}

@@ -1,6 +1,6 @@
 import DataTable from "react-data-table-component";
 import { devicetime, reporttime } from "./Export";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
 import { host } from "../constant";
@@ -13,12 +13,15 @@ import { AlertContext } from "../Context/AlertContext";
 import { action } from "../Control/Action";
 import { useIntl } from "react-intl";
 import { IoIosArrowBack } from "react-icons/io";
+import { lowercasedata } from "../User/Listuser";
+
 export default function ConfigEx(props) {
     const { alertDispatch } = useContext(AlertContext);
     const [report, setReport] = useState("");
     const [mcode, setMcode] = useState("0");
     const [config, setConfig] = useState({});
     const [state, setState] = useState(false);
+    const [config_, setConfig_] = useState("");
     const dataLang = useIntl();
 
     const id = useRef();
@@ -47,13 +50,12 @@ export default function ConfigEx(props) {
             name: "Mã báo cáo",
             selector: (row) => row.code,
             center: true,
-            minWidth: "120px",
+            minWidth: "100px",
         },
         {
             name: "Tên",
             selector: (row) => row.name,
-            center: true,
-            minWidth: "300px",
+            minWidth: "200px",
         },
 
         {
@@ -94,7 +96,6 @@ export default function ConfigEx(props) {
                     </div>
                 </>
             ),
-            center: true,
             minWidth: "400px",
         },
         {
@@ -136,7 +137,6 @@ export default function ConfigEx(props) {
                     </div>
                 </>
             ),
-            center: true,
             minWidth: "400px",
         },
     ];
@@ -231,6 +231,37 @@ export default function ConfigEx(props) {
         setNav(id);
     };
 
+    useEffect(() => {
+        const searchTerm = lowercasedata(props.config);
+        if (searchTerm == "") {
+            setConfig_(reporttime.value);
+        } else {
+            const df = reporttime.value.filter((item) => {
+                const filterName = lowercasedata(item.name).includes(searchTerm) ||
+                    item.register.some(
+                        (reg) => {
+                            return (
+                                lowercasedata(reg.cal).includes(searchTerm)) ||
+                                lowercasedata(reg.id).includes(searchTerm) ||
+                                lowercasedata(reg.name).includes(searchTerm)
+                        }) ||
+                    item.registermonth.some(
+                        (reg) => {
+                            return (
+                                lowercasedata(reg.cal).includes(searchTerm)) ||
+                                lowercasedata(reg.id).includes(searchTerm) ||
+                                lowercasedata(reg.name).includes(searchTerm)
+                        })
+                    ;
+                const filterCode = lowercasedata(item.code).includes(searchTerm)
+                return (filterName || filterCode);
+            });
+            setConfig_(df);
+        }
+
+
+    }, [props.config])
+
     return (
         <>
             {isBrowser ? (
@@ -238,7 +269,7 @@ export default function ConfigEx(props) {
                     <DataTable
                         className="DAT_Table_Container"
                         columns={col}
-                        data={reporttime.value}
+                        data={config_}
                         pagination
                         paginationComponentOptions={paginationComponentOptions}
                         noDataComponent={

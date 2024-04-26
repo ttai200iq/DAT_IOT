@@ -14,7 +14,7 @@ import { IoMdAdd } from "react-icons/io";
 import { editProject } from "./Project";
 import { lowercasedata } from "../User/Listuser";
 
-export default function Listproject() {
+export default function Listproject(props) {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);
   const user = useSelector((state) => state.admin.user)
@@ -143,6 +143,22 @@ export default function Listproject() {
       setFilter(df)
     }
   }
+
+  useEffect(() => {
+    const searchTerm = lowercasedata(props.filter);
+    if (searchTerm == "") {
+      setFilter(data)
+    } else {
+      const df = data.filter((item) => {
+        const filterName = lowercasedata(item.name).includes(searchTerm);
+        const filterAddress = lowercasedata(item.addr).toLowerCase().includes(searchTerm);
+        const filterCompany = lowercasedata(item.company).toLowerCase().includes(searchTerm);
+
+        return (filterName || filterAddress || filterCompany);
+      })
+      setFilter(df)
+    }
+  }, [props.filter])
 
   return (
     <>

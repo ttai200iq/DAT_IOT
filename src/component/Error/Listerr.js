@@ -12,11 +12,12 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import Reader from "./Reader";
 import Register from "./Register";
 import { signal } from "@preact/signals-react";
-
+import { lowercasedata } from "../User/Listuser";
 
 export default function Listerr(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
+    const [filter, setFilter] = useState([]);
     const avatar = '/avatar/auto.jpg'
 
     const paginationComponentOptions = {
@@ -66,10 +67,13 @@ export default function Listerr(props) {
     }
 
     useEffect(() => {
-        // console.log(reader.value)
-        // console.log(document.getElementById("errid"))
-        console.log(list.value)
-    }, [])
+        const searchTerm = lowercasedata(props.filter);
+        if (searchTerm == "") {
+            setFilter(list.value)
+        } else {
+            return setFilter(list.value.filter((data) => data.deviceid.toLowerCase().includes(searchTerm)))
+        }
+    }, [props.filter])
 
     return (
         <>
@@ -79,7 +83,7 @@ export default function Listerr(props) {
                     <DataTable
                         className="DAT_Table_Container"
                         columns={col}
-                        data={list.value}
+                        data={filter}
                         pagination
                         paginationComponentOptions={paginationComponentOptions}
                         fixedHeader={true}

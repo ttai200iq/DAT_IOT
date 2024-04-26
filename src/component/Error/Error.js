@@ -10,8 +10,10 @@ import { host } from "../constant";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
-import { IoIosAddCircle } from "react-icons/io";
+import { IoIosAddCircle, IoMdAdd } from "react-icons/io";
 import { BiMessageAltError } from "react-icons/bi";
+import { CiSearch } from "react-icons/ci";
+import { IoSaveOutline } from "react-icons/io5";
 
 export const readstate = signal(false);
 
@@ -30,7 +32,7 @@ const tab = signal("1");
 
 export default function Error(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)";
-    const icon = <ion-icon name="construct-outline"></ion-icon>;
+    const [filter, setFilter] = useState("");
     const inf = { code: "Error", tit: "Cài đặt lỗi" };
     const direct = [
         { id: "home", text: "Trang chủ" },
@@ -41,8 +43,8 @@ export default function Error(props) {
     const { alertDispatch } = useContext(AlertContext);
 
     const color = {
-        cur: "blue",
-        pre: "black",
+        cur: "#0d6efd",
+        pre: "grey",
     };
 
     useLayoutEffect(() => {
@@ -175,7 +177,7 @@ export default function Error(props) {
         var err = document.getElementById("errid");
 
         var newData = reader.value.filter((data) => data.code == err.value);
-        //console.log(newData)
+        console.log(newData)
 
         if (newData.length > 0) {
             console.log("already exist!");
@@ -231,12 +233,18 @@ export default function Error(props) {
                         });
                     }
                 });
+            console.log(reader.value)
         }
     };
 
+    const handleFilter = (e) => {
+        setFilter(e.currentTarget.value);
+        console.log(e.currentTarget.value)
+    };
+
     useEffect(() => {
-        console.log(readstate.value);
-    }, [readstate.value]);
+        console.log(readstate);
+    }, [readstate]);
 
     return (
         <>
@@ -254,7 +262,7 @@ export default function Error(props) {
                         {/* <div className="DAT_ErrTop-shadow" ></div> */}
                     </div>
                     <div className="DAT_Err_Content">
-                        <div className="DAT_Err_Content-Direct">
+                        <div className="DAT_Err_Content_Direct">
                             {direct.map((data, index) => {
                                 return index === 0 ? (
                                     <Link
@@ -276,82 +284,149 @@ export default function Error(props) {
                                 );
                             })}
                         </div>
-                        <div className="DAT_Err_Content-Tit">
-                            <div className="DAT_Err_Content-Tit-icon">
-                                <BiMessageAltError size={25} color="grey" />
+                        <div className="DAT_Err_Content_Tit">
+                            <div className="DAT_Err_Content_Tit-content">
+                                <BiMessageAltError size={30} color="white" />
+                                <span className="DAT_Err_Content_Tit-content-title">{inf.tit}</span>
                             </div>
-                            <div className="DAT_Err_Content-Tit-content">{inf.tit}</div>
+
+                            <div className="DAT_Err_Content_Tit_Filter">
+                                {(() => {
+                                    switch (nav) {
+                                        case "errlist":
+                                            return (
+                                                <>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Tìm kiếm"
+                                                        onChange={(e) => handleFilter(e)}
+                                                    />
+                                                    <CiSearch color="gray" size={20} />
+                                                </>
+                                            )
+                                        case "register":
+                                            return (
+                                                <>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Tìm địa chỉ"
+                                                        onChange={(e) => handleFilter(e)}
+                                                    />
+                                                    <CiSearch color="gray" size={20} />
+                                                </>
+                                            );
+                                        case "reader":
+                                            return (
+                                                <>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Tìm mã lỗi"
+                                                        onChange={(e) => handleFilter(e)}
+                                                    />
+                                                    <CiSearch color="gray" size={20} />
+                                                </>
+                                            );
+                                        default:
+                                            <></>;
+                                    }
+                                })()}
+                            </div>
+
+                            <div className="DAT_Err_Content_Tit_AddNew">
+                                {(() => {
+                                    switch (nav) {
+                                        case "errlist":
+                                            return (
+                                                <>
+                                                </>
+                                            )
+                                        case "register":
+                                            return (
+                                                <>
+                                                    <form className="DAT_Err_Content_Tit_AddNew-Form"
+                                                        onSubmit={(e) => handleAddRegister(e)}>
+                                                        <input
+                                                            placeholder="Thêm địa chỉ"
+                                                            id="errcode"
+                                                            required
+                                                        ></input>
+                                                        <button>
+                                                            <IoMdAdd size={20} />
+                                                        </button>
+                                                    </form>
+                                                </>
+                                            );
+                                        case "reader":
+                                            return (
+                                                <>
+                                                    <form className="DAT_Err_Content_Tit_AddNew-Form"
+                                                        onSubmit={(e) => handleAddReader(e)}>
+                                                        <input
+                                                            placeholder="Thêm mã lỗi"
+                                                            id="errid"
+                                                            required
+                                                        ></input>
+                                                        <button>
+                                                            <IoMdAdd size={20} />
+                                                        </button>
+                                                    </form>
+                                                </>
+                                            );
+                                        default:
+                                            <></>;
+                                    }
+                                })()}
+                            </div>
                         </div>
 
                         <div className="DAT_Err_Content_Main">
                             <div className="DAT_Err_Content_Main_Nav">
-                                <div
-                                    className="DAT_Err_Content_Main_Nav_Item"
-                                    id="errlist"
-                                    style={{ color: nav === "errlist" ? color.cur : color.pre }}
-                                    onClick={(e) => {
-                                        handleNav(e);
-                                    }}
-                                >
-                                    Danh sách
-                                </div>
-                                <div
-                                    className="DAT_Err_Content_Main_Nav_Item"
-                                    id="register"
-                                    style={{ color: nav === "register" ? color.cur : color.pre }}
-                                    onClick={(e) => {
-                                        handleNav(e);
-                                    }}
-                                >
-                                    Thanh ghi
-                                </div>
-                                <div
-                                    className="DAT_Err_Content_Main_Nav_Item"
-                                    id="reader"
-                                    style={{ color: nav === "reader" ? color.cur : color.pre }}
-                                    onClick={(e) => {
-                                        handleNav(e);
-                                    }}
-                                >
-                                    Thông tin
+                                <div className="DAT_Err_Content_Main_Nav_Item">
+                                    <div
+                                        className="DAT_Err_Content_Main_Nav_Item_Content"
+                                        id="errlist"
+                                        style={{ color: nav === "errlist" ? color.cur : color.pre }}
+                                        onClick={(e) => {
+                                            handleNav(e);
+                                        }}
+                                    >
+                                        Danh sách
+                                    </div>
+                                    <div
+                                        className="DAT_Err_Content_Main_Nav_Item_Content"
+                                        id="register"
+                                        style={{ color: nav === "register" ? color.cur : color.pre }}
+                                        onClick={(e) => {
+                                            handleNav(e);
+                                        }}
+                                    >
+                                        Thanh ghi
+                                    </div>
+                                    <div
+                                        className="DAT_Err_Content_Main_Nav_Item_Content"
+                                        id="reader"
+                                        style={{ color: nav === "reader" ? color.cur : color.pre }}
+                                        onClick={(e) => {
+                                            handleNav(e);
+                                        }}
+                                    >
+                                        Thông tin
+                                    </div>
                                 </div>
                                 {/* HEAD TITLE */}
                                 {nav === "register" && deviceid.value !== "" ? (
-                                    <div className="DAT_Err_Content_Main_Nav_Add">
+                                    <div className="DAT_Err_Content_Main_Nav_Add" onClick={(e) => handleUpdate(e)}>
                                         <button
-                                            className="DAT_Err_Content_Main_Nav_Add-Save"
-                                            onClick={(e) => handleUpdate(e)}
-                                            style={{ marginRight: "10px" }}
-                                        >
-                                            <ion-icon name="save"></ion-icon>
+                                            className="DAT_Err_Content_Main_Nav_Add-Save" >
+                                            <IoSaveOutline size={20} />
                                         </button>
-                                        <form onSubmit={(e) => handleAddRegister(e)}>
-                                            <input
-                                                placeholder="Nhập địa chỉ"
-                                                id="errcode"
-                                                required
-                                            ></input>
-                                            <button>
-                                                <ion-icon name="add-outline"></ion-icon>
-                                            </button>
-                                        </form>
+                                        <span>Lưu</span>
                                     </div>
                                 ) : (
                                     <></>
                                 )}
                                 {nav === "reader" ? (
-                                    <div className="DAT_Err_Content_Main_Nav_Add">
-                                        <form onSubmit={(e) => handleAddReader(e)}>
-                                            <input
-                                                placeholder="Nhập mã lỗi"
-                                                id="errid"
-                                                required
-                                            ></input>
-                                            <button>
-                                                <ion-icon name="add-outline"></ion-icon>
-                                            </button>
-                                        </form>
-                                    </div>
+                                    <></>
                                 ) : (
                                     <></>
                                 )}
@@ -364,19 +439,19 @@ export default function Error(props) {
                                         case "errlist":
                                             return (
                                                 <>
-                                                    <Listerr username={props.username} />
+                                                    <Listerr username={props.username} filter={filter} />
                                                 </>
                                             );
                                         case "register":
                                             return (
                                                 <>
-                                                    <Register username={props.username} />
+                                                    <Register username={props.username} filter={filter} />
                                                 </>
                                             );
                                         case "reader":
                                             return (
                                                 <>
-                                                    <Reader username={props.username} />
+                                                    <Reader username={props.username} filter={filter} />
                                                 </>
                                             );
                                         default:
@@ -386,7 +461,7 @@ export default function Error(props) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
             ) : (
                 <>
                     <div className="DAT_ViewMobile_Container">
@@ -453,7 +528,8 @@ export default function Error(props) {
                         </div>
                     </div>
                 </>
-            )}
+            )
+            }
         </>
     );
 }

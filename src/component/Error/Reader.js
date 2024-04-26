@@ -8,13 +8,16 @@ import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
 import { IoIosArrowBack } from "react-icons/io";
+import { lowercasedata } from "../User/Listuser";
 
 export default function Reader(props) {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);
   const [config, setConfig] = useState(false);
   const [tit, setTit] = useState("");
+  const [filter, setFilter] = useState([]);
   const [positon, setPosition] = useState({ col: "", row: 0 });
+
   const paginationComponentOptions = {
     rowsPerPageText: 'Số hàng',
     rangeSeparatorText: 'đến',
@@ -289,7 +292,6 @@ export default function Reader(props) {
 
   };
 
-
   const handleSaveNew = (e) => {
 
     var doc = reader.value.find((data) => data.code == e.currentTarget.id)
@@ -424,6 +426,31 @@ export default function Reader(props) {
     }
   };
 
+  useEffect(() => {
+    const searchTerm = lowercasedata(props.filter);
+    if (searchTerm == "") {
+      setFilter(reader.value);
+    } else {
+      const df = reader.value.filter((item) => {
+        const filterName = item.code && lowercasedata(item.name).includes(searchTerm) ||
+          item.infor.some(
+            (reg) => {
+              return (
+                lowercasedata(reg.text).includes(searchTerm))
+            }) ||
+          item.solution.some(
+            (reg) => {
+              return (
+                lowercasedata(reg.text).includes(searchTerm))
+            })
+          ;
+        const filterID = item.code && lowercasedata(item.code).includes(searchTerm)
+        return (filterName || filterID);
+      });
+      setFilter(df);
+    }
+  }, [props.filter])
+
   return (
     <>
       {isBrowser ?
@@ -431,7 +458,7 @@ export default function Reader(props) {
           <DataTable
             className="DAT_Table_Container"
             columns={col}
-            data={reader.value}
+            data={filter}
             pagination
             paginationComponentOptions={paginationComponentOptions}
             fixedHeader={true}

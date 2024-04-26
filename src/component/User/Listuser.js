@@ -407,7 +407,6 @@ export default function Listuser(props) {
   }
 
   useEffect(() => {
-    console.log(props.filter);
     const searchTerm = lowercasedata(props.filter);
     if (searchTerm == "") {
       setFilter(data.value)

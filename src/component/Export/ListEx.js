@@ -8,6 +8,7 @@ import { useIntl } from "react-intl";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
 import { signal } from "@preact/signals-react";
+import { lowercasedata } from "../User/Listuser";
 
 export const configreport = signal(false);
 export default function ListEx(props) {
@@ -128,13 +129,25 @@ export default function ListEx(props) {
         }
     }
 
+    useEffect(() => {
+        const searchTerm = lowercasedata(props.filter);
+        if (searchTerm == "") {
+            setFilter(exp.value)
+        } else {
+            const df = exp.value.filter((item) => {
+                return (item.deviceid.toLowerCase().includes(searchTerm))
+            })
+            setFilter(df)
+        }
+    }, [props.filter])
+
     return (
         <>
             {isBrowser ? (
                 <DataTable
                     className="DAT_Table_Container"
                     columns={col}
-                    data={exp.value}
+                    data={filter}
                     pagination
                     paginationComponentOptions={paginationComponentOptions}
                     noDataComponent={
