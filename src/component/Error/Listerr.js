@@ -140,7 +140,7 @@ export default function Listerr(props) {
                             </div>
                         )) :
                         <>
-                            <Register username={props.username} handleCloseRead={handleCloseRead} />
+                            <Register username={props.username} handleCloseRead={handleCloseRead} filter={filter} />
                         </>}
                 </>
             }

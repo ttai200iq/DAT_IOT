@@ -521,9 +521,9 @@ export default function Error(props) {
                         </div>
                         <div>
                             {tab.value === "1" ? (
-                                <Listerr username={props.username} />
+                                <Listerr username={props.username} filter={filter} />
                             ) : (
-                                <Reader username={props.username} />
+                                <Reader username={props.username} filter={filter} />
                             )}
                         </div>
                     </div>

@@ -20,6 +20,7 @@ export default function Register(props) {
     const [config, setConfig] = useState(false);
     const [tit, setTit] = useState("");
     const [filter, setFilter] = useState([]);
+
     const [positon, setPosition] = useState({ col: "", row: 0 });
     const paginationComponentOptions = {
         rowsPerPageText: "Số hàng",
@@ -330,6 +331,7 @@ export default function Register(props) {
         };
     };
 
+    //Nua sua
     useEffect(() => {
         const searchTerm = lowercasedata(props.filter);
         if (searchTerm == "") {
@@ -378,7 +380,8 @@ export default function Register(props) {
                             className="DAT_ViewMobile_Container_Add_Form"
                             onSubmit={(e) => handleAddRegister(e)}
                         >
-                            <input placeholder="Nhập địa chỉ" id="errcode" required></input>
+                            <input placeholder="Nhập địa chỉ"
+                                id="errcode" required></input>
                             <button>
                                 <ion-icon name="add-outline"></ion-icon>
                             </button>
