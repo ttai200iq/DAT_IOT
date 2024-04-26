@@ -279,12 +279,14 @@ export default function Listuser(props) {
 
           (row.type !== 'master')
             ? <div
-
+              id={row.name + "_" + row.mail}
+              onClick={() => {
+                delstate.value = !delstate.value;
+                props.setdata(row.name, row.mail);
+              }}
               style={{ cursor: "pointer", color: "red" }}
             >
-              <MdOutlineDelete size={20} color="red"
-                id={row.projectid}
-                onClick={(e) => { handleDelete(e) }} />
+              <MdOutlineDelete size={20} color="red" />
             </div>
             : <></>
         )
@@ -405,7 +407,6 @@ export default function Listuser(props) {
   }
 
   useEffect(() => {
-    console.log(props.filter);
     const searchTerm = lowercasedata(props.filter);
     if (searchTerm == "") {
       setFilter(data.value)
