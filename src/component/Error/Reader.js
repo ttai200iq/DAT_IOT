@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Error.scss";
 import DataTable from "react-data-table-component";
 import { reader } from "./Error";
@@ -8,6 +8,7 @@ import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
 import { IoIosArrowBack } from "react-icons/io";
+import { lowercasedata } from "../User/Listuser";
 import { lowercasedata } from "../User/Listuser";
 
 export default function Reader(props) {
@@ -477,6 +478,7 @@ export default function Reader(props) {
                 placeholder="Nhập mã lỗi"
                 id="errcode"
                 required
+                onChange={(e) => { handleFilter(e) }}
               ></input>
               <button>
                 <ion-icon name="add-outline"></ion-icon>
@@ -485,7 +487,7 @@ export default function Reader(props) {
           </div>
           <div className="DAT_Read">
             <div className="DAT_Read_Body">
-              {reader.value.map((row, index) => (
+              {dataRead.map((row, index) => (
                 <div key={index} className="DAT_ViewMobile_Container_Content">
                   <div className="DAT_ViewMobile_Container_Content_Top"
                     style={{
