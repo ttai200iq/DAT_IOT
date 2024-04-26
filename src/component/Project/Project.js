@@ -84,14 +84,6 @@ export default function Project(props) {
                                 <div className="DAT_Project_Content_Main_Nav_Item">
                                     Danh sách dự án
                                 </div>
-                                <div
-                                    className="DAT_Project_Content_Main_Nav_Add"
-                                    onClick={(e) => {
-                                        handleNav();
-                                    }}
-                                >
-                                    <IoMdAdd color="white" size={18} />
-                                </div>
                             </div>
                             <div className="DAT_Project_Content_Main_New">
                                 <Listproject username={props.username} />
