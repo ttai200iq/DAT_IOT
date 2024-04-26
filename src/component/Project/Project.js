@@ -16,7 +16,7 @@ export default function Project(props) {
     const icon = <ion-icon name="construct-outline"></ion-icon>
     const inf = { code: 'Device', tit: 'Dự án' }
     const [direct, SetDirect] = useState([{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }])
-
+    const [filter, setFilter] = useState("");
     // const tit = {
     //     project: "Dự Án",
     //     device: "Thiết Bị",
@@ -31,6 +31,10 @@ export default function Project(props) {
     const handleNav = (e) => {
         editProject.value = true
     };
+
+    const handleChangeFilter = (e) => {
+        setFilter(e.currentTarget.value);
+    }
 
     return (
         <>
@@ -61,6 +65,7 @@ export default function Project(props) {
                                 <input
                                     type="text"
                                     placeholder="Tìm kiếm"
+                                    onChange={(e) => handleChangeFilter(e)}
                                 />
                                 <CiSearch color="gray" size={20} />
                             </div>
@@ -86,7 +91,7 @@ export default function Project(props) {
                                 </div>
                             </div>
                             <div className="DAT_Project_Content_Main_New">
-                                <Listproject username={props.username} />
+                                <Listproject username={props.username} filter={filter} />
                             </div>
                         </div>
                     </div>
@@ -104,7 +109,7 @@ export default function Project(props) {
                     </div>
                     <div className="DAT_ProjList_Content">
                         <div className="DAT_ProjList_Content_List">
-                            <Listproject username={props.username} />
+                            <Listproject username={props.username} filter={filter} />
                         </div>
                     </div>
                 </div >

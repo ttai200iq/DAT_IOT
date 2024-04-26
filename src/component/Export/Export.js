@@ -19,6 +19,8 @@ export default function Export(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)";
     const icon = <ion-icon name="notifications-outline"></ion-icon>;
     const inf = { code: "Notif", tit: "Cài đặt báo cáo" };
+    const [filter, setFilter] = useState("");
+    const [config_, setConfig_] = useState("");
     const [direct, SetDirect] = useState([
         { id: "home", text: "Trang chủ" },
         { id: "list", text: inf.tit },
@@ -27,8 +29,8 @@ export default function Export(props) {
     const [nav, setNav] = useState("list");
 
     const color = {
-        cur: "blue",
-        pre: "black",
+        cur: "#0d6efd",
+        pre: "grey",
     };
 
     const handleNav = (e) => {
@@ -51,6 +53,14 @@ export default function Export(props) {
     //         })
     //     // eslint-disable-next-line
     // }, [])
+
+    const handleFilter = (e) => {
+        setFilter(e.currentTarget.value);
+    }
+
+    const handleConfig = (e) => {
+        setConfig_(e.currentTarget.value);
+    }
 
     return (
         <>
@@ -98,11 +108,37 @@ export default function Export(props) {
                             </div>
 
                             <div className="DAT_Export_Content_Tit_Filter">
-                                <input
-                                    type="text"
-                                    placeholder={nav === "list" ? "Tìm kiếm" : "Tìm kiếm theo cấu hình"}
-                                />
-                                <CiSearch color="gray" size={20} />
+                                {(() => {
+                                    switch (nav) {
+                                        case "list":
+                                            return (
+                                                <>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Tìm kiếm"
+                                                        onChange={(e) => handleFilter(e)}
+                                                    />
+                                                    <CiSearch color="gray" size={20} />
+                                                </>
+                                            );
+                                        case "config":
+                                            return (
+                                                <>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Tìm kiếm theo cấu hình"
+                                                        onChange={(e) => handleConfig(e)}
+                                                    />
+                                                    <CiSearch color="gray" size={20} />
+                                                </>
+                                            );
+                                        default:
+                                            <></>;
+                                    }
+                                })()}
+                            </div>
+
+                            <div className="DAT_Export_Content_Tit_Blank">
                             </div>
                         </div>
                         {/* Nav */}
@@ -137,13 +173,13 @@ export default function Export(props) {
                                         case "list":
                                             return (
                                                 <>
-                                                    <ListEx username={props.username} />
+                                                    <ListEx username={props.username} filter={filter} />
                                                 </>
                                             );
                                         case "config":
                                             return (
                                                 <>
-                                                    <ConfigEx username={props.username} />
+                                                    <ConfigEx username={props.username} config={config_} />
                                                 </>
                                             );
                                         default:
@@ -164,9 +200,9 @@ export default function Export(props) {
                         <div className="DAT_ExportList_Content">
                             <div className="DAT_ExportList_Content_Main_List">
                                 {configreport.value === false ?
-                                    <ListEx username={props.username} />
+                                    <ListEx username={props.username} filter={filter} />
                                     :
-                                    <ConfigEx username={props.username} />
+                                    <ConfigEx username={props.username} config={config_} />
                                 }
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Error.scss";
 import DataTable from "react-data-table-component";
 import { reader } from "./Error";
@@ -15,8 +15,10 @@ export default function Reader(props) {
   const { alertDispatch } = useContext(AlertContext);
   const [config, setConfig] = useState(false);
   const [tit, setTit] = useState("");
-  const [dataRead, setDataRead] = useState(reader.value);
+  const [filter, setFilter] = useState([]);
   const [positon, setPosition] = useState({ col: "", row: 0 });
+  const [dataRead, setDataRead] = useState(reader.value);
+
   const paginationComponentOptions = {
     rowsPerPageText: 'Số hàng',
     rangeSeparatorText: 'đến',
@@ -291,7 +293,6 @@ export default function Reader(props) {
 
   };
 
-
   const handleSaveNew = (e) => {
 
     var doc = reader.value.find((data) => data.code == e.currentTarget.id)
@@ -440,6 +441,31 @@ export default function Reader(props) {
     setDataRead(reader.value)
   }, [])
 
+  useEffect(() => {
+    const searchTerm = lowercasedata(props.filter);
+    if (searchTerm == "") {
+      setFilter(reader.value);
+    } else {
+      const df = reader.value.filter((item) => {
+        const filterName = item.code && lowercasedata(item.name).includes(searchTerm) ||
+          item.infor.some(
+            (reg) => {
+              return (
+                lowercasedata(reg.text).includes(searchTerm))
+            }) ||
+          item.solution.some(
+            (reg) => {
+              return (
+                lowercasedata(reg.text).includes(searchTerm))
+            })
+          ;
+        const filterID = item.code && lowercasedata(item.name).includes(searchTerm)
+        return (filterName || filterID);
+      });
+      setFilter(df);
+    }
+  }, [props.filter])
+
   return (
     <>
       {isBrowser ?
@@ -447,7 +473,7 @@ export default function Reader(props) {
           <DataTable
             className="DAT_Table_Container"
             columns={col}
-            data={reader.value}
+            data={filter}
             pagination
             paginationComponentOptions={paginationComponentOptions}
             fixedHeader={true}
@@ -465,8 +491,8 @@ export default function Reader(props) {
               <input
                 placeholder="Nhập mã lỗi"
                 id="errcode"
-                required
                 onChange={(e) => { handleFilter(e) }}
+                required
               ></input>
               <button>
                 <ion-icon name="add-outline"></ion-icon>

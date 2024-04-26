@@ -201,8 +201,12 @@ export default function Storage(props) {
                                 <input
                                     type="text"
                                     placeholder="Tìm kiếm"
+                                    onChange={(e) => { handleFilter(e) }}
                                 />
                                 <CiSearch color="gray" size={20} />
+                            </div>
+
+                            <div className="DAT_Storage_Content_Tit_Blank">
                             </div>
                         </div>
 
@@ -217,7 +221,7 @@ export default function Storage(props) {
                                 <DataTable
                                     className="DAT_Table_Container"
                                     columns={head}
-                                    data={data}
+                                    data={filter}
                                     pagination
                                     paginationComponentOptions={paginationComponentOptions}
                                     noDataComponent={
