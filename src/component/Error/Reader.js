@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Error.scss";
 import DataTable from "react-data-table-component";
 import { reader } from "./Error";
@@ -8,12 +8,14 @@ import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
 import { IoIosArrowBack } from "react-icons/io";
+import { lowercasedata } from "../User/Listuser";
 
 export default function Reader(props) {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);
   const [config, setConfig] = useState(false);
   const [tit, setTit] = useState("");
+  const [dataRead, setDataRead] = useState(reader.value);
   const [positon, setPosition] = useState({ col: "", row: 0 });
   const paginationComponentOptions = {
     rowsPerPageText: 'Số hàng',
@@ -424,6 +426,20 @@ export default function Reader(props) {
     }
   };
 
+  const handleFilter = (e) => {
+    // console.log(e.target.value)
+    const input = lowercasedata(e.target.value)
+    if (input === "") {
+      setDataRead(reader.value)
+    } else {
+      setDataRead(reader.value.filter((data) => lowercasedata(data.name).includes(input)))
+    }
+  }
+
+  useEffect(() => {
+    setDataRead(reader.value)
+  }, [])
+
   return (
     <>
       {isBrowser ?
@@ -450,6 +466,7 @@ export default function Reader(props) {
                 placeholder="Nhập mã lỗi"
                 id="errcode"
                 required
+                onChange={(e) => { handleFilter(e) }}
               ></input>
               <button>
                 <ion-icon name="add-outline"></ion-icon>
@@ -458,7 +475,7 @@ export default function Reader(props) {
           </div>
           <div className="DAT_Read">
             <div className="DAT_Read_Body">
-              {reader.value.map((row, index) => (
+              {dataRead.map((row, index) => (
                 <div key={index} className="DAT_ViewMobile_Container_Content">
                   <div className="DAT_ViewMobile_Container_Content_Top"
                     style={{
