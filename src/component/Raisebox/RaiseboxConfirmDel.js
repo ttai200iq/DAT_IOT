@@ -3,7 +3,7 @@ import "./Raisebox.scss";
 import { IoClose } from "react-icons/io5";
 import { delstate } from "../User/Listuser";
 
-export default function Raisebox() {
+export default function Raisebox(props) {
     return (
         <div className="DAT_Raisebox">
             <div className="DAT_Raisebox_Box">
@@ -32,6 +32,7 @@ export default function Raisebox() {
                         className="DAT_Raisebox_Box_Button_Confirm"
                         onClick={() => {
                             delstate.value = false;
+                            props.handleDelete();
                         }}
                     >
                         Xác nhận

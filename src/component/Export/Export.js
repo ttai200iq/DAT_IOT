@@ -9,7 +9,8 @@ import ListEx, { configreport } from "./ListEx";
 import ConfigEx from "./ConfigEx";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineWifiTetheringErrorRounded } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
+import { IoIosNotificationsOutline, IoMdAdd } from "react-icons/io";
+import { CiSearch } from "react-icons/ci";
 export const exp = signal([]);
 export const devicetime = signal("");
 export const reporttime = signal([]);
@@ -91,9 +92,17 @@ export default function Export(props) {
                             })}
                         </div>
                         <div className="DAT_Export_Content_Tit">
-                            <div className="DAT_Export_Content_Tit-icon">{icon}</div>
                             <div className="DAT_Export_Content_Tit-content">
-                                Cài đặt báo cáo
+                                <IoIosNotificationsOutline size={30} color="white" />
+                                <span className="DAT_Export_Content_Tit-content-title"> Cài đặt báo cáo</span>
+                            </div>
+
+                            <div className="DAT_Export_Content_Tit_Filter">
+                                <input
+                                    type="text"
+                                    placeholder={nav === "list" ? "Tìm kiếm" : "Tìm kiếm theo cấu hình"}
+                                />
+                                <CiSearch color="gray" size={20} />
                             </div>
                         </div>
                         {/* Nav */}

@@ -136,6 +136,8 @@ export default function Contact(props) {
                     })
                 }
             })
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Handle close when press ESC

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Account.scss"
 
 import { Link } from "react-router-dom";
-import Pass from "./Pass";
+import AccountPopup from "./AccountPopup";
 import Contact from "./AccountInfo";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
@@ -14,6 +14,8 @@ export default function Acount(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
     const inf = { code: 'Report', tit: 'Tài khoản' }
     const direct = [{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }]
+    const [popupState, setPopupState] = useState(false);
+    const [popupType, setPopupType] = useState("");
 
     // const type = useSelector((state) => state.admin.type)
 
@@ -23,6 +25,23 @@ export default function Acount(props) {
     // }
 
     // const [nav, setNav] = useState("contact");
+
+    const handlePopup = () => {
+        setPopupState(true);
+    };
+
+    const handleClosePopup = () => {
+        setPopupState(false);
+    };
+
+    const handleType = (type) => {
+        setPopupType(type);
+    };
+
+    // useEffect(() => {
+    //     console.log(popupState)
+    //     console.log(popupType)
+    // }, [popupState, popupType])
 
     return (
         <>
@@ -56,19 +75,14 @@ export default function Acount(props) {
                         </div>
 
                         <div className="DAT_Account_Content_Main">
-                            {/* <div className="DAT_Account_Content_Main_Nav">
-                                <div className="DAT_Account_Content_Main_Nav_Item">
-                                    Thông tin
-                                </div>
-                            </div> */}
                             <div className="DAT_Account_Content_Main_New">
-                                <Contact username={props.username} />
+                                <Contact username={props.username} handlePopup={handlePopup} handleType={handleType} />
                             </div>
                         </div>
                     </div>
 
-                    <div className="DAT_PopupBG" style={{ height: editPass.value ? "100vh" : "0" }}>
-                        {editPass.value ? <Pass username={props.username} /> : <></>}
+                    <div className="DAT_PopupBG" style={{ height: popupState ? "100vh" : "0" }}>
+                        {popupState ? <AccountPopup username={props.username} handleClose={handleClosePopup} type={popupType} /> : <></>}
                     </div>
                 </div>
                 :
@@ -79,11 +93,11 @@ export default function Acount(props) {
                     </div>
 
                     <div className="DAT_AccountMobile_Container">
-                        <Contact username={props.username} />
+                        <Contact username={props.username} handlePopup={handlePopup} handleType={handleType} />
                     </div>
 
-                    <div className="DAT_PopupBG" style={{ height: editPass.value ? "100vh" : "0" }}>
-                        {editPass.value ? <Pass username={props.username} /> : <></>}
+                    <div className="DAT_PopupBG" style={{ height: popupState ? "100vh" : "0" }}>
+                        {popupState ? <AccountPopup username={props.username} handleClose={handleClosePopup} type={popupType} /> : <></>}
                     </div>
                 </div>
             }

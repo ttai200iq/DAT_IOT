@@ -91,7 +91,7 @@ export default function Project(props) {
                         </div>
                     </div>
 
-                    <div className="DAT_PopupBG" style={{ height: editProject.value ? "100vh" : "0", transition: "0.5s" }}>
+                    <div className="DAT_PopupBG" style={{ height: editProject.value ? "100vh" : "0" }}>
                         {editProject.value ? <Addproject username={props.username} /> : <></>}
                     </div>
                 </div>
@@ -109,7 +109,7 @@ export default function Project(props) {
                     </div>
                 </div >
             }
-            <div className="DAT_PopupBG" style={{ height: editProject.value ? "100vh" : "0", transition: "0.5s" }}>
+            <div className="DAT_PopupBG" style={{ height: editProject.value ? "100vh" : "0" }}>
                 {editProject.value ? <Addproject username={props.username} /> : <></>}
             </div>
         </>

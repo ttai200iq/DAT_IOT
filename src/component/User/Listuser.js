@@ -19,6 +19,7 @@ const deviceadmin = signal([]);
 const enduser = signal('');
 const role = signal({});
 
+export const data = signal([]);
 export const delstate = signal(false)
 export const lowercasedata = (str) => {
   return str
@@ -28,14 +29,14 @@ export const lowercasedata = (str) => {
     .replace(/đ/g, "d")
     .replace(/Đ/g, "D");
 };
-export default function Listuser() {
+export default function Listuser(props) {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);
   const user = useSelector((state) => state.admin.user)
   const manager = useSelector((state) => state.admin.manager)
   const type = useSelector((state) => state.admin.type)
   const [modify, setModify] = useState(false)
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
 
   const rootDispatch = useDispatch()
@@ -55,8 +56,9 @@ export default function Listuser() {
           return data;
         });
         console.log(newData);
-        setData(newData);
-        setFilter(newData);
+        // setData(newData);
+        data.value = newData;
+        setFilter(data.value);
       })
 
 
@@ -216,10 +218,6 @@ export default function Listuser() {
 
       })
 
-
-
-
-
     axios.post(host.DEVICE + "/getDeviceAdmin", { user: e.currentTarget.id, role: 'user' }, { withCredentials: true }).then(
       function (res) {
         //console.log("user Device", res.data)
@@ -282,7 +280,10 @@ export default function Listuser() {
           (row.type !== 'master')
             ? <div
               id={row.name + "_" + row.mail}
-              onClick={(e) => handleDelete(e)}
+              onClick={() => {
+                delstate.value = !delstate.value;
+                props.setdata(row.name, row.mail);
+              }}
               style={{ cursor: "pointer", color: "red" }}
             >
               <MdOutlineDelete size={20} color="red" />
@@ -334,7 +335,10 @@ export default function Listuser() {
           (row.type !== 'master')
             ? <div
               id={row.name + "_" + row.mail}
-              onClick={(e) => handleDelete(e)}
+              onClick={() => {
+                delstate.value = !delstate.value;
+                props.setdata(row.name, row.mail);
+              }}
               style={{ cursor: "pointer", color: "red" }}
             >
               <MdOutlineDelete size={20} color="red" />
@@ -351,9 +355,10 @@ export default function Listuser() {
     console.log(e.target.id);
     const arr = e.target.id.split("_")
 
-    var newData = data
+    var newData = data.value
     newData = newData.filter(data => data.name != arr[0] && data.name[1] != arr[1])
-    setData(newData)
+    data.value = [...newData]
+    setFilter(newData)
     axios.post(host.DEVICE + "/removeAcount", { name: arr[0], mail: arr[1] }, { withCredentials: true }).then(
       function (res) {
         console.log(res.data)
@@ -388,9 +393,9 @@ export default function Listuser() {
   const handleFilter = (e) => {
     const searchTerm = lowercasedata(e.currentTarget.value);
     if (searchTerm == "") {
-      setFilter(data)
+      setFilter(data.value)
     } else {
-      const df = data.filter((item) => {
+      const df = data.value.filter((item) => {
         const filterName = item.name && lowercasedata(item.name).includes(searchTerm);
         const filterEmail = item.email && lowercasedata(item.email).toLowerCase().includes(searchTerm);
         const filterUsername = item.username && lowercasedata(item.username).toLowerCase().includes(searchTerm);
@@ -400,6 +405,27 @@ export default function Listuser() {
       setFilter(df)
     }
   }
+
+  useEffect(() => {
+    console.log(props.filter);
+    const searchTerm = lowercasedata(props.filter);
+    if (searchTerm == "") {
+      setFilter(data.value)
+    } else {
+      const df = data.value.filter((item) => {
+        const filterName = item.name && lowercasedata(item.name).includes(searchTerm);
+        const filterEmail = item.email && lowercasedata(item.email).toLowerCase().includes(searchTerm);
+        const filterUsername = item.username && lowercasedata(item.username).toLowerCase().includes(searchTerm);
+
+        return (filterName || filterEmail || filterUsername);
+      })
+      setFilter(df)
+    }
+  }, [props.filter])
+
+  useEffect(() => {
+    setFilter(data.value)
+  }, [data.value])
 
   return (
     <>
@@ -482,9 +508,11 @@ export default function Listuser() {
                       <MdOutlineDelete
                         size={20}
                         color="red"
-                        // id={data.name + "_" + data.mail}
-                        // onClick={(e) => handleDelete(e)} 
-                        onClick={() => { delstate.value = !delstate.value; }}
+                        id={data.name + "_" + data.mail}
+                        onClick={() => {
+                          delstate.value = !delstate.value;
+                          props.setdata(data.name, data.mail);
+                        }}
                       /> : <></>}
                   </div>
 

@@ -69,7 +69,6 @@
                 }
             }
 
-
             &_Filter {
                 display: flex;
                 gap: 10px;
@@ -107,14 +106,15 @@
             }
         }
 
-
         &_Main {
             width: 98%;
             margin: auto;
             border-radius: 5px;
             background-color: rgb(255, 255, 255);
             overflow: hidden;
-            box-shadow: 3px 3px 5px rgb(199, 199, 199, 0.5), -3px -3px 5px rgb(199, 199, 199, 0.5);
+            box-shadow:
+                3px 3px 5px rgb(199, 199, 199, 0.5),
+                -3px -3px 5px rgb(199, 199, 199, 0.5);
 
             &_Nav {
                 padding: 10px;
@@ -197,12 +197,10 @@
                 }
             }
 
-
             &_New {
                 padding: 10px;
             }
         }
-
 
         &_Fix {
             position: fixed;
@@ -215,7 +213,6 @@
         }
     }
 }
-
 
 .DAT_Info {
     height: 100%;
@@ -240,7 +237,6 @@
         box-shadow:
             2px 2px 5px rgb(73, 73, 73, 0.2),
             -2px -2px 5px rgb(67, 67, 67, 0.2);
-
 
         &_Head {
             display: flex;
@@ -414,7 +410,6 @@
                     }
                 }
             }
-
         }
 
         &_Foot {
@@ -459,7 +454,6 @@
         box-shadow:
             2px 2px 5px rgb(73, 73, 73, 0.2),
             -2px -2px 5px rgb(67, 67, 67, 0.2);
-
 
         &_Head {
             display: flex;
@@ -631,7 +625,6 @@
                     }
                 }
             }
-
         }
 
         &_Foot {
@@ -721,7 +714,6 @@
     }
 
     &_Content {
-
         &_Tit {
             width: 96%;
             margin: auto;
