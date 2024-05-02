@@ -121,9 +121,6 @@ export default function Listproject(props) {
     },
   ];
 
-
-
-
   const handleNav = (e) => {
     editProject.value = true
   };

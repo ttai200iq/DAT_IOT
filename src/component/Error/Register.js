@@ -13,7 +13,6 @@ import { FaRegSave } from "react-icons/fa";
 import { IoSaveOutline } from "react-icons/io5";
 import { lowercasedata } from "../User/Listuser";
 
-
 export default function Register(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
@@ -331,19 +330,18 @@ export default function Register(props) {
         };
     };
 
-    //Nua sua
     useEffect(() => {
-        const searchTerm = lowercasedata(props.filter);
+        const searchTerm = props.filter;
         if (searchTerm == "") {
             setFilter(register.value.data);
         } else {
             const df = register.value.data.filter((item) => {
-                const filterName = item.addrcode && lowercasedata(item.addrcode).includes(searchTerm);
-                return (filterName);
+                return (item.addrcode).includes(searchTerm);
             })
             setFilter(df);
         }
-    }, [props.filter])
+        //eslint-disable-next-line
+    }, [props.filter, register.value.data])
 
     return (
         <>
@@ -380,7 +378,7 @@ export default function Register(props) {
                             className="DAT_ViewMobile_Container_Add_Form"
                             onSubmit={(e) => handleAddRegister(e)}
                         >
-                            <input placeholder="Nhập địa chỉ"
+                            <input placeholder="Nhập địa chỉ mới"
                                 id="errcode" required></input>
                             <button>
                                 <ion-icon name="add-outline"></ion-icon>

@@ -112,9 +112,9 @@
                     height: 50px;
                     display: flex;
                     justify-content: flex-end;
-                    //padding: 10px;
 
                     &_Group {
+                        border: 1px solid rgba(107, 107, 107, 0.5);
                         border-radius: 7px;
                         overflow: hidden;
                         display: flex;
