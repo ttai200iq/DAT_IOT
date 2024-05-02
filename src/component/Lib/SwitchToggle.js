@@ -71,12 +71,12 @@ export default function SwitchToggle(props) {
 
 
 
-  const handleChange = async(e) => {
+  const handleChange = async (e) => {
 
     var NUMB;
     if (check === "off") {
       setCheck("on");
-      setting[props.id].stt ='on'
+      setting[props.id].stt = 'on'
       NUMB = setting[props.id].on
     } else {
       setCheck("off");
@@ -85,24 +85,24 @@ export default function SwitchToggle(props) {
     }
     alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_19" }), show: 'block' }))
     //console.log(e.currentTarget.id);
-    console.log(setting[props.id]);
+    // console.log(setting[props.id]);
 
     const res = await remotecloud('{"deviceCode": "' + props.deviceid + '","address":"' + setting[props.id].register + '","value":"' + parseInt(eval(setting[props.id].cal)) + '"}', token);
 
-        console.log(res)
-        if(res.ret === 0){
-            alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
-            axios.post(host.DEVICE + "/setRegisterDevice", { id: props.deviceid, data: JSON.stringify(setting), tab: props.tab }, { secure: true, reconnect: true }).then(
-                function (res) {
-                    if (res.data) {
-                        console.log("save dat true")
-                    } else {
-                        console.log("save dat false")
-                    }
-                })
-        }else{
-            alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' }))
-        }
+    // console.log(res)
+    if (res.ret === 0) {
+      alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
+      axios.post(host.DEVICE + "/setRegisterDevice", { id: props.deviceid, data: JSON.stringify(setting), tab: props.tab }, { secure: true, reconnect: true }).then(
+        function (res) {
+          if (res.data) {
+            console.log("save dat true")
+          } else {
+            console.log("save dat false")
+          }
+        })
+    } else {
+      alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' }))
+    }
   };
 
   return (

@@ -5,7 +5,7 @@ export default function Language() {
     const language = useRef("");
 
     const handleLanguage = () => {
-        console.log("language:", language.current.value);
+        // console.log("language:", language.current.value);
     };
 
     return (

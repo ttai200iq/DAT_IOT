@@ -51,11 +51,11 @@ export default function Interface(props) {
     // const [isZoomSVG, setIsZoomSVG] = useState(false)
     const [zoom, setZoom] = useState(true)
     const [step, setStep] = useState(0)
-   
+
 
 
     useEffect(() => {
-    
+
         var i = 0
         var startTimer = () => {
 
@@ -104,11 +104,11 @@ export default function Interface(props) {
         if (step === 0) {
             loaddata();
         } else {
-            console.log(invt)
+            // console.log(invt)
             try {
                 socket.value.on("Server/" + props.id, function (data) {
                     if (data.deviceid === props.id) {
-                        console.log("Toollist socket")
+                        // console.log("Toollist socket")
                         //console.log(data.data)
                         Object.keys(data.data).map((keyName, i) => {
                             setInvt(invt => ({ ...invt, [keyName]: data.data[keyName] }))
@@ -442,7 +442,7 @@ export default function Interface(props) {
 
 
             </div >
-           
+
 
         </>
     )

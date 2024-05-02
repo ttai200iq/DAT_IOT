@@ -80,17 +80,17 @@ export default function Auto(props) {
         const lng = useRef("");
 
         const handleInput = (e) => {
-                console.log(paddr.current.value);
+                // console.log(paddr.current.value);
                 setKey(process.env.REACT_APP_GGKEY);
                 geocode(RequestType.ADDRESS, paddr.current.value)
                         .then((response) => {
-                                console.log(response.results[0].geometry.location);
+                                // console.log(response.results[0].geometry.location);
 
                                 lat.current.value = response.results[0].geometry.location.lat;
                                 lng.current.value = response.results[0].geometry.location.lng;
                         })
                         .catch((error) => {
-                                console.log(error);
+                                // console.log(error);
                                 alertDispatch({
                                         type: "LOAD_CONTENT",
                                         payload: {
@@ -196,7 +196,7 @@ export default function Auto(props) {
                                                 { secure: true, reconnect: true }
                                         )
                                         .then(function (res) {
-                                                console.log(res.data);
+                                                // console.log(res.data);
                                                 if (res.data.status) {
                                                         alertDispatch({
                                                                 type: "LOAD_CONTENT",
@@ -230,7 +230,7 @@ export default function Auto(props) {
                                                         { secure: true, reconnect: true }
                                                 )
                                                 .then(function (res) {
-                                                        console.log(res.data);
+                                                        // console.log(res.data);
                                                         if (res.data.status) {
                                                                 alertDispatch({
                                                                         type: "LOAD_CONTENT",
@@ -260,7 +260,7 @@ export default function Auto(props) {
                                                         { secure: true, reconnect: true }
                                                 )
                                                 .then(function (res) {
-                                                        console.log(res.data);
+                                                        // console.log(res.data);
                                                         if (res.data.status) {
                                                                 alertDispatch({
                                                                         type: "LOAD_CONTENT",
@@ -296,7 +296,7 @@ export default function Auto(props) {
                                                         { secure: true, reconnect: true }
                                                 )
                                                 .then(function (res) {
-                                                        console.log(res.data);
+                                                        // console.log(res.data);
                                                         if (res.data.status) {
                                                                 alertDispatch({
                                                                         type: "LOAD_CONTENT",
@@ -326,7 +326,7 @@ export default function Auto(props) {
                                                         { secure: true, reconnect: true }
                                                 )
                                                 .then(function (res) {
-                                                        console.log(res.data);
+                                                        // console.log(res.data);
                                                         if (res.data.status) {
                                                                 alertDispatch({
                                                                         type: "LOAD_CONTENT",
@@ -738,7 +738,7 @@ export default function Auto(props) {
                                         { secure: true, reconnect: true }
                                 )
                                 .then((res) => {
-                                        console.log(res.data);
+                                        // console.log(res.data);
                                         setList(res.data);
                                 });
                 }, []);
@@ -842,7 +842,7 @@ export default function Auto(props) {
                                                                 secure: true,
                                                         })
                                                         .then(function (res) {
-                                                                console.log("Screen data", res.data.data);
+                                                                // console.log("Screen data", res.data.data);
                                                                 settingDispatch({
                                                                         type: "LOAD_SCREEN",
                                                                         payload: {
@@ -886,7 +886,7 @@ export default function Auto(props) {
                                                                 { secure: true, reconnect: true }
                                                         )
                                                         .then(function (res) {
-                                                                console.log("Screen data", res.data.data);
+                                                                // console.log("Screen data", res.data.data);
                                                                 settingDispatch({
                                                                         type: "LOAD_SCREEN",
                                                                         payload: {
@@ -1097,7 +1097,7 @@ export default function Auto(props) {
                                 )
                                 .then(function (res) {
                                         if (res.data.status) {
-                                                console.log("List device in project", res.data.data);
+                                                // console.log("List device in project", res.data.data);
                                                 settingDispatch({
                                                         type: "LOAD_LISTDEVICE",
                                                         payload: res.data.data,
@@ -1133,7 +1133,7 @@ export default function Auto(props) {
                                         reconnect: true,
                                 })
                                 .then(function (res) {
-                                        console.log("Screen data", res.data.data);
+                                        // console.log("Screen data", res.data.data);
                                         settingDispatch({
                                                 type: "LOAD_SCREEN",
                                                 payload: {
@@ -1171,7 +1171,7 @@ export default function Auto(props) {
                 var arr = ID.split("_");
                 const newarr = listdevice2.find((newarr) => newarr.deviceid == arr[0]);
                 // console.log(newarr)
-                console.log(arr);
+                // console.log(arr);
                 view.value.type = "group";
                 view.value.id = arr[1];
 
@@ -1184,7 +1184,7 @@ export default function Auto(props) {
                                         { secure: true, reconnect: true }
                                 )
                                 .then(function (res) {
-                                        console.log("Screen data", res.data.data);
+                                        // console.log("Screen data", res.data.data);
                                         settingDispatch({
                                                 type: "LOAD_SCREEN",
                                                 payload: {
@@ -1245,7 +1245,7 @@ export default function Auto(props) {
         const handleAddproject = (e) => {
                 e.preventDefault();
                 var p = document.getElementById("addproject");
-                console.log(p.value);
+                // console.log(p.value);
                 if (type === "admin" || type === "master") {
                         const addlistProject = async () => {
                                 await axios
@@ -1255,7 +1255,7 @@ export default function Auto(props) {
                                                 { secure: true, reconnect: true }
                                         )
                                         .then(function (res) {
-                                                console.log(res.data);
+                                                // console.log(res.data);
                                                 if (res.data.status) {
                                                         alertDispatch({
                                                                 type: "LOAD_CONTENT",
@@ -1276,7 +1276,7 @@ export default function Auto(props) {
                                                                                         ...item,
                                                                                         id: index + 1,
                                                                                 }));
-                                                                                console.log("List project", data);
+                                                                                // console.log("List project", data);
                                                                                 setProject(data);
                                                                         }
                                                                 });
@@ -1324,7 +1324,7 @@ export default function Auto(props) {
                                                 { secure: true, reconnect: true }
                                         )
                                         .then(function (res) {
-                                                console.log(res.data);
+                                                // console.log(res.data);
                                                 if (res.data.status) {
                                                         alertDispatch({
                                                                 type: "LOAD_CONTENT",
@@ -1345,7 +1345,7 @@ export default function Auto(props) {
                                                                                         ...item,
                                                                                         id: index + 1,
                                                                                 }));
-                                                                                console.log("List project", data);
+                                                                                // console.log("List project", data);
                                                                                 setProject(data);
                                                                         }
                                                                 });
@@ -1385,7 +1385,7 @@ export default function Auto(props) {
         const handleAdddevice = (e) => {
                 e.preventDefault();
                 var d = document.getElementById("adddevice");
-                console.log(d.value);
+                // console.log(d.value);
                 if (type === "admin" || type === "master") {
                         const addlistDevice = async () => {
                                 await axios
@@ -1400,7 +1400,7 @@ export default function Auto(props) {
                                                 { secure: true, reconnect: true }
                                         )
                                         .then(function (res) {
-                                                console.log(res.data);
+                                                // console.log(res.data);
                                                 if (res.data.status) {
                                                         alertDispatch({
                                                                 type: "LOAD_CONTENT",
@@ -1421,7 +1421,7 @@ export default function Auto(props) {
                                                                                         ...item,
                                                                                         id: index + 1,
                                                                                 }));
-                                                                                console.log("List device", data);
+                                                                                // console.log("List device", data);
                                                                                 settingDispatch({
                                                                                         type: "LOAD_LISTDEVICE2",
                                                                                         payload: data,
@@ -1473,7 +1473,7 @@ export default function Auto(props) {
                                                 { secure: true, reconnect: true }
                                         )
                                         .then(function (res) {
-                                                console.log(res.data);
+                                                // console.log(res.data);
                                                 if (res.data.status) {
                                                         alertDispatch({
                                                                 type: "LOAD_CONTENT",
@@ -1494,7 +1494,7 @@ export default function Auto(props) {
                                                                                         ...item,
                                                                                         id: index + 1,
                                                                                 }));
-                                                                                console.log("List device", data);
+                                                                                // console.log("List device", data);
                                                                                 settingDispatch({
                                                                                         type: "LOAD_LISTDEVICE2",
                                                                                         payload: data,

@@ -15,7 +15,7 @@ function Verify(props) {
         } else {
             axios.get(host.AUTH + '/Verify?id=' + id, { secure: true, reconnect: true }).then(
                 function (res) {
-                    console.log(res.data)
+                    // console.log(res.data)
                     if (res.data.status) {
                         setNotif("Đổi mật khẩu thành công!")
                     } else {

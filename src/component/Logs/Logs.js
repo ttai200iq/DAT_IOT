@@ -44,7 +44,7 @@ export default function Logs(props) {
         var inp = document.getElementById('search')
         var inpdate = document.getElementById('date')
         if (state.value === 1) {
-            console.log(state.value, time.value, date.value)
+            // console.log(state.value, time.value, date.value)
             const [monthA, dayA, yearA] = date.value.split('/');
             var date_ = new Date(`${yearA}-${monthA}-${dayA}T${time.value}`).toISOString().split('T')[0]
             //console.log(date_)
@@ -56,7 +56,7 @@ export default function Logs(props) {
                     inp.value = time.value
                     err.value = res.data
                     errfilter.value = res.data.filter((data) => data.time == time.value)
-                    console.log(errfilter.value)
+                    // console.log(errfilter.value)
                     state.value = 2
                 })
 
@@ -73,12 +73,12 @@ export default function Logs(props) {
         var date = current_date.split('_')[0]
 
 
-        console.log(type, props.username)
+        // console.log(type, props.username)
 
 
         const user = (type === 'user' || type === 'mainuser') ? admin : props.username
         socket_client.current.on("Err/" + user, function (data) {
-            console.log(data)
+            // console.log(data)
             if (data.date === moment(inp.value).format('MM/DD/YYYY')) {
 
                 err.value = [{ id: err.value.length + 1, ...data }, ...err.value]
@@ -95,7 +95,7 @@ export default function Logs(props) {
 
         axios.post(host.DEVICE + "/getLogErr", { user: (type === 'user' || type === 'mainuser') ? admin : props.username, date: date }, { secure: true, reconnect: true })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 err.value = res.data.map((data, index) => ({ ...data, count: index + 1 }))
                 //state.value = 0
                 if (state.value === 0) {
@@ -111,11 +111,11 @@ export default function Logs(props) {
     }, [])
 
     const handleDate = (date) => {
-        console.log(date)
+        // console.log(date)
         setStartDate(date)
         axios.post(host.DEVICE + "/getLogErr", { user: (type === 'user' || type === 'mainuser') ? admin : props.username, date: moment(date).format('MM/DD/YYYY') }, { secure: true, reconnect: true })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 err.value = res.data.map((data, index) => ({ ...data, count: index + 1 }))
 
                 errfilter.value = err.value
@@ -137,7 +137,7 @@ export default function Logs(props) {
     }
 
     const handleDelete = (e) => {
-        console.log(e.currentTarget.id)
+        // console.log(e.currentTarget.id)
         const arr = e.currentTarget.id.split("_");
         state.value = 0
         // axios.post(host.DEVICE + "/removeLogErr", { id: arr[0], time: arr[1] }, { secure: true, reconnect: true })
@@ -167,7 +167,7 @@ export default function Logs(props) {
 
     const handleInput = (e) => {
         state.value = 0
-        console.log(e.target.value);
+        // console.log(e.target.value);
         const searchTerm = e.currentTarget.value.toLowerCase();
         if (searchTerm == "") {
             errfilter.value = err.value;
@@ -185,11 +185,11 @@ export default function Logs(props) {
     };
 
     const handleInputDate = (e) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
 
         axios.post(host.DEVICE + "/getLogErr", { user: (type === 'user' || type === 'mainuser') ? admin : props.username, date: moment(e.target.value).format('MM/DD/YYYY') }, { secure: true, reconnect: true })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 err.value = res.data.map((data, index) => ({ ...data, count: index + 1 }))
                 errfilter.value = err.value
             })
@@ -311,7 +311,7 @@ export default function Logs(props) {
     };
 
     useEffect(() => {
-        console.log(errfilter.value)
+        // console.log(errfilter.value)
     }, [])
 
     // Handle close when press ESC

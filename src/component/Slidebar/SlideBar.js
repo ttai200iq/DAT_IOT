@@ -65,7 +65,7 @@ export default function SlideBar(props) {
     }
 
     const handleException = (e) => {
-        console.log(e.currentTarget.id)
+        // console.log(e.currentTarget.id)
         let id = e.currentTarget.id
         if (id === 'Notif') {
             rootDispatch(adminslice.actions.setinf("notif"))

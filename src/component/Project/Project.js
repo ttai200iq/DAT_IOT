@@ -13,7 +13,7 @@ export const editProject = signal(false)
 
 export default function Project(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
-    const icon = <ion-icon name="construct-outline"></ion-icon>
+    // const icon = <ion-icon name="construct-outline"></ion-icon>
     const inf = { code: 'Device', tit: 'Dự án' }
     const [direct, SetDirect] = useState([{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }])
     const [filter, setFilter] = useState("");
@@ -22,12 +22,12 @@ export default function Project(props) {
     //     device: "Thiết Bị",
     // };
 
-    const color = {
-        cur: "blue",
-        pre: "black",
-    };
+    // const color = {
+    //     cur: "blue",
+    //     pre: "black",
+    // };
 
-    const [nav, setNav] = useState("project");
+    // const [nav, setNav] = useState("project");
     const handleNav = (e) => {
         editProject.value = true
     };
@@ -38,11 +38,13 @@ export default function Project(props) {
 
     return (
         <>
-            {isBrowser ?
+            {isBrowser
+                ?
                 <div className="DAT_Project" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
                     <div className="DAT_Project_Banner">
                         {/* <div className="DAT_ProjectTop-shadow" ></div> */}
                     </div>
+
                     <div className="DAT_Project_Content">
                         <div className="DAT_Project_Content_Direct" >
                             {direct.map((data, index) => {
@@ -55,6 +57,7 @@ export default function Project(props) {
                                 )
                             })}
                         </div>
+
                         <div className="DAT_Project_Content_Tit">
                             <div className="DAT_Project_Content_Tit-content">
                                 <GoProject size={30} color="white" />
@@ -95,10 +98,6 @@ export default function Project(props) {
                             </div>
                         </div>
                     </div>
-
-                    <div className="DAT_PopupBG" style={{ height: editProject.value ? "100vh" : "0" }}>
-                        {editProject.value ? <Addproject username={props.username} /> : <></>}
-                    </div>
                 </div>
                 :
                 // MOBILE SECTION
@@ -114,6 +113,7 @@ export default function Project(props) {
                     </div>
                 </div >
             }
+
             <div className="DAT_PopupBG" style={{ height: editProject.value ? "100vh" : "0" }}>
                 {editProject.value ? <Addproject username={props.username} /> : <></>}
             </div>

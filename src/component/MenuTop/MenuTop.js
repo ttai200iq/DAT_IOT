@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 //import { rootAction } from "../Redux/rootAction"; // using when use redux core
 import adminslice from "../Redux/adminslice";
 import { signal } from "@preact/signals-react";
-import { time, date, state} from "../Logs/Logs";
-import  {socket} from '../../App'  
+import { time, date, state } from "../Logs/Logs";
+import { socket } from '../../App'
 import { useLayoutEffect } from "react";
 
 export const notifcount = signal(0)
@@ -25,13 +25,13 @@ export const searchmoblile = signal(false)
 
 
 export default function MenuTop(props) {
-    
+
     const navigate = useNavigate();
     const lang = useIntl();
     //const { search, inf, menu, envDispatch } = useContext(EnvContext);
     const { lasttab, currentID, settingDispatch } = useContext(SettingContext)
     const { alertDispatch } = useContext(AlertContext);
-    
+
     const [status, setStatus] = useState(false)
     const [notify, setNotify] = useState(false)
 
@@ -80,10 +80,10 @@ export default function MenuTop(props) {
 
 
     useLayoutEffect(() => {
-        console.log(manager)
+        // console.log(manager)
         //const user = (type === 'user' || type === 'mainuser') ? admin : manager
         socket.value.on("Err/" + manager, function (data) {
-            console.log(data)
+            // console.log(data)
             notif.value.unshift({ id: notif.value.length + 1, status: 1, type: 'error', tit: data.deviceid + "[" + data.code + "]", content: 'content1', date: data.date, time: data.time })
             var notif_ = notif.value.filter((item) => {
                 if (item.status) {
@@ -135,7 +135,7 @@ export default function MenuTop(props) {
 
                 axios.post(host.DEVICE + "/updateNotif", { status: 0, id: arr[1], user: manager }, { secure: true, reconnect: true }).then(
                     (res) => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         if (res.data, status) {
                             const i = notif.value.findIndex((data) => data.id == arr[1])
                             notif.value[i].status = 0
@@ -173,7 +173,7 @@ export default function MenuTop(props) {
 
 
     const handleDelete = (event) => {
-        console.log(event.currentTarget.id)
+        // console.log(event.currentTarget.id)
         const arr = event.currentTarget.id.split("_");
 
 
@@ -406,25 +406,25 @@ export default function MenuTop(props) {
 
                 </div>
                 <div className="DAT_Header-right">
-                   
 
-                            <button className="DAT_Header-right-item"
-                                id="notif"
-                                onClick={(e) => { handeHead(e) }}
-                            >
-                                <ion-icon name="notifications-outline" ></ion-icon>
-                                {(notifcount.value !== 0 && notifcount.value <= 10)
-                                    ? <span>{notifcount.value}</span>
-                                    : <></>
-                                }
 
-                                {(notifcount.value > 10)
-                                    ? <span>10+</span>
-                                    : <></>
-                                }
-                            </button >
-                        
-                    
+                    <button className="DAT_Header-right-item"
+                        id="notif"
+                        onClick={(e) => { handeHead(e) }}
+                    >
+                        <ion-icon name="notifications-outline" ></ion-icon>
+                        {(notifcount.value !== 0 && notifcount.value <= 10)
+                            ? <span>{notifcount.value}</span>
+                            : <></>
+                        }
+
+                        {(notifcount.value > 10)
+                            ? <span>10+</span>
+                            : <></>
+                        }
+                    </button >
+
+
 
                     {(currentID !== '' && (type === 'master' || type === 'admin'))
                         ?

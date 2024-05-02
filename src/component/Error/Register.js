@@ -234,7 +234,7 @@ export default function Register(props) {
                 val: "1",
             },
         ];
-        console.log(newData.data[i].register);
+        // console.log(newData.data[i].register);
         register.value = {
             ...newData,
         };
@@ -252,12 +252,12 @@ export default function Register(props) {
     };
 
     const handleDeleteItem = (e) => {
-        console.log(e.currentTarget.id);
+        // console.log(e.currentTarget.id);
         const arr = e.currentTarget.id.split("_");
         const newData = register.value;
         const i = newData.data.findIndex((data) => data.id == arr[1]);
 
-        console.log(newData.data[i].register);
+        // console.log(newData.data[i].register);
         if (newData.data[i].register.length > 1) {
             newData.data[i].register = newData.data[i].register
                 .filter((data) => data.id != arr[2])
@@ -276,7 +276,7 @@ export default function Register(props) {
     };
 
     const handleUpdate = (e) => {
-        console.log(register.value);
+        // console.log(register.value);
         axios
             .post(
                 host.DEVICE + "/updateErr",

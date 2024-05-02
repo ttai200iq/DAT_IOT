@@ -46,26 +46,26 @@ export default function Pwd() {
 
 
 
-        if(pass === authpass){
+        if (pass === authpass) {
 
-        axios.post(host.AUTH + '/resetPassword', { mail: mail, password: authpass }, { withCredentials: true }).then(
-            function (res) {
+            axios.post(host.AUTH + '/resetPassword', { mail: mail, password: authpass }, { withCredentials: true }).then(
+                function (res) {
 
-                console.log(res.data)
-                if (res.data.status) {
+                    // console.log(res.data)
+                    if (res.data.status) {
 
-                    alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_36" }), show: 'block' }))
-                } else {
-                    if(res.data.number === 3){
-                        alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' }))
-                    }else{
+                        alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_36" }), show: 'block' }))
+                    } else {
+                        if (res.data.number === 3) {
+                            alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' }))
+                        } else {
 
-                        alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_39" }), show: 'block' }))
+                            alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_39" }), show: 'block' }))
+                        }
                     }
-                }
 
-            })
-        }else{
+                })
+        } else {
             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_35" }), show: 'block' }))
         }
 

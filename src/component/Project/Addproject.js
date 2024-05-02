@@ -37,11 +37,11 @@ export default function AddProject(props) {
   };
 
   const handleInput = (e) => {
-    console.log(info.current.value)
+    // console.log(info.current.value)
     setKey(process.env.REACT_APP_GGKEY);
     geocode(RequestType.ADDRESS, info.current.value)
       .then((response) => {
-        console.log(response.results[0].geometry.location);
+        // console.log(response.results[0].geometry.location);
 
         var long_ = document.getElementById("long")
         var lat_ = document.getElementById("lat")
@@ -53,7 +53,7 @@ export default function AddProject(props) {
       })
       .catch((error) => {
         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_30" }), show: 'block' } })
-        console.log(error);
+        // console.log(error);
       });
 
   }
@@ -61,10 +61,10 @@ export default function AddProject(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (state) {
-      console.log(ProjectAddid.current.value, name.current.value, company.current.value, info.current.value, long.current.value, lat.current.value)
+      // console.log(ProjectAddid.current.value, name.current.value, company.current.value, info.current.value, long.current.value, lat.current.value)
       axios.post(host.DEVICE + "/createlistProject", { user: props.username, projectid: ProjectAddid.current.value, name: name.current.value, company: company.current.value, addr: info.current.value, lat: lat.current.value, lng: long.current.value }, { secure: true, reconnect: true }).then(
         function (res) {
-          console.log(res.data)
+          // console.log(res.data)
           if (res.data.status) {
             editProject.value = false
             alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_37" }), show: 'block' } })
@@ -77,10 +77,10 @@ export default function AddProject(props) {
           }
         })
     } else {
-      console.log(ProjectAddid.current.value, bu.current.value)
+      // console.log(ProjectAddid.current.value, bu.current.value)
       axios.post(host.DEVICE + "/addlistProject", { username: props.username, projectid: ProjectAddid.current.value, code: bu.current.value }, { secure: true, reconnect: true }).then(
         function (res) {
-          console.log(res.data)
+          // console.log(res.data)
           if (res.data.status) {
             alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_43" }), show: 'block' } })
           } else {
@@ -136,7 +136,7 @@ export default function AddProject(props) {
           </div>
 
           <div className="DAT_ProjectAdd_Form_Head_Right">
-            <div className="DAT_ProjectAdd_Form_Head_Righ_Icon">
+            <div className="DAT_ProjectAdd_Form_Head_Right_Icon">
               <div
                 id="Popup"
                 onMouseEnter={(e) => handlePopup("new")}

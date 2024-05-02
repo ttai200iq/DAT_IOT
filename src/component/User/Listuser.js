@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 import "./User.scss";
 import DataTable from "react-data-table-component";
 import { useState } from "react";
@@ -8,11 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import adminslice from "../Redux/adminslice";
-import { effect, signal } from "@preact/signals-react";
+import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import { editUser } from "./User";
+import { delstate } from "../Raisebox/RaiseboxConfirmDel";
 
 const projectadmin = signal([]);
 const deviceadmin = signal([]);
@@ -20,7 +21,7 @@ const enduser = signal('');
 const role = signal({});
 
 export const data = signal([]);
-export const delstate = signal(false)
+// export const delstate = signal(false)
 export const lowercasedata = (str) => {
   return str
     .toLowerCase()
@@ -29,6 +30,7 @@ export const lowercasedata = (str) => {
     .replace(/đ/g, "d")
     .replace(/Đ/g, "D");
 };
+
 export default function Listuser(props) {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);
@@ -47,195 +49,6 @@ export default function Listuser(props) {
     selectAllRowsItem: true,
     selectAllRowsItemText: 'tất cả',
   };
-
-  useEffect(() => {
-    axios.post(host.DEVICE + "/getAcount", { admin: user }, { withCredentials: true }).then(
-      function (res) {
-        var newData = res.data.map((data, index) => {
-          data["id"] = index + 1;
-          return data;
-        });
-        console.log(newData);
-        // setData(newData);
-        data.value = newData;
-        setFilter(data.value);
-      })
-
-
-    axios.post(host.DEVICE + "/getProjectAdmin", { user: user, role: 'admin' }, { withCredentials: true }).then(
-      function (res) {
-        console.log("admin Project", res.data)
-        projectadmin.value = []
-        res.data.map((item, i) => {
-          projectadmin.value = [...projectadmin.value, { projectid: item.projectid, code: item.code, status: 'false' }]
-        })
-
-      })
-    axios.post(host.DEVICE + "/getDeviceAdmin", { user: user, role: 'admin' }, { withCredentials: true }).then(
-      function (res) {
-        console.log("admin Device", res.data)
-        deviceadmin.value = []
-        res.data.map((item, i) => {
-          deviceadmin.value = [...deviceadmin.value, { deviceid: item.deviceid, code: item.code, status: 'false' }]
-        })
-
-      })
-  }, []);
-
-  const handleSetManager = (manager, name) => {
-
-    if (type === 'master') {
-      rootDispatch(adminslice.actions.setmanager(manager))
-    }
-
-    axios.post(host.DEVICE + "/setManagerAcount", { manager: manager, name: name }, { withCredentials: true }).then(
-      function (res) {
-        console.log(res.data)
-        if (res.data.status) {
-
-          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
-        } else {
-          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
-        }
-
-      })
-
-  }
-  const handleFix = (type, status, id, code) => {
-    if (type === 'device') {
-      if (status === 'false') {
-        axios.post(host.DEVICE + "/addlistDeviceUser", { username: enduser.value, deviceid: id, code: code }, { withCredentials: true }).then(
-          function (res) {
-            console.log(res.data)
-            if (res.data.status) {
-              deviceadmin.value = deviceadmin.value.map((item, i) => {
-                if (item.deviceid == id) {
-
-                  axios.post(host.DEVICE + "/setStateErrDevice", { user: enduser.value, id: item.deviceid, state: 'true' }, { withCredentials: true }).then(
-                    function (res) {
-                      console.log(res.data)
-                    }
-                  )
-
-                  return { ...item, status: 'true' };
-                }
-                return item;
-              });
-              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
-            } else {
-              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
-            }
-          })
-      } else {
-
-        axios.post(host.DEVICE + "/removelistDeviceUser", { user: enduser.value, id: id }, { withCredentials: true }).then(
-          function (res) {
-            console.log(res.data)
-            if (res.data.status) {
-              deviceadmin.value = deviceadmin.value.map((item, i) => {
-                if (item.deviceid == id) {
-
-                  axios.post(host.DEVICE + "/setStateErrDevice", { user: enduser.value, id: item.deviceid, state: 'false' }, { withCredentials: true }).then(
-                    function (res) {
-                      console.log(res.data)
-                    }
-                  )
-                  return { ...item, status: 'false' };
-                }
-                return item;
-              });
-              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
-            } else {
-              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
-            }
-          })
-      }
-    }
-
-
-    if (type === 'project') {
-      if (status === 'false') {
-        axios.post(host.DEVICE + "/addlistProjectUser", { username: enduser.value, projectid: id, code: code }, { withCredentials: true }).then(
-          function (res) {
-            console.log(res.data)
-            if (res.data.status) {
-              projectadmin.value = projectadmin.value.map((item, i) => {
-                if (item.projectid == id) {
-                  axios.post(host.DEVICE + "/setStateErrProject", { user: enduser.value, id: item.projectid, state: 'true' }, { withCredentials: true }).then(
-                    function (res) {
-                      console.log(res.data)
-                    }
-                  )
-                  return { ...item, status: 'true' };
-                }
-                return item;
-              });
-              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
-            } else {
-              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
-            }
-          })
-      } else {
-        axios.post(host.DEVICE + "/removelistProjectUser", { user: enduser.value, id: id }, { withCredentials: true }).then(
-          function (res) {
-            console.log(res.data)
-            if (res.data.status) {
-              projectadmin.value = projectadmin.value.map((item, i) => {
-                if (item.projectid == id) {
-                  axios.post(host.DEVICE + "/setStateErrProject", { user: enduser.value, id: item.projectid, state: 'false' }, { withCredentials: true }).then(
-                    function (res) {
-                      console.log(res.data)
-                    }
-                  )
-                  return { ...item, status: 'false' };
-                }
-                return item;
-              });
-              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
-            } else {
-              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
-            }
-          })
-      }
-    }
-  }
-
-  const handleModify = (e) => {
-    enduser.value = e.currentTarget.id
-    axios.post(host.DEVICE + "/getProjectAdmin", { user: e.currentTarget.id, role: 'user' }, { withCredentials: true }).then(
-      function (res) {
-        //console.log("user Project", res.data)
-        const updatedArray = projectadmin.value.map(item => {
-          if (res.data.some(obj => obj.projectid == item.projectid)) {
-            return { ...item, status: 'true' };
-          } else {
-            return { ...item, status: 'false' };
-          }
-          //return item;
-        })
-
-        projectadmin.value = updatedArray
-
-      })
-
-    axios.post(host.DEVICE + "/getDeviceAdmin", { user: e.currentTarget.id, role: 'user' }, { withCredentials: true }).then(
-      function (res) {
-        //console.log("user Device", res.data)
-
-        const updatedArray = deviceadmin.value.map(item => {
-          if (res.data.some(obj => obj.deviceid == item.deviceid)) {
-            return { ...item, status: 'true' };
-          } else {
-            return { ...item, status: 'false' };
-          }
-          //return item;
-        });
-
-        deviceadmin.value = updatedArray
-
-      })
-    setModify(true)
-  }
 
   const head_master = [
     {
@@ -281,7 +94,7 @@ export default function Listuser(props) {
             ? <div
               id={row.name + "_" + row.mail}
               onClick={() => {
-                delstate.value = !delstate.value;
+                delstate.value = true;
                 props.setdata(row.name, row.mail);
               }}
               style={{ cursor: "pointer", color: "red" }}
@@ -336,7 +149,7 @@ export default function Listuser(props) {
             ? <div
               id={row.name + "_" + row.mail}
               onClick={() => {
-                delstate.value = !delstate.value;
+                delstate.value = true;
                 props.setdata(row.name, row.mail);
               }}
               style={{ cursor: "pointer", color: "red" }}
@@ -351,8 +164,164 @@ export default function Listuser(props) {
     },
   ];
 
+  const handleSetManager = (manager, name) => {
+
+    if (type === 'master') {
+      rootDispatch(adminslice.actions.setmanager(manager))
+    }
+
+    axios.post(host.DEVICE + "/setManagerAcount", { manager: manager, name: name }, { withCredentials: true }).then(
+      function (res) {
+        // console.log(res.data)
+        if (res.data.status) {
+
+          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
+        } else {
+          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
+        }
+
+      })
+
+  };
+
+  const handleFix = (type, status, id, code) => {
+    if (type === 'device') {
+      if (status === 'false') {
+        axios.post(host.DEVICE + "/addlistDeviceUser", { username: enduser.value, deviceid: id, code: code }, { withCredentials: true }).then(
+          function (res) {
+            // console.log(res.data)
+            if (res.data.status) {
+              deviceadmin.value = deviceadmin.value.map((item, i) => {
+                if (item.deviceid == id) {
+
+                  axios.post(host.DEVICE + "/setStateErrDevice", { user: enduser.value, id: item.deviceid, state: 'true' }, { withCredentials: true }).then(
+                    function (res) {
+                      // console.log(res.data)
+                    }
+                  )
+
+                  return { ...item, status: 'true' };
+                }
+                return item;
+              });
+              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
+            } else {
+              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
+            }
+          })
+      } else {
+
+        axios.post(host.DEVICE + "/removelistDeviceUser", { user: enduser.value, id: id }, { withCredentials: true }).then(
+          function (res) {
+            // console.log(res.data)
+            if (res.data.status) {
+              deviceadmin.value = deviceadmin.value.map((item, i) => {
+                if (item.deviceid == id) {
+
+                  axios.post(host.DEVICE + "/setStateErrDevice", { user: enduser.value, id: item.deviceid, state: 'false' }, { withCredentials: true }).then(
+                    function (res) {
+                      // console.log(res.data)
+                    }
+                  )
+                  return { ...item, status: 'false' };
+                }
+                return item;
+              });
+              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
+            } else {
+              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
+            }
+          })
+      }
+    }
+
+
+    if (type === 'project') {
+      if (status === 'false') {
+        axios.post(host.DEVICE + "/addlistProjectUser", { username: enduser.value, projectid: id, code: code }, { withCredentials: true }).then(
+          function (res) {
+            // console.log(res.data)
+            if (res.data.status) {
+              projectadmin.value = projectadmin.value.map((item, i) => {
+                if (item.projectid == id) {
+                  axios.post(host.DEVICE + "/setStateErrProject", { user: enduser.value, id: item.projectid, state: 'true' }, { withCredentials: true }).then(
+                    function (res) {
+                      // console.log(res.data)
+                    }
+                  )
+                  return { ...item, status: 'true' };
+                }
+                return item;
+              });
+              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
+            } else {
+              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
+            }
+          })
+      } else {
+        axios.post(host.DEVICE + "/removelistProjectUser", { user: enduser.value, id: id }, { withCredentials: true }).then(
+          function (res) {
+            // console.log(res.data)
+            if (res.data.status) {
+              projectadmin.value = projectadmin.value.map((item, i) => {
+                if (item.projectid == id) {
+                  axios.post(host.DEVICE + "/setStateErrProject", { user: enduser.value, id: item.projectid, state: 'false' }, { withCredentials: true }).then(
+                    function (res) {
+                      // console.log(res.data)
+                    }
+                  )
+                  return { ...item, status: 'false' };
+                }
+                return item;
+              });
+              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
+            } else {
+              alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
+            }
+          })
+      }
+    }
+  };
+
+  const handleModify = (e) => {
+    enduser.value = e.currentTarget.id
+    axios.post(host.DEVICE + "/getProjectAdmin", { user: e.currentTarget.id, role: 'user' }, { withCredentials: true }).then(
+      function (res) {
+        //console.log("user Project", res.data)
+        const updatedArray = projectadmin.value.map(item => {
+          if (res.data.some(obj => obj.projectid == item.projectid)) {
+            return { ...item, status: 'true' };
+          } else {
+            return { ...item, status: 'false' };
+          }
+          //return item;
+        })
+
+        projectadmin.value = updatedArray
+
+      })
+
+    axios.post(host.DEVICE + "/getDeviceAdmin", { user: e.currentTarget.id, role: 'user' }, { withCredentials: true }).then(
+      function (res) {
+        //console.log("user Device", res.data)
+
+        const updatedArray = deviceadmin.value.map(item => {
+          if (res.data.some(obj => obj.deviceid == item.deviceid)) {
+            return { ...item, status: 'true' };
+          } else {
+            return { ...item, status: 'false' };
+          }
+          //return item;
+        });
+
+        deviceadmin.value = updatedArray
+
+      })
+    setModify(true)
+  };
+
   const handleDelete = (e) => {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     const arr = e.target.id.split("_")
 
     var newData = data.value
@@ -361,7 +330,7 @@ export default function Listuser(props) {
     setFilter(newData)
     axios.post(host.DEVICE + "/removeAcount", { name: arr[0], mail: arr[1] }, { withCredentials: true }).then(
       function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.status) {
           alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_9" }), show: 'block' } })
         } else {
@@ -375,7 +344,7 @@ export default function Listuser(props) {
 
     axios.post(host.DEVICE + "/setTypeAcount", { name: name, type: type }, { withCredentials: true }).then(
       function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.status) {
           role.value[name] = type
           alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
@@ -383,11 +352,11 @@ export default function Listuser(props) {
           alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
         }
       })
-  }
+  };
 
   const handleNav = (e) => {
     editUser.value = true;
-    console.log(editUser.value)
+    // console.log(editUser.value)
   };
 
   const handleFilter = (e) => {
@@ -404,7 +373,41 @@ export default function Listuser(props) {
       })
       setFilter(df)
     }
-  }
+  };
+
+  useEffect(() => {
+    axios.post(host.DEVICE + "/getAcount", { admin: user }, { withCredentials: true }).then(
+      function (res) {
+        var newData = res.data.map((data, index) => {
+          data["id"] = index + 1;
+          return data;
+        });
+        // console.log(newData);
+        // setData(newData);
+        data.value = newData;
+        setFilter(data.value);
+      })
+
+
+    axios.post(host.DEVICE + "/getProjectAdmin", { user: user, role: 'admin' }, { withCredentials: true }).then(
+      function (res) {
+        // console.log("admin Project", res.data)
+        projectadmin.value = []
+        res.data.map((item, i) => {
+          projectadmin.value = [...projectadmin.value, { projectid: item.projectid, code: item.code, status: 'false' }]
+        })
+
+      })
+    axios.post(host.DEVICE + "/getDeviceAdmin", { user: user, role: 'admin' }, { withCredentials: true }).then(
+      function (res) {
+        // console.log("admin Device", res.data)
+        deviceadmin.value = []
+        res.data.map((item, i) => {
+          deviceadmin.value = [...deviceadmin.value, { deviceid: item.deviceid, code: item.code, status: 'false' }]
+        })
+
+      })
+  }, []);
 
   useEffect(() => {
     const searchTerm = lowercasedata(props.filter);
@@ -420,15 +423,16 @@ export default function Listuser(props) {
       })
       setFilter(df)
     }
-  }, [props.filter])
+  }, [props.filter]);
 
   useEffect(() => {
     setFilter(data.value)
-  }, [data.value])
+  }, [data.value]);
 
   return (
     <>
-      {isBrowser ?
+      {isBrowser
+        ?
         <div className="DAT_UserList">
           <DataTable
             className="DAT_Table_Container"
@@ -442,7 +446,8 @@ export default function Listuser(props) {
               </div>
             }
           />
-        </div> :
+        </div>
+        :
         <>
           <div className="DAT_FilterbarUser">
             <input
@@ -522,8 +527,6 @@ export default function Listuser(props) {
         </>
       }
 
-
-
       <div className="DAT_ModifyUserList" style={{ height: (modify) ? "100vh" : "0px", transition: "0.5s" }} >
         {(modify)
           ?
@@ -569,8 +572,6 @@ export default function Listuser(props) {
           : <></>
         }
       </div>
-
     </>
-
   );
 }

@@ -49,7 +49,7 @@ export default function Info(props) {
                     { withCredentials: true }
                 )
                 .then(function (res) {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data.status) {
                         alertDispatch({
                             type: "LOAD_CONTENT",
@@ -144,103 +144,104 @@ export default function Info(props) {
 
 
     return (
-        <div className="DAT_PopupBG">
-            {isBrowser ? <div className="DAT_Info">
-                <form className="DAT_Info_Form" onSubmit={(e) => handleSave(e)}>
-                    <div className="DAT_Info_Form_Head">
-                        <div className="DAT_Info_Form_Head_Left">
-                            <p>Thêm người dùng</p>
-                        </div>
-
-                        <div className="DAT_Info_Form_Head_Right">
-                            <div className="DAT_Info_Form_Head_Right_Icon">
-                                <div
-                                    id="Popup"
-                                    onMouseEnter={(e) => handlePopup("new")}
-                                    onMouseLeave={(e) => handlePopup("pre")}
-                                    onClick={() => editUser.value = false}
-                                >
-                                    <IoClose size={25} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="DAT_Info_Form_Body">
-                        <div className="DAT_Info_Form_Body_Left">
-                            <div className="DAT_Info_Form_Body_Left_Row" >
-                                <label>
-                                    <span style={{ color: "red" }}>*</span>
-                                    &nbsp;
-                                    Tên
-                                </label>
-                                <div className="DAT_Info_Form_Body_Left_Row_Item">
-                                    <div className="DAT_Info_Form_Body_Left_Row_Item_Input">
-                                        <input type="text" placeholder="Nhập tên" ref={fullname} required />
-                                    </div>
-                                </div>
-
-                                <label>
-                                    <span style={{ color: "red" }}>*</span>
-                                    &nbsp;
-                                    Email
-                                </label>
-                                <div className="DAT_Info_Form_Body_Left_Row_Item">
-                                    <div className="DAT_Info_Form_Body_Left_Row_Item_Input">
-                                        <input type="email" placeholder="Nhập Email" ref={mail} required />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="DAT_Info_Form_Body_Left_Row">
-                                <label>
-                                    <span style={{ color: "red" }}>*</span>
-                                    &nbsp;
-                                    Tài khoản
-                                </label>
-                                <div className="DAT_Info_Form_Body_Left_Row_Item">
-                                    <div className="DAT_Info_Form_Body_Left_Row_Item_Input">
-                                        <input type="text" placeholder="Tài khoản" ref={userName} required />
+        <>
+            {isBrowser
+                ?
+                <div className="DAT_Info">
+                    <form className="DAT_Info_Form" onSubmit={(e) => handleSave(e)}>
+                        <div className="DAT_Info_Form_Head">
+                            <div className="DAT_Info_Form_Head_Left">Thêm người dùng</div>
+                            <div className="DAT_Info_Form_Head_Right">
+                                <div className="DAT_Info_Form_Head_Right_Icon">
+                                    <div
+                                        id="Popup"
+                                        onMouseEnter={(e) => handlePopup("new")}
+                                        onMouseLeave={(e) => handlePopup("pre")}
+                                        onClick={() => editUser.value = false}
+                                    >
+                                        <IoClose size={25} />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="DAT_Info_Form_Body_Right">
-                            <div className="DAT_Info_Form_Body_Right_Row">
-                                <label>
-                                    <span style={{ color: "red" }}>*</span>
-                                    &nbsp;
-                                    Mật khẩu
-                                </label>
-                                <div className="DAT_Info_Form_Body_Right_Row_Item">
-                                    <div className="DAT_Info_Form_Body_Right_Row_Item_Input">
-                                        <input type="password" placeholder="Nhập mật khẩu" ref={pass} required />
+                        <div className="DAT_Info_Form_Body">
+                            <div className="DAT_Info_Form_Body_Left">
+                                <div className="DAT_Info_Form_Body_Left_Row" >
+                                    <label>
+                                        <span style={{ color: "red" }}>*</span>
+                                        &nbsp;
+                                        Tên
+                                    </label>
+                                    <div className="DAT_Info_Form_Body_Left_Row_Item">
+                                        <div className="DAT_Info_Form_Body_Left_Row_Item_Input">
+                                            <input type="text" placeholder="Nhập tên" ref={fullname} required />
+                                        </div>
+                                    </div>
+
+                                    <label>
+                                        <span style={{ color: "red" }}>*</span>
+                                        &nbsp;
+                                        Email
+                                    </label>
+                                    <div className="DAT_Info_Form_Body_Left_Row_Item">
+                                        <div className="DAT_Info_Form_Body_Left_Row_Item_Input">
+                                            <input type="email" placeholder="Nhập Email" ref={mail} required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="DAT_Info_Form_Body_Left_Row">
+                                    <label>
+                                        <span style={{ color: "red" }}>*</span>
+                                        &nbsp;
+                                        Tài khoản
+                                    </label>
+                                    <div className="DAT_Info_Form_Body_Left_Row_Item">
+                                        <div className="DAT_Info_Form_Body_Left_Row_Item_Input">
+                                            <input type="text" placeholder="Tài khoản" ref={userName} required />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="DAT_Info_Form_Body_Right_Row">
-                                <label>
-                                    <span style={{ color: "red" }}>*</span>
-                                    &nbsp;
-                                    Xác nhận mật khẩu
-                                </label>
-                                <div className="DAT_Info_Form_Body_Right_Row_Item">
-                                    <div className="DAT_Info_Form_Body_Right_Row_Item_Input">
-                                        <input type="password" placeholder="Nhập lại mật khẩu" ref={authpass} required />
+                            <div className="DAT_Info_Form_Body_Right">
+                                <div className="DAT_Info_Form_Body_Right_Row">
+                                    <label>
+                                        <span style={{ color: "red" }}>*</span>
+                                        &nbsp;
+                                        Mật khẩu
+                                    </label>
+                                    <div className="DAT_Info_Form_Body_Right_Row_Item">
+                                        <div className="DAT_Info_Form_Body_Right_Row_Item_Input">
+                                            <input type="password" placeholder="Nhập mật khẩu" ref={pass} required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="DAT_Info_Form_Body_Right_Row">
+                                    <label>
+                                        <span style={{ color: "red" }}>*</span>
+                                        &nbsp;
+                                        Xác nhận mật khẩu
+                                    </label>
+                                    <div className="DAT_Info_Form_Body_Right_Row_Item">
+                                        <div className="DAT_Info_Form_Body_Right_Row_Item_Input">
+                                            <input type="password" placeholder="Nhập lại mật khẩu" ref={authpass} required />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="DAT_Info_Form_Foot">
-                        <button className="DAT_Info_Form_Body_Row_Button" >
-                            Xác nhận
-                        </button>
-                    </div>
-                </form>
-            </div> :
+
+                        <div className="DAT_Info_Form_Foot">
+                            <button className="DAT_Info_Form_Body_Row_Button" >
+                                Xác nhận
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                :
                 <form className="DAT_InfoMobile_Form" onSubmit={(e) => handleSave(e)}>
                     <div className="DAT_InfoMobile_Form_Head">
                         <div className="DAT_InfoMobile_Form_Head_Left">
@@ -336,6 +337,6 @@ export default function Info(props) {
                     </div>
                 </form>
             }
-        </div>
+        </>
     );
 }

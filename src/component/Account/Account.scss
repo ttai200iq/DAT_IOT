@@ -240,11 +240,9 @@
                 display: flex;
                 justify-content: flex-end;
                 flex: 5;
-                cursor: pointer;
 
                 &_Icon {
-                    display: flex;
-                    align-items: center;
+                    cursor: pointer;
                 }
             }
         }
@@ -633,11 +631,11 @@
     .DAT_Account_Content {
         padding-bottom: 20px !important;
 
-        &_Main {
-            // height: calc(100vh - 200px);
+        // &_Main {
+        // height: calc(100vh - 200px);
 
 
-        }
+        // }
     }
 
 

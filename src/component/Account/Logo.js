@@ -48,7 +48,7 @@ export default function Logo(props) {
                 logo.value = reader.result;
                 axios.post(host.DEVICE + "/setLogo", { user: user, img: logo.value }, { credential: true }, { headers: { "Content-Type": "multipart/form-data" }, })
                     .then((res) => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         if (res.data.status) {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
                         } else {
@@ -59,14 +59,14 @@ export default function Logo(props) {
             };
         } else {
             reader.readAsDataURL(e.target.files[0]);
-            console.log(e.target.files[0].size)
+            // console.log(e.target.files[0].size)
             reader.onload = () => {
                 // setAllImage(reader.result)
                 //console.log("base 64 new", String(reader.result))
                 logo.value = reader.result;
                 axios.post(host.DEVICE + "/setLogo", { user: user, img: logo.value }, { credential: true }, { headers: { "Content-Type": "multipart/form-data" }, })
                     .then((res) => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         if (res.data.status) {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
                         } else {

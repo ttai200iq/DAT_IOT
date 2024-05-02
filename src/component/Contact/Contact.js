@@ -50,7 +50,7 @@ export default function Contact(props) {
     const handleContact = () => {
         axios.post(host.DEVICE + "/setContact", { user: user, name: name.current.value, addr: addr.current.value, phone: phone.current.value }, { secure: true, reconnect: true })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.status) {
                     //setEdit(false)
                     setContact({
@@ -82,7 +82,7 @@ export default function Contact(props) {
 
     const handleLogo = async (e) => {
         var reader = new FileReader();
-        console.log("old size", e.target.files[0].size)
+        // console.log("old size", e.target.files[0].size)
 
         if (e.target.files[0].size > 100000) {
             const image = await resizeFile(e.target.files[0]);
@@ -95,7 +95,7 @@ export default function Contact(props) {
                 logo.value = reader.result;
                 axios.post(host.DEVICE + "/setLogo", { user: user, img: logo.value }, { credential: true }, { headers: { "Content-Type": "multipart/form-data" }, })
                     .then((res) => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         if (res.data.status) {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
                         } else {
@@ -105,14 +105,14 @@ export default function Contact(props) {
             };
         } else {
             reader.readAsDataURL(e.target.files[0]);
-            console.log(e.target.files[0].size)
+            // console.log(e.target.files[0].size)
             reader.onload = () => {
                 // setAllImage(reader.result)
                 //console.log("base 64 new", String(reader.result))
                 logo.value = reader.result;
                 axios.post(host.DEVICE + "/setLogo", { user: user, img: logo.value }, { credential: true }, { headers: { "Content-Type": "multipart/form-data" }, })
                     .then((res) => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         if (res.data.status) {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
                         } else {
@@ -124,10 +124,10 @@ export default function Contact(props) {
     };
 
     useEffect(() => {
-        console.log(props.username)
+        // console.log(props.username)
         axios.post(host.DEVICE + "/getContact", { user: user }, { secure: true, reconnect: true })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.status) {
                     setContact({
                         name: res.data.data.name,

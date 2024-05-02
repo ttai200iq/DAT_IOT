@@ -54,7 +54,7 @@ export default function Map(props) {
                         function (res) {
                                 if (res.data.status) {
 
-                                        console.log("List project", res.data.data)
+                                        // console.log("List project", res.data.data)
                                         setMap(res.data.data)
 
                                 }
@@ -63,13 +63,13 @@ export default function Map(props) {
         }, [])
 
         const handleMap = (e) => {
-                console.log(e.target.value)
+                // console.log(e.target.value)
 
                 axios.post(host.DEVICE + "/getlistProject", { username: props.username, group: e.target.value }, { secure: true, reconnect: true }).then(
                         function (res) {
                                 if (res.data.status) {
 
-                                        console.log("List project", res.data.data)
+                                        // console.log("List project", res.data.data)
                                         setMap(res.data.data)
 
                                 } else {

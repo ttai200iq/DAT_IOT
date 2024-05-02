@@ -51,7 +51,7 @@ export default function Listerr(props) {
         register.value = { data: [] }
         axios.post(host.DEVICE + "/getErr", { id: e.currentTarget.id, user: props.username }, { secure: true, reconnect: true })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data[0] != undefined) {
                     register.value = {
                         data: res.data[0].setting.data
@@ -127,9 +127,9 @@ export default function Listerr(props) {
                                                 id={data.deviceid}
                                                 onClick={(e) => {
                                                     handleCloseRead();
-                                                    console.log(readstate);
+                                                    // console.log(readstate);
                                                     handleDevice(e);
-                                                    console.log(document.getElementById("errcode"))
+                                                    // console.log(document.getElementById("errcode"))
                                                 }}
                                             >
                                                 {data.deviceid}

@@ -249,22 +249,17 @@
 
             &_Left {
                 flex: 5;
-
-                & p {
-                    font-size: 16px;
-                    margin: 0;
-                }
             }
 
             &_Right {
                 display: flex;
                 justify-content: flex-end;
                 flex: 5;
-                cursor: pointer;
 
                 &_Icon {
-                    display: flex;
-                    align-items: center;
+                    cursor: pointer;
+                    // display: flex;
+                    // align-items: center;
                 }
             }
         }

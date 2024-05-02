@@ -36,7 +36,7 @@ export default function Dimmer(props) {
             }
         }
         setMarks(marks);
-        console.log(marks);
+        // console.log(marks);
     };
 
     useEffect(() => {
@@ -84,19 +84,19 @@ export default function Dimmer(props) {
 
 
         var sliderarry = e.target.name.split("_")
-        console.log(sliderarry)
+        // console.log(sliderarry)
 
         var DIM = e.target.value
         //console.log(settingDATA)
         setting[sliderarry[2]].default = e.target.value
-        console.log(setting[sliderarry[2]])
+        // console.log(setting[sliderarry[2]])
         //settingDispatch({ type: "LOAD_STATE", payload: false })
         alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_19" }), show: 'block' }))
-        console.log(sliderarry[0],setting[sliderarry[2]].register,parseInt(eval(setting[sliderarry[2]].cal)) )
+        // console.log(sliderarry[0],setting[sliderarry[2]].register,parseInt(eval(setting[sliderarry[2]].cal)) )
 
         const res = await remotecloud('{"deviceCode": "' + sliderarry[0] + '","address":"' + setting[sliderarry[2]].register + '","value":"' + parseInt(eval(setting[sliderarry[2]].cal)) + '"}', token);
 
-        console.log(res)
+        // console.log(res)
         if (res.ret === 0) {
             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
             axios.post(host.DEVICE + "/setRegisterDevice", { id: sliderarry[0], data: JSON.stringify(setting), tab: sliderarry[1] }, { secure: true, reconnect: true }).then(
@@ -150,39 +150,39 @@ export default function Dimmer(props) {
 
     const hori = {
         display: "flex",
-        width: props.width +"px",
-        height:props.height+"px",
-        justifyContent:"center",
-        paddingTop:"14px"
+        width: props.width + "px",
+        height: props.height + "px",
+        justifyContent: "center",
+        paddingTop: "14px"
     }
 
     const verti = {
         display: "flex",
-        width: props.width +"px",
-        height:props.height+"px",
-        alignItems:"center",
-        paddingLeft:"36px"
+        width: props.width + "px",
+        height: props.height + "px",
+        alignItems: "center",
+        paddingLeft: "36px"
     }
 
     const green500 = "#228b22";
     const green900 = "#7FFF00";
 
 
-    
+
 
     return (
         <div className={props.deviceid + "_" + props.tab + "_" + props.id + "_slider"}
-            style={setting[props.id].ori === "horizontal"? hori :verti }
+            style={setting[props.id].ori === "horizontal" ? hori : verti}
         >
             <Slider
 
                 style={{
-                    height:  (props.height-40) + "px",
-                    width: (props.width-40) + "px",
+                    height: (props.height - 40) + "px",
+                    width: (props.width - 40) + "px",
                 }}
                 sx={{
-                    
-                    "& .MuiSlider-thumb":{
+
+                    "& .MuiSlider-thumb": {
                         backgroundColor: setting[props.id].thumbbgcolor,
                         borderRadius: setting[props.id].thumbradius + "px"
 
@@ -209,7 +209,7 @@ export default function Dimmer(props) {
                 size="medium"
                 // orientation set chieu ('horizontal' ngang | 'vertical' doc)
                 orientation={setting[props.id].ori}
-                
+
             />
         </div>
     )

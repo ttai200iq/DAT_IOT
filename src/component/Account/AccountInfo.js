@@ -30,7 +30,7 @@ export default function Contact(props) {
         // console.log(props.username)
         axios.post(host.DEVICE + "/getContact", { user: user }, { secure: true, reconnect: true })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.status) {
                     setContact({
                         name: res.data.data.name,
@@ -61,10 +61,10 @@ export default function Contact(props) {
 
     const handleAvatar = async (e) => {
         var reader = new FileReader();
-        console.log("old size", e.target.files[0].size)
+        // console.log("old size", e.target.files[0].size)
         if (e.target.files[0].size > 50000) {
             const image = await resizeFilAvatar(e.target.files[0]);
-            console.log(image.size)
+            // console.log(image.size)
 
             reader.readAsDataURL(image);
 
@@ -85,7 +85,7 @@ export default function Contact(props) {
             };
         } else {
             reader.readAsDataURL(e.target.files[0]);
-            console.log(e.target.files[0].size)
+            // console.log(e.target.files[0].size)
             reader.onload = () => {
                 // setAllImage(reader.result)
                 //console.log("base 64 new", String(reader.result))

@@ -1,10 +1,10 @@
-function Logger(Reducer){
-    return (prevState,action)=>{
+function Logger(Reducer) {
+    return (prevState, action) => {
         console.group(action.type);
         //console.log('Prev state:', prevState);
         //console.log('Action: ',action);
-        const newState = Reducer(prevState,action);
-        console.log('state',newState);
+        const newState = Reducer(prevState, action);
+        // console.log('state',newState);
         console.groupEnd();
         return newState;
 

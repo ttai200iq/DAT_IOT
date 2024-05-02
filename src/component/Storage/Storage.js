@@ -14,20 +14,22 @@ import { lowercasedata } from "../User/Listuser";
 import { IoClose } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { IoMdAdd } from "react-icons/io";
+import Raisebox, { delstate } from "../Raisebox/RaiseboxConfirmDel";
 
 export default function Storage(props) {
-    const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
-    const inf = { code: 'Device', tit: 'Kho giao diện' }
-    const [direct, SetDirect] = useState([{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }])
-    const manager = useSelector((state) => state.admin.manager)
+    const banner = "linear-gradient(140deg, #0061f2, #6900c7)";
+    const inf = { code: 'Device', tit: 'Kho giao diện' };
+    const [direct, SetDirect] = useState([{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }]);
+    const manager = useSelector((state) => state.admin.manager);
     const [data, setData] = useState([]);
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
-    const [fix, setFix] = useState(false)
+    const [fix, setFix] = useState(false);
     const [filter, setFilter] = useState([]);
+    const [dataDel, setDataDel] = useState();
 
-    const name = useRef()
-    const id = useRef()
+    const name = useRef();
+    const id = useRef();
 
     const paginationComponentOptions = {
         rowsPerPageText: 'Số hàng',
@@ -57,10 +59,13 @@ export default function Storage(props) {
                 return (
                     <div
                         style={{ cursor: "pointer", color: "red" }}
+                        id={row.name + "_" + row.mail}
+                        onClick={(e) => {
+                            delstate.value = true;
+                            setdata(row.id)
+                        }}
                     >
-                        <MdOutlineDelete size={20} color="red"
-                            id={row.name + "_" + row.mail}
-                            onClick={(e) => handleDelete(e)} />
+                        <MdOutlineDelete size={20} color="red" />
                     </div>
                 )
             },
@@ -81,13 +86,19 @@ export default function Storage(props) {
         popup.style.color = popup_state[state].color;
     };
 
+    const setdata = (id) => {
+        setDataDel(`${id}`)
+    };
+
     const handleDelete = (e) => {
-        var newData = data
-        newData = newData.filter(data => data.id != e.currentTarget.id)
-        setData(newData)
-        axios.post(host.DEVICE + "/removeStore", { id: e.currentTarget.id, user: manager }, { withCredentials: true }).then(
+        // console.log(dataDel);
+        var newData = data;
+        newData = newData.filter(data => data.id != dataDel);
+        setData(newData);
+        setFilter(newData);
+        axios.post(host.DEVICE + "/removeStore", { id: dataDel, user: manager }, { withCredentials: true }).then(
             function (res) {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.status) {
                     alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_27" }), show: 'block' } })
                 } else {
@@ -102,12 +113,12 @@ export default function Storage(props) {
         name.current = newdata.name
         id.current = newdata.id
         setFix(true)
-    }
+    };
 
     const handleSaveFix = (e) => {
         e.preventDefault()
         var newdata = [...data]
-        console.log(name.current.value, id.current)
+        // console.log(name.current.value, id.current)
         newdata = newdata.map(item => {
             if (item.id == id.current) {
                 return { ...item, ...{ name: name.current.value } };
@@ -118,7 +129,7 @@ export default function Storage(props) {
 
         axios.post(host.DEVICE + "/updateStore", { name: name.current.value, id: id.current, user: manager }, { withCredentials: true }).then(
             function (res) {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.status) {
                     alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
                 } else {
@@ -126,7 +137,7 @@ export default function Storage(props) {
                 }
             })
         setFix(false);
-    }
+    };
 
     const handleFilter = (e) => {
         const searchTerm = e.currentTarget.value.toLowerCase();
@@ -138,7 +149,7 @@ export default function Storage(props) {
             })
             setFilter(df)
         }
-    }
+    };
 
     useEffect(() => {
         axios.post(host.DEVICE + "/getStore", { user: manager }, { withCredentials: true }).then(
@@ -333,6 +344,10 @@ export default function Storage(props) {
                     </div>
                     : <></>
                 }
+            </div>
+
+            <div className="DAT_PopupBG" style={{ height: delstate.value ? "100vh" : "0" }}>
+                {delstate.value ? <Raisebox handleDelete={handleDelete} /> : <></>}
             </div>
         </>
     )

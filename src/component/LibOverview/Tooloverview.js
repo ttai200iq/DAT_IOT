@@ -413,12 +413,12 @@ export default function Tooloverview(props) {
 
 
     const handleDefault = (e) => {
-        console.log(props.username, e.currentTarget.id)
+        // console.log(props.username, e.currentTarget.id)
         pageDefault.value.deviceid = e.currentTarget.id
         const setDefault = async () => {
             await axios.post(host.DEVICE + "/setDefault", { user: props.username, page: pageDefault.value }, { secure: true, reconnect: true }).then(
                 (res) => {
-                    console.log(res.data)
+                    // console.log(res.data)
                 }
             )
         }
@@ -452,13 +452,13 @@ export default function Tooloverview(props) {
         if (fixtype === 'FIX_D') {
             const index = listdevice.findIndex(p => p.deviceid == code)
             var newData = listdevice
-            console.log(newData)
+            // console.log(newData)
             newData[index].name = dname.current.value
             newData[index].description = ddescription.current.value
             settingDispatch({ type: "LOAD_LISTDEVICE", payload: newData })
             axios.post(host.DEVICE + "/updatelistDevice", { id: code, name: dname.current.value, des: ddescription.current.value }, { secure: true, reconnect: true }).then(
                 function (res) {
-                    console.log(res.data)
+                    // console.log(res.data)
                     if (res.data.status) {
                         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
                     } else {
@@ -475,7 +475,7 @@ export default function Tooloverview(props) {
             settingDispatch({ type: "LOAD_LISTDEVICE", payload: newData })
             axios.post(host.DEVICE + "/removelistDeviceP", { projectid: props.projectid, deviceid: code }, { secure: true, reconnect: true }).then(
                 function (res) {
-                    console.log(res.data)
+                    // console.log(res.data)
                     if (res.data.status) {
                         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_16" }), show: 'block' } })
                     } else {
@@ -535,7 +535,7 @@ export default function Tooloverview(props) {
         if (type === 'user') {
             setTab('2')
             if (pageDefault.value.status === true && listdevice.length > 0) {
-                console.log(pageDefault.value)
+                // console.log(pageDefault.value)
                 //settingDispatch({ type: "RESET_WHAT_DEVICE", payload: '' })
                 // if(pageDefault.value.deviceid !== 'none'){
                 rootDispatch(adminslice.actions.setmenu(false))
@@ -561,10 +561,10 @@ export default function Tooloverview(props) {
     const handleAdddeviceP = (e) => {
         e.preventDefault()
         var d = document.getElementById("adddeviceP")
-        console.log(props.username)
+        // console.log(props.username)
         axios.post(host.DEVICE + "/addlistDevice", { username: props.username, deviceid: d.value, code: props.type, projectid: props.projectid }, { secure: true, reconnect: true }).then(
             function (res) {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.status) {
                     alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_40" }), show: 'block' } })
                     axios.post(host.DEVICE + "/getlistDeviceP", { projectid: props.projectid }, { secure: true, reconnect: true }).then(
@@ -674,7 +674,7 @@ export default function Tooloverview(props) {
             })
         } else {
             if (overview.value) {
-                console.log(invt)
+                // console.log(invt)
                 listdevice.map((data, index) => {
                     //console.log("hello")
                     return socket_io(data.deviceid)
@@ -724,7 +724,7 @@ export default function Tooloverview(props) {
         rootDispatch(adminslice.actions.setmenu(false))
         const ID = event.currentTarget.id;
         var arr = ID.split("_")
-        console.log(arr)
+        // console.log(arr)
         view.value.type = 'single'
         //view.value.id = 'G01'
         //view.value.tab = arr[2]
@@ -740,7 +740,7 @@ export default function Tooloverview(props) {
     const handleDeviceGroup = (event) => {
         rootDispatch(adminslice.actions.setmenu(false))
         const arr = event.currentTarget.id.split("_")
-        console.log(arr)
+        // console.log(arr)
         view.value.type = 'group'
         view.value.id = arr[1]
         view.value.tab = arr[2]
@@ -784,7 +784,7 @@ export default function Tooloverview(props) {
         useEffect(() => {
             axios.post(host.DEVICE + "/getGroup", { deviceid: data.deviceid }, { secure: true, reconnect: true }).then(
                 res => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     setList(res.data)
                 }
             )
@@ -823,18 +823,18 @@ export default function Tooloverview(props) {
                     </div>
                     : <div className="DAT_ToolOverview_NavMobile">
 
-                      
-                                <div className="DAT_ToolOverview_NavMobile_dashboard" id='1'  onClick={(e) => handleTab(e)} >
-                                    <div className="DAT_ToolOverview_NavMobile_dashboard_bg" style={{ height: tab === '1' ? '140px' : '200px', transition: '0.5s' }} ></div>
-                                    <div className="DAT_ToolOverview_NavMobile_dashboard_add" style={{ height: tab === '1' ? '60px' : '0', transition: '0.5s' }} ><span>Dashboard</span></div>
-                                </div>
 
-                                <div className="DAT_ToolOverview_NavMobile_device" id='2'  onClick={(e) => handleTab(e)} >
-                                    <div className="DAT_ToolOverview_NavMobile_device_bg" style={{ height: tab === '2' ? '140px' : '200px', transition: '0.5s' }} ></div>
-                                    <div className="DAT_ToolOverview_NavMobile_device_add" style={{ height: tab === '2' ? '60px' : '0', transition: '0.5s' }} ><span>Thêm thiết bị</span><IoIosAddCircle size={30} color="gray" /></div>
-                                </div>
-                            
-                        
+                        <div className="DAT_ToolOverview_NavMobile_dashboard" id='1' onClick={(e) => handleTab(e)} >
+                            <div className="DAT_ToolOverview_NavMobile_dashboard_bg" style={{ height: tab === '1' ? '140px' : '200px', transition: '0.5s' }} ></div>
+                            <div className="DAT_ToolOverview_NavMobile_dashboard_add" style={{ height: tab === '1' ? '60px' : '0', transition: '0.5s' }} ><span>Dashboard</span></div>
+                        </div>
+
+                        <div className="DAT_ToolOverview_NavMobile_device" id='2' onClick={(e) => handleTab(e)} >
+                            <div className="DAT_ToolOverview_NavMobile_device_bg" style={{ height: tab === '2' ? '140px' : '200px', transition: '0.5s' }} ></div>
+                            <div className="DAT_ToolOverview_NavMobile_device_add" style={{ height: tab === '2' ? '60px' : '0', transition: '0.5s' }} ><span>Thêm thiết bị</span><IoIosAddCircle size={30} color="gray" /></div>
+                        </div>
+
+
 
 
                     </div>}

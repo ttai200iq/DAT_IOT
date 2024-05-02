@@ -114,7 +114,7 @@ export default function Report(props) {
                         //console.log(res.data)
                         reportlist.value = [...listp, ...res.data]
                         reportlist.value = reportlist.value.map((data, index) => ({ ...data, id: index + 1 }))
-                        console.log(reportlist.value)
+                        // console.log(reportlist.value)
                         setGateway(reportlist.value[0].deviceid)
                     })
             })
@@ -126,7 +126,7 @@ export default function Report(props) {
             //console.log(gateway.current)
             axios.post(host.DEVICE + "/getReportTime", { id: gateway }, { secure: true, reconnect: true })
                 .then((res) => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     reportm.value = res.data
                 })
         }
@@ -157,7 +157,7 @@ export default function Report(props) {
         //console.log(formdata.get("myfile"))
         axios.post(host.DEVICE + "/UploadProfile", formdata, { secure: true, reconnect: true }).then(
             (res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.status) {
                     setStep('step3');
                 } else {
@@ -183,7 +183,7 @@ export default function Report(props) {
     };
 
     const handleChangeDate = (e) => {
-        console.log(date.current.value)
+        // console.log(date.current.value)
         const x = new Date(date.current.value)
         day.value = x.getDay()
     }
@@ -249,7 +249,7 @@ export default function Report(props) {
         if (reportm.value.length > 0) {
             var i = reportm.value.findIndex(d => d.code === machine.current.value);
             //console.log(reportm.value[i])
-            console.log(type_time.current.value)
+            // console.log(type_time.current.value)
             if (type_time.current.value === "custom") {
                 if (Date.parse(`${moment(date.current.value).format('MM/DD/YYYY')} ${from.current.value}:00`) < new Date() && Date.parse(`${moment(date.current.value).format('MM/DD/YYYY')} ${to.current.value}:00`) < new Date()) {
                     if (Date.parse(`${moment(date.current.value).format('MM/DD/YYYY')} ${from.current.value}:00`) <= Date.parse(`${moment(date.current.value).format('MM/DD/YYYY')} ${to.current.value}:00`)) {
@@ -257,7 +257,7 @@ export default function Report(props) {
                         //console.log(newData)
                         axios.post(host.DEVICE + "/ReportDaily", { deviceid: gateway, code: machine.current.value, name: reportm.value[i].name, register: reportm.value[i].register, date: moment(date.current.value).format('MM/DD/YYYY'), time: newData, type: type_time.current.value }, { responseType: 'blob' }, { secure: true, reconnect: true }).then(
                             (res) => {
-                                console.log(res.data)
+                                // console.log(res.data)
                                 if (res.data.type === 'application/json') {
                                     alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_31" }), show: 'block' }))
                                 } else {
@@ -279,7 +279,7 @@ export default function Report(props) {
                 //console.log("high", High)
                 axios.post(host.DEVICE + "/ReportDaily", { deviceid: gateway, code: machine.current.value, name: reportm.value[i].name, register: reportm.value[i].register, date: moment(date.current.value).format('MM/DD/YYYY'), time: High, type: type_time.current.value }, { responseType: 'blob' }, { secure: true, reconnect: true }).then(
                     (res) => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         if (res.data.type === 'application/json') {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_31" }), show: 'block' }))
 
@@ -295,7 +295,7 @@ export default function Report(props) {
                 //console.log("high", Mid_Week, Mid_Weekend)
                 axios.post(host.DEVICE + "/ReportDaily", { deviceid: gateway, code: machine.current.value, name: reportm.value[i].name, register: reportm.value[i].register, date: moment(date.current.value).format('MM/DD/YYYY'), time: (day.value === 0) ? Mid_Weekend : Mid_Week, type: (day.value === 0) ? "custom" : type_time.current.value }, { responseType: 'blob' }, { secure: true, reconnect: true }).then(
                     (res) => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         if (res.data.type === 'application/json') {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_31" }), show: 'block' }))
 
@@ -311,7 +311,7 @@ export default function Report(props) {
                 //console.log("high", Low)
                 axios.post(host.DEVICE + "/ReportDaily", { deviceid: gateway, code: machine.current.value, name: reportm.value[i].name, register: reportm.value[i].register, date: moment(date.current.value).format('MM/DD/YYYY'), time: Low, type: type_time.current.value }, { responseType: 'blob' }, { secure: true, reconnect: true }).then(
                     (res) => {
-                        console.log(res.data)
+                        // console.log(res.data)
                         if (res.data.type === 'application/json') {
                             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_31" }), show: 'block' }))
 
@@ -335,17 +335,17 @@ export default function Report(props) {
 
             if (month.current.value !== "") {
                 var i = reportm.value.findIndex(d => d.code === machine.current.value);
-                console.log(reportm.value[i])
+                // console.log(reportm.value[i])
                 if (new Date(datefrom.current.value) <= new Date(dateto.current.value)) {
                     const dateList = eachDayOfInterval({ start: new Date(datefrom.current.value), end: new Date(dateto.current.value) }).map((date) =>
                         format(date, 'MM/dd/yyyy')
                     );
 
-                    console.log(dateList)
+                    // console.log(dateList)
 
                     axios.post(host.DEVICE + "/ReportMonth", { deviceid: gateway, code: machine.current.value, name: reportm.value[i].name, register: reportm.value[i].registermonth, month: moment(month.current.value).format('MM/YYYY'), date: dateList, type: type_month.current.value }, { responseType: 'blob' }, { secure: true, reconnect: true }).then(
                         (res) => {
-                            console.log(res.data)
+                            // console.log(res.data)
                             if (res.data.type === 'application/json') {
                                 alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_31" }), show: 'block' }))
 

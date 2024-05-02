@@ -42,10 +42,10 @@ export default function Timer(props) {
         //console.log(timer)
         if (timer) {
             setting2.enable = true
-           
+
         } else {
             setting2.enable = false
-     
+
         }
 
         //console.log(setting2)
@@ -55,9 +55,9 @@ export default function Timer(props) {
 
     const handleOpen = (e) => {
 
-        console.log(e.currentTarget.id)
+        // console.log(e.currentTarget.id)
         var arr = e.currentTarget.id.split("_")
-        console.log(arr[3])
+        // console.log(arr[3])
         setMem(arr[2])
         if (arr[3] === 'VALUE') {
             setDropvalue(true)
@@ -68,7 +68,7 @@ export default function Timer(props) {
 
     const handleClose = (e) => {
 
-        console.log(e.currentTarget.id)
+        // console.log(e.currentTarget.id)
         if (e.currentTarget.id === "VALUE") {
             setDropvalue(false)
         } else {
@@ -82,27 +82,27 @@ export default function Timer(props) {
 
         var id = e.currentTarget.id
         var value = e.currentTarget.value
-        console.log(id, value)
+        // console.log(id, value)
         var arr = id.split("_")
         if (arr[1] === 'value') {
             var val = document.getElementById(`${props.tab}_${props.id}_${value}_INPUTVALUE`)
-            console.log(val.value)
+            // console.log(val.value)
             if (val.value !== '') {
                 var TIME = val.value
                 setting2[value].input = val.value
                 setting2[value].value = String(handlegetnum(eval(setting2.cal)))
                 setDropvalue(false)
-                console.log(setting)
+                // console.log(setting)
             }
         }
 
         if (arr[1] === 'time') {
             var time = document.getElementById(`${props.tab}_${props.id}_${value}_INPUTTIME`)
-            console.log(time.value)
+            // console.log(time.value)
             if (time.value !== '') {
                 setting2[value].time = time.value + ":00"
                 setDroptime(false)
-                console.log(setting2)
+                // console.log(setting2)
             }
         }
     }
@@ -119,8 +119,8 @@ export default function Timer(props) {
 
     const handleSave = (e) => {
 
-        console.log(JSON.stringify(setting2))
-        axios.post(host.TIME +"/setData", { id: currentID, data: JSON.stringify(setting2) }, { secure: true, reconnect: true }).then(
+        // console.log(JSON.stringify(setting2))
+        axios.post(host.TIME + "/setData", { id: currentID, data: JSON.stringify(setting2) }, { secure: true, reconnect: true }).then(
             function (res) {
                 if (res.data.status) {
                     alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
@@ -259,9 +259,9 @@ export default function Timer(props) {
                         />
 
                         <label htmlFor="savepwd" />
-                        
+
                         <button onClick={e => handleSave(e)} >Cài</button>
-                        
+
 
                     </div>
 

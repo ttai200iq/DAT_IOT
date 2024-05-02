@@ -69,11 +69,11 @@ export default function Elev(props) {
 
         const handleInput = (e) => {
 
-                console.log(paddr.current.value)
+                // console.log(paddr.current.value)
                 setKey(process.env.REACT_APP_GGKEY);
                 geocode(RequestType.ADDRESS, paddr.current.value)
                         .then((response) => {
-                                console.log(response.results[0].geometry.location);
+                                // console.log(response.results[0].geometry.location);
 
                                 lat.current.value = response.results[0].geometry.location.lat
                                 lng.current.value = response.results[0].geometry.location.lng
@@ -81,7 +81,7 @@ export default function Elev(props) {
 
                         })
                         .catch((error) => {
-                                console.log(error);
+                                // console.log(error);
                                 alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_30" }), show: 'block' } })
                         });
 
@@ -154,7 +154,7 @@ export default function Elev(props) {
 
                                 await axios.post(host.DEVICE + "/updatelistDevice", { id: code, name: dname.current.value, des: ddescription.current.value }, { secure: true, reconnect: true }).then(
                                         function (res) {
-                                                console.log(res.data)
+                                                // console.log(res.data)
                                                 if (res.data.status) {
                                                         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
                                                 } else {
@@ -173,7 +173,7 @@ export default function Elev(props) {
                                 const removelistProject = async () => {
                                         await axios.post(host.DEVICE + "/removelistProject", { user: props.username, id: code }, { secure: true, reconnect: true }).then(
                                                 function (res) {
-                                                        console.log(res.data)
+                                                        // console.log(res.data)
                                                         if (res.data.status) {
                                                                 alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_17" }), show: 'block' } })
                                                         } else {
@@ -187,7 +187,7 @@ export default function Elev(props) {
                                 const removelistProjectUser = async () => {
                                         await axios.post(host.DEVICE + "/removelistProjectUser", { user: props.username, id: code }, { secure: true, reconnect: true }).then(
                                                 function (res) {
-                                                        console.log(res.data)
+                                                        // console.log(res.data)
                                                         if (res.data.status) {
                                                                 alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_17" }), show: 'block' } })
                                                         } else {
@@ -207,7 +207,7 @@ export default function Elev(props) {
                                 const removelistDevice = async () => {
                                         await axios.post(host.DEVICE + "/removelistDevice", { user: props.username, id: code }, { secure: true, reconnect: true }).then(
                                                 function (res) {
-                                                        console.log(res.data)
+                                                        // console.log(res.data)
                                                         if (res.data.status) {
                                                                 alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_16" }), show: 'block' } })
                                                         } else {
@@ -220,7 +220,7 @@ export default function Elev(props) {
                                 const removelistDeviceUser = async () => {
                                         await axios.post(host.DEVICE + "/removelistDeviceUser", { user: props.username, id: code }, { secure: true, reconnect: true }).then(
                                                 function (res) {
-                                                        console.log(res.data)
+                                                        // console.log(res.data)
                                                         if (res.data.status) {
                                                                 alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_16" }), show: 'block' } })
                                                         } else {
@@ -508,7 +508,7 @@ export default function Elev(props) {
                 useEffect(() => {
                         axios.post(host.DEVICE + "/getGroup", { deviceid: data.deviceid }, { secure: true, reconnect: true }).then(
                                 res => {
-                                        console.log(res.data)
+                                        // console.log(res.data)
                                         setList(res.data)
                                 }
                         )
@@ -602,7 +602,7 @@ export default function Elev(props) {
                                                 rootDispatch(toolslice.actions.setstatus(true))
                                                 await axios.get(host.DEVICE + "/getMonitorDevice/" + whatdevice, { secure: true }).then(
                                                         function (res) {
-                                                                console.log("Screen data", res.data.data)
+                                                                // console.log("Screen data", res.data.data)
                                                                 settingDispatch({ type: "LOAD_SCREEN", payload: { currentID: whatdevice, currentName: newarr[0].name, screen: res.data.data, sttdata: true } })
 
                                                                 axios.get(host.DEVICE + "/getTabMD/" + whatdevice, { secure: true, reconnect: true }).then(
@@ -628,7 +628,7 @@ export default function Elev(props) {
                                                 rootDispatch(toolslice.actions.setstatus(true))
                                                 await axios.post(host.DEVICE + "/getMonitorDeviceGroup", { id: whatdevice, groupid: view.value.id }, { secure: true, reconnect: true }).then(
                                                         function (res) {
-                                                                console.log("Screen data", res.data.data)
+                                                                // console.log("Screen data", res.data.data)
                                                                 settingDispatch({ type: "LOAD_SCREEN", payload: { currentID: whatdevice, currentName: newarr.name, screen: res.data.data, sttdata: true } })
                                                                 settingDispatch({ type: "LOAD_DEFAULT", payload: view.value.tab })
                                                                 axios.get(host.DEVICE + "/getTabMD/" + whatdevice, { secure: true, reconnect: true }).then(
@@ -789,7 +789,7 @@ export default function Elev(props) {
                         await axios.post(host.DEVICE + "/getlistDeviceP", { projectid: p[0].projectid }, { secure: true, reconnect: true }).then(
                                 function (res) {
                                         if (res.data.status) {
-                                                console.log("List device in project", res.data.data)
+                                                // console.log("List device in project", res.data.data)
                                                 settingDispatch({ type: "LOAD_LISTDEVICE", payload: res.data.data })
                                                 var arr = ['0']
                                                 res.data.data.map((id, index) => {
@@ -822,7 +822,7 @@ export default function Elev(props) {
                         rootDispatch(toolslice.actions.setstatus(true))
                         await axios.get(host.DEVICE + "/getMonitorDevice/" + arr[0], { secure: true, reconnect: true }).then(
                                 function (res) {
-                                        console.log("Screen data", res.data.data)
+                                        // console.log("Screen data", res.data.data)
                                         settingDispatch({ type: "LOAD_SCREEN", payload: { currentID: arr[0], currentName: newarr[0].name, screen: res.data.data, sttdata: true } })
 
                                         axios.get(host.DEVICE + "/getTabMD/" + arr[0], { secure: true, reconnect: true }).then(
@@ -844,7 +844,7 @@ export default function Elev(props) {
                 var arr = ID.split("_")
                 const newarr = listdevice2.find(newarr => newarr.deviceid == arr[0])
                 // console.log(newarr)
-                console.log(arr)
+                // console.log(arr)
                 view.value.type = 'group'
                 view.value.id = arr[1]
 
@@ -852,7 +852,7 @@ export default function Elev(props) {
                         rootDispatch(toolslice.actions.setstatus(true))
                         await axios.post(host.DEVICE + "/getMonitorDeviceGroup", { id: arr[0], groupid: arr[1] }, { secure: true, reconnect: true }).then(
                                 function (res) {
-                                        console.log("Screen data", res.data.data)
+                                        // console.log("Screen data", res.data.data)
                                         settingDispatch({ type: "LOAD_SCREEN", payload: { currentID: arr[0], currentName: newarr.name, screen: res.data.data, sttdata: true } })
                                         settingDispatch({ type: "LOAD_DEFAULT", payload: parseInt(arr[2]) })
                                         axios.get(host.DEVICE + "/getTabMD/" + arr[0], { secure: true, reconnect: true }).then(
@@ -902,12 +902,12 @@ export default function Elev(props) {
         const handleAddproject = (e) => {
                 e.preventDefault()
                 var p = document.getElementById('addproject')
-                console.log(p.value)
+                // console.log(p.value)
                 if (type === 'admin' || type === 'master') {
                         const addlistProject = async () => {
                                 await axios.post(host.DEVICE + "/addlistProject", { username: props.username, projectid: p.value, code: inf.code }, { secure: true, reconnect: true }).then(
                                         function (res) {
-                                                console.log(res.data)
+                                                // console.log(res.data)
                                                 if (res.data.status) {
                                                         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_43" }), show: 'block' } })
                                                         axios.post(host.DEVICE + "/getlistProject", { username: props.username, group: inf.code }, { secure: true, reconnect: true }).then(
@@ -917,7 +917,7 @@ export default function Elev(props) {
                                                                                         ...item,
                                                                                         id: index + 1
                                                                                 }))
-                                                                                console.log("List project", data)
+                                                                                // console.log("List project", data)
                                                                                 setProject(data);
                                                                         }
 
@@ -938,7 +938,7 @@ export default function Elev(props) {
                         const addlistProjectbyUser = async () => {
                                 await axios.post(host.DEVICE + "/addlistProjectbyUser", { admin: admin, username: props.username, projectid: p.value, code: inf.code }, { secure: true, reconnect: true }).then(
                                         function (res) {
-                                                console.log(res.data)
+                                                // console.log(res.data)
                                                 if (res.data.status) {
                                                         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_43" }), show: 'block' } })
                                                         axios.post(host.DEVICE + "/getlistProject", { username: props.username, group: inf.code }, { secure: true, reconnect: true }).then(
@@ -948,7 +948,7 @@ export default function Elev(props) {
                                                                                         ...item,
                                                                                         id: index + 1
                                                                                 }))
-                                                                                console.log("List project", data)
+                                                                                // console.log("List project", data)
                                                                                 setProject(data);
                                                                         }
 
@@ -972,12 +972,12 @@ export default function Elev(props) {
         const handleAdddevice = (e) => {
                 e.preventDefault()
                 var d = document.getElementById('adddevice')
-                console.log(d.value)
+                // console.log(d.value)
                 if (type === 'admin' || type === 'master') {
                         const addlistDevice = async () => {
                                 await axios.post(host.DEVICE + "/addlistDevice", { username: props.username, deviceid: d.value, code: inf.code, projectid: 'NONE' }, { secure: true, reconnect: true }).then(
                                         function (res) {
-                                                console.log(res.data)
+                                                // console.log(res.data)
                                                 if (res.data.status) {
                                                         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_40" }), show: 'block' } })
                                                         axios.post(host.DEVICE + "/getlistDevice", { username: props.username, group: inf.code }, { secure: true, reconnect: true }).then(
@@ -987,7 +987,7 @@ export default function Elev(props) {
                                                                                         ...item,
                                                                                         id: index + 1
                                                                                 }))
-                                                                                console.log("List device", data)
+                                                                                // console.log("List device", data)
                                                                                 settingDispatch({ type: "LOAD_LISTDEVICE2", payload: data })
 
                                                                         }
@@ -1012,7 +1012,7 @@ export default function Elev(props) {
 
                                 await axios.post(host.DEVICE + "/addlistDevicebyUser", { admin: admin, username: props.username, deviceid: d.value, code: inf.code, projectid: 'NONE' }, { secure: true, reconnect: true }).then(
                                         function (res) {
-                                                console.log(res.data)
+                                                // console.log(res.data)
                                                 if (res.data.status) {
                                                         alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_40" }), show: 'block' } })
                                                         axios.post(host.DEVICE + "/getlistDevice", { username: props.username, group: inf.code }, { secure: true, reconnect: true }).then(
@@ -1022,7 +1022,7 @@ export default function Elev(props) {
                                                                                         ...item,
                                                                                         id: index + 1
                                                                                 }))
-                                                                                console.log("List device", data)
+                                                                                // console.log("List device", data)
                                                                                 settingDispatch({ type: "LOAD_LISTDEVICE2", payload: data })
 
                                                                         }

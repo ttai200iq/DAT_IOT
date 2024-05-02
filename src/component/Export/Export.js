@@ -36,7 +36,7 @@ export default function Export(props) {
     const handleNav = (e) => {
         var id = e.currentTarget.id;
 
-        console.log(id);
+        // console.log(id);
         setNav(id);
     };
 

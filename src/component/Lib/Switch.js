@@ -43,10 +43,10 @@ export default function Switch(props) {
         }
 
         catch (e) {
-            return({ret:1,msg:"cloud err"})
+            return ({ ret: 1, msg: "cloud err" })
         }
 
-    
+
     }
 
     useEffect(function () {
@@ -62,26 +62,26 @@ export default function Switch(props) {
 
     //check trạng thái điều khiển
     useEffect(function () {
-           
+
 
         var sw = document.getElementById(props.deviceid + "_" + props.tab + "_" + props.id + "_SW")
 
         //console.log(props.id,setting)
         if (setting[props.id].stt === 'on') {
-                sw.checked = true
+            sw.checked = true
         } else {
-                sw.checked = false
+            sw.checked = false
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
-    const handleSwitch = async(e) => {
+    const handleSwitch = async (e) => {
 
 
 
         let switchArray = e.currentTarget.id.split("_");
-        console.log(switchArray)
+        // console.log(switchArray)
         //console.log(setting)
 
         var NUMB;
@@ -99,16 +99,16 @@ export default function Switch(props) {
             NUMB = setting[switchArray[2]].off
             //console.log("OFF:",settingDATA[switchArray[2]].off,settingDATA[switchArray[2]].show,eval(settingDATA[switchArray[2]].cal),settingDATA[switchArray[2]].register)
         }
-        console.log(setting[switchArray[2]])
+        // console.log(setting[switchArray[2]])
         //settingDispatch({ type: "LOAD_STATE", payload: false })
         alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_19" }), show: 'block' }))
 
-        
-        
+
+
         const res = await remotecloud('{"deviceCode": "' + switchArray[0] + '","address":"' + setting[switchArray[2]].register + '","value":"' + parseInt(eval(setting[switchArray[2]].cal)) + '"}', token);
 
-        console.log(res)
-        if(res.ret === 0){
+        // console.log(res)
+        if (res.ret === 0) {
             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' }))
             axios.post(host.DEVICE + "/setRegisterDevice", { id: switchArray[0], data: JSON.stringify(setting), tab: switchArray[1] }, { secure: true, reconnect: true }).then(
                 function (res) {
@@ -118,7 +118,7 @@ export default function Switch(props) {
                         console.log("save dat false")
                     }
                 })
-        }else{
+        } else {
             alertDispatch(action('LOAD_CONTENT', { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' }))
         }
 
@@ -130,11 +130,11 @@ export default function Switch(props) {
 
 
         <div className="DAT_Switch">
-            <label className="DAT_Switch-box" style={{width:props.width+"px", height:props.height+"px"}}>
+            <label className="DAT_Switch-box" style={{ width: props.width + "px", height: props.height + "px" }}>
                 <input type="checkbox" className="DAT_Switch-box-check" id={props.deviceid + "_" + props.tab + "_" + props.id + "_SW"}
 
                     onChange={(e) => handleSwitch(e)}
-                   
+
                 />
                 <span className="DAT_Switch-box-slider" ></span>
             </label>

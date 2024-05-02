@@ -1,28 +1,29 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Project.scss";
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import axios from "axios";
 import { host } from "../constant";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
 import { MdOutlineDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { editProject } from "./Project";
 import { lowercasedata } from "../User/Listuser";
+import Raisebox, { delstate } from "../Raisebox/RaiseboxConfirmDel";
 
 export default function Listproject(props) {
   const dataLang = useIntl();
   const { alertDispatch } = useContext(AlertContext);
-  const user = useSelector((state) => state.admin.user)
+  // const user = useSelector((state) => state.admin.user)
   const manager = useSelector((state) => state.admin.manager)
-  const type = useSelector((state) => state.admin.type)
+  // const type = useSelector((state) => state.admin.type)
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
-  const rootDispatch = useDispatch()
+  const [dataDel, setDataDel] = useState();
+  // const rootDispatch = useDispatch()
 
   const paginationComponentOptions = {
     rowsPerPageText: 'Số hàng',
@@ -30,39 +31,6 @@ export default function Listproject(props) {
     selectAllRowsItem: true,
     selectAllRowsItemText: 'tất cả',
   };
-
-  const handleDelete = (e) => {
-    // console.log(e.target.id);
-    var newData = data
-    newData = newData.filter(data => data.projectid != e.target.id)
-    setData(newData)
-    setFilter(newData)
-    axios.post(host.DEVICE + "/deletelistProject", { projectid: e.target.id }, { withCredentials: true }).then(
-      function (res) {
-        console.log(res.data)
-        if (res.data.status) {
-          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_18" }), show: 'block' } })
-        } else {
-          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
-        }
-      })
-
-  };
-
-  useEffect(() => {
-    axios.post(host.DEVICE + "/getProject", { user: manager }, { withCredentials: true }).then(
-      function (res) {
-        console.log(res.data)
-        var newData = res.data;
-        newData.map((data, index) => {
-          return (data["id"] = index + 1);
-        });
-        console.log(newData);
-        setData(newData);
-        setFilter(newData);
-      })
-  }, []);
-
 
   const head = [
     {
@@ -110,7 +78,10 @@ export default function Listproject(props) {
           <div
             style={{ cursor: "pointer", color: "red" }}
             id={row.projectid}
-            onClick={(e) => handleDelete(e)}
+            onClick={(e) => {
+              delstate.value = true;
+              setdata(row.projectid)
+            }}
           >
             <MdOutlineDelete size={20} color="red" />
           </div>
@@ -121,11 +92,30 @@ export default function Listproject(props) {
     },
   ];
 
-
-
-
   const handleNav = (e) => {
     editProject.value = true
+  };
+
+  const setdata = (projectid) => {
+    setDataDel(`${projectid}`)
+  };
+
+  const handleDelete = (e) => {
+    // console.log(dataDel);
+    var newData = data
+    newData = newData.filter(data => data.projectid != dataDel)
+    setData(newData)
+    setFilter(newData)
+    axios.post(host.DEVICE + "/deletelistProject", { projectid: dataDel }, { withCredentials: true }).then(
+      function (res) {
+        // console.log(res.data)
+        if (res.data.status) {
+          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_18" }), show: 'block' } })
+        } else {
+          alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_3" }), show: 'block' } })
+        }
+      })
+
   };
 
   const handleFilter = (e) => {
@@ -145,6 +135,27 @@ export default function Listproject(props) {
   }
 
   useEffect(() => {
+    axios.post(host.DEVICE + "/getProject", { user: manager }, { withCredentials: true }).then(
+      function (res) {
+        // console.log(res.data)
+        var newData = res.data;
+        newData.map((data, index) => {
+          return (data["id"] = index + 1);
+        });
+        // console.log(newData);
+        setData(newData);
+        setFilter(newData);
+      })
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      editProject.value = false
+      delstate.value = false
+    }
+  }, [])
+
+  useEffect(() => {
     const searchTerm = lowercasedata(props.filter);
     if (searchTerm == "") {
       setFilter(data)
@@ -162,7 +173,8 @@ export default function Listproject(props) {
 
   return (
     <>
-      {isBrowser ?
+      {isBrowser
+        ?
         <div className="DAT_UserList">
           <DataTable
             className="DAT_Table_Container"
@@ -253,8 +265,9 @@ export default function Listproject(props) {
         </>
       }
 
+      <div className="DAT_PopupBG" style={{ height: delstate.value ? "100vh" : "0" }}>
+        {delstate.value ? <Raisebox handleDelete={handleDelete} /> : <></>}
+      </div>
     </>
-
-
   );
 }

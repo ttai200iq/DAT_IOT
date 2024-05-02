@@ -281,7 +281,7 @@ export default function Reader(props) {
     axios.post(host.DEVICE + "/removeInfErr", { code: code, user: props.username }, { secure: true, reconnect: true }).then(
       (res) => {
 
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.status) {
           alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
           reader.value = reader.value.filter((newData) => newData.code != code).map((data, index) => ({ ...data, id: (index + 1) }))
@@ -302,7 +302,7 @@ export default function Reader(props) {
     axios.post(host.DEVICE + "/updateInfErr", { code: doc.code, name: doc.name, type: doc.type, infor: JSON.stringify(doc.infor), solution: JSON.stringify(doc.solution), user: props.username }, { secure: true, reconnect: true }).then(
       (res) => {
 
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.status) {
           alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_5" }), show: 'block' } })
         } else {
@@ -341,12 +341,12 @@ export default function Reader(props) {
   }
 
   const handleDeleteItem = (e) => {
-    console.log(e.currentTarget.id)
+    // console.log(e.currentTarget.id)
     const arr = e.currentTarget.id.split("_")
     const newData = reader.value
     const i = newData.findIndex((data) => data.code == arr[2])
 
-    console.log(newData[i].data)
+    // console.log(newData[i].data)
     if (newData[i][arr[1]].length > 1) {
 
       newData[i][arr[1]] = newData[i][arr[1]].filter((data) => data.id != arr[3]).map((data, index) => {
@@ -371,7 +371,7 @@ export default function Reader(props) {
     //console.log(newData)
 
     if (newData.length > 0) {
-      console.log("already exist!");
+      // console.log("already exist!");
       alertDispatch({
         type: "LOAD_CONTENT",
         payload: {
@@ -394,7 +394,7 @@ export default function Reader(props) {
           { secure: true, reconnect: true }
         )
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data.status) {
             reader.value = [
               ...reader.value,

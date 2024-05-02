@@ -48,7 +48,7 @@ export default function Error(props) {
     };
 
     useLayoutEffect(() => {
-        console.log(props.username);
+        // console.log(props.username);
         list.value = [];
         axios
             .post(
@@ -139,7 +139,7 @@ export default function Error(props) {
     };
 
     const handleUpdate = (e) => {
-        console.log(register.value);
+        // console.log(register.value);
         axios
             .post(
                 host.DEVICE + "/updateErr",
@@ -177,10 +177,10 @@ export default function Error(props) {
         var err = document.getElementById("errid");
 
         var newData = reader.value.filter((data) => data.code == err.value);
-        console.log(newData)
+        // console.log(newData)
 
         if (newData.length > 0) {
-            console.log("already exist!");
+            // console.log("already exist!");
             alertDispatch({
                 type: "LOAD_CONTENT",
                 payload: {
@@ -203,7 +203,7 @@ export default function Error(props) {
                     { secure: true, reconnect: true }
                 )
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data.status) {
                         reader.value = [
                             ...reader.value,
@@ -233,17 +233,17 @@ export default function Error(props) {
                         });
                     }
                 });
-            console.log(reader.value)
+            // console.log(reader.value)
         }
     };
 
     const handleFilter = (e) => {
         setFilter(e.currentTarget.value);
-        console.log(e.currentTarget.value)
+        // console.log(e.currentTarget.value)
     };
 
     useEffect(() => {
-        console.log(readstate);
+        // console.log(readstate);
     }, [readstate]);
 
     return (

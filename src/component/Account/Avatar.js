@@ -35,11 +35,11 @@ export default function Avatar(props) {
     const handdeAvatar = async (e) => {
         var reader = new FileReader();
 
-        console.log("old size", e.target.files[0].size)
+        // console.log("old size", e.target.files[0].size)
 
         if (e.target.files[0].size > 50000) {
             const image = await resizeFile(e.target.files[0]);
-            console.log(image.size)
+            // console.log(image.size)
 
             reader.readAsDataURL(image);
 
@@ -60,7 +60,7 @@ export default function Avatar(props) {
             };
         } else {
             reader.readAsDataURL(e.target.files[0]);
-            console.log(e.target.files[0].size)
+            // console.log(e.target.files[0].size)
             reader.onload = () => {
                 // setAllImage(reader.result)
                 //console.log("base 64 new", String(reader.result))

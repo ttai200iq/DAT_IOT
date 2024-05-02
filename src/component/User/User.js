@@ -1,17 +1,18 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect } from "react";
 import "./User.scss"
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Info from "./Info";
-import { useSelector } from "react-redux";
-import Listuser, { data, delstate } from "./Listuser";
+// import { useSelector } from "react-redux";
+import Listuser, { data } from "./Listuser";
 import { IoMdAdd } from "react-icons/io";
 import { signal } from "@preact/signals-react";
 import { isBrowser } from "react-device-detect";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { CiSearch } from "react-icons/ci";
 
-import Raisebox from "../Raisebox/RaiseboxConfirmDel";
+import Raisebox, { delstate } from "../Raisebox/RaiseboxConfirmDel";
 import axios from "axios";
 import { host } from "../constant";
 import { AlertContext } from "../Context/AlertContext";
@@ -23,25 +24,24 @@ export default function User(props) {
     const banner = "linear-gradient(140deg, #0061f2, #6900c7)"
     const inf = { code: 'Report', tit: 'Người dùng' }
     const [direct, SetDirect] = useState([{ id: 'home', text: 'Trang chủ' }, { id: 'list', text: inf.tit }])
-    const color = {
-        cur: "blue",
-        pre: "black"
-    }
-    const type = useSelector((state) => state.admin.type)
-    const [nav, setNav] = useState("info");
-    const [changefilter, setChangefilter] = useState(true)
+    // const color = {
+    //     cur: "blue",
+    //     pre: "black"
+    // }
+    // const type = useSelector((state) => state.admin.type)
+    // const [nav, setNav] = useState("info");
+    // const [changefilter, setChangefilter] = useState(true)
     const [dataDel, setDataDel] = useState();
     const { alertDispatch } = useContext(AlertContext);
     const [filter, setFilter] = useState("");
     const dataLang = useIntl();
-
 
     const handleNav = () => {
         editUser.value = true
     };
 
     const handleDelete = () => {
-        console.log(dataDel)
+        // console.log(dataDel)
         const arr = dataDel.split("_")
 
         var newData = data.value
@@ -49,7 +49,7 @@ export default function User(props) {
         data.value = [...newData]
         axios.post(host.DEVICE + "/removeAcount", { name: arr[0], mail: arr[1] }, { withCredentials: true }).then(
             function (res) {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.status) {
                     alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_9" }), show: 'block' } })
                 } else {
@@ -57,23 +57,31 @@ export default function User(props) {
                 }
             })
     };
+
     const setdata = (name, mail) => {
         setDataDel(`${name}_${mail}`)
-    }
+    };
 
     const handleChangeFilter = (e) => {
         setFilter(e.currentTarget.value);
-    }
+    };
+
+    useEffect(() => {
+        return () => {
+            editUser.value = false
+            delstate.value = false
+        }
+    }, []);
 
     return (
         <>
-            {isBrowser ?
+            {isBrowser
+                ?
                 <div className="DAT_User" style={{ backgroundImage: banner, backgroundPosition: "bottom", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
                     <div className="DAT_User_Banner">
                         {/* <div className="DAT_UserTop-shadow" ></div> */}
                     </div>
                     <div className="DAT_User_Content">
-
                         <div className="DAT_User_Content_Direct" >
                             {direct.map((data, index) => {
                                 return (
@@ -131,10 +139,8 @@ export default function User(props) {
                             </div>
                         </div>
                     </div>
-
-
-                </div> :
-
+                </div>
+                :
                 <div className="DAT_UserListDetail">
                     <div className="DAT_UserListDetail_HeadTit">
                         <HiOutlineUsers size={25} color="grey" />
@@ -153,10 +159,11 @@ export default function User(props) {
                 </div >
             }
 
-            <div className="DAT_User_Fix" style={{ height: editUser.value ? "100vh" : "0", transition: "0.5s" }}>
+            <div className="DAT_PopupBG" style={{ height: editUser.value ? "100vh" : "0" }}>
                 {editUser.value ? <Info username={props.username} /> : <></>}
             </div>
-            <div className="DAT_PopupBG" style={{ height: delstate.value ? "100vh" : "0", transition: "0.5s" }}>
+
+            <div className="DAT_PopupBG" style={{ height: delstate.value ? "100vh" : "0" }}>
                 {delstate.value ? <Raisebox handleDelete={handleDelete} setdata={setdata} /> : <></>}
             </div>
         </>

@@ -46,20 +46,20 @@ export default function View(props) {
         };
 
         const dragging = (e, type) => {
-            
+
                 if (!isDragging) return;
-                const x_ = type === 'mouse' ?  e.clientX - boxRef.current.offsetLeft : e.changedTouches[0].clientX - boxRef.current.offsetLeft;
+                const x_ = type === 'mouse' ? e.clientX - boxRef.current.offsetLeft : e.changedTouches[0].clientX - boxRef.current.offsetLeft;
                 const scrollLeft = x_ - startX;
                 if (scrollLeft > 0) {
                         if (x.value < 150) {
                                 x.value += 42
-                                setIsDragging(false);    
+                                setIsDragging(false);
                         }
                 }
                 if (scrollLeft < 0) {
                         if (x.value > 24) {
                                 x.value -= 42
-                                setIsDragging(false);            
+                                setIsDragging(false);
                         }
                 }
                 s.value = parseInt((360 - x.value) / 42);
@@ -69,19 +69,19 @@ export default function View(props) {
         };
 
         const stopDragging = () => {
-                
+
                 setIsDragging(false);
         };
 
         const handlePage = (page) => {
                 // console.log(new Date().getTime() - movestart.value)
-                console.log(new Date().getTime() - movestart.value)
-                if((new Date().getTime() - movestart.value) < 120) {
+                // console.log(new Date().getTime() - movestart.value)
+                if ((new Date().getTime() - movestart.value) < 120) {
                         // console.log(page)
                         movestart.value = 0
                         nevigate('/' + page)
                 }
-               
+
         }
 
 
@@ -97,7 +97,7 @@ export default function View(props) {
 
         useEffect(() => {
                 if (type === 'user') {
-                        console.log(pageDefault.value)
+                        // console.log(pageDefault.value)
                         if (pageDefault.value.status) {
                                 navigate('/' + which[pageDefault.value.code])
                         }
@@ -123,23 +123,23 @@ export default function View(props) {
                 <>
                         {/* <MenuTop user={user} /> */}
                         <div className="DAT_viewIOT">
-                             
+
                                 {/* <div className="DAT_viewIOT-Arrow" style={{ visibility: (s.value !== 5) ? "visible" : "hidden", }} id="pre" onClick={(e) => { handeAction(e) }}><ion-icon name="chevron-back-outline"></ion-icon></div> */}
                                 <div></div>
                                 <div className="DAT_viewIOT-3D"
                                         ref={boxRef}
-                                        onMouseDown={(e) => startDragging(e,'mouse')}
-                                        onMouseMove={(e) => dragging(e,'mouse')}
+                                        onMouseDown={(e) => startDragging(e, 'mouse')}
+                                        onMouseMove={(e) => dragging(e, 'mouse')}
                                         onMouseUp={stopDragging}
                                         onMouseLeave={stopDragging}
 
-                                        onTouchStart={(e) => startDragging(e,'touch')}
-                                        onTouchMove={(e)=>dragging(e,'touch')}
+                                        onTouchStart={(e) => startDragging(e, 'touch')}
+                                        onTouchMove={(e) => dragging(e, 'touch')}
                                         onTouchEnd={stopDragging}
 
-                                        // onPointerDown={(e) => startDragging(e,'mouse')}
-                                        // onPointerMove={(e) => dragging(e,'mouse')}
-                                        // onPointerUp={stopDragging}
+                                // onPointerDown={(e) => startDragging(e,'mouse')}
+                                // onPointerMove={(e) => dragging(e,'mouse')}
+                                // onPointerUp={stopDragging}
 
                                 >
                                         <span style={{ "--i": 1 }} className="DAT_viewIOT-3D-Item" id="move">
@@ -169,26 +169,26 @@ export default function View(props) {
 
 
                                         <span style={{ "--i": 5 }} className="DAT_viewIOT-3D-Item">
-                                                        <img alt="" draggable="false" onMouseUp={()=> handlePage('UPS') } src="dat_icon/ups.png"></img>
-                                                        <label style={{ color: (s.value === 5) ? "white" : "gray", transition: "1s" }}>UPS</label>
+                                                <img alt="" draggable="false" onMouseUp={() => handlePage('UPS')} src="dat_icon/ups.png"></img>
+                                                <label style={{ color: (s.value === 5) ? "white" : "gray", transition: "1s" }}>UPS</label>
                                         </span>
                                         <span style={{ "--i": 6 }} className="DAT_viewIOT-3D-Item">
-                                                        <img alt="" draggable="false" onPointerUp={()=> handlePage('SOLAR')} src="dat_icon/solar.png"></img>
-                                                        <label style={{ color: (s.value === 6) ? "white" : "gray", transition: "1s" }}>Solar</label>
+                                                <img alt="" draggable="false" onPointerUp={() => handlePage('SOLAR')} src="dat_icon/solar.png"></img>
+                                                <label style={{ color: (s.value === 6) ? "white" : "gray", transition: "1s" }}>Solar</label>
                                         </span>
                                         <span style={{ "--i": 7 }} className="DAT_viewIOT-3D-Item">
-                                                        <img alt="" draggable="false" onPointerUp={()=> handlePage('AUTO') } src="dat_icon/auto.png"></img>
-                                                        <label style={{ color: (s.value === 7) ? "white" : "gray", transition: "1s" }}>Automation</label>
+                                                <img alt="" draggable="false" onPointerUp={() => handlePage('AUTO')} src="dat_icon/auto.png"></img>
+                                                <label style={{ color: (s.value === 7) ? "white" : "gray", transition: "1s" }}>Automation</label>
                                         </span>
                                         <span style={{ "--i": 8 }} className="DAT_viewIOT-3D-Item">
-                                                        <img alt="" draggable="false" onPointerUp={()=> handlePage('ELEV') } src="dat_icon/elev.png"></img>
-                                                        <label style={{ color: (s.value === 8) ? "white" : "gray", transition: "1s" }}>Elevator</label>
+                                                <img alt="" draggable="false" onPointerUp={() => handlePage('ELEV')} src="dat_icon/elev.png"></img>
+                                                <label style={{ color: (s.value === 8) ? "white" : "gray", transition: "1s" }}>Elevator</label>
                                         </span>
 
                                 </div>
                                 <div></div>
                                 {/* <div className="DAT_viewIOT-Arrow" style={{ visibility: (s.value !== 8) ? "visible" : "hidden" }} id="next" onClick={(e) => { handeAction(e) }}><ion-icon name="chevron-forward-outline"></ion-icon></div> */}
-       
+
                         </div >
 
                 </>

@@ -80,7 +80,7 @@ export default function ListEx(props) {
     };
 
     useEffect(() => {
-        console.log(props.username);
+        // console.log(props.username);
         exp.value = [];
         axios
             .post(
@@ -89,7 +89,7 @@ export default function ListEx(props) {
                 { secure: true, reconnect: true }
             )
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 var listp = res.data;
 
                 axios
@@ -99,7 +99,7 @@ export default function ListEx(props) {
                         { secure: true, reconnect: true }
                     )
                     .then((res) => {
-                        console.log(res.data);
+                        // console.log(res.data);
 
                         exp.value = [...listp, ...res.data];
                         exp.value = exp.value.map((data, index) => ({
@@ -111,7 +111,7 @@ export default function ListEx(props) {
                         //     i_.value = res.data[0].id
                         //     register.value = res.data[0].setting
                         // }
-                        console.log(exp.value)
+                        // console.log(exp.value)
                         setFilter(exp.value);
                     });
             });

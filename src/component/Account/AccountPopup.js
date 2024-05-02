@@ -7,7 +7,7 @@ import axios from "axios";
 import { host } from "../constant";
 import { useSelector } from "react-redux";
 import { IoClose } from "react-icons/io5";
-import { editPass } from "./Account";
+// import { editPass } from "./Account";
 import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
 
 export default function AccountPopup(props) {
@@ -55,10 +55,10 @@ export default function AccountPopup(props) {
             case "password":
                 if (newPass.current.value !== currentPass.current.value) {
                     if (newPass.current.value === confirmPass.current.value) {
-                        console.log(props.username)
+                        // console.log(props.username)
                         axios.post(host.DEVICE + "/changePassword", { user: user, mail: mail.current.value, curpwd: currentPass.current.value, newpwd: confirmPass.current.value }, { withCredentials: true }).then(
                             function (res) {
-                                console.log(res.data)
+                                // console.log(res.data)
                                 if (res.data.status) {
                                     alertDispatch({ type: 'LOAD_CONTENT', payload: { content: dataLang.formatMessage({ id: "alert_24" }), show: 'block' } })
                                 } else {
@@ -113,18 +113,15 @@ export default function AccountPopup(props) {
                         return <div className="DAT_Security">
                             <form className="DAT_Security_Form" onSubmit={(e) => handleSave(e)}>
                                 <div className="DAT_Security_Form_Head">
-                                    <div className="DAT_Security_Form_Head_Left">
-                                        <p>Đổi tên</p>
-                                    </div>
-
+                                    <div className="DAT_Security_Form_Head_Left">Đổi tên</div>
                                     <div className="DAT_Security_Form_Head_Right">
-                                        <div className="DAT_Security_Form_Head_Righ_Icon"
+                                        <div className="DAT_Security_Form_Head_Right_Icon"
                                             id="Popup"
                                             onMouseEnter={(e) => handlePopup("new")}
                                             onMouseLeave={(e) => handlePopup("pre")}
                                             onClick={() => props.handleClose()}
                                         >
-                                            <IoClose size={25} />
+                                            <IoClose size={25} color="white" />
                                         </div>
                                     </div>
                                 </div>
@@ -153,12 +150,9 @@ export default function AccountPopup(props) {
                         return <div className="DAT_Security">
                             <form className="DAT_Security_Form" onSubmit={(e) => handleSave(e)}>
                                 <div className="DAT_Security_Form_Head">
-                                    <div className="DAT_Security_Form_Head_Left">
-                                        <p>Đổi số điện thoại</p>
-                                    </div>
-
+                                    <div className="DAT_Security_Form_Head_Left">Đổi số điện thoại</div>
                                     <div className="DAT_Security_Form_Head_Right">
-                                        <div className="DAT_Security_Form_Head_Righ_Icon"
+                                        <div className="DAT_Security_Form_Head_Right_Icon"
                                             id="Popup"
                                             onMouseEnter={(e) => handlePopup("new")}
                                             onMouseLeave={(e) => handlePopup("pre")}
@@ -193,12 +187,9 @@ export default function AccountPopup(props) {
                         return <div className="DAT_Security">
                             <form className="DAT_Security_Form" onSubmit={(e) => handleSave(e)}>
                                 <div className="DAT_Security_Form_Head">
-                                    <div className="DAT_Security_Form_Head_Left">
-                                        <p>Đổi địa chỉ</p>
-                                    </div>
-
+                                    <div className="DAT_Security_Form_Head_Left">Đổi địa chỉ</div>
                                     <div className="DAT_Security_Form_Head_Right">
-                                        <div className="DAT_Security_Form_Head_Righ_Icon"
+                                        <div className="DAT_Security_Form_Head_Right_Icon"
                                             id="Popup"
                                             onMouseEnter={(e) => handlePopup("new")}
                                             onMouseLeave={(e) => handlePopup("pre")}
@@ -233,12 +224,9 @@ export default function AccountPopup(props) {
                         return <div className="DAT_Security">
                             <form className="DAT_Security_Form" onSubmit={(e) => handleSave(e)}>
                                 <div className="DAT_Security_Form_Head">
-                                    <div className="DAT_Security_Form_Head_Left">
-                                        <p>Đổi mail</p>
-                                    </div>
-
+                                    <div className="DAT_Security_Form_Head_Left">Đổi mail</div>
                                     <div className="DAT_Security_Form_Head_Right">
-                                        <div className="DAT_Security_Form_Head_Righ_Icon"
+                                        <div className="DAT_Security_Form_Head_Right_Icon"
                                             id="Popup"
                                             onMouseEnter={(e) => handlePopup("new")}
                                             onMouseLeave={(e) => handlePopup("pre")}
@@ -273,12 +261,9 @@ export default function AccountPopup(props) {
                         return <div className="DAT_Security">
                             <form className="DAT_Security_Form" onSubmit={(e) => handleSave(e)}>
                                 <div className="DAT_Security_Form_Head">
-                                    <div className="DAT_Security_Form_Head_Left">
-                                        <p>Đổi mật khẩu</p>
-                                    </div>
-
+                                    <div className="DAT_Security_Form_Head_Left">Đổi mật khẩu</div>
                                     <div className="DAT_Security_Form_Head_Right">
-                                        <div className="DAT_Security_Form_Head_Righ_Icon"
+                                        <div className="DAT_Security_Form_Head_Right_Icon"
                                             id="Popup"
                                             onMouseEnter={(e) => handlePopup("new")}
                                             onMouseLeave={(e) => handlePopup("pre")}

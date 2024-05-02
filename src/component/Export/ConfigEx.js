@@ -38,6 +38,7 @@ export default function ConfigEx(props) {
         selectAllRowsItem: true,
         selectAllRowsItemText: "tất cả",
     };
+
     const col = [
         {
             name: "STT",
@@ -50,7 +51,7 @@ export default function ConfigEx(props) {
             name: "Mã báo cáo",
             selector: (row) => row.code,
             center: true,
-            minWidth: "100px",
+            width: "100px",
         },
         {
             name: "Tên",
@@ -64,7 +65,7 @@ export default function ConfigEx(props) {
                 <>
                     <div
                         style={{
-                            cursor: "pointer",
+                            // cursor: "pointer",
                             marginBottom: "10px",
                             marginTop: "10px",
                         }}
@@ -78,8 +79,7 @@ export default function ConfigEx(props) {
                                         <span>{item.cal}</span>
                                     ) : (
                                         <>
-                                            <span>{JSON.parse(item.cal)[0]}</span>:
-                                            <span>{JSON.parse(item.cal)[1]}</span>
+                                            <span>{JSON.parse(item.cal)[0]} : {JSON.parse(item.cal)[1]}</span>
                                         </>
                                     )}
                                     <span>{item.type}</span>
@@ -104,7 +104,7 @@ export default function ConfigEx(props) {
                 <>
                     <div
                         style={{
-                            cursor: "pointer",
+                            // cursor: "pointer",
                             marginBottom: "10px",
                             marginTop: "10px",
                         }}
@@ -118,8 +118,7 @@ export default function ConfigEx(props) {
                                         <span>{item.cal}</span>
                                     ) : (
                                         <>
-                                            <span>{JSON.parse(item.cal)[0]}</span>:
-                                            <span>{JSON.parse(item.cal)[1]}</span>
+                                            <span>{JSON.parse(item.cal)[0]}: {JSON.parse(item.cal)[1]}</span>
                                         </>
                                     )}
                                     <span>{item.type}</span>
@@ -141,10 +140,22 @@ export default function ConfigEx(props) {
         },
     ];
 
+    const popup_state = {
+        pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+        new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+    };
+
+    const handlePopup = (state) => {
+        const popup = document.getElementById("Popup");
+        popup.style.transform = popup_state[state].transform;
+        popup.style.transition = popup_state[state].transition;
+        popup.style.color = popup_state[state].color;
+    };
+
     const handleConfig = (e) => {
         // console.log(e.currentTarget.id);
         var arr = e.currentTarget.id.split("_");
-        console.log(arr);
+        // console.log(arr);
         let newData = reporttime.value.find((item) => {
             return item.code == arr[0];
         });
@@ -162,7 +173,7 @@ export default function ConfigEx(props) {
             setConfig(newData);
         }
         setState(!state);
-        console.log(newData);
+        // console.log(newData);
     };
 
     const handleSave = (e) => {
@@ -188,7 +199,7 @@ export default function ConfigEx(props) {
                 { secure: true, reconnect: true }
             )
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.status) {
                     let i = reporttime.value.findIndex((item) => {
                         return item.code == mcode;
@@ -227,7 +238,7 @@ export default function ConfigEx(props) {
     const handleNav = (e) => {
         var id = e.currentTarget.id;
 
-        console.log(id);
+        // console.log(id);
         setNav(id);
     };
 
@@ -286,48 +297,61 @@ export default function ConfigEx(props) {
                             </div>
                         }
                     />
-                    {state ? (
-                        <div className="DAT_Config">
-                            <div className="DAT_Config-Content">
-                                <div
-                                    className="DAT_Config-Content-Close"
-                                    onClick={() => setState(!state)}
-                                >
-                                    <IoClose />
-                                </div>
-                                <div className="DAT_Config-Content-Tit">
-                                    {mcode} {report}
-                                </div>
-                                <span>ID</span>
-                                <input type="text" defaultValue={config.id} ref={id} />
-                                <span>Tên</span>
-                                <input type="text" defaultValue={config.name} ref={name} />
 
-                                <div>
-                                    <span>Loại: {config.type}</span>
+                    {state ? (
+                        <div className="DAT_PopupBG">
+                            <div className="DAT_Config-Content">
+                                <div className="DAT_Config-Content_Head">
+                                    <div className="DAT_Config-Content_Head_Left">{mcode} {report}</div>
+                                    <div className="DAT_Config-Content_Head_Right">
+                                        <div className="DAT_Config-Content_Head_Right_Close"
+                                            id="Popup"
+                                            onMouseEnter={(e) => handlePopup("new")}
+                                            onMouseLeave={(e) => handlePopup("pre")}
+                                            onClick={() => setState(!state)}
+                                        >
+                                            <IoClose size={25} color="white" />
+                                        </div>
+                                    </div>
                                 </div>
-                                {config.type === "word" ? (
-                                    <>
-                                        <span>Thanh ghi</span>
-                                        <input type="text" defaultValue={config.cal} ref={cal} />
-                                    </>
-                                ) : (
-                                    <>
-                                        <span>Thanh ghi Bit 0</span>
-                                        <input
-                                            type="text"
-                                            defaultValue={JSON.parse(config.cal)[0]}
-                                            ref={cal_bit_0}
-                                        />
-                                        <span>Thanh ghi Bit 1</span>
-                                        <input
-                                            type="text"
-                                            defaultValue={JSON.parse(config.cal)[1]}
-                                            ref={cal_bit_1}
-                                        />
-                                    </>
-                                )}
-                                <button onClick={() => handleSave()}>Lưu</button>
+
+                                <div className="DAT_Config-Content_Body">
+                                    <span>ID</span>
+                                    <input type="text" defaultValue={config.id} ref={id} />
+                                    <span>Tên</span>
+                                    <input type="text" defaultValue={config.name} ref={name} />
+
+                                    <div>
+                                        <span>Loại: {config.type}</span>
+                                    </div>
+                                    {config.type === "word" ? (
+                                        <>
+                                            <span>Thanh ghi</span>
+                                            <input type="text" defaultValue={config.cal} ref={cal} />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span>Thanh ghi Bit 0</span>
+                                            <input
+                                                type="text"
+                                                defaultValue={JSON.parse(config.cal)[0]}
+                                                ref={cal_bit_0}
+                                            />
+                                            <span>Thanh ghi Bit 1</span>
+                                            <input
+                                                type="text"
+                                                defaultValue={JSON.parse(config.cal)[1]}
+                                                ref={cal_bit_1}
+                                            />
+                                        </>
+                                    )}
+                                </div>
+
+                                <div className="DAT_Config-Content_Foot">
+                                    <button onClick={() => handleSave()}>
+                                        Xác nhận
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ) : (
