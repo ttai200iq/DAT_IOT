@@ -73,7 +73,7 @@ export default function Listerr(props) {
         } else {
             return setFilter(list.value.filter((data) => data.deviceid.toLowerCase().includes(searchTerm)))
         }
-    }, [props.filter])
+    }, [props.filter, list.value])
 
     return (
         <>

@@ -442,7 +442,9 @@ export default function Listuser(props) {
             paginationComponentOptions={paginationComponentOptions}
             noDataComponent={
               <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-                <div>Đợi một chốc...!</div>
+                <div>
+                  Danh sách người dùng trống !
+                </div>
               </div>
             }
           />

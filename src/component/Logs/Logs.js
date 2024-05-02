@@ -49,7 +49,6 @@ export default function Logs(props) {
             var date_ = new Date(`${yearA}-${monthA}-${dayA}T${time.value}`).toISOString().split('T')[0]
             //console.log(date_)
 
-
             axios.post(host.DEVICE + "/getLogErr", { user: (type === 'user' || type === 'mainuser') ? admin : props.username, date: date.value }, { secure: true, reconnect: true })
                 .then((res) => {
                     inpdate.value = date_
@@ -59,13 +58,10 @@ export default function Logs(props) {
                     // console.log(errfilter.value)
                     state.value = 2
                 })
-
         }
-
     }, [state.value])
 
     useEffect(() => {
-
         //var Timezone = 'Asia/Ho_Chi_Minh';
         //var inp = document.getElementById('date')
         var inp = new Date().toISOString().split('T')[0]
@@ -80,17 +76,10 @@ export default function Logs(props) {
         socket_client.current.on("Err/" + user, function (data) {
             // console.log(data)
             if (data.date === moment(inp.value).format('MM/DD/YYYY')) {
-
                 err.value = [{ id: err.value.length + 1, ...data }, ...err.value]
                 err.value = err.value.map((data, index) => ({ ...data, count: index + 1 }))
-
-
                 errfilter.value = err.value
-
-
             }
-
-
         })
 
         axios.post(host.DEVICE + "/getLogErr", { user: (type === 'user' || type === 'mainuser') ? admin : props.username, date: date }, { secure: true, reconnect: true })
@@ -101,8 +90,6 @@ export default function Logs(props) {
                 if (state.value === 0) {
                     errfilter.value = err.value
                 }
-
-
             })
         return (() => {
             socket_client.current.off("Err/" + (type === 'user' || type === 'mainuser') ? admin : props.username);
@@ -117,13 +104,11 @@ export default function Logs(props) {
             .then((res) => {
                 // console.log(res.data)
                 err.value = res.data.map((data, index) => ({ ...data, count: index + 1 }))
-
                 errfilter.value = err.value
             })
     }
 
     const handleErr = (e) => {
-
         axios.post(host.DEVICE + "/checkLogErr", { code: e.currentTarget.id, user: (type === 'user' || type === 'mainuser') ? admin : props.username }, { secure: true, reconnect: true })
             .then((res) => {
                 //console.log(res.data)
@@ -144,25 +129,16 @@ export default function Logs(props) {
         //     .then((res) => {
         //         console.log(res.data)
         //         if (res.data.status) {
-
-
-
         //             err.value = err.value.filter((data) => !(data.id == arr[0]))
         //                 .map((data, index) => ({ ...data, count: index + 1 }))
-
-
         //             errfilter.value = err.value
-
         //             // console.log(err.value)
         //             // newData.map((data, index) => {
         //             //     return (data["id"] = index + 1);
         //             // });
         //             // console.log(newData);
-
         //         }
         //     })
-
-
     };
 
     const handleInput = (e) => {
@@ -245,11 +221,11 @@ export default function Logs(props) {
             name: "",
             selector: (row) => (
                 <div
+                    style={{ cursor: "pointer", color: "red" }}
                     id={row.id + "_" + row.time}
                     onClick={(e) => handleDelete(e)}
-                    style={{ cursor: "pointer", color: "red" }}
                 >
-                    xóa
+                    <MdOutlineDelete size={20} color="red" />
                 </div>
             ),
             width: "70px",

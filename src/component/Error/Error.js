@@ -41,6 +41,7 @@ export default function Error(props) {
     const [readstate, setReadstate] = useState(false);
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
+    const [loading, setLoading] = useState(false);
 
     const color = {
         cur: "#0d6efd",
