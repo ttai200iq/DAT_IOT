@@ -90,37 +90,53 @@
 
             &_AddNew {
 
+                // &-Form {
+                //     display: flex;
+                //     gap: 10px;
+                //     justify-content: center;
+                //     align-items: center;
+                //     background-color: white;
+                //     padding: 8px;
+                //     border-radius: 5px;
+                //     overflow: hidden;
+                //     border: solid 1px rgba(198, 197, 197, 0.5);
+                // }
+
+                // & input {
+                //     border: none;
+                //     outline: none;
+                //     font-size: 14px;
+                //     font-family: Montserrat-Regular;
+                // }
+
+                // & button {
+                //     border: none;
+                //     outline: none;
+                //     height: 26px;
+                //     width: 26px;
+                //     display: flex;
+                //     justify-content: center;
+                //     align-items: center;
+                //     border-radius: 50%;
+
+                //     &:hover {
+                //         background-color: rgba(198, 197, 197, 0.5);
+                //     }
+                // }
                 &-Form {
-                    display: flex;
-                    gap: 10px;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: white;
-                    padding: 8px;
+                    cursor: pointer;
+                    border: none;
+                    background-color: #0d6efd !important;
+                    color: white;
                     border-radius: 5px;
-                    overflow: hidden;
-                    border: solid 1px rgba(198, 197, 197, 0.5);
-                }
+                    font-family: Montserrat-SemiBold;
+                    padding: 8px;
 
-                & input {
-                    border: none;
-                    outline: none;
-                    font-size: 14px;
-                    font-family: Montserrat-Regular;
-                }
-
-                & button {
-                    border: none;
-                    outline: none;
-                    height: 26px;
-                    width: 26px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 50%;
-
-                    &:hover {
-                        background-color: rgba(198, 197, 197, 0.5);
+                    & span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 14px;
                     }
                 }
             }
@@ -269,6 +285,85 @@
     }
 }
 
+.DAT_ErrPopup {
+    position: relative;
+    width: 400px;
+    margin: auto;
+    margin-top: 200px;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow:
+        2px 2px 5px rgb(73, 73, 73, 0.2),
+        -2px -2px 5px rgb(67, 67, 67, 0.2);
+
+    &_Head {
+        display: flex;
+        align-items: center;
+        background-color: #0d6efd !important; //rgba(182, 182, 182, 0.4)
+        padding: 16px;
+        color: white;
+        font-family: Montserrat-Bold;
+
+        &_Left {
+            flex: 5;
+        }
+
+        &_Right {
+            display: flex;
+            justify-content: flex-end;
+            flex: 5;
+
+            &_Close {
+                cursor: pointer;
+            }
+        }
+    }
+
+    &_Body {
+        padding: 16px;
+        border-bottom: solid 1px rgba(198, 197, 197, 0.5);
+
+        & input {
+            width: 100%;
+            height: 30px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: solid 1px rgba(198, 197, 197);
+            padding: 8px;
+            outline: none;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            font-family: Montserrat-Regular;
+        }
+
+        & input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+
+    &_Foot {
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px;
+
+        & button {
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-family: Montserrat-SemiBold;
+            color: white;
+            font-size: 13px;
+            background-color: #0d6efd;
+        }
+    }
+}
+
 .DAT_Read {
     background-color: white;
     width: 95%;
@@ -307,71 +402,81 @@
 }
 
 .DAT_Register_Config {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    left: 0;
-    top: 0;
-
     &-Group {
         position: relative;
-        width: 95%;
+        width: 400px;
         margin: auto;
         margin-top: 200px;
         background-color: white;
-        border-radius: 7px;
-        padding: 20px;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow:
+            2px 2px 5px rgb(73, 73, 73, 0.2),
+            -2px -2px 5px rgb(67, 67, 67, 0.2);
 
-        &-Close {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            position: absolute;
-            right: 10px;
-            background-color: rgba(216, 216, 216, 0.3);
+        &_Head {
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            background-color: #0d6efd !important; //rgba(182, 182, 182, 0.4)
+            padding: 16px;
+            color: white;
+            font-family: Montserrat-Bold;
 
-            &:hover {
-                background-color: rgba(116, 116, 116, 0.5);
+            &_Left {
+                flex: 5;
+            }
+
+            &_Right {
+                display: flex;
+                justify-content: flex-end;
+                flex: 5;
+
+                &_Close {
+                    cursor: pointer;
+                }
             }
         }
 
-        &-Tit {
-            margin-top: 40px;
-        }
-
-        &-Content {
-            margin-top: 10px;
-            width: 100%;
-            height: 40px;
-            border-radius: 7px;
-            overflow: hidden;
-            display: flex;
-
-            &:focus-within {
-                box-shadow: 0 0 0 4px rgb(136, 136, 136, 0.5);
-            }
+        &_Body {
+            padding: 16px;
+            border-bottom: solid 1px rgba(198, 197, 197, 0.5);
 
             & input {
                 width: 100%;
+                height: 30px;
+                margin-top: 5px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                border: solid 1px rgba(198, 197, 197);
+                padding: 8px;
                 outline: none;
-                border: none;
-                background-color: rgb(241, 241, 241);
-                padding: 10px;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                font-family: Montserrat-Regular;
             }
 
+            & input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        }
+
+        &_Foot {
+            display: flex;
+            justify-content: flex-end;
+            padding: 8px;
+
             & button {
-                width: 80px;
-                outline: none;
+                padding: 8px 16px;
+                border-radius: 5px;
                 border: none;
-                background-color: rgb(241, 241, 241);
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                cursor: pointer;
+                font-family: Montserrat-SemiBold;
+                color: white;
+                font-size: 13px;
+                background-color: #0d6efd;
             }
         }
     }
@@ -814,7 +919,7 @@
         height: calc(100vh - 200px);
     }
 
-    .DAT_Register_Config-Group {
-        width: 500px;
-    }
+    // .DAT_Register_Config-Group {
+    //     width: 500px;
+    // }
 }

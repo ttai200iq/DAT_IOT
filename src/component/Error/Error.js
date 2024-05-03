@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Register from "./Register";
 import Listerr from "./Listerr";
 import Reader from "./Reader";
-import { effect, signal } from "@preact/signals-react";
+import { signal } from "@preact/signals-react";
 import axios from "axios";
 import { host } from "../constant";
 import { useIntl } from "react-intl";
@@ -13,7 +13,7 @@ import { isBrowser } from "react-device-detect";
 import { IoIosAddCircle, IoMdAdd } from "react-icons/io";
 import { BiMessageAltError } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
-import { IoSaveOutline } from "react-icons/io5";
+import { IoClose, IoSaveOutline } from "react-icons/io5";
 
 export const readstate = signal(false);
 
@@ -39,9 +39,11 @@ export default function Error(props) {
         { id: "list", text: inf.tit },
     ];
     const [readstate, setReadstate] = useState(false);
+    const [popupState, setPopupState] = useState(false);
+    const [popupType, setPopupType] = useState("");
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
 
     const color = {
         cur: "#0d6efd",
@@ -117,6 +119,27 @@ export default function Error(props) {
         setNav(id);
     };
 
+    const popup_state = {
+        pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+        new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+    };
+
+    const handlePopup = (state) => {
+        const popup = document.getElementById("Popup_");
+        popup.style.transform = popup_state[state].transform;
+        popup.style.transition = popup_state[state].transition;
+        popup.style.color = popup_state[state].color;
+    };
+
+    const handleAdd = (e) => {
+        setPopupState(true);
+        setPopupType(e.currentTarget.id);
+    };
+
+    const handleClosePopup = (e) => {
+        setPopupState(false);
+    };
+
     const handleAddRegister = (e) => {
         e.preventDefault();
         var err = document.getElementById("errcode");
@@ -137,6 +160,7 @@ export default function Error(props) {
                 },
             ],
         };
+        setPopupState(false);
     };
 
     const handleUpdate = (e) => {
@@ -236,6 +260,8 @@ export default function Error(props) {
                 });
             // console.log(reader.value)
         }
+
+        setPopupState(false);
     };
 
     const handleFilter = (e) => {
@@ -247,12 +273,27 @@ export default function Error(props) {
         // console.log(readstate);
     }, [readstate]);
 
+    // Handle close when press ESC
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                handleClosePopup();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <>
             {isBrowser ? (
                 <div className="DAT_Err">
-                    <div
-                        className="DAT_Err_Banner"
+                    <div className="DAT_Err_Banner"
                         style={{
                             backgroundImage: banner,
                             backgroundPosition: "bottom",
@@ -262,6 +303,7 @@ export default function Error(props) {
                     >
                         {/* <div className="DAT_ErrTop-shadow" ></div> */}
                     </div>
+
                     <div className="DAT_Err_Content">
                         <div className="DAT_Err_Content_Direct">
                             {direct.map((data, index) => {
@@ -285,6 +327,7 @@ export default function Error(props) {
                                 );
                             })}
                         </div>
+
                         <div className="DAT_Err_Content_Tit">
                             <div className="DAT_Err_Content_Tit-content">
                                 <BiMessageAltError size={30} color="white" />
@@ -343,35 +386,57 @@ export default function Error(props) {
                                             )
                                         case "register":
                                             return (
-                                                <>
-                                                    <form className="DAT_Err_Content_Tit_AddNew-Form"
-                                                        onSubmit={(e) => handleAddRegister(e)}>
-                                                        <input
-                                                            placeholder="Thêm địa chỉ"
-                                                            id="errcode"
-                                                            required
-                                                        ></input>
-                                                        <button>
-                                                            <IoMdAdd size={20} />
-                                                        </button>
-                                                    </form>
-                                                </>
+                                                // <>
+                                                //     <form className="DAT_Err_Content_Tit_AddNew-Form"
+                                                //         onSubmit={(e) => handleAddRegister(e)}>
+                                                //         <input
+                                                //             placeholder="Thêm địa chỉ"
+                                                //             id="errcode"
+                                                //             required
+                                                //         ></input>
+                                                //         <button>
+                                                //             <IoMdAdd size={20} />
+                                                //         </button>
+                                                //     </form>
+
+                                                <button className="DAT_Err_Content_Tit_AddNew-Form"
+                                                    id="addr"
+                                                    onClick={(e) => handleAdd(e)}
+                                                >
+                                                    <span>
+                                                        <IoMdAdd color="white" size={20} />
+                                                        &nbsp;
+                                                        Thêm địa chỉ
+                                                    </span>
+                                                </button>
+                                                // </>
                                             );
                                         case "reader":
                                             return (
-                                                <>
-                                                    <form className="DAT_Err_Content_Tit_AddNew-Form"
-                                                        onSubmit={(e) => handleAddReader(e)}>
-                                                        <input
-                                                            placeholder="Thêm mã lỗi"
-                                                            id="errid"
-                                                            required
-                                                        ></input>
-                                                        <button>
-                                                            <IoMdAdd size={20} />
-                                                        </button>
-                                                    </form>
-                                                </>
+                                                // <>
+                                                //     <form className="DAT_Err_Content_Tit_AddNew-Form"
+                                                //         onSubmit={(e) => handleAddReader(e)}>
+                                                //         <input
+                                                //             placeholder="Thêm mã lỗi"
+                                                //             id="errid"
+                                                //             required
+                                                //         ></input>
+                                                //         <button>
+                                                //             <IoMdAdd size={20} />
+                                                //         </button>
+                                                //     </form>
+                                                // </>
+
+                                                <button className="DAT_Err_Content_Tit_AddNew-Form"
+                                                    id="code"
+                                                    onClick={(e) => handleAdd(e)}
+                                                >
+                                                    <span>
+                                                        <IoMdAdd color="white" size={20} />
+                                                        &nbsp;
+                                                        Thêm mã lỗi
+                                                    </span>
+                                                </button>
                                             );
                                         default:
                                             <></>;
@@ -529,8 +594,46 @@ export default function Error(props) {
                         </div>
                     </div>
                 </>
-            )
-            }
+            )}
+
+            <div className="DAT_PopupBG" style={{ display: popupState ? "block" : "none" }}>
+                <form className="DAT_ErrPopup" onSubmit={(e) => popupType === "addr" ? handleAddRegister(e) : handleAddReader(e)}>
+                    <div className="DAT_ErrPopup_Head">
+                        <div className="DAT_ErrPopup_Head_Left">
+                            {popupType === "addr" ? "Thêm địa chỉ" : "Thêm mã lỗi"}
+                        </div>
+                        <div className="DAT_ErrPopup_Head_Right">
+                            <div className="DAT_ErrPopup_Head_Right_Close"
+                                id="Popup_"
+                                onMouseEnter={(e) => handlePopup("new")}
+                                onMouseLeave={(e) => handlePopup("pre")}
+                                onClick={(e) => handleClosePopup(e)}
+                            >
+                                <IoClose size={25} color="white" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="DAT_ErrPopup_Body">
+                        {popupType === "addr"
+                            ?
+                            <>
+                                <span>Thêm địa chỉ</span>
+                                <input placeholder="Nhập địa chỉ" id="errcode" required />
+                            </>
+                            :
+                            <>
+                                <span>Thêm mã lỗi</span>
+                                <input placeholder="Nhập mã lỗi" id="errid" required />
+                            </>
+                        }
+                    </div>
+
+                    <div className="DAT_ErrPopup_Foot">
+                        <button>Xác nhận</button>
+                    </div>
+                </form>
+            </div>
         </>
     );
 }

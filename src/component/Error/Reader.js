@@ -7,10 +7,10 @@ import { host } from "../constant";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
-import { IoIosAddCircle, IoIosArrowBack, IoMdAdd } from "react-icons/io";
+import { IoIosAddCircle } from "react-icons/io";
 import { lowercasedata } from "../User/Listuser";
 import { BeatLoader } from 'react-spinners';
-import { FaCheckCircle } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 export default function Reader(props) {
   const dataLang = useIntl();
@@ -21,7 +21,7 @@ export default function Reader(props) {
   const [positon, setPosition] = useState({ col: "", row: 0 });
   const [dataRead, setDataRead] = useState(reader.value);
   const [loading, setLoading] = useState(true);
-  const [result, setResult] = useState([]);
+  // const [result, setResult] = useState([]);
 
   const paginationComponentOptions = {
     rowsPerPageText: 'Số hàng',
@@ -29,19 +29,21 @@ export default function Reader(props) {
     selectAllRowsItem: true,
     selectAllRowsItemText: 'tất cả',
   };
+
   const col = [
     {
       name: "STT",
       selector: (row) => row.id,
       sortable: true,
       width: "80px",
+      center: true,
     },
     {
       name: "Mã Lỗi",
       selector: (row) => row.code,
       sortable: true,
       width: "100px",
-
+      center: true,
     },
     {
       name: "Tên Lỗi",
@@ -84,27 +86,27 @@ export default function Reader(props) {
       selector: (row) => (
         <>
           <div
-            style={{ cursor: "pointer" }}
+          // style={{ cursor: "pointer" }}
           >
             {row.infor.map((data, i) => {
               return (
                 (i === row.infor.length - 1)
                   ? <div key={i}
-                    style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+                    style={{ display: "flex", alignItems: "center" }}>
                     <span id={"text_infor" + "_" + row.id + "_" + parseInt(i + 1)}
                       style={{ width: "200px", marginRight: "10px", textAlign: "justify", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                       - {data.text}
                     </span>
                     <span id={"edit_infor_" + row.code + "_" + parseInt(i + 1)} onClick={(e) => handleEditItem(e)}
-                      style={{ color: "green", marginRight: "10px" }}>
+                      style={{ cursor: "pointer", color: "green", marginRight: "10px" }}>
                       <ion-icon name="create-outline"></ion-icon>
                     </span>
                     <span id={"delete_infor_" + row.code + "_" + parseInt(i + 1)} onClick={(e) => handleDeleteItem(e)}
-                      style={{ color: "red", marginRight: "10px" }}>
+                      style={{ cursor: "pointer", color: "red", marginRight: "10px" }}>
                       <ion-icon name="trash-outline"></ion-icon>
                     </span>
                     <span id={"add_infor_" + row.code} onClick={(e) => handleAddItem(e)}
-                      style={{ color: "red" }}><ion-icon name="add-circle-outline"></ion-icon>
+                      style={{ cursor: "pointer", color: "red" }}><ion-icon name="add-circle-outline"></ion-icon>
                     </span>
                   </div>
                   : <div key={i} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
@@ -113,11 +115,11 @@ export default function Reader(props) {
                       - {data.text}
                     </span>
                     <span id={"edit_infor_" + row.code + "_" + parseInt(i + 1)} onClick={(e) => handleEditItem(e)}
-                      style={{ color: "green", marginRight: "10px" }}>
+                      style={{ cursor: "pointer", color: "green", marginRight: "10px" }}>
                       <ion-icon name="create-outline"></ion-icon>
                     </span>
                     <span id={"delete_infor_" + row.code + "_" + parseInt(i + 1)} onClick={(e) => handleDeleteItem(e)}
-                      style={{ color: "red", marginRight: "10px" }}>
+                      style={{ cursor: "pointer", color: "red", marginRight: "10px" }}>
                       <ion-icon name="trash-outline"></ion-icon>
                     </span>
                   </div>
@@ -135,39 +137,39 @@ export default function Reader(props) {
       name: "Biện Pháp",
       selector: (row) => (
         <>
-          <div style={{ cursor: "pointer" }}>
+          <div >
             {row.solution.map((data, i) => {
               return (
                 (i === row.solution.length - 1)
-                  ? <div key={i} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+                  ? <div key={i} style={{ display: "flex", alignItems: "center" }}>
                     <span id={"text_solution_" + "_" + row.code + "_" + parseInt(i + 1)}
                       style={{ width: "200px", marginRight: "10px", textAlign: "justify", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                       - {data.text}
                     </span>
                     <span id={"edit_solution_" + row.code + "_" + parseInt(i + 1)} onClick={(e) => handleEditItem(e)}
-                      style={{ color: "green", marginRight: "10px" }}
+                      style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
                     >
                       <ion-icon name="create-outline"></ion-icon>
                     </span>
                     <span id={"delete_solution_" + row.code + "_" + parseInt(i + 1)} onClick={(e) => handleDeleteItem(e)}
-                      style={{ color: "red", marginRight: "10px" }}>
+                      style={{ cursor: "pointer", color: "red", marginRight: "10px" }}>
                       <ion-icon name="trash-outline"></ion-icon>
                     </span>
                     <span id={"add_solution_" + row.code} onClick={(e) => handleAddItem(e)}
-                      style={{ color: "red" }}><ion-icon name="add-circle-outline"></ion-icon>
+                      style={{ cursor: "pointer", color: "red" }}><ion-icon name="add-circle-outline"></ion-icon>
                     </span>
                   </div>
-                  : <div key={i} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+                  : <div key={i} style={{ display: "flex", alignItems: "center" }}>
                     <span id={"text_solution_" + "_" + row.code + "_" + parseInt(i + 1)}
                       style={{ width: "200px", marginRight: "10px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                       - {data.text}
                     </span>
                     <span id={"edit_solution_" + row.code + "_" + parseInt(i + 1)} onClick={(e) => handleEditItem(e)}
-                      style={{ color: "green", marginRight: "10px" }}>
+                      style={{ cursor: "pointer", color: "green", marginRight: "10px" }}>
                       <ion-icon name="create-outline"></ion-icon>
                     </span>
                     <span id={"delete_solution_" + row.code + "_" + parseInt(i + 1)} onClick={(e) => handleDeleteItem(e)}
-                      style={{ color: "red", marginRight: "10px" }}>
+                      style={{ cursor: "pointer", color: "red", marginRight: "10px" }}>
                       <ion-icon name="trash-outline"></ion-icon>
                     </span>
                   </div>
@@ -214,6 +216,18 @@ export default function Reader(props) {
       center: true,
     },
   ];
+
+  const popup_state = {
+    pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+    new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+  };
+
+  const handlePopup = (state) => {
+    const popup = document.getElementById("Popup");
+    popup.style.transform = popup_state[state].transform;
+    popup.style.transition = popup_state[state].transition;
+    popup.style.color = popup_state[state].color;
+  };
 
   const handleChange = (e) => {
     setConfig(true);
@@ -472,6 +486,22 @@ export default function Reader(props) {
     }
   }, [props.filter])
 
+  // Handle close when press ESC
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       {isBrowser ?
@@ -646,18 +676,35 @@ export default function Reader(props) {
         </>
       }
 
-      <div className="DAT_Register_Config" style={{ display: config ? "block" : "none" }}>
-        <div className="DAT_Register_Config-Group">
+      <div className="DAT_PopupBG"
+        style={{ display: config ? "block" : "none" }}
+      >
+        <form className="DAT_Register_Config-Group" onSubmit={(e) => handleSave(e)}>
+          <div className="DAT_Register_Config-Group_Head">
+            <div className="DAT_Register_Config-Group_Head_Left">Thay đổi</div>
+            <div className="DAT_Register_Config-Group_Head_Right">
+              <div className="DAT_Register_Config-Group_Head_Right_Close"
+                id="Popup"
+                onMouseEnter={(e) => handlePopup("new")}
+                onMouseLeave={(e) => handlePopup("pre")}
+                onClick={(e) => handleClose(e)}
+              >
+                <IoClose size={25} color="white" />
+              </div>
+            </div>
+          </div>
 
-          <div className="DAT_Register_Config-Group-Close" onClick={(e) => handleClose(e)} >
-            <ion-icon name="close-outline"></ion-icon></div>
-          <div className="DAT_Register_Config-Group-Tit">{tit}</div>
+          <div className="DAT_Register_Config-Group_Body">
+            <span>{tit}</span>
+            <input type="text" id="configvalue" required />
+          </div>
 
-          <form className="DAT_Register_Config-Group-Content" onSubmit={(e) => handleSave(e)}>
-            <input type="text" id="configvalue" required></input>
-            <button>Lưu</button>
-          </form>
-        </div>
+          <div className="DAT_Register_Config-Group_Foot">
+            <button>
+              Xác nhận
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );

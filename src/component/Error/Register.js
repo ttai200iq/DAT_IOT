@@ -7,11 +7,8 @@ import { host } from "../constant";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
-import { LuFolderEdit } from "react-icons/lu";
 import { IoIosArrowBack } from "react-icons/io";
-import { FaRegSave } from "react-icons/fa";
-import { IoSaveOutline } from "react-icons/io5";
-import { lowercasedata } from "../User/Listuser";
+import { IoClose, IoSaveOutline } from "react-icons/io5";
 
 export default function Register(props) {
     const dataLang = useIntl();
@@ -21,12 +18,14 @@ export default function Register(props) {
     const [filter, setFilter] = useState([]);
 
     const [positon, setPosition] = useState({ col: "", row: 0 });
+
     const paginationComponentOptions = {
         rowsPerPageText: "Số hàng",
         rangeSeparatorText: "đến",
         selectAllRowsItem: true,
         selectAllRowsItemText: "tất cả",
     };
+
     const col = [
         {
             name: "STT",
@@ -40,9 +39,9 @@ export default function Register(props) {
             selector: (row) => (
                 <>
                     <div
-                        // id={"addrcode_" + row.id}
-                        // onClick={(e) => handleChange(e)}
-                        style={{ cursor: "pointer" }}
+                    // id={"addrcode_" + row.id}
+                    // onClick={(e) => handleChange(e)}
+                    // style={{ cursor: "pointer" }}
                     >
                         {row.addrcode}
                     </div>
@@ -56,7 +55,7 @@ export default function Register(props) {
                 <>
                     <div
                         style={{
-                            cursor: "pointer",
+                            // cursor: "pointer",
                             marginBottom: "10px",
                             marginTop: "10px",
                         }}
@@ -66,7 +65,7 @@ export default function Register(props) {
                                 <div
                                     key={i}
                                     style={{
-                                        cursor: "pointer",
+                                        // cursor: "pointer",
                                         display: "flex",
                                         alignItems: "center",
                                     }}
@@ -83,6 +82,7 @@ export default function Register(props) {
                                         id={"edit_" + row.id + "_" + parseInt(i + 1)}
                                         onClick={(e) => handleEditItem(e)}
                                         style={{
+                                            cursor: "pointer",
                                             color: "green",
                                             marginRight: "10px",
                                         }}
@@ -92,14 +92,14 @@ export default function Register(props) {
                                     <span
                                         id={"delete_" + row.id + "_" + parseInt(i + 1)}
                                         onClick={(e) => handleDeleteItem(e)}
-                                        style={{ color: "red", marginRight: "10px" }}
+                                        style={{ cursor: "pointer", color: "red", marginRight: "10px" }}
                                     >
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </span>
                                     <span
                                         id={"add_" + row.id}
                                         onClick={(e) => handleAddItem(e)}
-                                        style={{ color: "red" }}
+                                        style={{ cursor: "pointer", color: "red" }}
                                     >
                                         <ion-icon name="add-circle-outline"></ion-icon>
                                     </span>
@@ -108,7 +108,7 @@ export default function Register(props) {
                                 <div
                                     key={i}
                                     style={{
-                                        cursor: "pointer",
+                                        // cursor: "pointer",
                                         display: "flex",
                                         alignItems: "center",
                                     }}
@@ -122,14 +122,14 @@ export default function Register(props) {
                                     <span
                                         id={"edit_" + row.id + "_" + parseInt(i + 1)}
                                         onClick={(e) => handleEditItem(e)}
-                                        style={{ color: "green", marginRight: "10px" }}
+                                        style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
                                     >
                                         <ion-icon name="create-outline"></ion-icon>
                                     </span>
                                     <span
                                         id={"delete_" + row.id + "_" + parseInt(i + 1)}
                                         onClick={(e) => handleDeleteItem(e)}
-                                        style={{ color: "red", marginRight: "10px" }}
+                                        style={{ cursor: "pointer", color: "red", marginRight: "10px" }}
                                     >
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </span>
@@ -159,6 +159,18 @@ export default function Register(props) {
         },
     ];
 
+    const popup_state = {
+        pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+        new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+    };
+
+    const handlePopup = (state) => {
+        const popup = document.getElementById("Popup");
+        popup.style.transform = popup_state[state].transform;
+        popup.style.transition = popup_state[state].transition;
+        popup.style.color = popup_state[state].color;
+    };
+
     // const handleChange = (e) => {
     //     setConfig(true);
     //     const arr = e.currentTarget.id.split("_");
@@ -171,6 +183,7 @@ export default function Register(props) {
 
     const handleSave = (e) => {
         e.preventDefault();
+
         var cf = document.getElementById("configvalue");
         //console.log(positon, cf.value)
 
@@ -342,6 +355,22 @@ export default function Register(props) {
         }
         //eslint-disable-next-line
     }, [props.filter, register.value.data])
+
+    // Handle close when press ESC
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                handleClose();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
@@ -528,27 +557,35 @@ export default function Register(props) {
                 </>
             )}
 
-            <div
-                className="DAT_Register_Config"
+            <div className="DAT_PopupBG"
                 style={{ display: config ? "block" : "none" }}
             >
-                <div className="DAT_Register_Config-Group">
-                    <div
-                        className="DAT_Register_Config-Group-Close"
-                        onClick={(e) => handleClose(e)}
-                    >
-                        <ion-icon name="close-outline"></ion-icon>
+                <form className="DAT_Register_Config-Group" onSubmit={(e) => handleSave(e)}>
+                    <div className="DAT_Register_Config-Group_Head">
+                        <div className="DAT_Register_Config-Group_Head_Left">Thay đổi</div>
+                        <div className="DAT_Register_Config-Group_Head_Right">
+                            <div className="DAT_Register_Config-Group_Head_Right_Close"
+                                id="Popup"
+                                onMouseEnter={(e) => handlePopup("new")}
+                                onMouseLeave={(e) => handlePopup("pre")}
+                                onClick={(e) => handleClose(e)}
+                            >
+                                <IoClose size={25} color="white" />
+                            </div>
+                        </div>
                     </div>
-                    <div className="DAT_Register_Config-Group-Tit">{tit}</div>
 
-                    <form
-                        className="DAT_Register_Config-Group-Content"
-                        onSubmit={(e) => handleSave(e)}
-                    >
-                        <input type="text" id="configvalue" required></input>
-                        <button>Lưu</button>
-                    </form>
-                </div>
+                    <div className="DAT_Register_Config-Group_Body">
+                        <span>{tit}</span>
+                        <input type="text" id="configvalue" required />
+                    </div>
+
+                    <div className="DAT_Register_Config-Group_Foot">
+                        <button>
+                            Xác nhận
+                        </button>
+                    </div>
+                </form>
             </div>
         </>
     );

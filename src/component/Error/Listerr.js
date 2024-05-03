@@ -1,24 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Error.scss";
 import DataTable from "react-data-table-component";
-import { deviceid, list, reader, readstate, register } from "./Error";
+import { deviceid, list, readstate, register } from "./Error";
 import axios from "axios";
 import { host } from "../constant";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
-import { LuFolderEdit } from "react-icons/lu";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import Reader from "./Reader";
 import Register from "./Register";
-import { signal } from "@preact/signals-react";
 import { lowercasedata } from "../User/Listuser";
 
 export default function Listerr(props) {
     const dataLang = useIntl();
     const { alertDispatch } = useContext(AlertContext);
     const [filter, setFilter] = useState([]);
-    const avatar = '/avatar/auto.jpg'
+    // const avatar = '/avatar/auto.jpg'
 
     const paginationComponentOptions = {
         rowsPerPageText: 'Số hàng',
@@ -33,7 +29,9 @@ export default function Listerr(props) {
             selector: (row) => row.id,
             sortable: true,
             width: "80px",
-
+            style: {
+                justifyContent: "center",
+            }
         },
         {
             name: "Gateway",
