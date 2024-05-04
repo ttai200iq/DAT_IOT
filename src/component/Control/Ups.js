@@ -26,6 +26,7 @@ import { FaSolarPanel } from "react-icons/fa";
 import { LuFolderEdit } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineDatabase } from "react-icons/ai";
+import { IoClose } from "react-icons/io5";
 const tab = signal('1')
 const mobiletab = signal(false);
 
@@ -65,6 +66,17 @@ export default function Ups(props) {
         const lat = useRef('')
         const lng = useRef('')
 
+        const popup_state = {
+                pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+                new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+        };
+
+        const handlePopup = (state) => {
+                const popup = document.getElementById("Popup");
+                popup.style.transform = popup_state[state].transform;
+                popup.style.transition = popup_state[state].transition;
+                popup.style.color = popup_state[state].color;
+        };
 
         const handleInput = (e) => {
 
@@ -321,6 +333,7 @@ export default function Ups(props) {
                         width: "100px"
                 },
         ];
+
         const columnproject_user = [
                 {
                         name: 'STT',
@@ -526,7 +539,6 @@ export default function Ups(props) {
                 )
         };
 
-
         //Get  list device of no project & list project
         useEffect(() => {
                 const getDevice = async () => {
@@ -707,6 +719,7 @@ export default function Ups(props) {
         // }, [whatdevicegroup.value, listdevice])
 
         //Show Monitor of Device
+
         useEffect(function () {
                 const setScreen = async () => {
                         await axios.post(host.DEVICE + "/resetTabMD", { id: currentID, tab: 0 }, { secure: true, reconnect: true }).then(
@@ -764,8 +777,6 @@ export default function Ups(props) {
                 }
 
         }, [pageDefault.value, project])
-
-
 
         //Get  list device of project
         const handleProject = (event) => {
@@ -868,7 +879,6 @@ export default function Ups(props) {
 
         }
 
-
         //Direction
         const handleDir = (event) => {
 
@@ -895,8 +905,6 @@ export default function Ups(props) {
                 }
 
         }
-
-
 
         const handleAddproject = (e) => {
                 e.preventDefault()
@@ -1043,6 +1051,22 @@ export default function Ups(props) {
                 }
         }
 
+        // Handle close when press ESC
+        useEffect(() => {
+                const handleKeyDown = (event) => {
+                        if (event.key === "Escape") {
+                                setFix(false);
+                        }
+                };
+
+                document.addEventListener("keydown", handleKeyDown);
+
+                return () => {
+                        document.removeEventListener("keydown", handleKeyDown);
+                };
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, []);
+
         return (
                 <>
                         {isBrowser
@@ -1052,8 +1076,6 @@ export default function Ups(props) {
                                         </div>
 
                                         <div className="DAT_View_Content">
-
-
                                                 <div className="DAT_View_Content_Direct" >
                                                         {direct.map((data, index) => {
                                                                 return (
@@ -1066,6 +1088,7 @@ export default function Ups(props) {
                                                                 )
                                                         })}
                                                 </div>
+
                                                 {(() => {
                                                         switch (statesol) {
                                                                 case 'list':
@@ -1096,217 +1119,309 @@ export default function Ups(props) {
                                                 {(() => {
                                                         switch (statesol) {
                                                                 case 'list':
-                                                                        return (<>
+                                                                        return (
+                                                                                <>
 
-                                                                                {/* {(project.length > 0)
+                                                                                        {/* {(project.length > 0)
                                                                         ? */}
 
-                                                                                <div className="DAT_View_Content_Main" id="listContainer">
-                                                                                        <div className="DAT_View_Content_Main_Nav" >
-                                                                                                {/* <div className="DAT_View_Content_Main_Nav_Item" id="project" onClick={() => { tab.value = 'project' }} style={{ color: (tab.value === 'project') ? color.cur : color.pre }} >Dự án</div>
+                                                                                        <div className="DAT_View_Content_Main" id="listContainer">
+                                                                                                <div className="DAT_View_Content_Main_Nav" >
+                                                                                                        {/* <div className="DAT_View_Content_Main_Nav_Item" id="project" onClick={() => { tab.value = 'project' }} style={{ color: (tab.value === 'project') ? color.cur : color.pre }} >Dự án</div>
                                                                                         <div className="DAT_View_Content_Main_Nav_Item" id="device" onClick={() => { tab.value = 'device' }} style={{ color: (tab.value === 'device') ? color.cur : color.pre }}>Thiết bị</div> */}
 
-                                                                                                {searchmoblile.value
-                                                                                                        ?
-                                                                                                        Object.keys(list).map((keyName, i) => {
+                                                                                                        {searchmoblile.value
+                                                                                                                ?
+                                                                                                                Object.keys(list).map((keyName, i) => {
 
-                                                                                                                return (
+                                                                                                                        return (
 
-                                                                                                                        (keyName === tab.value)
-                                                                                                                                ? <div key={i} className="DAT_Model_Tab_main">
-                                                                                                                                        <p className="DAT_Model_Tab_main_left"></p>
-                                                                                                                                        <span className="DAT_Model_Tab_main_content1" id={keyName} style={{ backgroundColor: "White", color: "black", borderRadius: "10px 10px 0 0", paddingLeft: "20px" }} onClick={() => tab.value = keyName}>{list[keyName]}</span>
-                                                                                                                                        <p className="DAT_Model_Tab_main_right"></p>
+                                                                                                                                (keyName === tab.value)
+                                                                                                                                        ? <div key={i} className="DAT_Model_Tab_main">
+                                                                                                                                                <p className="DAT_Model_Tab_main_left"></p>
+                                                                                                                                                <span className="DAT_Model_Tab_main_content1" id={keyName} style={{ backgroundColor: "White", color: "black", borderRadius: "10px 10px 0 0", paddingLeft: "20px" }} onClick={() => tab.value = keyName}>{list[keyName]}</span>
+                                                                                                                                                <p className="DAT_Model_Tab_main_right"></p>
+                                                                                                                                        </div>
+                                                                                                                                        : <span className="DAT_Model_Tab_main_content2" key={i} id={keyName} style={{ backgroundColor: "#dadada" }} onClick={() => tab.value = keyName}>{list[keyName]}</span>
+
+
+                                                                                                                        )
+
+                                                                                                                })
+
+
+
+                                                                                                                : <div className="DAT_ModelMobile_Tab">
+
+                                                                                                                        <button className="DAT_ModelMobile_Tab_content" onClick={() => mobiletab.value = !mobiletab.value} > <span> {list[tab]}</span>  {(mobiletab.value) ? <IoIosArrowDown /> : <IoIosArrowForward />} </button>
+
+
+                                                                                                                        {(mobiletab.value)
+
+                                                                                                                                ? <div className="DAT_ModelMobile_Tab_list" >
+                                                                                                                                        {Object.keys(list).map((keyName, i) => {
+
+                                                                                                                                                return (
+
+                                                                                                                                                        <div className="DAT_ModelMobile_Tab_list_item" key={i} id={keyName} onClick={() => tab.value = keyName} >{i + 1}: {list[keyName]}</div>
+
+                                                                                                                                                )
+
+                                                                                                                                        })}
                                                                                                                                 </div>
-                                                                                                                                : <span className="DAT_Model_Tab_main_content2" key={i} id={keyName} style={{ backgroundColor: "#dadada" }} onClick={() => tab.value = keyName}>{list[keyName]}</span>
+                                                                                                                                : <></>
+                                                                                                                        }
+
+                                                                                                                </div>
+                                                                                                        }
 
 
-                                                                                                                )
-
-                                                                                                        })
 
 
-
-                                                                                                        : <div className="DAT_ModelMobile_Tab">
-
-                                                                                                                <button className="DAT_ModelMobile_Tab_content" onClick={() => mobiletab.value = !mobiletab.value} > <span> {list[tab]}</span>  {(mobiletab.value) ? <IoIosArrowDown /> : <IoIosArrowForward />} </button>
-
-
-                                                                                                                {(mobiletab.value)
-
-                                                                                                                        ? <div className="DAT_ModelMobile_Tab_list" >
-                                                                                                                                {Object.keys(list).map((keyName, i) => {
-
-                                                                                                                                        return (
-
-                                                                                                                                                <div className="DAT_ModelMobile_Tab_list_item" key={i} id={keyName} onClick={() => tab.value = keyName} >{i + 1}: {list[keyName]}</div>
-
-                                                                                                                                        )
-
-                                                                                                                                })}
+                                                                                                        {tab.value === '1'
+                                                                                                                ? (type !== 'user')
+                                                                                                                        ? <div className="DAT_View_Content_Main_Nav_Add" >
+                                                                                                                                <form onSubmit={e => handleAddproject(e)}>
+                                                                                                                                        <input placeholder="Nhập mã dự án" id="addproject" required></input>
+                                                                                                                                        <button><ion-icon name="add-outline"></ion-icon></button>
+                                                                                                                                </form>
                                                                                                                         </div>
                                                                                                                         : <></>
-                                                                                                                }
 
-                                                                                                        </div>
-                                                                                                }
+                                                                                                                : (type !== 'user')
+                                                                                                                        ? <div className="DAT_View_Content_Main_Nav_Add">
+                                                                                                                                <form onSubmit={e => handleAdddevice(e)}>
+                                                                                                                                        <input placeholder="Nhập mã thiết bị" id="adddevice" required></input>
+                                                                                                                                        <button><ion-icon name="add-outline"></ion-icon></button>
+                                                                                                                                </form>
+                                                                                                                        </div>
+                                                                                                                        : <></>
+
+                                                                                                        }
 
 
-
-
+                                                                                                </div>
                                                                                                 {tab.value === '1'
-                                                                                                        ? (type !== 'user')
-                                                                                                                ? <div className="DAT_View_Content_Main_Nav_Add" >
-                                                                                                                        <form onSubmit={e => handleAddproject(e)}>
-                                                                                                                                <input placeholder="Nhập mã dự án" id="addproject" required></input>
-                                                                                                                                <button><ion-icon name="add-outline"></ion-icon></button>
-                                                                                                                        </form>
-                                                                                                                </div>
-                                                                                                                : <></>
+                                                                                                        ?
 
-                                                                                                        : (type !== 'user')
-                                                                                                                ? <div className="DAT_View_Content_Main_Nav_Add">
-                                                                                                                        <form onSubmit={e => handleAdddevice(e)}>
-                                                                                                                                <input placeholder="Nhập mã thiết bị" id="adddevice" required></input>
-                                                                                                                                <button><ion-icon name="add-outline"></ion-icon></button>
-                                                                                                                        </form>
-                                                                                                                </div>
-                                                                                                                : <></>
+                                                                                                        <div className="DAT_View_Content_Main_List">
 
-                                                                                                }
-
-
-                                                                                        </div>
-                                                                                        {tab.value === '1'
-                                                                                                ?
-
-                                                                                                <div className="DAT_View_Content_Main_List">
-
-                                                                                                        <DataTable
-                                                                                                                className="DAT_Table_Container"
-                                                                                                                columns={(type === 'user') ? columnproject_user : columnproject}
-                                                                                                                data={project}
-                                                                                                                pagination
-                                                                                                                paginationComponentOptions={paginationComponentOptions}
-                                                                                                                noDataComponent={
-                                                                                                                        <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-                                                                                                                                <div>Danh sách trống </div>
-                                                                                                                                <div>Vui lòng thêm dự án</div>
-                                                                                                                        </div>
-                                                                                                                }
-                                                                                                        />
-                                                                                                </div>
-
-                                                                                                :
-
-                                                                                                <div className="DAT_View_Content_Main_List">
-
-                                                                                                        <DataTable
-                                                                                                                className="DAT_Table_Container"
-                                                                                                                columns={(type === 'user') ? columns2_user : columns2}
-                                                                                                                data={listdevice2}
-                                                                                                                pagination
-                                                                                                                paginationComponentOptions={paginationComponentOptions}
-                                                                                                                expandableRows
-                                                                                                                expandableRowsComponent={ExpandedComponent}
-                                                                                                                noDataComponent={
-                                                                                                                        <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
-                                                                                                                                <div>Danh sách trống </div>
-                                                                                                                                <div>Vui lòng thêm thiết bị</div>
-                                                                                                                        </div>
-                                                                                                                }
-                                                                                                        />
-                                                                                                </div>
-
-                                                                                        }
-                                                                                </div>
-
-
-
-                                                                                {(showdevice)
-
-                                                                                        ? <div className="DAT_View_Content_Device" >
-                                                                                                <div className="DAT_View_Content_Device-card" id="CARD">
-                                                                                                        <Toollist ></Toollist>
-                                                                                                </div>
-                                                                                        </div>
-                                                                                        : <></>
-                                                                                }
-                                                                                <div className="DAT_View_Content_Fix" style={{ height: fix ? "100vh" : "0px", transition: "0.5s" }} onSubmit={e => handleSaveFix(e)}>
-                                                                                        {(fix)
-                                                                                                ?
-                                                                                                <form className="DAT_View_Content_Fix-group">
-
-                                                                                                        <div className="DAT_View_Content_Fix-group-code"><span>Mã:{code}</span> <span onClick={() => setFix(false)}><ion-icon name="close-outline"></ion-icon></span></div>
-                                                                                                        {(() => {
-                                                                                                                switch (fixtype) {
-                                                                                                                        case 'FIX_P':
-                                                                                                                                return (
-                                                                                                                                        <>
-                                                                                                                                                <div className="DAT_View_Content_Fix-group-row" style={{ borderRadius: "5px 5px 0px 0px" }}>
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row-tit">Tên Dự Án</div>
-                                                                                                                                                        <input type="text" minLength={6} defaultValue={pname.current} ref={pname} required ></input>
-                                                                                                                                                </div>
-                                                                                                                                                <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row-tit">Tên Công Ty</div>
-                                                                                                                                                        <input type="text" minLength={6} defaultValue={pcompany.current} ref={pcompany} required></input>
-                                                                                                                                                </div>
-
-                                                                                                                                                <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row-tit">Vị Trí</div>
-                                                                                                                                                        <input type="text" minLength={6} defaultValue={paddr.current} ref={paddr} required></input>
-                                                                                                                                                </div>
-
-                                                                                                                                                <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row-tit">Vĩ độ(Nhấn vào vị trí sẽ tự động cập nhật)</div>
-                                                                                                                                                        <input type="text" minLength={6} defaultValue={lat.current} ref={lat} id="lat" onClick={handleInput} required></input>
-                                                                                                                                                </div>
-                                                                                                                                                <div className="DAT_View_Content_Fix-group-row" >
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row-tit">Kinh độ(Nhấn vào vị trí sẽ tự động cập nhật)</div>
-                                                                                                                                                        <input type="text" minLength={6} defaultValue={lng.current} ref={lng} id="lng" onClick={handleInput} required></input>
-                                                                                                                                                </div>
-                                                                                                                                        </>
-
-                                                                                                                                )
-                                                                                                                        case 'FIX_D':
-                                                                                                                                return (
-                                                                                                                                        <>
-                                                                                                                                                <div className="DAT_View_Content_Fix-group-row" style={{ borderRadius: "5px 5px 0px 0px" }}>
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row-tit">Tên Thiết Bị</div>
-                                                                                                                                                        <input type="text" minLength={6} defaultValue={dname.current} ref={dname} required></input>
-                                                                                                                                                </div>
-                                                                                                                                                <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row-tit">Mô Tả</div>
-                                                                                                                                                        <input type="text" minLength={6} defaultValue={ddescription.current} ref={ddescription} required></input>
-                                                                                                                                                </div>
-
-
-                                                                                                                                        </>
-
-                                                                                                                                )
-                                                                                                                        default:
-                                                                                                                                return (<>
-                                                                                                                                        <div className="DAT_View_Content_Fix-group-row" style={{ borderRadius: "5px 5px 0px 0px" }}>
-                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit" style={{ color: "red" }}>{(fixtype === "DEL_D") ? "Thiết bị" : "Dự án"} này sẽ bị gỡ bỏ khỏi tài khoản của bạn, bạn vẫn muốn gỡ?</div>
-                                                                                                                                        </div>
-                                                                                                                                </>)
-
-                                                                                                                }
-                                                                                                        })()}
-
-
-                                                                                                        <div className="DAT_View_Content_Fix-group-row" style={{ borderRadius: "0 0 5px 5px" }}>
-                                                                                                                <button>Xác Nhận</button>
+                                                                                                                <DataTable
+                                                                                                                        className="DAT_Table_Container"
+                                                                                                                        columns={(type === 'user') ? columnproject_user : columnproject}
+                                                                                                                        data={project}
+                                                                                                                        pagination
+                                                                                                                        paginationComponentOptions={paginationComponentOptions}
+                                                                                                                        noDataComponent={
+                                                                                                                                <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                                                                                                                                        <div>Danh sách trống </div>
+                                                                                                                                        <div>Vui lòng thêm dự án</div>
+                                                                                                                                </div>
+                                                                                                                        }
+                                                                                                                />
                                                                                                         </div>
 
+                                                                                                        :
 
+                                                                                                        <div className="DAT_View_Content_Main_List">
 
-                                                                                                </form>
+                                                                                                                <DataTable
+                                                                                                                        className="DAT_Table_Container"
+                                                                                                                        columns={(type === 'user') ? columns2_user : columns2}
+                                                                                                                        data={listdevice2}
+                                                                                                                        pagination
+                                                                                                                        paginationComponentOptions={paginationComponentOptions}
+                                                                                                                        expandableRows
+                                                                                                                        expandableRowsComponent={ExpandedComponent}
+                                                                                                                        noDataComponent={
+                                                                                                                                <div style={{ margin: "auto", textAlign: "center", color: "red", padding: "20px" }}>
+                                                                                                                                        <div>Danh sách trống </div>
+                                                                                                                                        <div>Vui lòng thêm thiết bị</div>
+                                                                                                                                </div>
+                                                                                                                        }
+                                                                                                                />
+                                                                                                        </div>
 
+                                                                                                }
+                                                                                        </div>
+
+                                                                                        {(showdevice)
+                                                                                                ? <div className="DAT_View_Content_Device" >
+                                                                                                        <div className="DAT_View_Content_Device-card" id="CARD">
+                                                                                                                <Toollist ></Toollist>
+                                                                                                        </div>
+                                                                                                </div>
                                                                                                 : <></>
                                                                                         }
-                                                                                </div>
-                                                                        </>
+
+                                                                                        {/* <div className="DAT_View_Content_Fix" style={{ height: fix ? "100vh" : "0px", transition: "0.5s" }} onSubmit={e => handleSaveFix(e)}>
+                                                                                                {(fix)
+                                                                                                        ?
+                                                                                                        <form className="DAT_View_Content_Fix-group">
+
+                                                                                                                <div className="DAT_View_Content_Fix-group-code"><span>Mã:{code}</span> <span onClick={() => setFix(false)}><ion-icon name="close-outline"></ion-icon></span></div>
+                                                                                                                {(() => {
+                                                                                                                        switch (fixtype) {
+                                                                                                                                case 'FIX_P':
+                                                                                                                                        return (
+                                                                                                                                                <>
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row" style={{ borderRadius: "5px 5px 0px 0px" }}>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">Tên Dự Án</div>
+                                                                                                                                                                <input type="text" minLength={6} defaultValue={pname.current} ref={pname} required ></input>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">Tên Công Ty</div>
+                                                                                                                                                                <input type="text" minLength={6} defaultValue={pcompany.current} ref={pcompany} required></input>
+                                                                                                                                                        </div>
+
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">Vị Trí</div>
+                                                                                                                                                                <input type="text" minLength={6} defaultValue={paddr.current} ref={paddr} required></input>
+                                                                                                                                                        </div>
+
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">Vĩ độ(Nhấn vào vị trí sẽ tự động cập nhật)</div>
+                                                                                                                                                                <input type="text" minLength={6} defaultValue={lat.current} ref={lat} id="lat" onClick={handleInput} required></input>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row" >
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">Kinh độ(Nhấn vào vị trí sẽ tự động cập nhật)</div>
+                                                                                                                                                                <input type="text" minLength={6} defaultValue={lng.current} ref={lng} id="lng" onClick={handleInput} required></input>
+                                                                                                                                                        </div>
+                                                                                                                                                </>
+
+                                                                                                                                        )
+                                                                                                                                case 'FIX_D':
+                                                                                                                                        return (
+                                                                                                                                                <>
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row" style={{ borderRadius: "5px 5px 0px 0px" }}>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">Tên Thiết Bị</div>
+                                                                                                                                                                <input type="text" minLength={6} defaultValue={dname.current} ref={dname} required></input>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">Mô Tả</div>
+                                                                                                                                                                <input type="text" minLength={6} defaultValue={ddescription.current} ref={ddescription} required></input>
+                                                                                                                                                        </div>
+
+
+                                                                                                                                                </>
+
+                                                                                                                                        )
+                                                                                                                                default:
+                                                                                                                                        return (<>
+                                                                                                                                                <div className="DAT_View_Content_Fix-group-row" style={{ borderRadius: "5px 5px 0px 0px" }}>
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row-tit" style={{ color: "red" }}>{(fixtype === "DEL_D") ? "Thiết bị" : "Dự án"} này sẽ bị gỡ bỏ khỏi tài khoản của bạn, bạn vẫn muốn gỡ?</div>
+                                                                                                                                                </div>
+                                                                                                                                        </>)
+
+                                                                                                                        }
+                                                                                                                })()}
+
+
+                                                                                                                <div className="DAT_View_Content_Fix-group-row" style={{ borderRadius: "0 0 5px 5px" }}>
+                                                                                                                        <button>Xác Nhận</button>
+                                                                                                                </div>
+
+
+
+                                                                                                        </form>
+
+                                                                                                        : <></>
+                                                                                                }
+                                                                                        </div> */}
+
+                                                                                        <div className="DAT_PopupBG"
+                                                                                                style={{ height: fix ? "100vh" : "0px", }}
+                                                                                                onSubmit={(e) => handleSaveFix(e)}
+                                                                                        >
+                                                                                                {fix ? (
+                                                                                                        <form className="DAT_View_Content_Fix-group">
+                                                                                                                <div className="DAT_View_Content_Fix-group_Head">
+                                                                                                                        <div className="DAT_View_Content_Fix-group_Head_Left">Mã: {code}</div>
+                                                                                                                        <div className="DAT_View_Content_Fix-group_Head_Right">
+                                                                                                                                <div className="DAT_View_Content_Fix-group_Head_Right_Close"
+                                                                                                                                        id="Popup"
+                                                                                                                                        onMouseEnter={(e) => handlePopup("new")}
+                                                                                                                                        onMouseLeave={(e) => handlePopup("pre")}
+                                                                                                                                        onClick={() => { setFix(false) }}
+                                                                                                                                >
+                                                                                                                                        <IoClose size={25} color="white" />
+                                                                                                                                </div>
+                                                                                                                        </div>
+                                                                                                                </div>
+
+                                                                                                                {(() => {
+                                                                                                                        switch (fixtype) {
+                                                                                                                                case "FIX_P":
+                                                                                                                                        return (
+                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body">
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group_Body_Row">
+                                                                                                                                                                <label>Tên Dự Án</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={pname.current} ref={pname} required />
+                                                                                                                                                                </div>
+
+                                                                                                                                                                <label>Tên Công Ty</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={pcompany.current} ref={pcompany} required />
+                                                                                                                                                                </div>
+
+                                                                                                                                                                <label>Vị Trí</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={paddr.current} ref={paddr} required />
+                                                                                                                                                                </div>
+
+                                                                                                                                                                <label>Vĩ độ(Nhấn vào vị trí sẽ tự động cập nhật)</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={lat.current} ref={lat} id="lat" onClick={handleInput} required />
+                                                                                                                                                                </div>
+
+                                                                                                                                                                <label>Kinh độ(Nhấn vào vị trí sẽ tự động cập nhật)</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={lng.current} ref={lng} id="lng" onClick={handleInput} required />
+                                                                                                                                                                </div>
+                                                                                                                                                        </div>
+                                                                                                                                                </div>
+                                                                                                                                        );
+                                                                                                                                case "FIX_D":
+                                                                                                                                        return (
+                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body">
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group_Body_Row">
+                                                                                                                                                                <label>Tên Thiết Bị</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={dname.current} ref={dname} required />
+                                                                                                                                                                </div>
+
+                                                                                                                                                                <label>Mô Tả</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={ddescription.current} ref={ddescription} required />
+                                                                                                                                                                </div>
+                                                                                                                                                        </div>
+                                                                                                                                                </div>
+                                                                                                                                        );
+                                                                                                                                default:
+                                                                                                                                        return (
+                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body">
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group_Body_Row"
+                                                                                                                                                                style={{ color: "red" }}
+                                                                                                                                                        >
+                                                                                                                                                                {fixtype === "DEL_D" ? "Thiết bị" : "Dự án"}{" "}
+                                                                                                                                                                này sẽ bị gỡ bỏ khỏi tài khoản của
+                                                                                                                                                                bạn, bạn vẫn muốn gỡ ?
+                                                                                                                                                        </div>
+                                                                                                                                                </div>
+                                                                                                                                        );
+                                                                                                                        }
+                                                                                                                })()}
+
+                                                                                                                <div className="DAT_View_Content_Fix-group_Foot">
+                                                                                                                        <button>Xác Nhận</button>
+                                                                                                                </div>
+                                                                                                        </form>
+                                                                                                ) : (
+                                                                                                        <></>
+                                                                                                )}
+                                                                                        </div>
+                                                                                </>
                                                                         )
                                                                 case 'project':
                                                                         return (
@@ -1338,11 +1453,8 @@ export default function Ups(props) {
                                                                         )
                                                                 default:
                                                                         return <></>
-
                                                         }
                                                 })()}
-
-
                                         </div>
                                 </div>
                                 : <div className="DAT_Mobile">

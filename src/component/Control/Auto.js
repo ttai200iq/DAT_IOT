@@ -31,6 +31,7 @@ import { FaSolarPanel } from "react-icons/fa";
 import { LuFolderEdit } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineControl } from "react-icons/ai";
+import { IoClose } from "react-icons/io5";
 const tab = signal("1");
 const mobiletab = signal(false);
 
@@ -78,6 +79,18 @@ export default function Auto(props) {
         const ddescription = useRef("");
         const lat = useRef("");
         const lng = useRef("");
+
+        const popup_state = {
+                pre: { transform: "rotate(0deg)", transition: "0.5s", color: "white" },
+                new: { transform: "rotate(90deg)", transition: "0.5s", color: "white" },
+        };
+
+        const handlePopup = (state) => {
+                const popup = document.getElementById("Popup");
+                popup.style.transform = popup_state[state].transform;
+                popup.style.transition = popup_state[state].transition;
+                popup.style.color = popup_state[state].color;
+        };
 
         const handleInput = (e) => {
                 // console.log(paddr.current.value);
@@ -1534,12 +1547,27 @@ export default function Auto(props) {
                 }
         };
 
+        // Handle close when press ESC
+        useEffect(() => {
+                const handleKeyDown = (event) => {
+                        if (event.key === "Escape") {
+                                setFix(false);
+                        }
+                };
+
+                document.addEventListener("keydown", handleKeyDown);
+
+                return () => {
+                        document.removeEventListener("keydown", handleKeyDown);
+                };
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, []);
+
         return (
                 <>
                         {isBrowser ? (
                                 <div className="DAT_View">
-                                        <div
-                                                className="DAT_View_Banner"
+                                        <div className="DAT_View_Banner"
                                                 style={{
                                                         backgroundImage: banner,
                                                         backgroundPosition: "bottom",
@@ -1576,6 +1604,7 @@ export default function Auto(props) {
                                                                 );
                                                         })}
                                                 </div>
+
                                                 {(() => {
                                                         switch (statesol) {
                                                                 case "list":
@@ -1602,7 +1631,6 @@ export default function Auto(props) {
                                                                                         </div>
                                                                                 </div>
                                                                         );
-
                                                                 default:
                                                                         return <></>;
                                                         }
@@ -1626,8 +1654,7 @@ export default function Auto(props) {
                                                                                                                         return keyName === tab.value ? (
                                                                                                                                 <div key={i} className="DAT_Model_Tab_main">
                                                                                                                                         <p className="DAT_Model_Tab_main_left"></p>
-                                                                                                                                        <span
-                                                                                                                                                className="DAT_Model_Tab_main_content1"
+                                                                                                                                        <span className="DAT_Model_Tab_main_content1"
                                                                                                                                                 id={keyName}
                                                                                                                                                 style={{
                                                                                                                                                         backgroundColor: "White",
@@ -1642,8 +1669,7 @@ export default function Auto(props) {
                                                                                                                                         <p className="DAT_Model_Tab_main_right"></p>
                                                                                                                                 </div>
                                                                                                                         ) : (
-                                                                                                                                <span
-                                                                                                                                        className="DAT_Model_Tab_main_content2"
+                                                                                                                                <span className="DAT_Model_Tab_main_content2"
                                                                                                                                         key={i}
                                                                                                                                         id={keyName}
                                                                                                                                         style={{ backgroundColor: "#dadada" }}
@@ -1655,11 +1681,8 @@ export default function Auto(props) {
                                                                                                                 })
                                                                                                         ) : (
                                                                                                                 <div className="DAT_ModelMobile_Tab">
-                                                                                                                        <button
-                                                                                                                                className="DAT_ModelMobile_Tab_content"
-                                                                                                                                onClick={() =>
-                                                                                                                                        (mobiletab.value = !mobiletab.value)
-                                                                                                                                }
+                                                                                                                        <button className="DAT_ModelMobile_Tab_content"
+                                                                                                                                onClick={() => (mobiletab.value = !mobiletab.value)}
                                                                                                                         >
                                                                                                                                 {" "}
                                                                                                                                 <span> {list[tab]}</span>{" "}
@@ -1674,8 +1697,7 @@ export default function Auto(props) {
                                                                                                                                 <div className="DAT_ModelMobile_Tab_list">
                                                                                                                                         {Object.keys(list).map((keyName, i) => {
                                                                                                                                                 return (
-                                                                                                                                                        <div
-                                                                                                                                                                className="DAT_ModelMobile_Tab_list_item"
+                                                                                                                                                        <div className="DAT_ModelMobile_Tab_list_item"
                                                                                                                                                                 key={i}
                                                                                                                                                                 id={keyName}
                                                                                                                                                                 onClick={() => (tab.value = keyName)}
@@ -1725,20 +1747,15 @@ export default function Auto(props) {
                                                                                                                 <></>
                                                                                                         )}
                                                                                                 </div>
+
                                                                                                 {tab.value === "1" ? (
                                                                                                         <div className="DAT_View_Content_Main_List">
                                                                                                                 <DataTable
                                                                                                                         className="DAT_Table_Container"
-                                                                                                                        columns={
-                                                                                                                                type === "user"
-                                                                                                                                        ? columnproject_user
-                                                                                                                                        : columnproject
-                                                                                                                        }
+                                                                                                                        columns={type === "user" ? columnproject_user : columnproject}
                                                                                                                         data={project}
                                                                                                                         pagination
-                                                                                                                        paginationComponentOptions={
-                                                                                                                                paginationComponentOptions
-                                                                                                                        }
+                                                                                                                        paginationComponentOptions={paginationComponentOptions}
                                                                                                                         noDataComponent={
                                                                                                                                 <div
                                                                                                                                         style={{
@@ -1758,14 +1775,10 @@ export default function Auto(props) {
                                                                                                         <div className="DAT_View_Content_Main_List">
                                                                                                                 <DataTable
                                                                                                                         className="DAT_Table_Container"
-                                                                                                                        columns={
-                                                                                                                                type === "user" ? columns2_user : columns2
-                                                                                                                        }
+                                                                                                                        columns={type === "user" ? columns2_user : columns2}
                                                                                                                         data={listdevice2}
                                                                                                                         pagination
-                                                                                                                        paginationComponentOptions={
-                                                                                                                                paginationComponentOptions
-                                                                                                                        }
+                                                                                                                        paginationComponentOptions={paginationComponentOptions}
                                                                                                                         expandableRows
                                                                                                                         expandableRowsComponent={ExpandedComponent}
                                                                                                                         noDataComponent={
@@ -1788,8 +1801,7 @@ export default function Auto(props) {
 
                                                                                         {showdevice ? (
                                                                                                 <div className="DAT_View_Content_Device">
-                                                                                                        <div
-                                                                                                                className="DAT_View_Content_Device-card"
+                                                                                                        <div className="DAT_View_Content_Device-card"
                                                                                                                 id="CARD"
                                                                                                         >
                                                                                                                 <Toollist></Toollist>
@@ -1798,165 +1810,92 @@ export default function Auto(props) {
                                                                                         ) : (
                                                                                                 <></>
                                                                                         )}
-                                                                                        <div
-                                                                                                className="DAT_View_Content_Fix"
-                                                                                                style={{
-                                                                                                        height: fix ? "100vh" : "0px",
-                                                                                                        transition: "0.5s",
-                                                                                                }}
+
+                                                                                        <div className="DAT_PopupBG"
+                                                                                                style={{ height: fix ? "100vh" : "0px", }}
                                                                                                 onSubmit={(e) => handleSaveFix(e)}
                                                                                         >
                                                                                                 {fix ? (
                                                                                                         <form className="DAT_View_Content_Fix-group">
-                                                                                                                <div className="DAT_View_Content_Fix-group-code">
-                                                                                                                        <span>Mã:{code}</span>{" "}
-                                                                                                                        <span onClick={() => setFix(false)}>
-                                                                                                                                <ion-icon name="close-outline"></ion-icon>
-                                                                                                                        </span>
+                                                                                                                <div className="DAT_View_Content_Fix-group_Head">
+                                                                                                                        <div className="DAT_View_Content_Fix-group_Head_Left">Mã: {code}</div>
+                                                                                                                        <div className="DAT_View_Content_Fix-group_Head_Right">
+                                                                                                                                <div className="DAT_View_Content_Fix-group_Head_Right_Close"
+                                                                                                                                        id="Popup"
+                                                                                                                                        onMouseEnter={(e) => handlePopup("new")}
+                                                                                                                                        onMouseLeave={(e) => handlePopup("pre")}
+                                                                                                                                        onClick={() => { setFix(false) }}
+                                                                                                                                >
+                                                                                                                                        <IoClose size={25} color="white" />
+                                                                                                                                </div>
+                                                                                                                        </div>
                                                                                                                 </div>
+
                                                                                                                 {(() => {
                                                                                                                         switch (fixtype) {
                                                                                                                                 case "FIX_P":
                                                                                                                                         return (
-                                                                                                                                                <>
-                                                                                                                                                        <div
-                                                                                                                                                                className="DAT_View_Content_Fix-group-row"
-                                                                                                                                                                style={{
-                                                                                                                                                                        borderRadius: "5px 5px 0px 0px",
-                                                                                                                                                                }}
-                                                                                                                                                        >
-                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">
-                                                                                                                                                                        Tên Dự Án
+                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body">
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group_Body_Row">
+                                                                                                                                                                <label>Tên Dự Án</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={pname.current} ref={pname} required />
                                                                                                                                                                 </div>
-                                                                                                                                                                <input
-                                                                                                                                                                        type="text"
-                                                                                                                                                                        minLength={6}
-                                                                                                                                                                        defaultValue={pname.current}
-                                                                                                                                                                        ref={pname}
-                                                                                                                                                                        required
-                                                                                                                                                                ></input>
-                                                                                                                                                        </div>
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">
-                                                                                                                                                                        Tên Công Ty
-                                                                                                                                                                </div>
-                                                                                                                                                                <input
-                                                                                                                                                                        type="text"
-                                                                                                                                                                        minLength={6}
-                                                                                                                                                                        defaultValue={pcompany.current}
-                                                                                                                                                                        ref={pcompany}
-                                                                                                                                                                        required
-                                                                                                                                                                ></input>
-                                                                                                                                                        </div>
 
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">
-                                                                                                                                                                        Vị Trí
+                                                                                                                                                                <label>Tên Công Ty</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={pcompany.current} ref={pcompany} required />
                                                                                                                                                                 </div>
-                                                                                                                                                                <input
-                                                                                                                                                                        type="text"
-                                                                                                                                                                        minLength={6}
-                                                                                                                                                                        defaultValue={paddr.current}
-                                                                                                                                                                        ref={paddr}
-                                                                                                                                                                        required
-                                                                                                                                                                ></input>
-                                                                                                                                                        </div>
 
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">
-                                                                                                                                                                        Vĩ độ(Nhấn vào vị trí sẽ tự động cập
-                                                                                                                                                                        nhật)
+                                                                                                                                                                <label>Vị Trí</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={paddr.current} ref={paddr} required />
                                                                                                                                                                 </div>
-                                                                                                                                                                <input
-                                                                                                                                                                        type="text"
-                                                                                                                                                                        minLength={6}
-                                                                                                                                                                        defaultValue={lat.current}
-                                                                                                                                                                        ref={lat}
-                                                                                                                                                                        id="lat"
-                                                                                                                                                                        onClick={handleInput}
-                                                                                                                                                                        required
-                                                                                                                                                                ></input>
-                                                                                                                                                        </div>
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">
-                                                                                                                                                                        Kinh độ(Nhấn vào vị trí sẽ tự động cập
-                                                                                                                                                                        nhật)
+
+                                                                                                                                                                <label>Vĩ độ(Nhấn vào vị trí sẽ tự động cập nhật)</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={lat.current} ref={lat} id="lat" onClick={handleInput} required />
                                                                                                                                                                 </div>
-                                                                                                                                                                <input
-                                                                                                                                                                        type="text"
-                                                                                                                                                                        minLength={6}
-                                                                                                                                                                        defaultValue={lng.current}
-                                                                                                                                                                        ref={lng}
-                                                                                                                                                                        id="lng"
-                                                                                                                                                                        onClick={handleInput}
-                                                                                                                                                                        required
-                                                                                                                                                                ></input>
+
+                                                                                                                                                                <label>Kinh độ(Nhấn vào vị trí sẽ tự động cập nhật)</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={lng.current} ref={lng} id="lng" onClick={handleInput} required />
+                                                                                                                                                                </div>
                                                                                                                                                         </div>
-                                                                                                                                                </>
+                                                                                                                                                </div>
                                                                                                                                         );
                                                                                                                                 case "FIX_D":
                                                                                                                                         return (
-                                                                                                                                                <>
-                                                                                                                                                        <div
-                                                                                                                                                                className="DAT_View_Content_Fix-group-row"
-                                                                                                                                                                style={{
-                                                                                                                                                                        borderRadius: "5px 5px 0px 0px",
-                                                                                                                                                                }}
-                                                                                                                                                        >
-                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">
-                                                                                                                                                                        Tên Thiết Bị
+                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body">
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group_Body_Row">
+                                                                                                                                                                <label>Tên Thiết Bị</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={dname.current} ref={dname} required />
                                                                                                                                                                 </div>
-                                                                                                                                                                <input
-                                                                                                                                                                        type="text"
-                                                                                                                                                                        minLength={6}
-                                                                                                                                                                        defaultValue={dname.current}
-                                                                                                                                                                        ref={dname}
-                                                                                                                                                                        required
-                                                                                                                                                                ></input>
-                                                                                                                                                        </div>
-                                                                                                                                                        <div className="DAT_View_Content_Fix-group-row">
-                                                                                                                                                                <div className="DAT_View_Content_Fix-group-row-tit">
-                                                                                                                                                                        Mô Tả
+
+                                                                                                                                                                <label>Mô Tả</label>
+                                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body_Row_Input">
+                                                                                                                                                                        <input type="text" minLength={6} defaultValue={ddescription.current} ref={ddescription} required />
                                                                                                                                                                 </div>
-                                                                                                                                                                <input
-                                                                                                                                                                        type="text"
-                                                                                                                                                                        minLength={6}
-                                                                                                                                                                        defaultValue={ddescription.current}
-                                                                                                                                                                        ref={ddescription}
-                                                                                                                                                                        required
-                                                                                                                                                                ></input>
                                                                                                                                                         </div>
-                                                                                                                                                </>
+                                                                                                                                                </div>
                                                                                                                                         );
                                                                                                                                 default:
                                                                                                                                         return (
-                                                                                                                                                <>
-                                                                                                                                                        <div
-                                                                                                                                                                className="DAT_View_Content_Fix-group-row"
-                                                                                                                                                                style={{
-                                                                                                                                                                        borderRadius: "5px 5px 0px 0px",
-                                                                                                                                                                }}
+                                                                                                                                                <div className="DAT_View_Content_Fix-group_Body">
+                                                                                                                                                        <div className="DAT_View_Content_Fix-group_Body_Row"
+                                                                                                                                                                style={{ color: "red" }}
                                                                                                                                                         >
-                                                                                                                                                                <div
-                                                                                                                                                                        className="DAT_View_Content_Fix-group-row-tit"
-                                                                                                                                                                        style={{ color: "red" }}
-                                                                                                                                                                >
-                                                                                                                                                                        {fixtype === "DEL_D"
-                                                                                                                                                                                ? "Thiết bị"
-                                                                                                                                                                                : "Dự án"}{" "}
-                                                                                                                                                                        này sẽ bị gỡ bỏ khỏi tài khoản của
-                                                                                                                                                                        bạn, bạn vẫn muốn gỡ?
-                                                                                                                                                                </div>
+                                                                                                                                                                {fixtype === "DEL_D" ? "Thiết bị" : "Dự án"}{" "}
+                                                                                                                                                                này sẽ bị gỡ bỏ khỏi tài khoản của
+                                                                                                                                                                bạn, bạn vẫn muốn gỡ ?
                                                                                                                                                         </div>
-                                                                                                                                                </>
+                                                                                                                                                </div>
                                                                                                                                         );
                                                                                                                         }
                                                                                                                 })()}
 
-                                                                                                                <div
-                                                                                                                        className="DAT_View_Content_Fix-group-row"
-                                                                                                                        style={{ borderRadius: "0 0 5px 5px" }}
-                                                                                                                >
+                                                                                                                <div className="DAT_View_Content_Fix-group_Foot">
                                                                                                                         <button>Xác Nhận</button>
                                                                                                                 </div>
                                                                                                         </form>
