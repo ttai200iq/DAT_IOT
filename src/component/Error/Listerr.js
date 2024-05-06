@@ -9,6 +9,7 @@ import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
 import Register from "./Register";
 import { lowercasedata } from "../User/Listuser";
+import { CiSearch } from "react-icons/ci";
 
 export default function Listerr(props) {
     const dataLang = useIntl();
@@ -64,6 +65,17 @@ export default function Listerr(props) {
         readstate.value = !readstate.value
     }
 
+    const handleFilter = (e) => {
+        // setFilter(e.currentTarget.value);
+        // console.log(e.currentTarget.value)
+        const searchTerm = lowercasedata(e.currentTarget.value);
+        if (searchTerm == "") {
+            setFilter(list.value)
+        } else {
+            setFilter(list.value.filter((data) => data.deviceid.toLowerCase().includes(searchTerm)))
+        }
+    };
+
     useEffect(() => {
         const searchTerm = lowercasedata(props.filter);
         if (searchTerm == "") {
@@ -95,8 +107,35 @@ export default function Listerr(props) {
                 </div> :
                 //MOBILE SECTION
                 <>
-                    {readstate.value === false ?
-                        list.value.map((data, key) => (
+                    {readstate.value === false
+                        ?
+                        <div className="DAT_ViewMobile_Container_Add" style={{ width: "100%" }}>
+                            <div className="DAT_ViewMobile_Container_Add_Form">
+                                <input
+                                    type="text"
+                                    placeholder="Tìm kiếm"
+                                    onChange={(e) => handleFilter(e)}
+                                />
+                                <CiSearch color="gray" size={20} />
+                            </div>
+                        </div>
+                        :
+                        // <div className="DAT_ViewMobile_Container_Add" style={{ width: "100%" }}>
+                        //     <div className="DAT_ViewMobile_Container_Add_Form">
+                        //         <input
+                        //             type="text"
+                        //             placeholder="Tìm địa chỉ"
+                        //             onChange={(e) => handleFilter(e)}
+                        //         />
+                        //         <CiSearch color="gray" size={20} />
+                        //     </div>
+                        // </div>
+                        <></>
+                    }
+
+                    {readstate.value === false
+                        ?
+                        filter.map((data, key) => (
                             <div key={key} className="DAT_ViewMobile_Container_Content">
                                 <div className="DAT_ViewMobile_Container_Content_Top"
                                     style={{
@@ -136,10 +175,12 @@ export default function Listerr(props) {
                                     </div>
                                 </div>
                             </div>
-                        )) :
+                        ))
+                        :
                         <>
                             <Register username={props.username} handleCloseRead={handleCloseRead} filter={filter} />
-                        </>}
+                        </>
+                    }
                 </>
             }
         </>

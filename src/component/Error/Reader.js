@@ -7,10 +7,10 @@ import { host } from "../constant";
 import { useIntl } from "react-intl";
 import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
-import { IoIosAddCircle } from "react-icons/io";
 import { lowercasedata } from "../User/Listuser";
 import { BeatLoader } from 'react-spinners';
 import { IoClose } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
 
 export default function Reader(props) {
   const dataLang = useIntl();
@@ -381,69 +381,69 @@ export default function Reader(props) {
     setConfig(false);
   };
 
-  const handleAddReader = (e) => {
-    e.preventDefault();
-    var err = document.getElementById("errid");
+  // const handleAddReader = (e) => {
+  //   e.preventDefault();
+  //   var err = document.getElementById("errid");
 
-    var newData = reader.value.filter((data) => data.code == err.value);
-    //console.log(newData)
+  //   var newData = reader.value.filter((data) => data.code == err.value);
+  //   //console.log(newData)
 
-    if (newData.length > 0) {
-      // console.log("already exist!");
-      alertDispatch({
-        type: "LOAD_CONTENT",
-        payload: {
-          content: dataLang.formatMessage({ id: "alert_41" }),
-          show: "block",
-        },
-      });
-    } else {
-      axios
-        .post(
-          host.DEVICE + "/addInfErr",
-          {
-            code: err.value,
-            name: "Lỗi " + parseInt(reader.value.length + 1),
-            type: "Error",
-            infor: JSON.stringify([{ id: 1, text: "..." }]),
-            solution: JSON.stringify([{ id: 1, text: "..." }]),
-            user: props.username,
-          },
-          { secure: true, reconnect: true }
-        )
-        .then((res) => {
-          // console.log(res.data);
-          if (res.data.status) {
-            reader.value = [
-              ...reader.value,
-              {
-                id: parseInt(reader.value.length + 1),
-                code: err.value,
-                name: "Lỗi " + parseInt(reader.value.length + 1),
-                type: "Error",
-                infor: [{ id: 1, text: "..." }],
-                solution: [{ id: 1, text: "..." }],
-              },
-            ];
-            alertDispatch({
-              type: "LOAD_CONTENT",
-              payload: {
-                content: dataLang.formatMessage({ id: "alert_5" }),
-                show: "block",
-              },
-            });
-          } else {
-            alertDispatch({
-              type: "LOAD_CONTENT",
-              payload: {
-                content: dataLang.formatMessage({ id: "alert_3" }),
-                show: "block",
-              },
-            });
-          }
-        });
-    }
-  };
+  //   if (newData.length > 0) {
+  //     // console.log("already exist!");
+  //     alertDispatch({
+  //       type: "LOAD_CONTENT",
+  //       payload: {
+  //         content: dataLang.formatMessage({ id: "alert_41" }),
+  //         show: "block",
+  //       },
+  //     });
+  //   } else {
+  //     axios
+  //       .post(
+  //         host.DEVICE + "/addInfErr",
+  //         {
+  //           code: err.value,
+  //           name: "Lỗi " + parseInt(reader.value.length + 1),
+  //           type: "Error",
+  //           infor: JSON.stringify([{ id: 1, text: "..." }]),
+  //           solution: JSON.stringify([{ id: 1, text: "..." }]),
+  //           user: props.username,
+  //         },
+  //         { secure: true, reconnect: true }
+  //       )
+  //       .then((res) => {
+  //         // console.log(res.data);
+  //         if (res.data.status) {
+  //           reader.value = [
+  //             ...reader.value,
+  //             {
+  //               id: parseInt(reader.value.length + 1),
+  //               code: err.value,
+  //               name: "Lỗi " + parseInt(reader.value.length + 1),
+  //               type: "Error",
+  //               infor: [{ id: 1, text: "..." }],
+  //               solution: [{ id: 1, text: "..." }],
+  //             },
+  //           ];
+  //           alertDispatch({
+  //             type: "LOAD_CONTENT",
+  //             payload: {
+  //               content: dataLang.formatMessage({ id: "alert_5" }),
+  //               show: "block",
+  //             },
+  //           });
+  //         } else {
+  //           alertDispatch({
+  //             type: "LOAD_CONTENT",
+  //             payload: {
+  //               content: dataLang.formatMessage({ id: "alert_3" }),
+  //               show: "block",
+  //             },
+  //           });
+  //         }
+  //       });
+  //   }
+  // };
 
   const handleFilter = (e) => {
     const input = lowercasedata(e.target.value)
@@ -523,15 +523,13 @@ export default function Reader(props) {
         :
         <>
           <div className="DAT_ViewMobile_Container_Add" style={{ width: "100%" }}>
-            <form className="DAT_ViewMobile_Container_Add_Form" onSubmit={(e) => handleAddReader(e)}>
+            <div className="DAT_ViewMobile_Container_Add_Form">
               <input
-                placeholder="Nhập mã lỗi"
-                id="errcode"
+                placeholder="Tìm mã lỗi"
                 onChange={(e) => { handleFilter(e) }}
-                required
-              ></input>
-              <IoIosAddCircle size={30} color="#0d6efd" style={{ cursor: "pointer" }} />
-            </form>
+              />
+              <CiSearch color="gray" size={20} />
+            </div>
           </div>
 
           {loading
@@ -552,14 +550,20 @@ export default function Reader(props) {
                           gap: "20px",
                           borderBottom: "1px solid #e0e0e0",
                         }}>
-                        <div className="DAT_ViewMobile_Container_Content_Top_left" >
+                        <div className="DAT_ViewMobile_Container_Content_Top_left"
+                          id={"type_" + row.code}
+                          onClick={(e) => handleChange(e)}
+                        >
                           {row.type}
                         </div>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
                           <div
                             className="DAT_ViewMobile_Container_Content_Top_right">
                             <div className="DAT_ViewMobile_Container_Content_Top_right_content">
-                              <div className="DAT_ViewMobile_Container_Content_Top_right_content_title">
+                              <div className="DAT_ViewMobile_Container_Content_Top_right_content_title"
+                                id={"name_" + row.code}
+                                onClick={(e) => handleChange(e)}
+                              >
                                 {row.name}
                               </div>
 
@@ -607,7 +611,7 @@ export default function Reader(props) {
                               ))}
 
                               <div className="DAT_ViewMobile_Container_Content_Top_right_content_inforTitle">
-                                Biển pháp :
+                                Biện pháp :
                               </div>
                               {row.solution.map((solu, i) => (
                                 (i === row.solution.length - 1) ?

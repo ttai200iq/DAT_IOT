@@ -38,7 +38,7 @@ export default function Error(props) {
         { id: "home", text: "Trang chủ" },
         { id: "list", text: inf.tit },
     ];
-    const [readstate, setReadstate] = useState(false);
+    // const [readstate, setReadstate] = useState(false);
     const [popupState, setPopupState] = useState(false);
     const [popupType, setPopupType] = useState("");
     const dataLang = useIntl();
@@ -269,9 +269,9 @@ export default function Error(props) {
         // console.log(e.currentTarget.value)
     };
 
-    useEffect(() => {
-        // console.log(readstate);
-    }, [readstate]);
+    // useEffect(() => {
+    //     // console.log(readstate);
+    // }, [readstate]);
 
     // Handle close when press ESC
     useEffect(() => {
@@ -480,7 +480,7 @@ export default function Error(props) {
                                     </div>
                                 </div>
                                 {/* HEAD TITLE */}
-                                {nav === "register" && deviceid.value !== "" ? (
+                                {/* {nav === "register" && deviceid.value !== "" ? (
                                     <div className="DAT_Err_Content_Main_Nav_Add" onClick={(e) => handleUpdate(e)}>
                                         <button
                                             className="DAT_Err_Content_Main_Nav_Add-Save" >
@@ -495,7 +495,7 @@ export default function Error(props) {
                                     <></>
                                 ) : (
                                     <></>
-                                )}
+                                )} */}
                             </div>
 
                             {/* SWITCH  */}
@@ -537,51 +537,69 @@ export default function Error(props) {
                         </div>
                         <div className="DAT_ViewMobile_Container_Bar">
                             {/* backgroundColor: tab.value === '1' ? 'rgb(38, 143, 214)' : 'white', */}
-                            <div
-                                className="DAT_ViewMobile_Container_Bar_project"
+                            <div className="DAT_ViewMobile_Container_Bar_project"
                                 onClick={() => {
                                     tab.value = "1";
                                 }}
                             >
-                                <div
-                                    className="DAT_ViewMobile_Container_Bar_project_bg"
+                                <div className="DAT_ViewMobile_Container_Bar_project_bg"
                                     style={{
                                         height: tab.value === "1" ? "140px" : "200px",
                                         transition: "0.5s",
                                     }}
                                 ></div>
-                                <div
-                                    className="DAT_ViewMobile_Container_Bar_project_add"
-                                    style={{
-                                        height: tab.value === "1" ? "60px" : "0",
-                                        transition: "0.5s",
-                                    }}
-                                >
-                                    <span>Danh sách Gateway</span>
-                                </div>
+                                {readstate.value === false
+                                    ?
+                                    <div className="DAT_ViewMobile_Container_Bar_project_add"
+                                        style={{
+                                            height: tab.value === "1" ? "60px" : "0",
+                                            transition: "0.5s",
+                                        }}
+                                    >
+                                        <span>Danh sách Gateway</span>
+                                    </div>
+                                    :
+                                    <div className="DAT_ViewMobile_Container_Bar_project_add"
+                                        style={{
+                                            height: tab.value === "1" ? "60px" : "0",
+                                            transition: "0.5s",
+                                        }}
+                                    >
+                                        <span>Thêm địa chỉ</span>
+                                        <IoIosAddCircle
+                                            size={30}
+                                            color="gray"
+                                            id="addr"
+                                            onClick={(e) => handleAdd(e)}
+                                        />
+                                    </div>
+                                }
                             </div>
-                            <div
-                                className="DAT_ViewMobile_Container_Bar_device"
+
+                            <div className="DAT_ViewMobile_Container_Bar_device"
                                 onClick={() => {
                                     tab.value = "2";
                                 }}
                             >
-                                <div
-                                    className="DAT_ViewMobile_Container_Bar_device_bg"
+                                <div className="DAT_ViewMobile_Container_Bar_device_bg"
                                     style={{
                                         height: tab.value === "2" ? "140px" : "200px",
                                         transition: "0.5s",
                                     }}
                                 ></div>
-                                <div
-                                    className="DAT_ViewMobile_Container_Bar_device_add"
+                                <div className="DAT_ViewMobile_Container_Bar_device_add"
                                     style={{
                                         height: tab.value === "2" ? "60px" : "0",
                                         transition: "0.5s",
                                     }}
                                 >
                                     <span>Thêm mã lỗi</span>
-                                    <IoIosAddCircle size={30} color="gray" />
+                                    <IoIosAddCircle
+                                        size={30}
+                                        color="gray"
+                                        id="code"
+                                        onClick={(e) => handleAdd(e)}
+                                    />
                                 </div>
                             </div>
                         </div>

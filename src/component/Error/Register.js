@@ -9,6 +9,7 @@ import { AlertContext } from "../Context/AlertContext";
 import { isBrowser } from "react-device-detect";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
 
 export default function Register(props) {
     const dataLang = useIntl();
@@ -16,6 +17,7 @@ export default function Register(props) {
     const [config, setConfig] = useState(false);
     const [tit, setTit] = useState("");
     const [filter, setFilter] = useState([]);
+    const [filterMobile, setFilterMobile] = useState([]);
 
     const [positon, setPosition] = useState({ col: "", row: 0 });
 
@@ -213,6 +215,37 @@ export default function Register(props) {
                 register.value = {
                     ...newData,
                 };
+
+                axios
+                    .post(
+                        host.DEVICE + "/updateErr",
+                        {
+                            user: props.username,
+                            deviceid: deviceid.value,
+                            setting: JSON.stringify(register.value),
+                        },
+                        { secure: true, reconnect: true }
+                    )
+                    .then((res) => {
+                        //console.log(res.data)
+                        if (res.data.status) {
+                            alertDispatch({
+                                type: "LOAD_CONTENT",
+                                payload: {
+                                    content: dataLang.formatMessage({ id: "alert_5" }),
+                                    show: "block",
+                                },
+                            });
+                        } else {
+                            alertDispatch({
+                                type: "LOAD_CONTENT",
+                                payload: {
+                                    content: dataLang.formatMessage({ id: "alert_3" }),
+                                    show: "block",
+                                },
+                            });
+                        }
+                    });
                 break;
             default:
                 break;
@@ -228,6 +261,37 @@ export default function Register(props) {
                 .filter((newData) => newData.id != e.currentTarget.id)
                 .map((data, index) => ({ ...data, id: index + 1 })),
         };
+
+        axios
+            .post(
+                host.DEVICE + "/updateErr",
+                {
+                    user: props.username,
+                    deviceid: deviceid.value,
+                    setting: JSON.stringify(register.value),
+                },
+                { secure: true, reconnect: true }
+            )
+            .then((res) => {
+                //console.log(res.data)
+                if (res.data.status) {
+                    alertDispatch({
+                        type: "LOAD_CONTENT",
+                        payload: {
+                            content: dataLang.formatMessage({ id: "alert_5" }),
+                            show: "block",
+                        },
+                    });
+                } else {
+                    alertDispatch({
+                        type: "LOAD_CONTENT",
+                        payload: {
+                            content: dataLang.formatMessage({ id: "alert_3" }),
+                            show: "block",
+                        },
+                    });
+                }
+            });
     };
 
     const handleAddItem = (e) => {
@@ -250,6 +314,37 @@ export default function Register(props) {
         register.value = {
             ...newData,
         };
+
+        axios
+            .post(
+                host.DEVICE + "/updateErr",
+                {
+                    user: props.username,
+                    deviceid: deviceid.value,
+                    setting: JSON.stringify(register.value),
+                },
+                { secure: true, reconnect: true }
+            )
+            .then((res) => {
+                //console.log(res.data)
+                if (res.data.status) {
+                    alertDispatch({
+                        type: "LOAD_CONTENT",
+                        payload: {
+                            content: dataLang.formatMessage({ id: "alert_5" }),
+                            show: "block",
+                        },
+                    });
+                } else {
+                    alertDispatch({
+                        type: "LOAD_CONTENT",
+                        payload: {
+                            content: dataLang.formatMessage({ id: "alert_3" }),
+                            show: "block",
+                        },
+                    });
+                }
+            });
     };
 
     const handleEditItem = (e) => {
@@ -281,6 +376,37 @@ export default function Register(props) {
                 ...newData,
             };
         }
+
+        axios
+            .post(
+                host.DEVICE + "/updateErr",
+                {
+                    user: props.username,
+                    deviceid: deviceid.value,
+                    setting: JSON.stringify(register.value),
+                },
+                { secure: true, reconnect: true }
+            )
+            .then((res) => {
+                //console.log(res.data)
+                if (res.data.status) {
+                    alertDispatch({
+                        type: "LOAD_CONTENT",
+                        payload: {
+                            content: dataLang.formatMessage({ id: "alert_5" }),
+                            show: "block",
+                        },
+                    });
+                } else {
+                    alertDispatch({
+                        type: "LOAD_CONTENT",
+                        payload: {
+                            content: dataLang.formatMessage({ id: "alert_3" }),
+                            show: "block",
+                        },
+                    });
+                }
+            });
     };
 
     const handleClose = (e) => {
@@ -343,6 +469,21 @@ export default function Register(props) {
         };
     };
 
+    const handleFilter = (e) => {
+        // console.log(e.currentTarget.value);
+        // setFilter(e.currentTarget.value);
+        const searchTerm = e.currentTarget.value;
+        if (searchTerm == "") {
+            setFilterMobile(register.value.data);
+        } else {
+            setFilterMobile(
+                register.value.data.filter((data) => {
+                    return data.addrcode.includes(searchTerm);
+                })
+            );
+        }
+    };
+
     useEffect(() => {
         const searchTerm = props.filter;
         if (searchTerm == "") {
@@ -355,6 +496,10 @@ export default function Register(props) {
         }
         //eslint-disable-next-line
     }, [props.filter, register.value.data])
+
+    useEffect(() => {
+        setFilterMobile(register.value.data);
+    }, [register.value.data]);
 
     // Handle close when press ESC
     useEffect(() => {
@@ -402,7 +547,7 @@ export default function Register(props) {
                 </>
             ) : (
                 <>
-                    <div className="DAT_ViewMobile_Container_Add">
+                    {/* <div className="DAT_ViewMobile_Container_Add">
                         <form
                             className="DAT_ViewMobile_Container_Add_Form"
                             onSubmit={(e) => handleAddRegister(e)}
@@ -419,18 +564,30 @@ export default function Register(props) {
                         >
                             <IoSaveOutline size={20} />
                         </button>
+                    </div> */}
+
+                    <div className="DAT_ViewMobile_Container_Add" style={{ width: "100%" }}>
+                        <div className="DAT_ViewMobile_Container_Add_Form">
+                            <input
+                                type="text"
+                                placeholder="Tìm địa chỉ"
+                                onChange={(e) => handleFilter(e)}
+                            />
+                            <CiSearch color="gray" size={20} />
+                        </div>
                     </div>
+
                     <div className="DAT_Read">
                         <div
                             className="DAT_Read_Head"
                             onClick={() => props.handleCloseRead()}
                         >
                             <IoIosArrowBack />
-                            Thanh ghi
+                            Danh sách Gateway
                         </div>
 
                         <div className="DAT_Read_Body">
-                            {register.value.data.map((row, index) => {
+                            {filterMobile.map((row, index) => {
                                 return (
                                     <div key={index} className="DAT_ViewMobile_Container_Content">
                                         <div
